@@ -45,12 +45,24 @@
             this.EnumsListBox = new System.Windows.Forms.ListBox();
             this.LabelChooseEnumeration = new System.Windows.Forms.Label();
             this.ValuesListBox = new System.Windows.Forms.ListBox();
-            this.TabControl = new System.Windows.Forms.TabControl();
+            this.TabControlEnumerations = new System.Windows.Forms.TabControl();
+            this.TabPageClasses = new System.Windows.Forms.TabPage();
+            this.GroupBoxRectangles = new System.Windows.Forms.GroupBox();
+            this.ButtonFindRectangle = new System.Windows.Forms.Button();
+            this.TextBoxColorRectangle = new System.Windows.Forms.TextBox();
+            this.TextBoxWidthRectangle = new System.Windows.Forms.TextBox();
+            this.TextBoxLengthRectangle = new System.Windows.Forms.TextBox();
+            this.LabelLengthRectangle = new System.Windows.Forms.Label();
+            this.LabelWidthRectangle = new System.Windows.Forms.Label();
+            this.LabelColorRectangle = new System.Windows.Forms.Label();
+            this.ListBoxRectangles = new System.Windows.Forms.ListBox();
             this.EnumsTabPage.SuspendLayout();
             this.GroupBoxSeasonHandle.SuspendLayout();
             this.GroupBoxWeekdayParsing.SuspendLayout();
             this.GroupBoxEnumerations.SuspendLayout();
-            this.TabControl.SuspendLayout();
+            this.TabControlEnumerations.SuspendLayout();
+            this.TabPageClasses.SuspendLayout();
+            this.GroupBoxRectangles.SuspendLayout();
             this.SuspendLayout();
             // 
             // EnumsTabPage
@@ -229,22 +241,116 @@
             this.ValuesListBox.TabIndex = 1;
             this.ValuesListBox.SelectedIndexChanged += new System.EventHandler(this.ValuesListBox_SelectedIndexChanged);
             // 
-            // TabControl
+            // TabControlEnumerations
             // 
-            this.TabControl.Controls.Add(this.EnumsTabPage);
-            this.TabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TabControl.Location = new System.Drawing.Point(0, 0);
-            this.TabControl.Name = "TabControl";
-            this.TabControl.SelectedIndex = 0;
-            this.TabControl.Size = new System.Drawing.Size(800, 450);
-            this.TabControl.TabIndex = 0;
+            this.TabControlEnumerations.Controls.Add(this.EnumsTabPage);
+            this.TabControlEnumerations.Controls.Add(this.TabPageClasses);
+            this.TabControlEnumerations.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TabControlEnumerations.Location = new System.Drawing.Point(0, 0);
+            this.TabControlEnumerations.Name = "TabControlEnumerations";
+            this.TabControlEnumerations.SelectedIndex = 0;
+            this.TabControlEnumerations.Size = new System.Drawing.Size(800, 450);
+            this.TabControlEnumerations.TabIndex = 0;
+            // 
+            // TabPageClasses
+            // 
+            this.TabPageClasses.Controls.Add(this.GroupBoxRectangles);
+            this.TabPageClasses.Location = new System.Drawing.Point(4, 22);
+            this.TabPageClasses.Name = "TabPageClasses";
+            this.TabPageClasses.Size = new System.Drawing.Size(792, 424);
+            this.TabPageClasses.TabIndex = 1;
+            this.TabPageClasses.Text = "Classes";
+            this.TabPageClasses.UseVisualStyleBackColor = true;
+            // 
+            // GroupBoxRectangles
+            // 
+            this.GroupBoxRectangles.Controls.Add(this.ButtonFindRectangle);
+            this.GroupBoxRectangles.Controls.Add(this.TextBoxColorRectangle);
+            this.GroupBoxRectangles.Controls.Add(this.TextBoxWidthRectangle);
+            this.GroupBoxRectangles.Controls.Add(this.TextBoxLengthRectangle);
+            this.GroupBoxRectangles.Controls.Add(this.LabelLengthRectangle);
+            this.GroupBoxRectangles.Controls.Add(this.LabelWidthRectangle);
+            this.GroupBoxRectangles.Controls.Add(this.LabelColorRectangle);
+            this.GroupBoxRectangles.Controls.Add(this.ListBoxRectangles);
+            this.GroupBoxRectangles.Location = new System.Drawing.Point(8, 8);
+            this.GroupBoxRectangles.Name = "GroupBoxRectangles";
+            this.GroupBoxRectangles.Size = new System.Drawing.Size(263, 212);
+            this.GroupBoxRectangles.TabIndex = 0;
+            this.GroupBoxRectangles.TabStop = false;
+            this.GroupBoxRectangles.Text = "Rectangles";
+            // 
+            // ButtonFindRectangle
+            // 
+            this.ButtonFindRectangle.Location = new System.Drawing.Point(132, 176);
+            this.ButtonFindRectangle.Name = "ButtonFindRectangle";
+            this.ButtonFindRectangle.Size = new System.Drawing.Size(100, 29);
+            this.ButtonFindRectangle.TabIndex = 1;
+            this.ButtonFindRectangle.Text = "Find";
+            this.ButtonFindRectangle.UseVisualStyleBackColor = true;
+            // 
+            // TextBoxColorRectangle
+            // 
+            this.TextBoxColorRectangle.Location = new System.Drawing.Point(132, 131);
+            this.TextBoxColorRectangle.Name = "TextBoxColorRectangle";
+            this.TextBoxColorRectangle.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxColorRectangle.TabIndex = 6;
+            // 
+            // TextBoxWidthRectangle
+            // 
+            this.TextBoxWidthRectangle.Location = new System.Drawing.Point(132, 83);
+            this.TextBoxWidthRectangle.Name = "TextBoxWidthRectangle";
+            this.TextBoxWidthRectangle.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxWidthRectangle.TabIndex = 5;
+            // 
+            // TextBoxLengthRectangle
+            // 
+            this.TextBoxLengthRectangle.Location = new System.Drawing.Point(132, 35);
+            this.TextBoxLengthRectangle.Name = "TextBoxLengthRectangle";
+            this.TextBoxLengthRectangle.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxLengthRectangle.TabIndex = 4;
+            // 
+            // LabelLengthRectangle
+            // 
+            this.LabelLengthRectangle.AutoSize = true;
+            this.LabelLengthRectangle.Location = new System.Drawing.Point(129, 19);
+            this.LabelLengthRectangle.Name = "LabelLengthRectangle";
+            this.LabelLengthRectangle.Size = new System.Drawing.Size(40, 13);
+            this.LabelLengthRectangle.TabIndex = 1;
+            this.LabelLengthRectangle.Text = "Length";
+            // 
+            // LabelWidthRectangle
+            // 
+            this.LabelWidthRectangle.AutoSize = true;
+            this.LabelWidthRectangle.Location = new System.Drawing.Point(129, 67);
+            this.LabelWidthRectangle.Name = "LabelWidthRectangle";
+            this.LabelWidthRectangle.Size = new System.Drawing.Size(35, 13);
+            this.LabelWidthRectangle.TabIndex = 2;
+            this.LabelWidthRectangle.Text = "Width";
+            // 
+            // LabelColorRectangle
+            // 
+            this.LabelColorRectangle.AutoSize = true;
+            this.LabelColorRectangle.Location = new System.Drawing.Point(132, 115);
+            this.LabelColorRectangle.Name = "LabelColorRectangle";
+            this.LabelColorRectangle.Size = new System.Drawing.Size(31, 13);
+            this.LabelColorRectangle.TabIndex = 3;
+            this.LabelColorRectangle.Text = "Color";
+            // 
+            // ListBoxRectangles
+            // 
+            this.ListBoxRectangles.FormattingEnabled = true;
+            this.ListBoxRectangles.Location = new System.Drawing.Point(6, 19);
+            this.ListBoxRectangles.Name = "ListBoxRectangles";
+            this.ListBoxRectangles.Size = new System.Drawing.Size(120, 186);
+            this.ListBoxRectangles.TabIndex = 0;
+            this.ListBoxRectangles.SelectedIndexChanged += new System.EventHandler(this.ListBoxRectangles_SelectedIndexChanged);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.TabControl);
+            this.Controls.Add(this.TabControlEnumerations);
             this.Name = "MainForm";
             this.Text = "Programming Demo";
             this.EnumsTabPage.ResumeLayout(false);
@@ -255,7 +361,10 @@
             this.GroupBoxWeekdayParsing.PerformLayout();
             this.GroupBoxEnumerations.ResumeLayout(false);
             this.GroupBoxEnumerations.PerformLayout();
-            this.TabControl.ResumeLayout(false);
+            this.TabControlEnumerations.ResumeLayout(false);
+            this.TabPageClasses.ResumeLayout(false);
+            this.GroupBoxRectangles.ResumeLayout(false);
+            this.GroupBoxRectangles.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -266,7 +375,7 @@
         private System.Windows.Forms.TextBox IntValue;
         private System.Windows.Forms.ListBox ValuesListBox;
         private System.Windows.Forms.ListBox EnumsListBox;
-        private System.Windows.Forms.TabControl TabControl;
+        private System.Windows.Forms.TabControl TabControlEnumerations;
         private System.Windows.Forms.Label LabelIntValue;
         private System.Windows.Forms.Label LabelChooseValue;
         private System.Windows.Forms.Label LabelChooseEnumeration;
@@ -280,6 +389,16 @@
         private System.Windows.Forms.Button ButtonSeasonHandleGo;
         private System.Windows.Forms.ComboBox ComboBoxSeasons;
         private System.Windows.Forms.Label LabelChoseSeason;
+        private System.Windows.Forms.TabPage TabPageClasses;
+        private System.Windows.Forms.Label LabelColorRectangle;
+        private System.Windows.Forms.Label LabelWidthRectangle;
+        private System.Windows.Forms.Label LabelLengthRectangle;
+        private System.Windows.Forms.GroupBox GroupBoxRectangles;
+        private System.Windows.Forms.ListBox ListBoxRectangles;
+        private System.Windows.Forms.Button ButtonFindRectangle;
+        private System.Windows.Forms.TextBox TextBoxColorRectangle;
+        private System.Windows.Forms.TextBox TextBoxWidthRectangle;
+        private System.Windows.Forms.TextBox TextBoxLengthRectangle;
     }
 }
 
