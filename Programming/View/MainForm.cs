@@ -104,20 +104,28 @@ namespace Programming
 
         private void ButtonSeasonHandleGo_Click(object sender, EventArgs e)
         {
-            switch (ComboBoxSeasons.SelectedItem.ToString())
+            
+            if (ComboBoxSeasons.SelectedItem != null)
             {
-                case "Summer":
-                    MessageBox.Show("Ура! Солнце!");
-                    break;
-                case "Autumn":
-                    SetBackColor(GroupBoxSeasonHandle.BackColor = ColorTranslator.FromHtml("#e29c45"));
-                    break;
-                case "Winter":
-                    MessageBox.Show("Бррр! Холодно!");
-                    break;
-                case "Spring":
-                    SetBackColor(GroupBoxSeasonHandle.BackColor = ColorTranslator.FromHtml("#559c45"));
-                    break;
+                ComboBoxSeasons.BackColor = System.Drawing.Color.White;
+                switch (ComboBoxSeasons.SelectedItem.ToString())
+                {
+                    case "Summer":
+                        MessageBox.Show("Ура! Солнце!");
+                        break;
+                    case "Autumn":
+                        SetBackColor(GroupBoxSeasonHandle.BackColor = ColorTranslator.FromHtml("#e29c45"));
+                        break;
+                    case "Winter":
+                        MessageBox.Show("Бррр! Холодно!");
+                        break;
+                    case "Spring":
+                        SetBackColor(GroupBoxSeasonHandle.BackColor = ColorTranslator.FromHtml("#559c45"));
+                        break;
+                }
+            } else
+            {
+                ComboBoxSeasons.BackColor = System.Drawing.Color.LightPink;
             }
         }
 
