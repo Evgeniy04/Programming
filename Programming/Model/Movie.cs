@@ -15,7 +15,7 @@ class Movie
         get { return _title; }
         set
         {
-            if (value.Length == 0) throw new ArgumentException();
+            if (value.Length == 0) throw new ArgumentException("Incorrect title.");
             _title = value;
         }
     }
@@ -24,7 +24,7 @@ class Movie
         get { return _durationMinutes; }
         set
         {
-            if (value < 0) throw new ArgumentException();
+            Validator.AssertOnPositiveValue(value);
             _durationMinutes = value;
         }
     }
@@ -33,7 +33,7 @@ class Movie
         get { return _releaseYear; }
         set
         {
-            if (value < 1850 || value > DateTime.Now.Year) throw new ArgumentException();
+            Validator.AssertValueInRange(value, 1850, DateTime.Now.Year + 1);
             _releaseYear = value;
         }
     }
@@ -50,7 +50,7 @@ class Movie
         get { return _rating; }
         set
         {
-            if (value < 0 || value > 10) throw new ArgumentException();
+            Validator.AssertValueInRange(value, 0, 11);
             _rating = value;
         }
     }

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+// With 15 point
 namespace Programming
 {
     public partial class MainForm : Form
@@ -139,6 +140,7 @@ namespace Programming
         }
         private void TextBoxLengthRectangle_TextChanged(object sender, EventArgs e)
         {
+            if (_currentRectangle == null) return; 
             try
             {
                 double length = double.Parse(TextBoxLengthRectangle.Text);
@@ -152,6 +154,7 @@ namespace Programming
         }
         private void TextBoxWidthRectangle_TextChanged(object sender, EventArgs e)
         {
+            if (_currentRectangle == null) return;
             try
             {
                 double width = double.Parse(TextBoxWidthRectangle.Text);
@@ -165,6 +168,7 @@ namespace Programming
         }
         private void TextBoxColorRectangle_TextChanged(object sender, EventArgs e)
         {
+            if (_currentRectangle == null) return; 
             if (_customMethods.TryGetEnumValue<Model.Color>(TextBoxColorRectangle.Text, out Model.Color value))
             {
                 _currentRectangle.Color = value;
@@ -192,10 +196,20 @@ namespace Programming
         }
         private void TextBoxTitleMovie_TextChanged(object sender, EventArgs e)
         {
-            _currentMovie.Title = TextBoxTitleMovie.Text;
+            if (_currentMovie == null) return;
+            try
+            {
+                _currentMovie.Title = TextBoxTitleMovie.Text;
+                TextBoxTitleMovie.BackColor = System.Drawing.Color.White;
+            }
+            catch (Exception)
+            {
+                TextBoxTitleMovie.BackColor = System.Drawing.Color.LightPink;
+            }
         }
         private void TextBoxDurationMinutesMovie_TextChanged(object sender, EventArgs e)
         {
+            if (_currentMovie == null) return;
             try
             {
                 int durationMinutes = int.Parse(TextBoxDurationMinutesMovie.Text);
@@ -209,6 +223,7 @@ namespace Programming
         }
         private void TextBoxReleaseYearMovie_TextChanged(object sender, EventArgs e)
         {
+            if (_currentMovie == null) return;
             try
             {
                 int releaseYear = int.Parse(TextBoxReleaseYearMovie.Text);
@@ -221,6 +236,7 @@ namespace Programming
         }
         private void TextBoxGenreMovie_TextChanged(object sender, EventArgs e)
         {
+            if (_currentMovie == null) return;
             string genre = TextBoxGenreMovie.Text;
             if (_customMethods.TryGetEnumValue<Genre>(genre, out Genre value))
             {
@@ -234,6 +250,7 @@ namespace Programming
         }
         private void TextBoxRatingMovie_TextChanged(object sender, EventArgs e)
         {
+            if (_currentMovie == null) return;
             try
             {
                 double rating = double.Parse(TextBoxRatingMovie.Text);

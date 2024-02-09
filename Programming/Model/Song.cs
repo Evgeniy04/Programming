@@ -12,7 +12,7 @@ class Song
         get { return _title; }
         set
         {
-            if (value.Length == 0) throw new ArgumentException();
+            if (value.Length == 0) throw new ArgumentException("Incorrect title.");
             _title = value;
         }
     }
@@ -21,7 +21,7 @@ class Song
         get { return _author; }
         set
         {
-            if (value.Length == 0) throw new ArgumentException();
+            if (value.Length == 0) throw new ArgumentException("Incorrect author.");
             _author = value;
         }
     }
@@ -30,7 +30,7 @@ class Song
         get { return _releaseYear; }
         set
         {
-            if (value > DateTime.Now.Year) throw new ArgumentException();
+            if (value > DateTime.Now.Year) throw new ArgumentException("Incorrect year of release.");
             _releaseYear = value;
         }
     }

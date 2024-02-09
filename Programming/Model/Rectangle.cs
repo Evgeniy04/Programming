@@ -12,7 +12,7 @@ class Rectangle
         get { return _length; }
         set
         {
-            if (value < 0) throw new ArgumentException();
+            Validator.AssertOnPositiveValue(value);
             _length = value;
         }
     }
@@ -21,7 +21,7 @@ class Rectangle
         get { return _width; }
         set
         {
-            if (value < 0) throw new ArgumentException();
+            Validator.AssertOnPositiveValue(value);
             _width = value;
         }
     }

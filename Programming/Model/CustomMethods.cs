@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Programming.Model
 {
-    internal class CustomMethods
+    class CustomMethods
     {
         private readonly Type[] _typeModel = new Type[] { typeof(Model.Color), typeof(EducationForm),
                                                 typeof(Genre), typeof(Manufactures),

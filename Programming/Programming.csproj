@@ -54,11 +54,13 @@
     <Compile Include="Model\Flight.cs" />
     <Compile Include="Model\Genre.cs" />
     <Compile Include="Model\Movie.cs" />
+    <Compile Include="Model\Point2D.cs" />
     <Compile Include="Model\Rectangle.cs" />
     <Compile Include="Model\Season.cs" />
     <Compile Include="Model\Manufactures.cs" />
     <Compile Include="Model\Song.cs" />
     <Compile Include="Model\Time.cs" />
+    <Compile Include="Model\Validator.cs" />
     <Compile Include="Model\Weekday.cs" />
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
@@ -94,4 +96,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <LangVersion>12.0</LangVersion>
+  </PropertyGroup>
 </Project>

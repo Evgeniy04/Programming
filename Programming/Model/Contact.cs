@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Xml.Linq;
+using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
 
 class Contact
 {
@@ -19,7 +21,8 @@ class Contact
         get { return _name; }
         set
         {
-            if (value.Length == 0) throw new ArgumentException();
+            if (value.Length == 0) throw new ArgumentException("The name can't be blank.");
+            AssertStringContainsOnlyLetters(value);
             _name = value;
         }
     }
@@ -28,7 +31,8 @@ class Contact
         get { return _surname; }
         set
         {
-            if (value.Length == 0) throw new ArgumentException();
+            if (value.Length == 0) throw new ArgumentException("The surname can't be blank.");
+            AssertStringContainsOnlyLetters(value);
             _surname = value;
         }
     }
@@ -37,7 +41,7 @@ class Contact
         get { return _organization; }
         set
         {
-            if (value.Length == 0) throw new ArgumentException();
+            if (value.Length == 0) throw new ArgumentException("An empty string is passed in the field.");
             _organization = value;
         }
     }
@@ -46,7 +50,7 @@ class Contact
         get { return _phoneNumber; }
         set
         {
-            if (value.Length < 7) throw new ArgumentException();
+            if (value.Length < 7) throw new ArgumentException("The phone number is not correct.");
             _phoneNumber = value;
         }
     }
@@ -55,7 +59,7 @@ class Contact
         get { return _email; }
         set
         {
-            if (!IsValidEmail(value)) throw new ArgumentException();
+            IsValidEmail(value);
             _email = value;
         }
     }
@@ -84,7 +88,7 @@ class Contact
     public static bool IsValidEmail(string email)
     {
         if (string.IsNullOrWhiteSpace(email))
-            return false;
+            throw new ArgumentException("E-mail is invalid.");
 
         try
         {
@@ -122,6 +126,18 @@ class Contact
         catch (RegexMatchTimeoutException)
         {
             return false;
+        }
+    }
+
+    private void AssertStringContainsOnlyLetters(string value)
+    {
+        if (Regex.IsMatch(value, "^[a-zA-Z]*$"))
+        {
+            return;
+        }
+        else
+        {
+            throw new ArgumentException($"The {new StackTrace().GetFrame(1).GetMethod().Name} must contain only characters from the English alphabet.");
         }
     }
 }

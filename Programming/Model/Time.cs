@@ -1,3 +1,4 @@
+using Programming.Model;
 using System;
 
 class Time
@@ -11,7 +12,7 @@ class Time
         get { return _hours; }
         set
         {
-            if (value < 0 || value > 23) throw new ArgumentException();
+            Validator.AssertValueInRange(value, 0, 24);
             _hours = value;
         }
     }
@@ -20,7 +21,7 @@ class Time
         get { return _minutes; }
         set
         {
-            if (value < 0 ||  value > 60) throw new ArgumentException();
+            Validator.AssertValueInRange(value, 0, 61);
             _minutes = value;
         }
     }
@@ -29,7 +30,7 @@ class Time
         get { return _seconds; }
         set
         {
-            if (value < 0 || value > 60) throw new ArgumentException();
+            Validator.AssertValueInRange(value, 0, 61);
             _seconds = value;
         }
     }

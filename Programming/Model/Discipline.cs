@@ -1,3 +1,4 @@
+using Programming.Model;
 using System;
 
 class Discipline
@@ -21,7 +22,7 @@ class Discipline
         get { return _grade; }
         set
         {
-            if (value < 0 || value > 5) throw new ArgumentException();
+            Validator.AssertValueInRange(value, 0, 6);
             _grade = value;
         }
     }
@@ -30,7 +31,7 @@ class Discipline
         get { return _semester; }
         set
         {
-            if (value < 0 || value > 8) throw new ArgumentException();
+            Validator.AssertValueInRange(value, 0, 9);
             _semester = value;
         }
     }
