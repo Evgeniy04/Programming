@@ -6,7 +6,7 @@ class Rectangle
     double _length;
     double _width;
 
-    public string Color { get; set; }
+    public Color Color { get; set; }
     public double Length
     {
         get { return _length; }
@@ -30,10 +30,10 @@ class Rectangle
     {
         Length = 15;
         Width = 30;
-        Color = "Green";
+        Color = Color.Green;
     }
 
-    public Rectangle(double lingth, double width, string color)
+    public Rectangle(double lingth, double width, Color color)
     {
         Length = lingth;
         Width = width;

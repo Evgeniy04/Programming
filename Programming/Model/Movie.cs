@@ -1,3 +1,4 @@
+using Programming.Model;
 using System;
 
 class Movie
@@ -5,8 +6,9 @@ class Movie
     string _title;
     int _durationMinutes;
     int _releaseYear;
-    string _genre;
+    Genre _genre;
     double _rating;
+    readonly CustomMethods _customMethods = new CustomMethods();
 
     public string Title
     {
@@ -35,13 +37,12 @@ class Movie
             _releaseYear = value;
         }
     }
-    public string Genre
+    public Genre Genre
     {
         get { return _genre; }
         set
         {
-            if (value.Length == 0) throw new ArgumentException();
-            _genre = value;
+             _genre = value;
         }
     }
     public double Rating
@@ -59,11 +60,11 @@ class Movie
         Title = "New Movie";
         DurationMinutes = 15;
         ReleaseYear = DateTime.Now.Year;
-        Genre = "Comedy";
+        Genre = Genre.Comedy;
         Rating = 10;
     }
 
-    public Movie(string title, int durationMinutes, int releaseYear, string genre, double rating)
+    public Movie(string title, int durationMinutes, int releaseYear, Genre genre, double rating)
     {
         Title = title;
         DurationMinutes = durationMinutes;

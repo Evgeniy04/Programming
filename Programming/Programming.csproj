@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Model\Color.cs" />
     <Compile Include="Model\Contact.cs" />
+    <Compile Include="Model\CustomMethods.cs" />
     <Compile Include="Model\Discipline.cs" />
     <Compile Include="Model\EducationForm.cs" />
     <Compile Include="Model\Flight.cs" />

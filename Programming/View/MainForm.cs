@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-// Start with 16 point
 namespace Programming
 {
     public partial class MainForm : Form
@@ -17,17 +16,22 @@ namespace Programming
                                                 typeof(Season), typeof(Weekday) };
         private Rectangle[] _rectangles;
         private Rectangle _currentRectangle;
+        private Movie[] _movies;
+        private Movie _currentMovie;
+        private readonly CustomMethods _customMethods = new CustomMethods();
 
         public MainForm()
         {
             InitializeComponent();
 
             Random random = new Random();
+
             // 
             // Initialize ComboBoxSeasons
             // 
             object[] values = Enum.GetValues(typeof(Season)).Cast<object>().ToArray();
             ComboBoxSeasons.Items.AddRange(values);
+
             // 
             // Initialize _rectangles
             //
@@ -37,7 +41,7 @@ namespace Programming
             {
                 double length = Math.Ceiling(random.NextDouble() * 100);
                 double width = Math.Ceiling(random.NextDouble() * 100);
-                Rectangle rectangle = new Rectangle(length, width, "Orange");
+                Rectangle rectangle = new Rectangle(length, width, Model.Color.Orange);
                 _rectangles[i] = rectangle;
                 listBoxRectanglesItems[i] = ($"Rectangle {i + 1}");
             }
@@ -45,6 +49,26 @@ namespace Programming
             // Initialize ListBoxRectangles
             //
             ListBoxRectangles.Items.AddRange(listBoxRectanglesItems);
+
+            // 
+            // Initialize _movies
+            //
+            _movies = new Movie[5];
+            string[] listBoxMoviesItems = new string[5];
+            string[] movieTitles = new string[5] { "Первый", "Второй", "Третий", "Четвёртый", "Пятый" };
+            for (int i = 0; i < 5; i++)
+            {
+                int durationMinutes = random.Next(1, 280);
+                int releaseYear = random.Next(1950, DateTime.Now.Year + 1);
+                double rating = Math.Round(random.NextDouble() * 10, 1);
+                Movie movie = new Movie(movieTitles[i], durationMinutes, releaseYear, Genre.Comedy, rating);
+                _movies[i] = movie;
+                listBoxMoviesItems[i] = ($"Movie {i + 1}");
+            }
+            //
+            // Initialize ListBoxMovies
+            //
+            ListBoxMovies.Items.AddRange(listBoxMoviesItems);
         }
 
         private void EnumsListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -60,7 +84,7 @@ namespace Programming
         {
             Type selectedItemType = ValuesListBox.SelectedItem.GetType();
             string selectedItemName = ValuesListBox.SelectedItem.ToString();
-            if (TryGetEnumValue(selectedItemType, selectedItemName, out object value))
+            if (_customMethods.TryGetEnumValue(selectedItemType, selectedItemName, out object value))
             {
                 IntValue.Text = Convert.ToInt32(value).ToString();
             }
@@ -69,7 +93,7 @@ namespace Programming
         private void ButtonWeekdayParsing_Click(object sender, EventArgs e)
         {
             string selectedItemName = TextBoxDayInput.Text;
-            if (TryGetEnumValue<Weekday>(selectedItemName, out Weekday value))
+            if (_customMethods.TryGetEnumValue<Weekday>(selectedItemName, out Weekday value))
             {
                 LabelResultWeekdayParsing.Text = $"Это день недели ({value} = {Convert.ToInt32(value)})";
             } else
@@ -97,25 +121,125 @@ namespace Programming
             }
         }
 
-        private bool TryGetEnumValue(Type itemType, string itemName, out object value)
+        private void ListBoxRectangles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (itemType != null && _typeModel.Contains(itemType))
+            _currentRectangle = _rectangles[ListBoxRectangles.SelectedIndex];
+
+            TextBoxLengthRectangle.Text = _currentRectangle.Length.ToString();
+            TextBoxWidthRectangle.Text = _currentRectangle.Width.ToString();
+            TextBoxColorRectangle.Text = _currentRectangle.Color.ToString();
+        }
+        private void TextBoxLengthRectangle_TextChanged(object sender, EventArgs e)
+        {
+            try
             {
-                value = Enum.Parse(itemType, itemName);
-                return true;
+                double length = double.Parse(TextBoxLengthRectangle.Text);
+                _currentRectangle.Length = length;
+                TextBoxLengthRectangle.BackColor = System.Drawing.Color.White;
             }
-            value = null;
-            return false;
+            catch (Exception)
+            {
+                TextBoxLengthRectangle.BackColor = System.Drawing.Color.LightPink;
+            }
+        }
+        private void TextBoxWidthRectangle_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                double width = double.Parse(TextBoxWidthRectangle.Text);
+                _currentRectangle.Width = width;
+                TextBoxWidthRectangle.BackColor = System.Drawing.Color.White;
+            }
+            catch (Exception)
+            {
+                TextBoxWidthRectangle.BackColor = System.Drawing.Color.LightPink;
+            }
+        }
+        private void TextBoxColorRectangle_TextChanged(object sender, EventArgs e)
+        {
+            if (_customMethods.TryGetEnumValue<Model.Color>(TextBoxColorRectangle.Text, out Model.Color value))
+            {
+                _currentRectangle.Color = value;
+                TextBoxColorRectangle.BackColor = System.Drawing.Color.White;
+            }
+            else
+            {
+                TextBoxColorRectangle.BackColor = System.Drawing.Color.LightPink;
+            }
+        }
+        private void ButtonFindRectangleWithMaxWidth_Click(object sender, EventArgs e)
+        {
+            ListBoxRectangles.SelectedIndex = FindRectangleWithMaxWidth(_rectangles);
         }
 
-        private bool TryGetEnumValue<T>(string itemName, out T value) where T : struct
+        private void ListBoxMovies_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Enum.TryParse<T>(itemName, true, out value))
+            _currentMovie = _movies[ListBoxMovies.SelectedIndex];
+
+            TextBoxTitleMovie.Text = _currentMovie.Title;
+            TextBoxDurationMinutesMovie.Text = _currentMovie.DurationMinutes.ToString();
+            TextBoxReleaseYearMovie.Text = _currentMovie.ReleaseYear.ToString();
+            TextBoxGenreMovie.Text = _currentMovie.Genre.ToString();
+            TextBoxRatingMovie.Text = _currentMovie.Rating.ToString();
+        }
+        private void TextBoxTitleMovie_TextChanged(object sender, EventArgs e)
+        {
+            _currentMovie.Title = TextBoxTitleMovie.Text;
+        }
+        private void TextBoxDurationMinutesMovie_TextChanged(object sender, EventArgs e)
+        {
+            try
             {
-                return true;
+                int durationMinutes = int.Parse(TextBoxDurationMinutesMovie.Text);
+                _currentMovie.DurationMinutes = durationMinutes;
+                TextBoxDurationMinutesMovie.BackColor = System.Drawing.Color.White;
             }
-            value = default;
-            return false;
+            catch (Exception)
+            {
+                TextBoxDurationMinutesMovie.BackColor = System.Drawing.Color.LightPink;
+            }
+        }
+        private void TextBoxReleaseYearMovie_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int releaseYear = int.Parse(TextBoxReleaseYearMovie.Text);
+                _currentMovie.ReleaseYear = releaseYear;
+                TextBoxReleaseYearMovie.BackColor = System.Drawing.Color.White;
+            } catch (Exception)
+            {
+                TextBoxReleaseYearMovie.BackColor = System.Drawing.Color.LightPink;
+            }
+        }
+        private void TextBoxGenreMovie_TextChanged(object sender, EventArgs e)
+        {
+            string genre = TextBoxGenreMovie.Text;
+            if (_customMethods.TryGetEnumValue<Genre>(genre, out Genre value))
+            {
+                _currentMovie.Genre = value;
+                TextBoxGenreMovie.BackColor = System.Drawing.Color.White;
+            }
+            else
+            {
+                TextBoxGenreMovie.BackColor = System.Drawing.Color.LightPink;
+            }
+        }
+        private void TextBoxRatingMovie_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                double rating = double.Parse(TextBoxRatingMovie.Text);
+                _currentMovie.Rating = rating;
+                TextBoxRatingMovie.BackColor = System.Drawing.Color.White;
+            }
+            catch (Exception)
+            {
+                TextBoxRatingMovie.BackColor = System.Drawing.Color.LightPink;
+            }
+        }
+        private void ButtonFindMovieWithMaxRating_Click(object sender, EventArgs e)
+        {
+            ListBoxMovies.SelectedIndex = FindMovieWithMaxRating(_movies);
         }
 
         private void SetBackColor(System.Drawing.Color color)
@@ -126,13 +250,37 @@ namespace Programming
             this.BackColor = color;
         }
 
-        private void ListBoxRectangles_SelectedIndexChanged(object sender, EventArgs e)
+        private int FindRectangleWithMaxWidth(Rectangle[] rectangles)
         {
-            _currentRectangle = _rectangles[ListBoxRectangles.SelectedIndex];
+            if (rectangles.Length < 1) throw new ArgumentException("The array must contain at least one element.");
 
-            TextBoxLengthRectangle.Text = _currentRectangle.Length.ToString();
-            TextBoxWidthRectangle.Text = _currentRectangle.Width.ToString();
-            TextBoxColorRectangle.Text = _currentRectangle.Color;
+            int index = 0;
+            double maxWidth = rectangles[0].Width;
+            for (int i = 0; i < rectangles.Length; i++)
+            {
+                if (rectangles[i].Width > maxWidth)
+                {
+                    maxWidth = rectangles[i].Width;
+                    index = i;
+                }
+            }
+            return index;
+        }
+        private int FindMovieWithMaxRating(Movie[] movies)
+        {
+            if (movies.Length < 1) throw new ArgumentException("The array must contain at least one element.");
+
+            int index = 0;
+            double maxRating = movies[0].Rating;
+            for (int i = 0; i < movies.Length; i++)
+            {
+                if (movies[i].Rating > maxRating)
+                {
+                    maxRating = movies[i].Rating;
+                    index = i;
+                }
+            }
+            return index;
         }
     }
 }
