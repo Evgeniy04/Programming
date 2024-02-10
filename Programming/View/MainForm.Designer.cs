@@ -69,6 +69,10 @@
             this.LabelWidthRectangle = new System.Windows.Forms.Label();
             this.LabelColorRectangle = new System.Windows.Forms.Label();
             this.ListBoxRectangles = new System.Windows.Forms.ListBox();
+            this.TextBoxCenterCoordinateXRectangle = new System.Windows.Forms.TextBox();
+            this.LabelCenterCoordinateXRectangle = new System.Windows.Forms.Label();
+            this.TextBoxCenterCoordinateYRectangle = new System.Windows.Forms.TextBox();
+            this.LabelCenterCoordinateYRectangle = new System.Windows.Forms.Label();
             this.EnumsTabPage.SuspendLayout();
             this.GroupBoxSeasonHandle.SuspendLayout();
             this.GroupBoxWeekdayParsing.SuspendLayout();
@@ -206,11 +210,11 @@
             // 
             // IntValue
             // 
-            this.IntValue.Enabled = false;
             this.IntValue.Location = new System.Drawing.Point(314, 31);
             this.IntValue.Name = "IntValue";
             this.IntValue.Size = new System.Drawing.Size(120, 20);
             this.IntValue.TabIndex = 2;
+            this.IntValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IntValue_KeyPress);
             // 
             // LabelChooseValue
             // 
@@ -404,6 +408,10 @@
             // 
             // GroupBoxRectangles
             // 
+            this.GroupBoxRectangles.Controls.Add(this.TextBoxCenterCoordinateYRectangle);
+            this.GroupBoxRectangles.Controls.Add(this.LabelCenterCoordinateYRectangle);
+            this.GroupBoxRectangles.Controls.Add(this.TextBoxCenterCoordinateXRectangle);
+            this.GroupBoxRectangles.Controls.Add(this.LabelCenterCoordinateXRectangle);
             this.GroupBoxRectangles.Controls.Add(this.ButtonFindRectangleWithMaxWidth);
             this.GroupBoxRectangles.Controls.Add(this.TextBoxColorRectangle);
             this.GroupBoxRectangles.Controls.Add(this.TextBoxWidthRectangle);
@@ -489,6 +497,40 @@
             this.ListBoxRectangles.TabIndex = 0;
             this.ListBoxRectangles.SelectedIndexChanged += new System.EventHandler(this.ListBoxRectangles_SelectedIndexChanged);
             // 
+            // TextBoxCenterCoordinateXRectangle
+            // 
+            this.TextBoxCenterCoordinateXRectangle.Location = new System.Drawing.Point(259, 35);
+            this.TextBoxCenterCoordinateXRectangle.Name = "TextBoxCenterCoordinateXRectangle";
+            this.TextBoxCenterCoordinateXRectangle.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxCenterCoordinateXRectangle.TabIndex = 8;
+            this.TextBoxCenterCoordinateXRectangle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxCenterCoordinateXRectangle_KeyPress);
+            // 
+            // LabelCenterCoordinateXRectangle
+            // 
+            this.LabelCenterCoordinateXRectangle.AutoSize = true;
+            this.LabelCenterCoordinateXRectangle.Location = new System.Drawing.Point(256, 19);
+            this.LabelCenterCoordinateXRectangle.Name = "LabelCenterCoordinateXRectangle";
+            this.LabelCenterCoordinateXRectangle.Size = new System.Drawing.Size(104, 13);
+            this.LabelCenterCoordinateXRectangle.TabIndex = 7;
+            this.LabelCenterCoordinateXRectangle.Text = "Center coordinate X:";
+            // 
+            // TextBoxCenterCoordinateYRectangle
+            // 
+            this.TextBoxCenterCoordinateYRectangle.Location = new System.Drawing.Point(259, 83);
+            this.TextBoxCenterCoordinateYRectangle.Name = "TextBoxCenterCoordinateYRectangle";
+            this.TextBoxCenterCoordinateYRectangle.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxCenterCoordinateYRectangle.TabIndex = 10;
+            this.TextBoxCenterCoordinateYRectangle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxCenterCoordinateYRectangle_KeyPress);
+            // 
+            // LabelCenterCoordinateYRectangle
+            // 
+            this.LabelCenterCoordinateYRectangle.AutoSize = true;
+            this.LabelCenterCoordinateYRectangle.Location = new System.Drawing.Point(256, 67);
+            this.LabelCenterCoordinateYRectangle.Name = "LabelCenterCoordinateYRectangle";
+            this.LabelCenterCoordinateYRectangle.Size = new System.Drawing.Size(104, 13);
+            this.LabelCenterCoordinateYRectangle.TabIndex = 9;
+            this.LabelCenterCoordinateYRectangle.Text = "Center coordinate Y:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -558,6 +600,10 @@
         private System.Windows.Forms.Label LabelLengthRectangle;
         private System.Windows.Forms.Label LabelWidthRectangle;
         private System.Windows.Forms.Label LabelColorRectangle;
+        private System.Windows.Forms.TextBox TextBoxCenterCoordinateXRectangle;
+        private System.Windows.Forms.Label LabelCenterCoordinateXRectangle;
+        private System.Windows.Forms.TextBox TextBoxCenterCoordinateYRectangle;
+        private System.Windows.Forms.Label LabelCenterCoordinateYRectangle;
     }
 }
 

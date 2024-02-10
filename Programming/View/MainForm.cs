@@ -137,6 +137,8 @@ namespace Programming
             TextBoxLengthRectangle.Text = _currentRectangle.Length.ToString();
             TextBoxWidthRectangle.Text = _currentRectangle.Width.ToString();
             TextBoxColorRectangle.Text = _currentRectangle.Color.ToString();
+            TextBoxCenterCoordinateXRectangle.Text = _currentRectangle.Center.X.ToString();
+            TextBoxCenterCoordinateYRectangle.Text = _currentRectangle.Center.Y.ToString();
         }
         private void TextBoxLengthRectangle_TextChanged(object sender, EventArgs e)
         {
@@ -306,6 +308,22 @@ namespace Programming
                 }
             }
             return index;
+        }
+
+        // Prevent characters from being typed into the control.
+        private void TextBoxCenterCoordinateXRectangle_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void TextBoxCenterCoordinateYRectangle_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled= true;
+        }
+
+        private void IntValue_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

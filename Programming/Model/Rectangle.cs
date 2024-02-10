@@ -5,6 +5,8 @@ class Rectangle
 {
     double _length;
     double _width;
+    public Point2D Center { get; }
+
 
     public Color Color { get; set; }
     public double Length
@@ -33,10 +35,11 @@ class Rectangle
         Color = Color.Green;
     }
 
-    public Rectangle(double lingth, double width, Color color)
+    public Rectangle(double length, double width, Color color)
     {
-        Length = lingth;
+        Length = length;
         Width = width;
         Color = color;
+        Center = new Point2D(Length / 2, Width / 2);
     }
 }
