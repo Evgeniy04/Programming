@@ -5,10 +5,10 @@ class Rectangle
 {
     double _length;
     double _width;
-    public Point2D Center { get; }
-
-
     public Color Color { get; set; }
+    static int _allRectanglesCount;
+    readonly int _id;
+
     public double Length
     {
         get { return _length; }
@@ -27,6 +27,15 @@ class Rectangle
             _width = value;
         }
     }
+    public Point2D Center => new Point2D(Width / 2, Length / 2);
+    public static int AllRectanglesCount
+    {
+        get { return _allRectanglesCount; }
+    }
+    public int Id
+    {
+        get { return _id; }
+    }
 
     public Rectangle()
     {
@@ -40,6 +49,6 @@ class Rectangle
         Length = length;
         Width = width;
         Color = color;
-        Center = new Point2D(Length / 2, Width / 2);
+        _id = _allRectanglesCount++;
     }
 }

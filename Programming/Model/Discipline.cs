@@ -45,14 +45,14 @@ class Discipline
         }
     }
 
-    public Discipline ()
+    public Discipline()
     {
         DisciplineName = "Programming";
         Grade = 5;
         Semester = 2;
         Instructor = "^_^";
     }
-    
+
     public Discipline(string disciplineName, int grade, int semester, string instructor)
     {
         DisciplineName = disciplineName;

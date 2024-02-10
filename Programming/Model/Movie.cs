@@ -8,7 +8,6 @@ class Movie
     int _releaseYear;
     Genre _genre;
     double _rating;
-    readonly CustomMethods _customMethods = new CustomMethods();
 
     public string Title
     {
@@ -42,7 +41,7 @@ class Movie
         get { return _genre; }
         set
         {
-             _genre = value;
+            _genre = value;
         }
     }
     public double Rating

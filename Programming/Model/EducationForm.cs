@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Programming.Model
+public enum EducationForm
 {
-    public enum EducationForm
-    {
-        FullTime,
-        PartTime,
-        Evening,
-        Distance
-    }
+    FullTime,
+    PartTime,
+    Evening,
+    Distance
 }

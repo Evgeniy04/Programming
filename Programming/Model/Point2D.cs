@@ -4,36 +4,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Programming.Model
+class Point2D
 {
-    class Point2D
+    double _x;
+    public double _y;
+
+    public double X
     {
-        double _x;
-        public double _y;
+        get { return _x; }
+        private set
+        {
+            Validator.AssertOnPositiveValue(value);
+            _x = value;
+        }
+    }
 
-        public double X
+    public double Y
+    {
+        get { return _y; }
+        private set
         {
-            get { return _x; }
-            private set
-            {
-                Validator.AssertOnPositiveValue(value);
-                _x = value;
-            }
+            Validator.AssertOnPositiveValue(value);
+            _y = value;
         }
-
-        public double Y
-        {
-            get { return _y; }
-            private set
-            {
-                Validator.AssertOnPositiveValue(value);
-                _y = value;
-            }
-        }
-        public Point2D(double x, double y)
-        {
-            X = x;
-            Y = y;
-        }
+    }
+    public Point2D(double x, double y)
+    {
+        X = x;
+        Y = y;
     }
 }

@@ -12,7 +12,7 @@ namespace Programming
 {
     public partial class MainForm : Form
     {
-        private readonly Type[] _typeModel = new Type[] { typeof(Model.Color), typeof(EducationForm),
+        private readonly Type[] _typeModel = new Type[] { typeof(Color), typeof(EducationForm),
                                                 typeof(Genre), typeof(Manufactures),
                                                 typeof(Season), typeof(Weekday) };
         private Rectangle[] _rectangles;
@@ -42,7 +42,7 @@ namespace Programming
             {
                 double length = Math.Ceiling(random.NextDouble() * 100);
                 double width = Math.Ceiling(random.NextDouble() * 100);
-                Rectangle rectangle = new Rectangle(length, width, Model.Color.Orange);
+                Rectangle rectangle = new Rectangle(length, width, Color.Orange);
                 _rectangles[i] = rectangle;
                 listBoxRectanglesItems[i] = ($"Rectangle {i + 1}");
             }
@@ -139,6 +139,7 @@ namespace Programming
             TextBoxColorRectangle.Text = _currentRectangle.Color.ToString();
             TextBoxCenterCoordinateXRectangle.Text = _currentRectangle.Center.X.ToString();
             TextBoxCenterCoordinateYRectangle.Text = _currentRectangle.Center.Y.ToString();
+            TextBoxIdRectangle.Text = _currentRectangle.Id.ToString();
         }
         private void TextBoxLengthRectangle_TextChanged(object sender, EventArgs e)
         {
@@ -171,7 +172,7 @@ namespace Programming
         private void TextBoxColorRectangle_TextChanged(object sender, EventArgs e)
         {
             if (_currentRectangle == null) return; 
-            if (_customMethods.TryGetEnumValue<Model.Color>(TextBoxColorRectangle.Text, out Model.Color value))
+            if (_customMethods.TryGetEnumValue<Color>(TextBoxColorRectangle.Text, out Color value))
             {
                 _currentRectangle.Color = value;
                 TextBoxColorRectangle.BackColor = System.Drawing.Color.White;
@@ -322,6 +323,11 @@ namespace Programming
         }
 
         private void IntValue_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void TextBoxIdRectangle_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
         }

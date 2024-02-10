@@ -4,26 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Programming.Model
+public enum Manufactures
 {
-    public enum Manufactures
-    {
-        Apple,
-        Samsung,
-        Google,
-        Huawei,
-        Xiaomi,
-        OnePlus,
-        Sony,
-        LG,
-        Motorola,
-        Nokia,
-        HTC,
-        ASUS,
-        BlackBerry,
-        Lenovo,
-        Oppo,
-        Vivo,
-        ZTE
-    }
+    Apple,
+    Samsung,
+    Google,
+    Huawei,
+    Xiaomi,
+    OnePlus,
+    Sony,
+    LG,
+    Motorola,
+    Nokia,
+    HTC,
+    ASUS,
+    BlackBerry,
+    Lenovo,
+    Oppo,
+    Vivo,
+    ZTE
 }
