@@ -1,6 +1,3 @@
-using Programming.Model;
-using System;
-
 class Rectangle
 {
     double _length;

@@ -1,10 +1,6 @@
 using System;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
 using System.Diagnostics;
 
 class Contact

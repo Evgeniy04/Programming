@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-class CustomMethods
+static class CustomMethods
 {
-    private readonly Type[] _typeModel = new Type[] { typeof(Color), typeof(EducationForm),
+    static public readonly Type[] TypeModel = new Type[] { typeof(Color), typeof(EducationForm),
                                             typeof(Genre), typeof(Manufactures),
                                             typeof(Season), typeof(Weekday) };
 
-    public bool TryGetEnumValue(Type itemType, string itemName, out object value)
+    static public bool TryGetEnumValue(Type itemType, string itemName, out object value)
     {
-        if (itemType != null && _typeModel.Contains(itemType))
+        if (itemType != null && TypeModel.Contains(itemType))
         {
             value = Enum.Parse(itemType, itemName);
             return true;
@@ -22,7 +18,7 @@ class CustomMethods
         return false;
     }
 
-    public bool TryGetEnumValue<T>(string itemName, out T value) where T : struct
+    static public bool TryGetEnumValue<T>(string itemName, out T value) where T : struct
     {
         if (Enum.TryParse<T>(itemName, true, out value))
         {

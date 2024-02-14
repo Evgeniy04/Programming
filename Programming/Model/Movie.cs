@@ -1,4 +1,3 @@
-using Programming.Model;
 using System;
 
 class Movie

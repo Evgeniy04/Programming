@@ -1,10 +1,7 @@
-﻿using Programming.Model;
-using System;
+﻿using System;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 // With 15 point
@@ -12,14 +9,10 @@ namespace Programming
 {
     public partial class MainForm : Form
     {
-        private readonly Type[] _typeModel = new Type[] { typeof(Color), typeof(EducationForm),
-                                                typeof(Genre), typeof(Manufactures),
-                                                typeof(Season), typeof(Weekday) };
         private Rectangle[] _rectangles;
         private Rectangle _currentRectangle;
         private Movie[] _movies;
         private Movie _currentMovie;
-        private readonly CustomMethods _customMethods = new CustomMethods();
 
         public MainForm()
         {
@@ -75,7 +68,7 @@ namespace Programming
         private void EnumsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             int selectedIndex = EnumsListBox.SelectedIndex;
-            object[] values = Enum.GetValues(_typeModel[selectedIndex]).Cast<object>().ToArray();
+            object[] values = Enum.GetValues(CustomMethods.TypeModel[selectedIndex]).Cast<object>().ToArray();
             IntValue.Text = "";
             ValuesListBox.Items.Clear();
             ValuesListBox.Items.AddRange(values);
@@ -83,20 +76,15 @@ namespace Programming
 
         private void ValuesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Type selectedItemType = ValuesListBox.SelectedItem.GetType();
-            string selectedItemName = ValuesListBox.SelectedItem.ToString();
-            if (_customMethods.TryGetEnumValue(selectedItemType, selectedItemName, out object value))
-            {
-                IntValue.Text = Convert.ToInt32(value).ToString();
-            }
+            IntValue.Text = ((int)ValuesListBox.SelectedItem).ToString();
         }
 
         private void ButtonWeekdayParsing_Click(object sender, EventArgs e)
         {
             string selectedItemName = TextBoxDayInput.Text;
-            if (_customMethods.TryGetEnumValue<Weekday>(selectedItemName, out Weekday value))
+            if (CustomMethods.TryGetEnumValue<Weekday>(selectedItemName, out Weekday value))
             {
-                LabelResultWeekdayParsing.Text = $"Это день недели ({value} = {Convert.ToInt32(value)})";
+                LabelResultWeekdayParsing.Text = $"Это день недели ({value} = {(int)value})";
             } else
             {
                 LabelResultWeekdayParsing.Text = $"Это не день недели";
@@ -105,28 +93,27 @@ namespace Programming
 
         private void ButtonSeasonHandleGo_Click(object sender, EventArgs e)
         {
-            
-            if (ComboBoxSeasons.SelectedItem != null)
-            {
-                ComboBoxSeasons.BackColor = System.Drawing.Color.White;
-                switch (ComboBoxSeasons.SelectedItem.ToString())
-                {
-                    case "Summer":
-                        MessageBox.Show("Ура! Солнце!");
-                        break;
-                    case "Autumn":
-                        SetBackColor(GroupBoxSeasonHandle.BackColor = ColorTranslator.FromHtml("#e29c45"));
-                        break;
-                    case "Winter":
-                        MessageBox.Show("Бррр! Холодно!");
-                        break;
-                    case "Spring":
-                        SetBackColor(GroupBoxSeasonHandle.BackColor = ColorTranslator.FromHtml("#559c45"));
-                        break;
-                }
-            } else
+            if (ComboBoxSeasons.SelectedItem == null)
             {
                 ComboBoxSeasons.BackColor = System.Drawing.Color.LightPink;
+                return;
+            }
+
+            ComboBoxSeasons.BackColor = System.Drawing.Color.White;
+            switch (ComboBoxSeasons.SelectedItem)
+            {
+                case Season.Summer:
+                    MessageBox.Show("Ура! Солнце!");
+                    break;
+                case Season.Autumn:
+                    SetBackColor(GroupBoxSeasonHandle.BackColor = ColorTranslator.FromHtml("#e29c45"));
+                    break;
+                case Season.Winter:
+                    MessageBox.Show("Бррр! Холодно!");
+                    break;
+                case Season.Spring:
+                    SetBackColor(GroupBoxSeasonHandle.BackColor = ColorTranslator.FromHtml("#559c45"));
+                    break;
             }
         }
 
@@ -172,7 +159,7 @@ namespace Programming
         private void TextBoxColorRectangle_TextChanged(object sender, EventArgs e)
         {
             if (_currentRectangle == null) return; 
-            if (_customMethods.TryGetEnumValue<Color>(TextBoxColorRectangle.Text, out Color value))
+            if (CustomMethods.TryGetEnumValue<Color>(TextBoxColorRectangle.Text, out Color value))
             {
                 _currentRectangle.Color = value;
                 TextBoxColorRectangle.BackColor = System.Drawing.Color.White;
@@ -184,7 +171,7 @@ namespace Programming
         }
         private void ButtonFindRectangleWithMaxWidth_Click(object sender, EventArgs e)
         {
-            ListBoxRectangles.SelectedIndex = FindRectangleWithMaxWidth(_rectangles);
+            ListBoxRectangles.SelectedIndex = FindItemWithMaxValue(_rectangles, (rectangle) => rectangle.Width);
         }
 
         private void ListBoxMovies_SelectedIndexChanged(object sender, EventArgs e)
@@ -241,7 +228,7 @@ namespace Programming
         {
             if (_currentMovie == null) return;
             string genre = TextBoxGenreMovie.Text;
-            if (_customMethods.TryGetEnumValue<Genre>(genre, out Genre value))
+            if (CustomMethods.TryGetEnumValue<Genre>(genre, out Genre value))
             {
                 _currentMovie.Genre = value;
                 TextBoxGenreMovie.BackColor = System.Drawing.Color.White;
@@ -267,7 +254,7 @@ namespace Programming
         }
         private void ButtonFindMovieWithMaxRating_Click(object sender, EventArgs e)
         {
-            ListBoxMovies.SelectedIndex = FindMovieWithMaxRating(_movies);
+            ListBoxMovies.SelectedIndex = FindItemWithMaxValue(_movies, (movie) => movie.Rating);
         }
 
         private void SetBackColor(System.Drawing.Color color)
@@ -278,33 +265,17 @@ namespace Programming
             this.BackColor = color;
         }
 
-        private int FindRectangleWithMaxWidth(Rectangle[] rectangles)
+        private int FindItemWithMaxValue<T>(T[] classArray, Func<T, double> getValue) where T : class
         {
-            if (rectangles.Length < 1) throw new ArgumentException("The array must contain at least one element.");
+            if (classArray.Length < 1) throw new ArgumentException("The array must contain at least one element.");
 
             int index = 0;
-            double maxWidth = rectangles[0].Width;
-            for (int i = 0; i < rectangles.Length; i++)
+            double maxValue = getValue(classArray[0]);
+            for (int i = 0; i < classArray.Length; i++)
             {
-                if (rectangles[i].Width > maxWidth)
+                if (getValue(classArray[i]) > maxValue)
                 {
-                    maxWidth = rectangles[i].Width;
-                    index = i;
-                }
-            }
-            return index;
-        }
-        private int FindMovieWithMaxRating(Movie[] movies)
-        {
-            if (movies.Length < 1) throw new ArgumentException("The array must contain at least one element.");
-
-            int index = 0;
-            double maxRating = movies[0].Rating;
-            for (int i = 0; i < movies.Length; i++)
-            {
-                if (movies[i].Rating > maxRating)
-                {
-                    maxRating = movies[i].Rating;
+                    maxValue = getValue(classArray[i]);
                     index = i;
                 }
             }
