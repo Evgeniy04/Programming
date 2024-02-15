@@ -84,7 +84,8 @@ namespace Programming
         private void ButtonWeekdayParsing_Click(object sender, EventArgs e)
         {
             string selectedItemName = TextBoxDayInput.Text;
-            if (CustomMethods.TryGetEnumValue<Weekday>(selectedItemName, out Weekday value))
+            if (!int.TryParse(selectedItemName, out _) &&
+                CustomMethods.TryGetEnumValue<Weekday>(selectedItemName, out Weekday value))
             {
                 LabelResultWeekdayParsing.Text = $"Это день недели ({value} = {(int)value})";
             } else
