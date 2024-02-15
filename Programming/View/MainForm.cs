@@ -67,6 +67,7 @@ namespace Programming
 
         private void EnumsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (EnumsListBox.SelectedIndex == -1) return;
             int selectedIndex = EnumsListBox.SelectedIndex;
             object[] values = Enum.GetValues(CustomMethods.TypeModel[selectedIndex]).Cast<object>().ToArray();
             IntValue.Text = "";
@@ -76,6 +77,7 @@ namespace Programming
 
         private void ValuesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ValuesListBox.SelectedItem == null) return;
             IntValue.Text = ((int)ValuesListBox.SelectedItem).ToString();
         }
 
@@ -119,6 +121,7 @@ namespace Programming
 
         private void ListBoxRectangles_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ListBoxRectangles.SelectedItem == null) return;
             _currentRectangle = _rectangles[ListBoxRectangles.SelectedIndex];
 
             TextBoxLengthRectangle.Text = _currentRectangle.Length.ToString();
@@ -176,6 +179,7 @@ namespace Programming
 
         private void ListBoxMovies_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ListBoxMovies.SelectedIndex == -1) return;
             _currentMovie = _movies[ListBoxMovies.SelectedIndex];
 
             TextBoxTitleMovie.Text = _currentMovie.Title;
