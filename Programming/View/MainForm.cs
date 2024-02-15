@@ -109,13 +109,13 @@ namespace Programming
                     MessageBox.Show("Ура! Солнце!");
                     break;
                 case Season.Autumn:
-                    SetBackColor(GroupBoxSeasonHandle.BackColor = ColorTranslator.FromHtml("#e29c45"));
+                    SetBackColor(ColorTranslator.FromHtml("#e29c45"));
                     break;
                 case Season.Winter:
                     MessageBox.Show("Бррр! Холодно!");
                     break;
                 case Season.Spring:
-                    SetBackColor(GroupBoxSeasonHandle.BackColor = ColorTranslator.FromHtml("#559c45"));
+                    SetBackColor(ColorTranslator.FromHtml("#559c45"));
                     break;
             }
         }
