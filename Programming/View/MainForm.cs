@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-// With 15 point
+// With 10 point 5 lab
 namespace Programming
 {
     public partial class MainForm : Form
@@ -27,23 +28,6 @@ namespace Programming
             // 
             object[] values = Enum.GetValues(typeof(Season)).Cast<object>().ToArray();
             ComboBoxSeasons.Items.AddRange(values);
-
-            // 
-            // Initialize _rectangles
-            //
-            //string[] listBoxRectanglesItems = new string[5];
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    double length = Math.Ceiling(random.NextDouble() * 100);
-            //    double width = Math.Ceiling(random.NextDouble() * 100);
-            //    Rectangle rectangle = new Rectangle(length, width, Color.Orange);
-            //    _rectangles.Add(rectangle);
-            //    listBoxRectanglesItems[i] = ($"Rectangle {i + 1}");
-            //}
-            //
-            // Initialize ListBoxRectangles
-            //
-            //ListBoxRectangles.Items.AddRange(listBoxRectanglesItems);
 
             // 
             // Initialize _movies
@@ -135,32 +119,22 @@ namespace Programming
         }
         private void TextBoxLengthRectangle_TextChanged(object sender, EventArgs e)
         {
-            if (_currentRectangle == null) return; 
-            try
-            {
-                double length = double.Parse(TextBoxLengthRectangle.Text);
-                _currentRectangle.Length = length;
-                TextBoxLengthRectangle.BackColor = System.Drawing.Color.White;
-            }
-            catch (Exception)
-            {
-                TextBoxLengthRectangle.BackColor = System.Drawing.Color.LightPink;
-            }
+            TextBoxLengthRectangleHandler(TextBoxLengthRectangle);
         }
         private void TextBoxWidthRectangle_TextChanged(object sender, EventArgs e)
         {
-            if (_currentRectangle == null) return;
-            try
-            {
-                double width = double.Parse(TextBoxWidthRectangle.Text);
-                _currentRectangle.Width = width;
-                TextBoxWidthRectangle.BackColor = System.Drawing.Color.White;
-            }
-            catch (Exception)
-            {
-                TextBoxWidthRectangle.BackColor = System.Drawing.Color.LightPink;
-            }
+            TextBoxWidthRectangleHandler(TextBoxWidthRectangle);
         }
+
+        private void TextBoxHeightSelectedRectangle_TextChanged(object sender, EventArgs e)
+        {
+            TextBoxLengthRectangleHandler(TextBoxHeightSelectedRectangle);
+        }
+        private void TextBoxWidthSelectedRectangle_TextChanged(object sender, EventArgs e)
+        {
+            TextBoxWidthRectangleHandler(TextBoxWidthSelectedRectangle);
+        }
+
         private void TextBoxColorRectangle_TextChanged(object sender, EventArgs e)
         {
             if (_currentRectangle == null) return; 
@@ -263,6 +237,58 @@ namespace Programming
             ListBoxMovies.SelectedIndex = FindItemWithMaxValue(_movies, (movie) => movie.Rating);
         }
 
+        private void ButtonAddRectangle_Click(object sender, EventArgs e)
+        {
+            Rectangle rectangle;
+            double length = Math.Ceiling(_random.NextDouble() * 100);
+            double width = Math.Ceiling(_random.NextDouble() * 100);
+            rectangle = new Rectangle(length, width, Color.Orange, new Point2D(_random.Next(0, 200), _random.Next(0, 200)));
+            UpdateRectangles(rectangle);
+        }
+        private void ButtonRemoveRectangle_Click(object sender, EventArgs e)
+        {
+            if (ListBoxRectanglesCollision.SelectedItem == null) return;
+            Match match = Regex.Match(ListBoxRectanglesCollision.SelectedItem.ToString(), @"^(\d+):");
+            if (match.Success)
+            {
+                string numberString = match.Groups[1].Value;
+                int id = int.Parse(numberString);
+                Rectangle rectangle = _rectangles.Find((a) => a.Id == id);
+                UpdateRectangles(ListBoxRectanglesCollision.SelectedItem.ToString(), rectangle);
+
+                TextBoxIdSelectedRectangle.Clear();
+                TextBoxXSelectedRectangle.Clear();
+                TextBoxYSelectedRectangle.Clear();
+                TextBoxWidthSelectedRectangle.Clear();
+                TextBoxHeightSelectedRectangle.Clear();
+            }
+            else
+            {
+                MessageBox.Show("Прямоугольник не найден!");
+            }
+        }
+        private void ListBoxRectanglesCollision_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ListBoxRectanglesCollision.SelectedItem == null) return;
+            Match match = Regex.Match(ListBoxRectanglesCollision.SelectedItem.ToString(), @"^(\d+):");
+            if (match.Success)
+            {
+                string numberString = match.Groups[1].Value;
+                int id = int.Parse(numberString);
+                Rectangle rectangle = _rectangles.Find((a) => a.Id == id);
+                _currentRectangle = rectangle;
+                TextBoxIdSelectedRectangle.Text = _currentRectangle.Id.ToString();
+                TextBoxXSelectedRectangle.Text = _currentRectangle.Center.X.ToString();
+                TextBoxYSelectedRectangle.Text = _currentRectangle.Center.Y.ToString();
+                TextBoxWidthSelectedRectangle.Text = _currentRectangle.Width.ToString();
+                TextBoxHeightSelectedRectangle.Text = _currentRectangle.Length.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Прямоугольник не найден!");
+            }
+        }
+
         private void SetBackColor(System.Drawing.Color color)
         {
             GroupBoxEnumerations.BackColor = color;
@@ -273,7 +299,7 @@ namespace Programming
 
         private int FindItemWithMaxValue<T>(List<T> classList, Func<T, double> getValue) where T : class
         {
-            if (classList.Count < 1) throw new ArgumentException("The array must contain at least one element.");
+            if (classList.Count < 1) return -1;
 
             int index = 0;
             double maxValue = getValue(classList[0]);
@@ -290,7 +316,7 @@ namespace Programming
 
         private int FindItemWithMaxValue<T>(T[] classArray, Func<T, double> getValue) where T : class
         {
-            if (classArray.Length < 1) throw new ArgumentException("The array must contain at least one element.");
+            if (classArray.Length < 1) return -1;
 
             int index = 0;
             double maxValue = getValue(classArray[0]);
@@ -310,36 +336,100 @@ namespace Programming
         {
             e.Handled = true;
         }
-
         private void TextBoxCenterCoordinateYRectangle_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled= true;
         }
-
         private void IntValue_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
         }
-
         private void TextBoxIdRectangle_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
         }
-
-        private void ButtonAddRectangle_Click(object sender, EventArgs e)
+        private void TextBoxIdSelectedRectangle_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Rectangle rectangle;
-            double length = Math.Ceiling(_random.NextDouble() * 100);
-            double width = Math.Ceiling(_random.NextDouble() * 100);
-            rectangle = new Rectangle(length, width, Color.Orange);
-            UpdateRectangles(rectangle);
+            e.Handled = true;
         }
 
+        /// <summary>
+        /// Add rectangle
+        /// </summary>
+        /// <param name="rectangle">Instance rectangle</param>
         private void UpdateRectangles(Rectangle rectangle)
         {
             _rectangles.Add(rectangle);
             ListBoxRectangles.Items.Add(rectangle);
             ListBoxRectanglesCollision.Items.Add($"{rectangle.Id}: (X={rectangle.Center.X}; Y={rectangle.Center.Y}; W={rectangle.Width}; H={rectangle.Length})");
+        }
+        /// <summary>
+        /// Remove rectangle
+        /// </summary>
+        /// <param name="selectedItem">String with coordinates</param>
+        /// <param name="rectangle">Instance rectangle</param>
+        private void UpdateRectangles(string selectedItem, Rectangle rectangle)
+        {
+            _rectangles.Remove(rectangle);
+            ListBoxRectangles.Items.Remove(rectangle);
+            ListBoxRectanglesCollision.Items.Remove(selectedItem);
+        }
+        private void TextBoxLengthRectangleHandler(TextBox textBox)
+        {
+            if (_currentRectangle == null) return;
+            try
+            {
+                double length = double.Parse(textBox.Text);
+                _currentRectangle.Length = length;
+                textBox.BackColor = System.Drawing.Color.White;
+            }
+            catch (Exception)
+            {
+                textBox.BackColor = System.Drawing.Color.LightPink;
+            }
+        }
+        private void TextBoxWidthRectangleHandler(TextBox textBox)
+        {
+            if (_currentRectangle == null) return;
+            try
+            {
+                double width = double.Parse(textBox.Text);
+                _currentRectangle.Width = width;
+                textBox.BackColor = System.Drawing.Color.White;
+            }
+            catch (Exception)
+            {
+                textBox.BackColor = System.Drawing.Color.LightPink;
+            }
+        }
+
+        private void TextBoxXSelectedRectangle_TextChanged(object sender, EventArgs e)
+        {
+            if (_currentRectangle == null) return;
+            try
+            {
+                double x = double.Parse(TextBoxXSelectedRectangle.Text);
+                _currentRectangle.Center = new Point2D(x, _currentRectangle.Center.Y);
+                TextBoxXSelectedRectangle.BackColor = System.Drawing.Color.White;
+            } catch (Exception)
+            {
+                TextBoxXSelectedRectangle.BackColor = System.Drawing.Color.LightPink;
+            }
+        }
+
+        private void TextBoxYSelectedRectangle_TextChanged(object sender, EventArgs e)
+        {
+            if (_currentRectangle == null) return;
+            try
+            {
+                double y = double.Parse(TextBoxYSelectedRectangle.Text);
+                _currentRectangle.Center = new Point2D(_currentRectangle.Center.X, y);
+                TextBoxYSelectedRectangle.BackColor = System.Drawing.Color.White;
+            }
+            catch (Exception)
+            {
+                TextBoxYSelectedRectangle.BackColor = System.Drawing.Color.LightPink;
+            }
         }
     }
 }

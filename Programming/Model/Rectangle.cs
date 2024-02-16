@@ -3,6 +3,8 @@ class Rectangle
     double _length;
     double _width;
     public Color Color { get; set; }
+    public Point2D Center { get; set; }
+
     static int _allRectanglesCount;
     readonly int _id;
 
@@ -24,7 +26,19 @@ class Rectangle
             _width = value;
         }
     }
-    public Point2D Center => new Point2D(Width / 2, Length / 2);
+    //public Point2D Center => new Point2D(Width / 2, Length / 2);
+    //public Point2D Center
+    //{
+    //    get
+    //    {
+    //        return _center;
+    //    }
+    //    set
+    //    {
+
+    //    }
+    //}
+
     public static int AllRectanglesCount
     {
         get { return _allRectanglesCount; }
@@ -39,14 +53,16 @@ class Rectangle
         Length = 15;
         Width = 30;
         Color = Color.Green;
+        Center = new Point2D(15, 8.5);
         _id = ++_allRectanglesCount;
     }
 
-    public Rectangle(double length, double width, Color color)
+    public Rectangle(double length, double width, Color color, Point2D center)
     {
         Length = length;
         Width = width;
         Color = color;
+        Center = center;
         _id = ++_allRectanglesCount;
     }
 }

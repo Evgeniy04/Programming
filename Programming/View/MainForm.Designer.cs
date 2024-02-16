@@ -77,22 +77,22 @@
             this.LabelColorRectangle = new System.Windows.Forms.Label();
             this.ListBoxRectangles = new System.Windows.Forms.ListBox();
             this.TabPageRectangles = new System.Windows.Forms.TabPage();
-            this.PanelCollisionRectangles = new System.Windows.Forms.Panel();
-            this.LabelRectanglesCollision = new System.Windows.Forms.Label();
-            this.LabelSelectedRectangleCollision = new System.Windows.Forms.Label();
-            this.LabelIdRectangleCollision = new System.Windows.Forms.Label();
-            this.LabelXRectangleCollision = new System.Windows.Forms.Label();
-            this.LabelYRectangleCollision = new System.Windows.Forms.Label();
-            this.LabelWidthRectangleCollision = new System.Windows.Forms.Label();
-            this.LabelHeightRectangleCollision = new System.Windows.Forms.Label();
-            this.ListBoxRectanglesCollision = new System.Windows.Forms.ListBox();
-            this.TextBoxIdSelectedRectangle = new System.Windows.Forms.TextBox();
-            this.TextBoxXSelectedRectangle = new System.Windows.Forms.TextBox();
-            this.TextBoxYSelectedRectangle = new System.Windows.Forms.TextBox();
-            this.TextBoxWidthSelectedRectangle = new System.Windows.Forms.TextBox();
-            this.TextBoxHeightSelectedRectangle = new System.Windows.Forms.TextBox();
-            this.ButtonRemoveRectangle = new System.Windows.Forms.Button();
             this.ButtonAddRectangle = new System.Windows.Forms.Button();
+            this.ButtonRemoveRectangle = new System.Windows.Forms.Button();
+            this.TextBoxHeightSelectedRectangle = new System.Windows.Forms.TextBox();
+            this.TextBoxWidthSelectedRectangle = new System.Windows.Forms.TextBox();
+            this.TextBoxYSelectedRectangle = new System.Windows.Forms.TextBox();
+            this.TextBoxXSelectedRectangle = new System.Windows.Forms.TextBox();
+            this.TextBoxIdSelectedRectangle = new System.Windows.Forms.TextBox();
+            this.ListBoxRectanglesCollision = new System.Windows.Forms.ListBox();
+            this.LabelHeightRectangleCollision = new System.Windows.Forms.Label();
+            this.LabelWidthRectangleCollision = new System.Windows.Forms.Label();
+            this.LabelYRectangleCollision = new System.Windows.Forms.Label();
+            this.LabelXRectangleCollision = new System.Windows.Forms.Label();
+            this.LabelIdRectangleCollision = new System.Windows.Forms.Label();
+            this.LabelSelectedRectangleCollision = new System.Windows.Forms.Label();
+            this.LabelRectanglesCollision = new System.Windows.Forms.Label();
+            this.PanelCollisionRectangles = new System.Windows.Forms.Panel();
             this.TabPageEnums.SuspendLayout();
             this.GroupBoxSeasonHandle.SuspendLayout();
             this.GroupBoxWeekdayParsing.SuspendLayout();
@@ -597,6 +597,148 @@
             this.TabPageRectangles.Text = "Rectangles";
             this.TabPageRectangles.UseVisualStyleBackColor = true;
             // 
+            // ButtonAddRectangle
+            // 
+            this.ButtonAddRectangle.FlatAppearance.BorderSize = 0;
+            this.ButtonAddRectangle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonAddRectangle.Image = ((System.Drawing.Image)(resources.GetObject("ButtonAddRectangle.Image")));
+            this.ButtonAddRectangle.Location = new System.Drawing.Point(35, 189);
+            this.ButtonAddRectangle.Name = "ButtonAddRectangle";
+            this.ButtonAddRectangle.Size = new System.Drawing.Size(25, 25);
+            this.ButtonAddRectangle.TabIndex = 13;
+            this.ButtonAddRectangle.UseVisualStyleBackColor = true;
+            this.ButtonAddRectangle.Click += new System.EventHandler(this.ButtonAddRectangle_Click);
+            // 
+            // ButtonRemoveRectangle
+            // 
+            this.ButtonRemoveRectangle.FlatAppearance.BorderSize = 0;
+            this.ButtonRemoveRectangle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonRemoveRectangle.ForeColor = System.Drawing.Color.Black;
+            this.ButtonRemoveRectangle.Image = ((System.Drawing.Image)(resources.GetObject("ButtonRemoveRectangle.Image")));
+            this.ButtonRemoveRectangle.Location = new System.Drawing.Point(130, 189);
+            this.ButtonRemoveRectangle.Name = "ButtonRemoveRectangle";
+            this.ButtonRemoveRectangle.Size = new System.Drawing.Size(25, 25);
+            this.ButtonRemoveRectangle.TabIndex = 1;
+            this.ButtonRemoveRectangle.UseVisualStyleBackColor = true;
+            this.ButtonRemoveRectangle.Click += new System.EventHandler(this.ButtonRemoveRectangle_Click);
+            // 
+            // TextBoxHeightSelectedRectangle
+            // 
+            this.TextBoxHeightSelectedRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TextBoxHeightSelectedRectangle.Location = new System.Drawing.Point(55, 358);
+            this.TextBoxHeightSelectedRectangle.Name = "TextBoxHeightSelectedRectangle";
+            this.TextBoxHeightSelectedRectangle.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxHeightSelectedRectangle.TabIndex = 12;
+            this.TextBoxHeightSelectedRectangle.TextChanged += new System.EventHandler(this.TextBoxHeightSelectedRectangle_TextChanged);
+            // 
+            // TextBoxWidthSelectedRectangle
+            // 
+            this.TextBoxWidthSelectedRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TextBoxWidthSelectedRectangle.Location = new System.Drawing.Point(55, 332);
+            this.TextBoxWidthSelectedRectangle.Name = "TextBoxWidthSelectedRectangle";
+            this.TextBoxWidthSelectedRectangle.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxWidthSelectedRectangle.TabIndex = 11;
+            this.TextBoxWidthSelectedRectangle.TextChanged += new System.EventHandler(this.TextBoxWidthSelectedRectangle_TextChanged);
+            // 
+            // TextBoxYSelectedRectangle
+            // 
+            this.TextBoxYSelectedRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TextBoxYSelectedRectangle.Location = new System.Drawing.Point(55, 306);
+            this.TextBoxYSelectedRectangle.Name = "TextBoxYSelectedRectangle";
+            this.TextBoxYSelectedRectangle.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxYSelectedRectangle.TabIndex = 10;
+            this.TextBoxYSelectedRectangle.TextChanged += new System.EventHandler(this.TextBoxYSelectedRectangle_TextChanged);
+            // 
+            // TextBoxXSelectedRectangle
+            // 
+            this.TextBoxXSelectedRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TextBoxXSelectedRectangle.Location = new System.Drawing.Point(55, 280);
+            this.TextBoxXSelectedRectangle.Name = "TextBoxXSelectedRectangle";
+            this.TextBoxXSelectedRectangle.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxXSelectedRectangle.TabIndex = 9;
+            this.TextBoxXSelectedRectangle.TextChanged += new System.EventHandler(this.TextBoxXSelectedRectangle_TextChanged);
+            // 
+            // TextBoxIdSelectedRectangle
+            // 
+            this.TextBoxIdSelectedRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TextBoxIdSelectedRectangle.Location = new System.Drawing.Point(55, 254);
+            this.TextBoxIdSelectedRectangle.Name = "TextBoxIdSelectedRectangle";
+            this.TextBoxIdSelectedRectangle.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxIdSelectedRectangle.TabIndex = 8;
+            this.TextBoxIdSelectedRectangle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxIdSelectedRectangle_KeyPress);
+            // 
+            // ListBoxRectanglesCollision
+            // 
+            this.ListBoxRectanglesCollision.FormattingEnabled = true;
+            this.ListBoxRectanglesCollision.Location = new System.Drawing.Point(11, 36);
+            this.ListBoxRectanglesCollision.Name = "ListBoxRectanglesCollision";
+            this.ListBoxRectanglesCollision.Size = new System.Drawing.Size(267, 147);
+            this.ListBoxRectanglesCollision.TabIndex = 7;
+            this.ListBoxRectanglesCollision.SelectedIndexChanged += new System.EventHandler(this.ListBoxRectanglesCollision_SelectedIndexChanged);
+            // 
+            // LabelHeightRectangleCollision
+            // 
+            this.LabelHeightRectangleCollision.AutoSize = true;
+            this.LabelHeightRectangleCollision.Location = new System.Drawing.Point(8, 361);
+            this.LabelHeightRectangleCollision.Name = "LabelHeightRectangleCollision";
+            this.LabelHeightRectangleCollision.Size = new System.Drawing.Size(41, 13);
+            this.LabelHeightRectangleCollision.TabIndex = 6;
+            this.LabelHeightRectangleCollision.Text = "Height:";
+            // 
+            // LabelWidthRectangleCollision
+            // 
+            this.LabelWidthRectangleCollision.AutoSize = true;
+            this.LabelWidthRectangleCollision.Location = new System.Drawing.Point(11, 335);
+            this.LabelWidthRectangleCollision.Name = "LabelWidthRectangleCollision";
+            this.LabelWidthRectangleCollision.Size = new System.Drawing.Size(38, 13);
+            this.LabelWidthRectangleCollision.TabIndex = 5;
+            this.LabelWidthRectangleCollision.Text = "Width:";
+            // 
+            // LabelYRectangleCollision
+            // 
+            this.LabelYRectangleCollision.AutoSize = true;
+            this.LabelYRectangleCollision.Location = new System.Drawing.Point(32, 309);
+            this.LabelYRectangleCollision.Name = "LabelYRectangleCollision";
+            this.LabelYRectangleCollision.Size = new System.Drawing.Size(17, 13);
+            this.LabelYRectangleCollision.TabIndex = 4;
+            this.LabelYRectangleCollision.Text = "Y:";
+            // 
+            // LabelXRectangleCollision
+            // 
+            this.LabelXRectangleCollision.AutoSize = true;
+            this.LabelXRectangleCollision.Location = new System.Drawing.Point(32, 283);
+            this.LabelXRectangleCollision.Name = "LabelXRectangleCollision";
+            this.LabelXRectangleCollision.Size = new System.Drawing.Size(17, 13);
+            this.LabelXRectangleCollision.TabIndex = 3;
+            this.LabelXRectangleCollision.Text = "X:";
+            // 
+            // LabelIdRectangleCollision
+            // 
+            this.LabelIdRectangleCollision.AutoSize = true;
+            this.LabelIdRectangleCollision.Location = new System.Drawing.Point(30, 257);
+            this.LabelIdRectangleCollision.Name = "LabelIdRectangleCollision";
+            this.LabelIdRectangleCollision.Size = new System.Drawing.Size(19, 13);
+            this.LabelIdRectangleCollision.TabIndex = 2;
+            this.LabelIdRectangleCollision.Text = "Id:";
+            // 
+            // LabelSelectedRectangleCollision
+            // 
+            this.LabelSelectedRectangleCollision.AutoSize = true;
+            this.LabelSelectedRectangleCollision.Location = new System.Drawing.Point(8, 238);
+            this.LabelSelectedRectangleCollision.Name = "LabelSelectedRectangleCollision";
+            this.LabelSelectedRectangleCollision.Size = new System.Drawing.Size(104, 13);
+            this.LabelSelectedRectangleCollision.TabIndex = 1;
+            this.LabelSelectedRectangleCollision.Text = "Selected Rectangle:";
+            // 
+            // LabelRectanglesCollision
+            // 
+            this.LabelRectanglesCollision.AutoSize = true;
+            this.LabelRectanglesCollision.Location = new System.Drawing.Point(8, 20);
+            this.LabelRectanglesCollision.Name = "LabelRectanglesCollision";
+            this.LabelRectanglesCollision.Size = new System.Drawing.Size(64, 13);
+            this.LabelRectanglesCollision.TabIndex = 0;
+            this.LabelRectanglesCollision.Text = "Rectangles:";
+            // 
             // PanelCollisionRectangles
             // 
             this.PanelCollisionRectangles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -610,141 +752,6 @@
             this.PanelCollisionRectangles.Name = "PanelCollisionRectangles";
             this.PanelCollisionRectangles.Size = new System.Drawing.Size(500, 413);
             this.PanelCollisionRectangles.TabIndex = 0;
-            // 
-            // LabelRectanglesCollision
-            // 
-            this.LabelRectanglesCollision.AutoSize = true;
-            this.LabelRectanglesCollision.Location = new System.Drawing.Point(8, 20);
-            this.LabelRectanglesCollision.Name = "LabelRectanglesCollision";
-            this.LabelRectanglesCollision.Size = new System.Drawing.Size(64, 13);
-            this.LabelRectanglesCollision.TabIndex = 0;
-            this.LabelRectanglesCollision.Text = "Rectangles:";
-            // 
-            // LabelSelectedRectangleCollision
-            // 
-            this.LabelSelectedRectangleCollision.AutoSize = true;
-            this.LabelSelectedRectangleCollision.Location = new System.Drawing.Point(8, 238);
-            this.LabelSelectedRectangleCollision.Name = "LabelSelectedRectangleCollision";
-            this.LabelSelectedRectangleCollision.Size = new System.Drawing.Size(104, 13);
-            this.LabelSelectedRectangleCollision.TabIndex = 1;
-            this.LabelSelectedRectangleCollision.Text = "Selected Rectangle:";
-            // 
-            // LabelIdRectangleCollision
-            // 
-            this.LabelIdRectangleCollision.AutoSize = true;
-            this.LabelIdRectangleCollision.Location = new System.Drawing.Point(30, 257);
-            this.LabelIdRectangleCollision.Name = "LabelIdRectangleCollision";
-            this.LabelIdRectangleCollision.Size = new System.Drawing.Size(19, 13);
-            this.LabelIdRectangleCollision.TabIndex = 2;
-            this.LabelIdRectangleCollision.Text = "Id:";
-            // 
-            // LabelXRectangleCollision
-            // 
-            this.LabelXRectangleCollision.AutoSize = true;
-            this.LabelXRectangleCollision.Location = new System.Drawing.Point(32, 283);
-            this.LabelXRectangleCollision.Name = "LabelXRectangleCollision";
-            this.LabelXRectangleCollision.Size = new System.Drawing.Size(17, 13);
-            this.LabelXRectangleCollision.TabIndex = 3;
-            this.LabelXRectangleCollision.Text = "X:";
-            // 
-            // LabelYRectangleCollision
-            // 
-            this.LabelYRectangleCollision.AutoSize = true;
-            this.LabelYRectangleCollision.Location = new System.Drawing.Point(32, 309);
-            this.LabelYRectangleCollision.Name = "LabelYRectangleCollision";
-            this.LabelYRectangleCollision.Size = new System.Drawing.Size(17, 13);
-            this.LabelYRectangleCollision.TabIndex = 4;
-            this.LabelYRectangleCollision.Text = "Y:";
-            // 
-            // LabelWidthRectangleCollision
-            // 
-            this.LabelWidthRectangleCollision.AutoSize = true;
-            this.LabelWidthRectangleCollision.Location = new System.Drawing.Point(11, 335);
-            this.LabelWidthRectangleCollision.Name = "LabelWidthRectangleCollision";
-            this.LabelWidthRectangleCollision.Size = new System.Drawing.Size(38, 13);
-            this.LabelWidthRectangleCollision.TabIndex = 5;
-            this.LabelWidthRectangleCollision.Text = "Width:";
-            // 
-            // LabelHeightRectangleCollision
-            // 
-            this.LabelHeightRectangleCollision.AutoSize = true;
-            this.LabelHeightRectangleCollision.Location = new System.Drawing.Point(8, 361);
-            this.LabelHeightRectangleCollision.Name = "LabelHeightRectangleCollision";
-            this.LabelHeightRectangleCollision.Size = new System.Drawing.Size(41, 13);
-            this.LabelHeightRectangleCollision.TabIndex = 6;
-            this.LabelHeightRectangleCollision.Text = "Height:";
-            // 
-            // ListBoxRectanglesCollision
-            // 
-            this.ListBoxRectanglesCollision.FormattingEnabled = true;
-            this.ListBoxRectanglesCollision.Location = new System.Drawing.Point(11, 36);
-            this.ListBoxRectanglesCollision.Name = "ListBoxRectanglesCollision";
-            this.ListBoxRectanglesCollision.Size = new System.Drawing.Size(267, 147);
-            this.ListBoxRectanglesCollision.TabIndex = 7;
-            // 
-            // TextBoxIdSelectedRectangle
-            // 
-            this.TextBoxIdSelectedRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TextBoxIdSelectedRectangle.Location = new System.Drawing.Point(55, 254);
-            this.TextBoxIdSelectedRectangle.Name = "TextBoxIdSelectedRectangle";
-            this.TextBoxIdSelectedRectangle.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxIdSelectedRectangle.TabIndex = 8;
-            // 
-            // TextBoxXSelectedRectangle
-            // 
-            this.TextBoxXSelectedRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TextBoxXSelectedRectangle.Location = new System.Drawing.Point(55, 280);
-            this.TextBoxXSelectedRectangle.Name = "TextBoxXSelectedRectangle";
-            this.TextBoxXSelectedRectangle.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxXSelectedRectangle.TabIndex = 9;
-            // 
-            // TextBoxYSelectedRectangle
-            // 
-            this.TextBoxYSelectedRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TextBoxYSelectedRectangle.Location = new System.Drawing.Point(55, 306);
-            this.TextBoxYSelectedRectangle.Name = "TextBoxYSelectedRectangle";
-            this.TextBoxYSelectedRectangle.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxYSelectedRectangle.TabIndex = 10;
-            // 
-            // TextBoxWidthSelectedRectangle
-            // 
-            this.TextBoxWidthSelectedRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TextBoxWidthSelectedRectangle.Location = new System.Drawing.Point(55, 332);
-            this.TextBoxWidthSelectedRectangle.Name = "TextBoxWidthSelectedRectangle";
-            this.TextBoxWidthSelectedRectangle.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxWidthSelectedRectangle.TabIndex = 11;
-            // 
-            // TextBoxHeightSelectedRectangle
-            // 
-            this.TextBoxHeightSelectedRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TextBoxHeightSelectedRectangle.Location = new System.Drawing.Point(55, 358);
-            this.TextBoxHeightSelectedRectangle.Name = "TextBoxHeightSelectedRectangle";
-            this.TextBoxHeightSelectedRectangle.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxHeightSelectedRectangle.TabIndex = 12;
-            // 
-            // ButtonRemoveRectangle
-            // 
-            this.ButtonRemoveRectangle.FlatAppearance.BorderSize = 0;
-            this.ButtonRemoveRectangle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonRemoveRectangle.ForeColor = System.Drawing.Color.Black;
-            this.ButtonRemoveRectangle.Image = ((System.Drawing.Image)(resources.GetObject("ButtonRemoveRectangle.Image")));
-            this.ButtonRemoveRectangle.Location = new System.Drawing.Point(130, 189);
-            this.ButtonRemoveRectangle.Name = "ButtonRemoveRectangle";
-            this.ButtonRemoveRectangle.Size = new System.Drawing.Size(25, 25);
-            this.ButtonRemoveRectangle.TabIndex = 1;
-            this.ButtonRemoveRectangle.UseVisualStyleBackColor = true;
-            // 
-            // ButtonAddRectangle
-            // 
-            this.ButtonAddRectangle.FlatAppearance.BorderSize = 0;
-            this.ButtonAddRectangle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonAddRectangle.Image = ((System.Drawing.Image)(resources.GetObject("ButtonAddRectangle.Image")));
-            this.ButtonAddRectangle.Location = new System.Drawing.Point(35, 189);
-            this.ButtonAddRectangle.Name = "ButtonAddRectangle";
-            this.ButtonAddRectangle.Size = new System.Drawing.Size(25, 25);
-            this.ButtonAddRectangle.TabIndex = 13;
-            this.ButtonAddRectangle.UseVisualStyleBackColor = true;
-            this.ButtonAddRectangle.Click += new System.EventHandler(this.ButtonAddRectangle_Click);
             // 
             // MainForm
             // 
