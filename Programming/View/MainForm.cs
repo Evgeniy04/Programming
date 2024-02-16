@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -9,16 +10,17 @@ namespace Programming
 {
     public partial class MainForm : Form
     {
-        private Rectangle[] _rectangles;
+        private List<Rectangle> _rectangles;
         private Rectangle _currentRectangle;
         private Movie[] _movies;
         private Movie _currentMovie;
+        private Random _random;
 
         public MainForm()
         {
             InitializeComponent();
-
-            Random random = new Random();
+            _rectangles = new List<Rectangle>();
+            _random = new Random();
 
             // 
             // Initialize ComboBoxSeasons
@@ -29,20 +31,19 @@ namespace Programming
             // 
             // Initialize _rectangles
             //
-            _rectangles = new Rectangle[5];
-            string[] listBoxRectanglesItems = new string[5];
-            for (int i = 0; i < 5; i++)
-            {
-                double length = Math.Ceiling(random.NextDouble() * 100);
-                double width = Math.Ceiling(random.NextDouble() * 100);
-                Rectangle rectangle = new Rectangle(length, width, Color.Orange);
-                _rectangles[i] = rectangle;
-                listBoxRectanglesItems[i] = ($"Rectangle {i + 1}");
-            }
+            //string[] listBoxRectanglesItems = new string[5];
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    double length = Math.Ceiling(random.NextDouble() * 100);
+            //    double width = Math.Ceiling(random.NextDouble() * 100);
+            //    Rectangle rectangle = new Rectangle(length, width, Color.Orange);
+            //    _rectangles.Add(rectangle);
+            //    listBoxRectanglesItems[i] = ($"Rectangle {i + 1}");
+            //}
             //
             // Initialize ListBoxRectangles
             //
-            ListBoxRectangles.Items.AddRange(listBoxRectanglesItems);
+            //ListBoxRectangles.Items.AddRange(listBoxRectanglesItems);
 
             // 
             // Initialize _movies
@@ -52,9 +53,9 @@ namespace Programming
             string[] movieTitles = new string[5] { "Первый", "Второй", "Третий", "Четвёртый", "Пятый" };
             for (int i = 0; i < 5; i++)
             {
-                int durationMinutes = random.Next(1, 280);
-                int releaseYear = random.Next(1950, DateTime.Now.Year + 1);
-                double rating = Math.Round(random.NextDouble() * 10, 1);
+                int durationMinutes = _random.Next(1, 280);
+                int releaseYear = _random.Next(1950, DateTime.Now.Year + 1);
+                double rating = Math.Round(_random.NextDouble() * 10, 1);
                 Movie movie = new Movie(movieTitles[i], durationMinutes, releaseYear, Genre.Comedy, rating);
                 _movies[i] = movie;
                 listBoxMoviesItems[i] = ($"Movie {i + 1}");
@@ -270,6 +271,23 @@ namespace Programming
             this.BackColor = color;
         }
 
+        private int FindItemWithMaxValue<T>(List<T> classList, Func<T, double> getValue) where T : class
+        {
+            if (classList.Count < 1) throw new ArgumentException("The array must contain at least one element.");
+
+            int index = 0;
+            double maxValue = getValue(classList[0]);
+            for (int i = 0; i < classList.Count; i++)
+            {
+                if (getValue(classList[i]) > maxValue)
+                {
+                    maxValue = getValue(classList[i]);
+                    index = i;
+                }
+            }
+            return index;
+        }
+
         private int FindItemWithMaxValue<T>(T[] classArray, Func<T, double> getValue) where T : class
         {
             if (classArray.Length < 1) throw new ArgumentException("The array must contain at least one element.");
@@ -306,6 +324,22 @@ namespace Programming
         private void TextBoxIdRectangle_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void ButtonAddRectangle_Click(object sender, EventArgs e)
+        {
+            Rectangle rectangle;
+            double length = Math.Ceiling(_random.NextDouble() * 100);
+            double width = Math.Ceiling(_random.NextDouble() * 100);
+            rectangle = new Rectangle(length, width, Color.Orange);
+            UpdateRectangles(rectangle);
+        }
+
+        private void UpdateRectangles(Rectangle rectangle)
+        {
+            _rectangles.Add(rectangle);
+            ListBoxRectangles.Items.Add(rectangle);
+            ListBoxRectanglesCollision.Items.Add($"{rectangle.Id}: (X={rectangle.Center.X}; Y={rectangle.Center.Y}; W={rectangle.Width}; H={rectangle.Length})");
         }
     }
 }

@@ -39,6 +39,7 @@ class Rectangle
         Length = 15;
         Width = 30;
         Color = Color.Green;
+        _id = ++_allRectanglesCount;
     }
 
     public Rectangle(double length, double width, Color color)
@@ -46,6 +47,6 @@ class Rectangle
         Length = length;
         Width = width;
         Color = color;
-        _id = _allRectanglesCount++;
+        _id = ++_allRectanglesCount;
     }
 }
