@@ -1,3 +1,5 @@
+using System.Drawing;
+
 class Rectangle
 {
     double _length;
@@ -64,5 +66,10 @@ class Rectangle
         Color = color;
         Center = center;
         _id = ++_allRectanglesCount;
+    }
+
+    public override string ToString()
+    {
+        return $"{Id}: (X={Center.X}; Y={Center.Y}; W={Width}; H={Length})";
     }
 }

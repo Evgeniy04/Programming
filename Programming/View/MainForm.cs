@@ -6,13 +6,11 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-// With 10 point 5 lab
+// With 14 point 5 lab
 namespace Programming
 {
     public partial class MainForm : Form
     {
-        //public readonly TextBox[] TextBoxClassesRectangles = new TextBox[6] { TextBoxClassesRectanglesCoordinateX };
-        //public readonly TextBox[] TextBoxRectangles = new TextBox[5] { };
         private List<Rectangle> _rectangles;
         private Rectangle _currentRectangle;
         private Movie[] _movies;
@@ -265,44 +263,22 @@ namespace Programming
             double length = Math.Ceiling(_random.NextDouble() * 100);
             double width = Math.Ceiling(_random.NextDouble() * 100);
             rectangle = new Rectangle(length, width, Color.Orange, new Point2D(_random.Next(0, 200), _random.Next(0, 200)));
-            UpdateRectangles(rectangle);
+            AddRectangle(rectangle);
         }
         private void ButtonRemoveRectangle_Click(object sender, EventArgs e)
         {
             if (ListBoxRectanglesCollision.SelectedItem == null) return;
-            Match match = Regex.Match(ListBoxRectanglesCollision.SelectedItem.ToString(), @"^(\d+):");
-            if (match.Success)
-            {
-                string numberString = match.Groups[1].Value;
-                int id = int.Parse(numberString);
-                Rectangle rectangle = _rectangles.Find((a) => a.Id == id);
-                UpdateRectangles(ListBoxRectanglesCollision.SelectedItem.ToString(), rectangle);
-            }
-            else
-            {
-                MessageBox.Show("Прямоугольник не найден!");
-            }
+            RemoveRectangle((Rectangle)ListBoxRectanglesCollision.SelectedItem);
         }
         private void ListBoxRectanglesCollision_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ListBoxRectanglesCollision.SelectedItem == null) return;
-            Match match = Regex.Match(ListBoxRectanglesCollision.SelectedItem.ToString(), @"^(\d+):");
-            if (match.Success)
-            {
-                string numberString = match.Groups[1].Value;
-                int id = int.Parse(numberString);
-                Rectangle rectangle = _rectangles.Find((a) => a.Id == id);
-                _currentRectangle = rectangle;
-                TextBoxRectanglesId.Text = _currentRectangle.Id.ToString();
-                TextBoxRectanglesX.Text = _currentRectangle.Center.X.ToString();
-                TextBoxRectanglesY.Text = _currentRectangle.Center.Y.ToString();
-                TextBoxRectanglesWidth.Text = _currentRectangle.Width.ToString();
-                TextBoxRectanglesHeight.Text = _currentRectangle.Length.ToString();
-            }
-            else
-            {
-                MessageBox.Show("Прямоугольник не найден!");
-            }
+            _currentRectangle = (Rectangle)ListBoxRectanglesCollision.SelectedItem;
+            TextBoxRectanglesId.Text = _currentRectangle.Id.ToString();
+            TextBoxRectanglesX.Text = _currentRectangle.Center.X.ToString();
+            TextBoxRectanglesY.Text = _currentRectangle.Center.Y.ToString();
+            TextBoxRectanglesWidth.Text = _currentRectangle.Width.ToString();
+            TextBoxRectanglesHeight.Text = _currentRectangle.Length.ToString();
         }
 
         private void SetBackColor(System.Drawing.Color color)
@@ -351,22 +327,21 @@ namespace Programming
         /// Add rectangle
         /// </summary>
         /// <param name="rectangle">Instance rectangle</param>
-        private void UpdateRectangles(Rectangle rectangle)
+        private void AddRectangle(Rectangle rectangle)
         {
             _rectangles.Add(rectangle);
             ListBoxRectangles.Items.Add(rectangle);
-            ListBoxRectanglesCollision.Items.Add($"{rectangle.Id}: (X={rectangle.Center.X}; Y={rectangle.Center.Y}; W={rectangle.Width}; H={rectangle.Length})");
+            ListBoxRectanglesCollision.Items.Add(rectangle);
         }
         /// <summary>
         /// Remove rectangle
         /// </summary>
-        /// <param name="selectedItem">String with coordinates</param>
         /// <param name="rectangle">Instance rectangle</param>
-        private void UpdateRectangles(string selectedItem, Rectangle rectangle)
+        private void RemoveRectangle(Rectangle rectangle)
         {
             _rectangles.Remove(rectangle);
             ListBoxRectangles.Items.Remove(rectangle);
-            ListBoxRectanglesCollision.Items.Remove(selectedItem);
+            ListBoxRectanglesCollision.Items.Remove(rectangle);
             foreach (TextBox tb in CustomMethods.TextBoxRectangles)
             {
                 tb.Clear();
@@ -399,6 +374,7 @@ namespace Programming
                         break;
                     default: throw new ArgumentException("Non-existent argument value.");
                 }
+                ListBoxSelectedRectangleUpdate();
                 textBox.BackColor = System.Drawing.Color.White;
             }
             catch (Exception)
@@ -427,12 +403,24 @@ namespace Programming
                         break;
                     default: throw new ArgumentException("Non-existent argument value.");
                 }
+                ListBoxSelectedRectangleUpdate();
                 textBox.BackColor = System.Drawing.Color.White;
             }
             catch (Exception)
             {
                 textBox.BackColor = System.Drawing.Color.LightPink;
             }
+        }
+        private void ListBoxSelectedRectangleUpdate()
+        {
+            int indexClassesRectangles = ListBoxRectangles.Items.IndexOf(_currentRectangle);
+            int indexRectangles = ListBoxRectanglesCollision.Items.IndexOf(_currentRectangle);
+            ListBoxRectangles.Items.RemoveAt(indexClassesRectangles);
+            ListBoxRectangles.Items.Insert(indexClassesRectangles, _currentRectangle);
+            ListBoxRectangles.SelectedIndex = indexClassesRectangles;
+            ListBoxRectanglesCollision.Items.RemoveAt(indexRectangles);
+            ListBoxRectanglesCollision.Items.Insert(indexRectangles, _currentRectangle);
+            ListBoxRectanglesCollision.SelectedIndex = indexRectangles;
         }
 
         private void TextBoxDisable(object sender, KeyPressEventArgs e)
