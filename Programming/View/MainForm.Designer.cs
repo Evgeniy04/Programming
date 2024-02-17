@@ -41,7 +41,7 @@
             this.LabelTypeValueForParsing = new System.Windows.Forms.Label();
             this.GroupBoxEnumerations = new System.Windows.Forms.GroupBox();
             this.LabelIntValue = new System.Windows.Forms.Label();
-            this.IntValue = new System.Windows.Forms.TextBox();
+            this.TextBoxEnumsEnumerationsIntValue = new System.Windows.Forms.TextBox();
             this.LabelChooseValue = new System.Windows.Forms.Label();
             this.EnumsListBox = new System.Windows.Forms.ListBox();
             this.LabelChooseEnumeration = new System.Windows.Forms.Label();
@@ -62,16 +62,16 @@
             this.LabelReleaseYearMovie = new System.Windows.Forms.Label();
             this.ListBoxMovies = new System.Windows.Forms.ListBox();
             this.GroupBoxRectangles = new System.Windows.Forms.GroupBox();
-            this.TextBoxIdRectangle = new System.Windows.Forms.TextBox();
+            this.TextBoxClassesRectanglesId = new System.Windows.Forms.TextBox();
             this.LabelIdRectangle = new System.Windows.Forms.Label();
-            this.TextBoxCenterCoordinateYRectangle = new System.Windows.Forms.TextBox();
+            this.TextBoxClassesRectanglesCoordinateY = new System.Windows.Forms.TextBox();
             this.LabelCenterCoordinateYRectangle = new System.Windows.Forms.Label();
-            this.TextBoxCenterCoordinateXRectangle = new System.Windows.Forms.TextBox();
+            this.TextBoxClassesRectanglesCoordinateX = new System.Windows.Forms.TextBox();
             this.LabelCenterCoordinateXRectangle = new System.Windows.Forms.Label();
             this.ButtonFindRectangleWithMaxWidth = new System.Windows.Forms.Button();
-            this.TextBoxColorRectangle = new System.Windows.Forms.TextBox();
-            this.TextBoxWidthRectangle = new System.Windows.Forms.TextBox();
-            this.TextBoxLengthRectangle = new System.Windows.Forms.TextBox();
+            this.TextBoxClassesRectanglesColor = new System.Windows.Forms.TextBox();
+            this.TextBoxClassesRectanglesWidth = new System.Windows.Forms.TextBox();
+            this.TextBoxClassesRectanglesLength = new System.Windows.Forms.TextBox();
             this.LabelLengthRectangle = new System.Windows.Forms.Label();
             this.LabelWidthRectangle = new System.Windows.Forms.Label();
             this.LabelColorRectangle = new System.Windows.Forms.Label();
@@ -79,11 +79,11 @@
             this.TabPageRectangles = new System.Windows.Forms.TabPage();
             this.ButtonAddRectangle = new System.Windows.Forms.Button();
             this.ButtonRemoveRectangle = new System.Windows.Forms.Button();
-            this.TextBoxHeightSelectedRectangle = new System.Windows.Forms.TextBox();
-            this.TextBoxWidthSelectedRectangle = new System.Windows.Forms.TextBox();
-            this.TextBoxYSelectedRectangle = new System.Windows.Forms.TextBox();
-            this.TextBoxXSelectedRectangle = new System.Windows.Forms.TextBox();
-            this.TextBoxIdSelectedRectangle = new System.Windows.Forms.TextBox();
+            this.TextBoxRectanglesHeight = new System.Windows.Forms.TextBox();
+            this.TextBoxRectanglesWidth = new System.Windows.Forms.TextBox();
+            this.TextBoxRectanglesY = new System.Windows.Forms.TextBox();
+            this.TextBoxRectanglesX = new System.Windows.Forms.TextBox();
+            this.TextBoxRectanglesId = new System.Windows.Forms.TextBox();
             this.ListBoxRectanglesCollision = new System.Windows.Forms.ListBox();
             this.LabelHeightRectangleCollision = new System.Windows.Forms.Label();
             this.LabelWidthRectangleCollision = new System.Windows.Forms.Label();
@@ -208,7 +208,7 @@
             this.GroupBoxEnumerations.AutoSize = true;
             this.GroupBoxEnumerations.BackColor = System.Drawing.Color.Transparent;
             this.GroupBoxEnumerations.Controls.Add(this.LabelIntValue);
-            this.GroupBoxEnumerations.Controls.Add(this.IntValue);
+            this.GroupBoxEnumerations.Controls.Add(this.TextBoxEnumsEnumerationsIntValue);
             this.GroupBoxEnumerations.Controls.Add(this.LabelChooseValue);
             this.GroupBoxEnumerations.Controls.Add(this.EnumsListBox);
             this.GroupBoxEnumerations.Controls.Add(this.LabelChooseEnumeration);
@@ -229,13 +229,13 @@
             this.LabelIntValue.TabIndex = 5;
             this.LabelIntValue.Text = "Int value:";
             // 
-            // IntValue
+            // TextBoxEnumsEnumerationsIntValue
             // 
-            this.IntValue.Location = new System.Drawing.Point(314, 31);
-            this.IntValue.Name = "IntValue";
-            this.IntValue.Size = new System.Drawing.Size(120, 20);
-            this.IntValue.TabIndex = 2;
-            this.IntValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IntValue_KeyPress);
+            this.TextBoxEnumsEnumerationsIntValue.Location = new System.Drawing.Point(314, 31);
+            this.TextBoxEnumsEnumerationsIntValue.Name = "TextBoxEnumsEnumerationsIntValue";
+            this.TextBoxEnumsEnumerationsIntValue.Size = new System.Drawing.Size(120, 20);
+            this.TextBoxEnumsEnumerationsIntValue.TabIndex = 2;
+            this.TextBoxEnumsEnumerationsIntValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxDisable);
             // 
             // LabelChooseValue
             // 
@@ -430,16 +430,16 @@
             // 
             // GroupBoxRectangles
             // 
-            this.GroupBoxRectangles.Controls.Add(this.TextBoxIdRectangle);
+            this.GroupBoxRectangles.Controls.Add(this.TextBoxClassesRectanglesId);
             this.GroupBoxRectangles.Controls.Add(this.LabelIdRectangle);
-            this.GroupBoxRectangles.Controls.Add(this.TextBoxCenterCoordinateYRectangle);
+            this.GroupBoxRectangles.Controls.Add(this.TextBoxClassesRectanglesCoordinateY);
             this.GroupBoxRectangles.Controls.Add(this.LabelCenterCoordinateYRectangle);
-            this.GroupBoxRectangles.Controls.Add(this.TextBoxCenterCoordinateXRectangle);
+            this.GroupBoxRectangles.Controls.Add(this.TextBoxClassesRectanglesCoordinateX);
             this.GroupBoxRectangles.Controls.Add(this.LabelCenterCoordinateXRectangle);
             this.GroupBoxRectangles.Controls.Add(this.ButtonFindRectangleWithMaxWidth);
-            this.GroupBoxRectangles.Controls.Add(this.TextBoxColorRectangle);
-            this.GroupBoxRectangles.Controls.Add(this.TextBoxWidthRectangle);
-            this.GroupBoxRectangles.Controls.Add(this.TextBoxLengthRectangle);
+            this.GroupBoxRectangles.Controls.Add(this.TextBoxClassesRectanglesColor);
+            this.GroupBoxRectangles.Controls.Add(this.TextBoxClassesRectanglesWidth);
+            this.GroupBoxRectangles.Controls.Add(this.TextBoxClassesRectanglesLength);
             this.GroupBoxRectangles.Controls.Add(this.LabelLengthRectangle);
             this.GroupBoxRectangles.Controls.Add(this.LabelWidthRectangle);
             this.GroupBoxRectangles.Controls.Add(this.LabelColorRectangle);
@@ -451,13 +451,13 @@
             this.GroupBoxRectangles.TabStop = false;
             this.GroupBoxRectangles.Text = "Rectangles";
             // 
-            // TextBoxIdRectangle
+            // TextBoxClassesRectanglesId
             // 
-            this.TextBoxIdRectangle.Location = new System.Drawing.Point(259, 131);
-            this.TextBoxIdRectangle.Name = "TextBoxIdRectangle";
-            this.TextBoxIdRectangle.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxIdRectangle.TabIndex = 12;
-            this.TextBoxIdRectangle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxIdRectangle_KeyPress);
+            this.TextBoxClassesRectanglesId.Location = new System.Drawing.Point(259, 131);
+            this.TextBoxClassesRectanglesId.Name = "TextBoxClassesRectanglesId";
+            this.TextBoxClassesRectanglesId.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxClassesRectanglesId.TabIndex = 12;
+            this.TextBoxClassesRectanglesId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxDisable);
             // 
             // LabelIdRectangle
             // 
@@ -468,13 +468,13 @@
             this.LabelIdRectangle.TabIndex = 11;
             this.LabelIdRectangle.Text = "Id:";
             // 
-            // TextBoxCenterCoordinateYRectangle
+            // TextBoxClassesRectanglesCoordinateY
             // 
-            this.TextBoxCenterCoordinateYRectangle.Location = new System.Drawing.Point(259, 35);
-            this.TextBoxCenterCoordinateYRectangle.Name = "TextBoxCenterCoordinateYRectangle";
-            this.TextBoxCenterCoordinateYRectangle.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxCenterCoordinateYRectangle.TabIndex = 10;
-            this.TextBoxCenterCoordinateYRectangle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxCenterCoordinateYRectangle_KeyPress);
+            this.TextBoxClassesRectanglesCoordinateY.Location = new System.Drawing.Point(259, 35);
+            this.TextBoxClassesRectanglesCoordinateY.Name = "TextBoxClassesRectanglesCoordinateY";
+            this.TextBoxClassesRectanglesCoordinateY.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxClassesRectanglesCoordinateY.TabIndex = 10;
+            this.TextBoxClassesRectanglesCoordinateY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxDisable);
             // 
             // LabelCenterCoordinateYRectangle
             // 
@@ -485,13 +485,13 @@
             this.LabelCenterCoordinateYRectangle.TabIndex = 9;
             this.LabelCenterCoordinateYRectangle.Text = "Center coordinate Y:";
             // 
-            // TextBoxCenterCoordinateXRectangle
+            // TextBoxClassesRectanglesCoordinateX
             // 
-            this.TextBoxCenterCoordinateXRectangle.Location = new System.Drawing.Point(259, 83);
-            this.TextBoxCenterCoordinateXRectangle.Name = "TextBoxCenterCoordinateXRectangle";
-            this.TextBoxCenterCoordinateXRectangle.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxCenterCoordinateXRectangle.TabIndex = 8;
-            this.TextBoxCenterCoordinateXRectangle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxCenterCoordinateXRectangle_KeyPress);
+            this.TextBoxClassesRectanglesCoordinateX.Location = new System.Drawing.Point(259, 83);
+            this.TextBoxClassesRectanglesCoordinateX.Name = "TextBoxClassesRectanglesCoordinateX";
+            this.TextBoxClassesRectanglesCoordinateX.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxClassesRectanglesCoordinateX.TabIndex = 8;
+            this.TextBoxClassesRectanglesCoordinateX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxDisable);
             // 
             // LabelCenterCoordinateXRectangle
             // 
@@ -512,29 +512,29 @@
             this.ButtonFindRectangleWithMaxWidth.UseVisualStyleBackColor = true;
             this.ButtonFindRectangleWithMaxWidth.Click += new System.EventHandler(this.ButtonFindRectangleWithMaxWidth_Click);
             // 
-            // TextBoxColorRectangle
+            // TextBoxClassesRectanglesColor
             // 
-            this.TextBoxColorRectangle.Location = new System.Drawing.Point(132, 131);
-            this.TextBoxColorRectangle.Name = "TextBoxColorRectangle";
-            this.TextBoxColorRectangle.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxColorRectangle.TabIndex = 6;
-            this.TextBoxColorRectangle.TextChanged += new System.EventHandler(this.TextBoxColorRectangle_TextChanged);
+            this.TextBoxClassesRectanglesColor.Location = new System.Drawing.Point(132, 131);
+            this.TextBoxClassesRectanglesColor.Name = "TextBoxClassesRectanglesColor";
+            this.TextBoxClassesRectanglesColor.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxClassesRectanglesColor.TabIndex = 6;
+            this.TextBoxClassesRectanglesColor.TextChanged += new System.EventHandler(this.TextBoxClassesRectanglesColor_TextChanged);
             // 
-            // TextBoxWidthRectangle
+            // TextBoxClassesRectanglesWidth
             // 
-            this.TextBoxWidthRectangle.Location = new System.Drawing.Point(132, 83);
-            this.TextBoxWidthRectangle.Name = "TextBoxWidthRectangle";
-            this.TextBoxWidthRectangle.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxWidthRectangle.TabIndex = 5;
-            this.TextBoxWidthRectangle.TextChanged += new System.EventHandler(this.TextBoxWidthRectangle_TextChanged);
+            this.TextBoxClassesRectanglesWidth.Location = new System.Drawing.Point(132, 83);
+            this.TextBoxClassesRectanglesWidth.Name = "TextBoxClassesRectanglesWidth";
+            this.TextBoxClassesRectanglesWidth.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxClassesRectanglesWidth.TabIndex = 5;
+            this.TextBoxClassesRectanglesWidth.TextChanged += new System.EventHandler(this.TextBoxClassesRectanglesWidth_TextChanged);
             // 
-            // TextBoxLengthRectangle
+            // TextBoxClassesRectanglesLength
             // 
-            this.TextBoxLengthRectangle.Location = new System.Drawing.Point(132, 35);
-            this.TextBoxLengthRectangle.Name = "TextBoxLengthRectangle";
-            this.TextBoxLengthRectangle.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxLengthRectangle.TabIndex = 4;
-            this.TextBoxLengthRectangle.TextChanged += new System.EventHandler(this.TextBoxLengthRectangle_TextChanged);
+            this.TextBoxClassesRectanglesLength.Location = new System.Drawing.Point(132, 35);
+            this.TextBoxClassesRectanglesLength.Name = "TextBoxClassesRectanglesLength";
+            this.TextBoxClassesRectanglesLength.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxClassesRectanglesLength.TabIndex = 4;
+            this.TextBoxClassesRectanglesLength.TextChanged += new System.EventHandler(this.TextBoxClassesRectanglesLength_TextChanged);
             // 
             // LabelLengthRectangle
             // 
@@ -576,11 +576,11 @@
             // 
             this.TabPageRectangles.Controls.Add(this.ButtonAddRectangle);
             this.TabPageRectangles.Controls.Add(this.ButtonRemoveRectangle);
-            this.TabPageRectangles.Controls.Add(this.TextBoxHeightSelectedRectangle);
-            this.TabPageRectangles.Controls.Add(this.TextBoxWidthSelectedRectangle);
-            this.TabPageRectangles.Controls.Add(this.TextBoxYSelectedRectangle);
-            this.TabPageRectangles.Controls.Add(this.TextBoxXSelectedRectangle);
-            this.TabPageRectangles.Controls.Add(this.TextBoxIdSelectedRectangle);
+            this.TabPageRectangles.Controls.Add(this.TextBoxRectanglesHeight);
+            this.TabPageRectangles.Controls.Add(this.TextBoxRectanglesWidth);
+            this.TabPageRectangles.Controls.Add(this.TextBoxRectanglesY);
+            this.TabPageRectangles.Controls.Add(this.TextBoxRectanglesX);
+            this.TabPageRectangles.Controls.Add(this.TextBoxRectanglesId);
             this.TabPageRectangles.Controls.Add(this.ListBoxRectanglesCollision);
             this.TabPageRectangles.Controls.Add(this.LabelHeightRectangleCollision);
             this.TabPageRectangles.Controls.Add(this.LabelWidthRectangleCollision);
@@ -622,50 +622,50 @@
             this.ButtonRemoveRectangle.UseVisualStyleBackColor = true;
             this.ButtonRemoveRectangle.Click += new System.EventHandler(this.ButtonRemoveRectangle_Click);
             // 
-            // TextBoxHeightSelectedRectangle
+            // TextBoxRectanglesHeight
             // 
-            this.TextBoxHeightSelectedRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TextBoxHeightSelectedRectangle.Location = new System.Drawing.Point(55, 358);
-            this.TextBoxHeightSelectedRectangle.Name = "TextBoxHeightSelectedRectangle";
-            this.TextBoxHeightSelectedRectangle.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxHeightSelectedRectangle.TabIndex = 12;
-            this.TextBoxHeightSelectedRectangle.TextChanged += new System.EventHandler(this.TextBoxHeightSelectedRectangle_TextChanged);
+            this.TextBoxRectanglesHeight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TextBoxRectanglesHeight.Location = new System.Drawing.Point(55, 358);
+            this.TextBoxRectanglesHeight.Name = "TextBoxRectanglesHeight";
+            this.TextBoxRectanglesHeight.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxRectanglesHeight.TabIndex = 12;
+            this.TextBoxRectanglesHeight.TextChanged += new System.EventHandler(this.TextBoxRectanglesHeight_TextChanged);
             // 
-            // TextBoxWidthSelectedRectangle
+            // TextBoxRectanglesWidth
             // 
-            this.TextBoxWidthSelectedRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TextBoxWidthSelectedRectangle.Location = new System.Drawing.Point(55, 332);
-            this.TextBoxWidthSelectedRectangle.Name = "TextBoxWidthSelectedRectangle";
-            this.TextBoxWidthSelectedRectangle.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxWidthSelectedRectangle.TabIndex = 11;
-            this.TextBoxWidthSelectedRectangle.TextChanged += new System.EventHandler(this.TextBoxWidthSelectedRectangle_TextChanged);
+            this.TextBoxRectanglesWidth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TextBoxRectanglesWidth.Location = new System.Drawing.Point(55, 332);
+            this.TextBoxRectanglesWidth.Name = "TextBoxRectanglesWidth";
+            this.TextBoxRectanglesWidth.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxRectanglesWidth.TabIndex = 11;
+            this.TextBoxRectanglesWidth.TextChanged += new System.EventHandler(this.TextBoxRectanglesWidth_TextChanged);
             // 
-            // TextBoxYSelectedRectangle
+            // TextBoxRectanglesY
             // 
-            this.TextBoxYSelectedRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TextBoxYSelectedRectangle.Location = new System.Drawing.Point(55, 306);
-            this.TextBoxYSelectedRectangle.Name = "TextBoxYSelectedRectangle";
-            this.TextBoxYSelectedRectangle.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxYSelectedRectangle.TabIndex = 10;
-            this.TextBoxYSelectedRectangle.TextChanged += new System.EventHandler(this.TextBoxYSelectedRectangle_TextChanged);
+            this.TextBoxRectanglesY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TextBoxRectanglesY.Location = new System.Drawing.Point(55, 306);
+            this.TextBoxRectanglesY.Name = "TextBoxRectanglesY";
+            this.TextBoxRectanglesY.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxRectanglesY.TabIndex = 10;
+            this.TextBoxRectanglesY.TextChanged += new System.EventHandler(this.TextBoxRectanglesY_TextChanged);
             // 
-            // TextBoxXSelectedRectangle
+            // TextBoxRectanglesX
             // 
-            this.TextBoxXSelectedRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TextBoxXSelectedRectangle.Location = new System.Drawing.Point(55, 280);
-            this.TextBoxXSelectedRectangle.Name = "TextBoxXSelectedRectangle";
-            this.TextBoxXSelectedRectangle.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxXSelectedRectangle.TabIndex = 9;
-            this.TextBoxXSelectedRectangle.TextChanged += new System.EventHandler(this.TextBoxXSelectedRectangle_TextChanged);
+            this.TextBoxRectanglesX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TextBoxRectanglesX.Location = new System.Drawing.Point(55, 280);
+            this.TextBoxRectanglesX.Name = "TextBoxRectanglesX";
+            this.TextBoxRectanglesX.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxRectanglesX.TabIndex = 9;
+            this.TextBoxRectanglesX.TextChanged += new System.EventHandler(this.TextBoxRectanglesX_TextChanged);
             // 
-            // TextBoxIdSelectedRectangle
+            // TextBoxRectanglesId
             // 
-            this.TextBoxIdSelectedRectangle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TextBoxIdSelectedRectangle.Location = new System.Drawing.Point(55, 254);
-            this.TextBoxIdSelectedRectangle.Name = "TextBoxIdSelectedRectangle";
-            this.TextBoxIdSelectedRectangle.Size = new System.Drawing.Size(100, 20);
-            this.TextBoxIdSelectedRectangle.TabIndex = 8;
-            this.TextBoxIdSelectedRectangle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxIdSelectedRectangle_KeyPress);
+            this.TextBoxRectanglesId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TextBoxRectanglesId.Location = new System.Drawing.Point(55, 254);
+            this.TextBoxRectanglesId.Name = "TextBoxRectanglesId";
+            this.TextBoxRectanglesId.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxRectanglesId.TabIndex = 8;
+            this.TextBoxRectanglesId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxDisable);
             // 
             // ListBoxRectanglesCollision
             // 
@@ -784,7 +784,7 @@
         #endregion
 
         private System.Windows.Forms.TabPage TabPageEnums;
-        private System.Windows.Forms.TextBox IntValue;
+        private System.Windows.Forms.TextBox TextBoxEnumsEnumerationsIntValue;
         private System.Windows.Forms.ListBox ValuesListBox;
         private System.Windows.Forms.ListBox EnumsListBox;
         private System.Windows.Forms.TabControl TabControlEnumerations;
@@ -818,17 +818,17 @@
         private System.Windows.Forms.Label LabelTitleMovie;
         private System.Windows.Forms.Label LabelDurationMinutesMovie;
         private System.Windows.Forms.Label LabelReleaseYearMovie;
-        private System.Windows.Forms.TextBox TextBoxColorRectangle;
-        private System.Windows.Forms.TextBox TextBoxWidthRectangle;
-        private System.Windows.Forms.TextBox TextBoxLengthRectangle;
+        private System.Windows.Forms.TextBox TextBoxClassesRectanglesColor;
+        private System.Windows.Forms.TextBox TextBoxClassesRectanglesWidth;
+        private System.Windows.Forms.TextBox TextBoxClassesRectanglesLength;
         private System.Windows.Forms.Label LabelLengthRectangle;
         private System.Windows.Forms.Label LabelWidthRectangle;
         private System.Windows.Forms.Label LabelColorRectangle;
-        private System.Windows.Forms.TextBox TextBoxCenterCoordinateXRectangle;
+        private System.Windows.Forms.TextBox TextBoxClassesRectanglesCoordinateX;
         private System.Windows.Forms.Label LabelCenterCoordinateXRectangle;
-        private System.Windows.Forms.TextBox TextBoxCenterCoordinateYRectangle;
+        private System.Windows.Forms.TextBox TextBoxClassesRectanglesCoordinateY;
         private System.Windows.Forms.Label LabelCenterCoordinateYRectangle;
-        private System.Windows.Forms.TextBox TextBoxIdRectangle;
+        private System.Windows.Forms.TextBox TextBoxClassesRectanglesId;
         private System.Windows.Forms.Label LabelIdRectangle;
         private System.Windows.Forms.TabPage TabPageRectangles;
         private System.Windows.Forms.Label LabelWidthRectangleCollision;
@@ -840,11 +840,11 @@
         private System.Windows.Forms.Panel PanelCollisionRectangles;
         private System.Windows.Forms.ListBox ListBoxRectanglesCollision;
         private System.Windows.Forms.Label LabelHeightRectangleCollision;
-        private System.Windows.Forms.TextBox TextBoxHeightSelectedRectangle;
-        private System.Windows.Forms.TextBox TextBoxWidthSelectedRectangle;
-        private System.Windows.Forms.TextBox TextBoxYSelectedRectangle;
-        private System.Windows.Forms.TextBox TextBoxXSelectedRectangle;
-        private System.Windows.Forms.TextBox TextBoxIdSelectedRectangle;
+        private System.Windows.Forms.TextBox TextBoxRectanglesHeight;
+        private System.Windows.Forms.TextBox TextBoxRectanglesWidth;
+        private System.Windows.Forms.TextBox TextBoxRectanglesY;
+        private System.Windows.Forms.TextBox TextBoxRectanglesX;
+        private System.Windows.Forms.TextBox TextBoxRectanglesId;
         private System.Windows.Forms.Button ButtonAddRectangle;
         private System.Windows.Forms.Button ButtonRemoveRectangle;
     }
