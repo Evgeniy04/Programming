@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-// With 14 point 5 lab
+// With 17 point 5 lab, question
 namespace Programming
 {
     public partial class MainForm : Form
     {
         private List<Rectangle> _rectangles;
         private Rectangle _currentRectangle;
+        private List<Panel> _rectanglePanels;
         private Movie[] _movies;
         private Movie _currentMovie;
         private Random _random;
@@ -117,10 +117,10 @@ namespace Programming
             }
         }
 
-        private void ListBoxRectangles_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBoxClassesRectangles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ListBoxRectangles.SelectedItem == null) return;
-            _currentRectangle = _rectangles[ListBoxRectangles.SelectedIndex];
+            if (ListBoxClassesRectangles.SelectedItem == null) return;
+            _currentRectangle = (Rectangle)ListBoxClassesRectangles.SelectedItem;
 
             TextBoxClassesRectanglesLength.Text = _currentRectangle.Length.ToString();
             TextBoxClassesRectanglesWidth.Text = _currentRectangle.Width.ToString();
@@ -170,7 +170,7 @@ namespace Programming
 
         private void ButtonFindRectangleWithMaxWidth_Click(object sender, EventArgs e)
         {
-            ListBoxRectangles.SelectedIndex = FindItemWithMaxValue(_rectangles, (rectangle) => rectangle.Width);
+            ListBoxClassesRectangles.SelectedIndex = FindItemWithMaxValue(_rectangles, (rectangle) => rectangle.Width);
         }
 
         private void ListBoxMovies_SelectedIndexChanged(object sender, EventArgs e)
@@ -267,13 +267,14 @@ namespace Programming
         }
         private void ButtonRemoveRectangle_Click(object sender, EventArgs e)
         {
-            if (ListBoxRectanglesCollision.SelectedItem == null) return;
-            RemoveRectangle((Rectangle)ListBoxRectanglesCollision.SelectedItem);
+            if (ListBoxRectangles.SelectedItem == null) return;
+            RemoveRectangle((Rectangle)ListBoxRectangles.SelectedItem);
         }
-        private void ListBoxRectanglesCollision_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBoxRectangles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ListBoxRectanglesCollision.SelectedItem == null) return;
-            _currentRectangle = (Rectangle)ListBoxRectanglesCollision.SelectedItem;
+            if (ListBoxRectangles.SelectedItem == null) return;
+            _currentRectangle = (Rectangle)ListBoxRectangles.SelectedItem;
+
             TextBoxRectanglesId.Text = _currentRectangle.Id.ToString();
             TextBoxRectanglesX.Text = _currentRectangle.Center.X.ToString();
             TextBoxRectanglesY.Text = _currentRectangle.Center.Y.ToString();
@@ -330,8 +331,14 @@ namespace Programming
         private void AddRectangle(Rectangle rectangle)
         {
             _rectangles.Add(rectangle);
+            ListBoxClassesRectangles.Items.Add(rectangle);
             ListBoxRectangles.Items.Add(rectangle);
-            ListBoxRectanglesCollision.Items.Add(rectangle);
+            Panel panel = new Panel();
+            //panel.Location = new Point(rectangle.Center.X, rectangle.Center.Y);
+            //panel.Width = rectangle.Width;
+            //panel.Height = rectangle.Length;
+            panel.BackColor = System.Drawing.Color.FromArgb(127, 127, 255, 127);
+            //PanelRectangles.Controls.Add(panel);
         }
         /// <summary>
         /// Remove rectangle
@@ -340,8 +347,8 @@ namespace Programming
         private void RemoveRectangle(Rectangle rectangle)
         {
             _rectangles.Remove(rectangle);
+            ListBoxClassesRectangles.Items.Remove(rectangle);
             ListBoxRectangles.Items.Remove(rectangle);
-            ListBoxRectanglesCollision.Items.Remove(rectangle);
             foreach (TextBox tb in CustomMethods.TextBoxRectangles)
             {
                 tb.Clear();
@@ -413,14 +420,14 @@ namespace Programming
         }
         private void ListBoxSelectedRectangleUpdate()
         {
-            int indexClassesRectangles = ListBoxRectangles.Items.IndexOf(_currentRectangle);
-            int indexRectangles = ListBoxRectanglesCollision.Items.IndexOf(_currentRectangle);
-            ListBoxRectangles.Items.RemoveAt(indexClassesRectangles);
-            ListBoxRectangles.Items.Insert(indexClassesRectangles, _currentRectangle);
-            ListBoxRectangles.SelectedIndex = indexClassesRectangles;
-            ListBoxRectanglesCollision.Items.RemoveAt(indexRectangles);
-            ListBoxRectanglesCollision.Items.Insert(indexRectangles, _currentRectangle);
-            ListBoxRectanglesCollision.SelectedIndex = indexRectangles;
+            int indexClassesRectangles = ListBoxClassesRectangles.Items.IndexOf(_currentRectangle);
+            int indexRectangles = ListBoxRectangles.Items.IndexOf(_currentRectangle);
+            ListBoxClassesRectangles.Items.RemoveAt(indexClassesRectangles);
+            ListBoxClassesRectangles.Items.Insert(indexClassesRectangles, _currentRectangle);
+            ListBoxClassesRectangles.SelectedIndex = indexClassesRectangles;
+            ListBoxRectangles.Items.RemoveAt(indexRectangles);
+            ListBoxRectangles.Items.Insert(indexRectangles, _currentRectangle);
+            ListBoxRectangles.SelectedIndex = indexRectangles;
         }
 
         private void TextBoxDisable(object sender, KeyPressEventArgs e)
