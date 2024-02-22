@@ -2,24 +2,25 @@ using System.Drawing;
 
 class Rectangle
 {
-    double _length;
-    double _width;
+    int _height;
+    int _width;
+    public Point2D Coordinates {  get; set; }
+
     public Color Color { get; set; }
-    public Point2D Center { get; set; }
 
     static int _allRectanglesCount;
     readonly int _id;
 
-    public double Length
+    public int Height
     {
-        get { return _length; }
+        get { return _height; }
         set
         {
             Validator.AssertOnPositiveValue(value);
-            _length = value;
+            _height = value;
         }
     }
-    public double Width
+    public int Width
     {
         get { return _width; }
         set
@@ -28,18 +29,7 @@ class Rectangle
             _width = value;
         }
     }
-    //public Point2D Center => new Point2D(Width / 2, Length / 2);
-    //public Point2D Center
-    //{
-    //    get
-    //    {
-    //        return _center;
-    //    }
-    //    set
-    //    {
-
-    //    }
-    //}
+    public Point2D Center => new Point2D(Coordinates.X + Width / 2, Coordinates.Y + Height / 2);
 
     public static int AllRectanglesCount
     {
@@ -52,24 +42,24 @@ class Rectangle
 
     public Rectangle()
     {
-        Length = 15;
+        Height = 15;
         Width = 30;
         Color = Color.Green;
-        Center = new Point2D(15, 8.5);
+        Coordinates = new Point2D(10, 10);
         _id = ++_allRectanglesCount;
     }
 
-    public Rectangle(double length, double width, Color color, Point2D center)
+    public Rectangle(int height, int width, Color color, Point2D coordinates)
     {
-        Length = length;
+        Height = height;
         Width = width;
         Color = color;
-        Center = center;
+        Coordinates = coordinates;
         _id = ++_allRectanglesCount;
     }
 
     public override string ToString()
     {
-        return $"{Id}: (X={Center.X}; Y={Center.Y}; W={Width}; H={Length})";
+        return $"{Id}: (X={Center.X}; Y={Center.Y}; W={Width}; H={Height})";
     }
 }

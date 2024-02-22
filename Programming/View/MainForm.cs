@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Programming.Model;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-// With 17 point 5 lab, question
+// With 30 point 5 lab, question
 namespace Programming
 {
     public partial class MainForm : Form
     {
+        private bool _isProgrammaticChange = false;
         private List<Rectangle> _rectangles;
         private Rectangle _currentRectangle;
         private List<Panel> _rectanglePanels;
@@ -33,6 +35,7 @@ namespace Programming
                                                                 TextBoxRectanglesY };
 
             _rectangles = new List<Rectangle>();
+            _rectanglePanels = new List<Panel>();
             _random = new Random();
 
             // 
@@ -121,13 +124,14 @@ namespace Programming
         {
             if (ListBoxClassesRectangles.SelectedItem == null) return;
             _currentRectangle = (Rectangle)ListBoxClassesRectangles.SelectedItem;
-
-            TextBoxClassesRectanglesLength.Text = _currentRectangle.Length.ToString();
+            _isProgrammaticChange = true;
+            TextBoxClassesRectanglesLength.Text = _currentRectangle.Height.ToString();
             TextBoxClassesRectanglesWidth.Text = _currentRectangle.Width.ToString();
             TextBoxClassesRectanglesColor.Text = _currentRectangle.Color.ToString();
             TextBoxClassesRectanglesCoordinateX.Text = _currentRectangle.Center.X.ToString();
             TextBoxClassesRectanglesCoordinateY.Text = _currentRectangle.Center.Y.ToString();
             TextBoxClassesRectanglesId.Text = _currentRectangle.Id.ToString();
+            _isProgrammaticChange = false;
         }
 
         private void TextBoxClassesRectanglesColor_TextChanged(object sender, EventArgs e)
@@ -260,26 +264,56 @@ namespace Programming
         private void ButtonAddRectangle_Click(object sender, EventArgs e)
         {
             Rectangle rectangle;
-            double length = Math.Ceiling(_random.NextDouble() * 100);
-            double width = Math.Ceiling(_random.NextDouble() * 100);
-            rectangle = new Rectangle(length, width, Color.Orange, new Point2D(_random.Next(0, 200), _random.Next(0, 200)));
-            AddRectangle(rectangle);
+            int length = _random.Next(0, 150);
+            int width = _random.Next(0, 150);
+            rectangle = new Rectangle(length, width, Color.Orange, new Point2D(_random.Next(0, 400), _random.Next(0, 400)));
+            _rectangles.Add(rectangle);
+            ListBoxClassesRectangles.Items.Add(rectangle);
+            ListBoxRectangles.Items.Add(rectangle);
+            Panel panel = InitialPanel(rectangle);
+            panel.BackColor = System.Drawing.Color.FromArgb(127, 127, 255, 127);
+            _rectanglePanels.Add(panel);
+            PanelRectangles.Controls.Add(panel);
+            FindCollisions();
         }
+
         private void ButtonRemoveRectangle_Click(object sender, EventArgs e)
         {
-            if (ListBoxRectangles.SelectedItem == null) return;
-            RemoveRectangle((Rectangle)ListBoxRectangles.SelectedItem);
+            if (ListBoxRectangles.SelectedItem == null && ListBoxRectangles.SelectedIndex == -1) return;
+            Rectangle rectangle = (Rectangle)ListBoxRectangles.SelectedItem;
+            int selectedIndex = ListBoxRectangles.SelectedIndex;
+            _rectangles.Remove(rectangle);
+            ListBoxClassesRectangles.Items.Remove(rectangle);
+            ListBoxRectangles.Items.Remove(rectangle);
+            foreach (TextBox tb in CustomMethods.TextBoxRectangles)
+            {
+                tb.Clear();
+                tb.BackColor = System.Drawing.Color.White;
+            }
+            foreach (TextBox tb in CustomMethods.TextBoxClassesRectangles)
+            {
+                tb.Clear();
+                tb.BackColor = System.Drawing.Color.White;
+            }
+            _rectanglePanels.RemoveAt(selectedIndex);
+            PanelRectangles.Controls.RemoveAt(selectedIndex);
+            FindCollisions();
         }
         private void ListBoxRectangles_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ListBoxRectangles.SelectedItem == null) return;
             _currentRectangle = (Rectangle)ListBoxRectangles.SelectedItem;
-
+            _isProgrammaticChange = true;
             TextBoxRectanglesId.Text = _currentRectangle.Id.ToString();
-            TextBoxRectanglesX.Text = _currentRectangle.Center.X.ToString();
-            TextBoxRectanglesY.Text = _currentRectangle.Center.Y.ToString();
+            TextBoxRectanglesX.Text = _currentRectangle.Coordinates.X.ToString();
+            TextBoxRectanglesY.Text = _currentRectangle.Coordinates.Y.ToString();
             TextBoxRectanglesWidth.Text = _currentRectangle.Width.ToString();
-            TextBoxRectanglesHeight.Text = _currentRectangle.Length.ToString();
+            TextBoxRectanglesHeight.Text = _currentRectangle.Height.ToString();
+            _isProgrammaticChange = false;
+        }
+        private void TextBoxDisable(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
         }
 
         private void SetBackColor(System.Drawing.Color color)
@@ -289,7 +323,6 @@ namespace Programming
             GroupBoxSeasonHandle.BackColor = color;
             this.BackColor = color;
         }
-
         private int FindItemWithMaxValue<T>(List<T> classList, Func<T, double> getValue) where T : class
         {
             if (classList.Count < 1) return -1;
@@ -306,7 +339,6 @@ namespace Programming
             }
             return index;
         }
-
         private int FindItemWithMaxValue<T>(T[] classArray, Func<T, double> getValue) where T : class
         {
             if (classArray.Length < 1) return -1;
@@ -325,63 +357,28 @@ namespace Programming
         }
 
         /// <summary>
-        /// Add rectangle
-        /// </summary>
-        /// <param name="rectangle">Instance rectangle</param>
-        private void AddRectangle(Rectangle rectangle)
-        {
-            _rectangles.Add(rectangle);
-            ListBoxClassesRectangles.Items.Add(rectangle);
-            ListBoxRectangles.Items.Add(rectangle);
-            Panel panel = new Panel();
-            //panel.Location = new Point(rectangle.Center.X, rectangle.Center.Y);
-            //panel.Width = rectangle.Width;
-            //panel.Height = rectangle.Length;
-            panel.BackColor = System.Drawing.Color.FromArgb(127, 127, 255, 127);
-            //PanelRectangles.Controls.Add(panel);
-        }
-        /// <summary>
-        /// Remove rectangle
-        /// </summary>
-        /// <param name="rectangle">Instance rectangle</param>
-        private void RemoveRectangle(Rectangle rectangle)
-        {
-            _rectangles.Remove(rectangle);
-            ListBoxClassesRectangles.Items.Remove(rectangle);
-            ListBoxRectangles.Items.Remove(rectangle);
-            foreach (TextBox tb in CustomMethods.TextBoxRectangles)
-            {
-                tb.Clear();
-                tb.BackColor = System.Drawing.Color.White;
-            }
-            foreach (TextBox tb in CustomMethods.TextBoxClassesRectangles)
-            {
-                tb.Clear();
-                tb.BackColor = System.Drawing.Color.White;
-            }
-        }
-        /// <summary>
         /// Resizing a rectangle
         /// </summary>
         /// <param name="textBox"></param>
         /// <param name="dimensionType">"width" or "length"</param>
         private void TextBoxSizeRectangleHandler(TextBox textBox, string dimensionType)
         {
-            if (_currentRectangle == null) return;
+            if (_currentRectangle == null || _isProgrammaticChange) return;
             try
             {
-                double value = double.Parse(textBox.Text);
+                int value = int.Parse(textBox.Text);
                 switch (dimensionType)
                 {
                     case "width":
                         _currentRectangle.Width = value;
                         break;
                     case "length":
-                        _currentRectangle.Length = value;
+                        _currentRectangle.Height = value;
                         break;
                     default: throw new ArgumentException("Non-existent argument value.");
                 }
                 ListBoxSelectedRectangleUpdate();
+
                 textBox.BackColor = System.Drawing.Color.White;
             }
             catch (Exception)
@@ -396,17 +393,17 @@ namespace Programming
         /// <param name="coordinateType">"x" or "y"</param>
         private void TextBoxCoordinatesHandler(TextBox textBox, string coordinateType)
         {
-            if (_currentRectangle == null) return;
+            if (_currentRectangle == null || _isProgrammaticChange) return;
             try
             {
-                double coordinate = double.Parse(textBox.Text);
+                int coordinate = int.Parse(textBox.Text);
                 switch (coordinateType)
                 {
                     case "x":
-                        _currentRectangle.Center = new Point2D(coordinate, _currentRectangle.Center.Y);
+                        _currentRectangle.Coordinates = new Point2D(coordinate, _currentRectangle.Coordinates.Y);
                         break;
                     case "y":
-                        _currentRectangle.Center = new Point2D(_currentRectangle.Center.X, coordinate);
+                        _currentRectangle.Coordinates = new Point2D(_currentRectangle.Coordinates.X, coordinate);
                         break;
                     default: throw new ArgumentException("Non-existent argument value.");
                 }
@@ -428,11 +425,35 @@ namespace Programming
             ListBoxRectangles.Items.RemoveAt(indexRectangles);
             ListBoxRectangles.Items.Insert(indexRectangles, _currentRectangle);
             ListBoxRectangles.SelectedIndex = indexRectangles;
+            Panel panel = InitialPanel(_currentRectangle);
+            panel.BackColor = System.Drawing.Color.FromArgb(127, 127, 255, 127);
+            _rectanglePanels[indexRectangles] = panel;
+            PanelRectangles.Controls.Clear();
+            PanelRectangles.Controls.AddRange(_rectanglePanels.ToArray());
+            FindCollisions();
         }
-
-        private void TextBoxDisable(object sender, KeyPressEventArgs e)
+        private void FindCollisions()
         {
-            e.Handled = true;
+            _rectanglePanels.ForEach(panel => panel.BackColor = System.Drawing.Color.FromArgb(127, 127, 255, 127));
+            for (int i = 0; i < _rectanglePanels.Count - 1; i++)
+            {
+                for (int j = i + 1; j < _rectanglePanels.Count; j++)
+                {
+                    if (CollisionManager.IsCollision(_rectangles[i], _rectangles[j]))
+                    {
+                        _rectanglePanels[i].BackColor = System.Drawing.Color.FromArgb(127, 255, 127, 127);
+                        _rectanglePanels[j].BackColor = System.Drawing.Color.FromArgb(127, 255, 127, 127);
+                    }
+                }
+            }
+        }
+        private Panel InitialPanel(Rectangle rectangle)
+        {
+            Panel panel = new Panel();
+            panel.Location = new Point((int)rectangle.Coordinates.X, (int)rectangle.Coordinates.Y);
+            panel.Width = rectangle.Width;
+            panel.Height = rectangle.Height;
+            return panel;
         }
     }
 }
