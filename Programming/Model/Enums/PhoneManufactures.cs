@@ -1,4 +1,4 @@
-﻿public enum Manufactures
+﻿public enum PhoneManufactures
 {
     Apple,
     Samsung,

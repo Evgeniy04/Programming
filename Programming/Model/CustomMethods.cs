@@ -6,7 +6,7 @@ using System.Windows.Forms;
 static class CustomMethods
 {
     static public readonly Type[] TypeModel = new Type[6] { typeof(Color), typeof(EducationForm),
-                                            typeof(Genre), typeof(Manufactures),
+                                            typeof(Genre), typeof(PhoneManufactures),
                                             typeof(Season), typeof(Weekday) };
 
     static public TextBox[] TextBoxClassesRectangles { get; set; }
