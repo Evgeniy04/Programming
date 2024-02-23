@@ -12,6 +12,7 @@ namespace Programming
     public partial class MainForm : Form
     {
         private bool _isProgrammaticChange = false;
+        List<int> _intersectingRectangleIndices = new List<int>();
         private List<Rectangle> _rectangles;
         private Rectangle _currentRectangle;
         private List<Panel> _rectanglePanels;
@@ -124,14 +125,7 @@ namespace Programming
         {
             if (ListBoxClassesRectangles.SelectedItem == null) return;
             _currentRectangle = (Rectangle)ListBoxClassesRectangles.SelectedItem;
-            _isProgrammaticChange = true;
-            TextBoxClassesRectanglesLength.Text = _currentRectangle.Height.ToString();
-            TextBoxClassesRectanglesWidth.Text = _currentRectangle.Width.ToString();
-            TextBoxClassesRectanglesColor.Text = _currentRectangle.Color.ToString();
-            TextBoxClassesRectanglesCoordinateX.Text = _currentRectangle.Center.X.ToString();
-            TextBoxClassesRectanglesCoordinateY.Text = _currentRectangle.Center.Y.ToString();
-            TextBoxClassesRectanglesId.Text = _currentRectangle.Id.ToString();
-            _isProgrammaticChange = false;
+            UpdateRectangleInfo(_currentRectangle, ListBoxClassesRectangles.SelectedIndex);
         }
 
         private void TextBoxClassesRectanglesColor_TextChanged(object sender, EventArgs e)
@@ -263,10 +257,7 @@ namespace Programming
 
         private void ButtonAddRectangle_Click(object sender, EventArgs e)
         {
-            Rectangle rectangle;
-            int length = _random.Next(0, 150);
-            int width = _random.Next(0, 150);
-            rectangle = new Rectangle(length, width, Color.Orange, new Point2D(_random.Next(0, 400), _random.Next(0, 400)));
+            Rectangle rectangle = RectangleFactory.Randomize(PanelRectangles, 150, 150);
             _rectangles.Add(rectangle);
             ListBoxClassesRectangles.Items.Add(rectangle);
             ListBoxRectangles.Items.Add(rectangle);
@@ -274,7 +265,7 @@ namespace Programming
             panel.BackColor = System.Drawing.Color.FromArgb(127, 127, 255, 127);
             _rectanglePanels.Add(panel);
             PanelRectangles.Controls.Add(panel);
-            FindCollisions();
+            FindCollisions(rectangle);
         }
 
         private void ButtonRemoveRectangle_Click(object sender, EventArgs e)
@@ -285,31 +276,16 @@ namespace Programming
             _rectangles.Remove(rectangle);
             ListBoxClassesRectangles.Items.Remove(rectangle);
             ListBoxRectangles.Items.Remove(rectangle);
-            foreach (TextBox tb in CustomMethods.TextBoxRectangles)
-            {
-                tb.Clear();
-                tb.BackColor = System.Drawing.Color.White;
-            }
-            foreach (TextBox tb in CustomMethods.TextBoxClassesRectangles)
-            {
-                tb.Clear();
-                tb.BackColor = System.Drawing.Color.White;
-            }
+            ClearRectangleInfo();
             _rectanglePanels.RemoveAt(selectedIndex);
             PanelRectangles.Controls.RemoveAt(selectedIndex);
-            FindCollisions();
+            FindCollisions(rectangle);
         }
         private void ListBoxRectangles_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ListBoxRectangles.SelectedItem == null) return;
             _currentRectangle = (Rectangle)ListBoxRectangles.SelectedItem;
-            _isProgrammaticChange = true;
-            TextBoxRectanglesId.Text = _currentRectangle.Id.ToString();
-            TextBoxRectanglesX.Text = _currentRectangle.Coordinates.X.ToString();
-            TextBoxRectanglesY.Text = _currentRectangle.Coordinates.Y.ToString();
-            TextBoxRectanglesWidth.Text = _currentRectangle.Width.ToString();
-            TextBoxRectanglesHeight.Text = _currentRectangle.Height.ToString();
-            _isProgrammaticChange = false;
+            UpdateRectangleInfo(_currentRectangle, ListBoxRectangles.SelectedIndex);
         }
         private void TextBoxDisable(object sender, KeyPressEventArgs e)
         {
@@ -414,7 +390,7 @@ namespace Programming
             {
                 textBox.BackColor = System.Drawing.Color.LightPink;
             }
-        }
+}
         private void ListBoxSelectedRectangleUpdate()
         {
             int indexClassesRectangles = ListBoxClassesRectangles.Items.IndexOf(_currentRectangle);
@@ -430,21 +406,77 @@ namespace Programming
             _rectanglePanels[indexRectangles] = panel;
             PanelRectangles.Controls.Clear();
             PanelRectangles.Controls.AddRange(_rectanglePanels.ToArray());
-            FindCollisions();
+            FindCollisions(_currentRectangle);
         }
-        private void FindCollisions()
+        private void FindCollisions(Rectangle rectangle)
         {
-            _rectanglePanels.ForEach(panel => panel.BackColor = System.Drawing.Color.FromArgb(127, 127, 255, 127));
-            for (int i = 0; i < _rectanglePanels.Count - 1; i++)
+            int[] intersectingRectangleIndices = _intersectingRectangleIndices.ToArray();
+            // Проверяет, пересекаются ли ранее пересекающиеся прямоугольники, если нет - то делает их зелёными
+            foreach (int j in intersectingRectangleIndices)
             {
-                for (int j = i + 1; j < _rectanglePanels.Count; j++)
+                Rectangle thisRectangle = _rectangles[j];
+                bool isRemove = true;
+                for (int i = 0; i < _rectanglePanels.Count; i++)
                 {
-                    if (CollisionManager.IsCollision(_rectangles[i], _rectangles[j]))
+                    if (j != i && CollisionManager.IsCollision(thisRectangle, _rectangles[i]))
                     {
-                        _rectanglePanels[i].BackColor = System.Drawing.Color.FromArgb(127, 255, 127, 127);
-                        _rectanglePanels[j].BackColor = System.Drawing.Color.FromArgb(127, 255, 127, 127);
+                        isRemove = false;
                     }
                 }
+                if (isRemove)
+                {
+                    _intersectingRectangleIndices.Remove(j);
+                    _rectanglePanels[j].BackColor = System.Drawing.Color.FromArgb(127, 127, 255, 127);
+                }
+            }
+            int currentPanelId = -1;
+            bool isCollision = false;
+            // Проверяет, пересекается ли обновлённый прямоугольник с каким-либо другим
+            for (int i = 0; i < _rectanglePanels.Count; i++)
+            {
+                if (rectangle.Id == _rectangles[i].Id)
+                {
+                    currentPanelId = i;
+                    continue;
+                }
+                if (CollisionManager.IsCollision(rectangle, _rectangles[i]))
+                {
+                    _intersectingRectangleIndices.Add(i);
+                    _rectanglePanels[i].BackColor = System.Drawing.Color.FromArgb(127, 255, 127, 127);
+                    isCollision = true;
+                }
+            }
+            if (isCollision && currentPanelId != -1) _rectanglePanels[currentPanelId].BackColor = System.Drawing.Color.FromArgb(127, 255, 127, 127);
+        }
+        private void UpdateRectangleInfo(Rectangle rectangle, int selectedIndex)
+        {
+            _isProgrammaticChange = true;
+            TextBoxClassesRectanglesLength.Text = rectangle.Height.ToString();
+            TextBoxClassesRectanglesWidth.Text = rectangle.Width.ToString();
+            TextBoxClassesRectanglesColor.Text = rectangle.Color.ToString();
+            TextBoxClassesRectanglesCoordinateX.Text = rectangle.Center.X.ToString();
+            TextBoxClassesRectanglesCoordinateY.Text = rectangle.Center.Y.ToString();
+            TextBoxClassesRectanglesId.Text = rectangle.Id.ToString();
+            TextBoxRectanglesId.Text = rectangle.Id.ToString();
+            TextBoxRectanglesX.Text = rectangle.Coordinates.X.ToString();
+            TextBoxRectanglesY.Text = rectangle.Coordinates.Y.ToString();
+            TextBoxRectanglesWidth.Text = rectangle.Width.ToString();
+            TextBoxRectanglesHeight.Text = rectangle.Height.ToString();
+            ListBoxClassesRectangles.SelectedIndex = selectedIndex;
+            ListBoxRectangles.SelectedIndex = selectedIndex;
+            _isProgrammaticChange = false;
+        }
+        private void ClearRectangleInfo()
+        {
+            foreach (TextBox tb in CustomMethods.TextBoxRectangles)
+            {
+                tb.Clear();
+                tb.BackColor = System.Drawing.Color.White;
+            }
+            foreach (TextBox tb in CustomMethods.TextBoxClassesRectangles)
+            {
+                tb.Clear();
+                tb.BackColor = System.Drawing.Color.White;
             }
         }
         private Panel InitialPanel(Rectangle rectangle)
