@@ -1,25 +1,18 @@
 ﻿using Programming.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Programming.View.Panels
 {
     public partial class RectanglesCollisionControl : UserControl
     {
-        private bool _isProgrammaticChange = false;
-        //Dictionary<Rectangle, List<Rectangle>> _intersecting = new Dictionary<Rectangle, List<Rectangle>>();
+        bool _isProgrammaticChange = false;
         List<Rectangle> _intersecting = new List<Rectangle>();
-
-        private List<Rectangle> _rectangles;
-        private Rectangle _currentRectangle;
-        private List<Panel> _rectanglePanels;
+        List<Rectangle> _rectangles;
+        Rectangle _currentRectangle;
+        List<Panel> _rectanglePanels;
 
         public RectanglesCollisionControl()
         {
@@ -29,30 +22,28 @@ namespace Programming.View.Panels
                                                                 TextBoxRectanglesHeight,
                                                                 TextBoxRectanglesX,
                                                                 TextBoxRectanglesY };
-
             _rectangles = new List<Rectangle>();
             _rectanglePanels = new List<Panel>();
         }
 
-
-        private void TextBoxRectanglesX_TextChanged(object sender, EventArgs e)
+        void TextBoxRectanglesX_TextChanged(object sender, EventArgs e)
         {
             TextBoxCoordinatesHandler(TextBoxRectanglesX, "x");
         }
-        private void TextBoxRectanglesY_TextChanged(object sender, EventArgs e)
+        void TextBoxRectanglesY_TextChanged(object sender, EventArgs e)
         {
             TextBoxCoordinatesHandler(TextBoxRectanglesY, "y");
         }
-        private void TextBoxRectanglesWidth_TextChanged(object sender, EventArgs e)
+        void TextBoxRectanglesWidth_TextChanged(object sender, EventArgs e)
         {
             TextBoxSizeRectangleHandler(TextBoxRectanglesWidth, "width");
         }
-        private void TextBoxRectanglesHeight_TextChanged(object sender, EventArgs e)
+        void TextBoxRectanglesHeight_TextChanged(object sender, EventArgs e)
         {
             TextBoxSizeRectangleHandler(TextBoxRectanglesHeight, "length");
         }
 
-        private void ButtonAddRectangle_Click(object sender, EventArgs e)
+        void ButtonAddRectangle_Click(object sender, EventArgs e)
         {
             Rectangle rectangle = RectangleFactory.Randomize(PanelRectangles, 150, 150);
             _rectangles.Add(rectangle);
@@ -63,8 +54,7 @@ namespace Programming.View.Panels
             PanelRectangles.Controls.Add(panel);
             FindCollisions(rectangle);
         }
-
-        private void ButtonRemoveRectangle_Click(object sender, EventArgs e)
+        void ButtonRemoveRectangle_Click(object sender, EventArgs e)
         {
             if (ListBoxRectangles.SelectedItem == null && ListBoxRectangles.SelectedIndex == -1) return;
             Rectangle rectangle = (Rectangle)ListBoxRectangles.SelectedItem;
@@ -76,13 +66,13 @@ namespace Programming.View.Panels
             PanelRectangles.Controls.RemoveAt(selectedIndex);
             FindCollisions(rectangle);
         }
-        private void ListBoxRectangles_SelectedIndexChanged(object sender, EventArgs e)
+        void ListBoxRectangles_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ListBoxRectangles.SelectedItem == null) return;
             _currentRectangle = (Rectangle)ListBoxRectangles.SelectedItem;
             UpdateRectangleInfo(_currentRectangle, ListBoxRectangles.SelectedIndex);
         }
-        private void TextBoxDisable(object sender, KeyPressEventArgs e)
+        void TextBoxDisable(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
         }
@@ -92,7 +82,7 @@ namespace Programming.View.Panels
         /// </summary>
         /// <param name="textBox"></param>
         /// <param name="dimensionType">"width" or "length"</param>
-        private void TextBoxSizeRectangleHandler(TextBox textBox, string dimensionType)
+        void TextBoxSizeRectangleHandler(TextBox textBox, string dimensionType)
         {
             if (_currentRectangle == null || _isProgrammaticChange) return;
             try
@@ -122,7 +112,7 @@ namespace Programming.View.Panels
         /// </summary>
         /// <param name="textBox"></param>
         /// <param name="coordinateType">"x" or "y"</param>
-        private void TextBoxCoordinatesHandler(TextBox textBox, string coordinateType)
+        void TextBoxCoordinatesHandler(TextBox textBox, string coordinateType)
         {
             if (_currentRectangle == null || _isProgrammaticChange) return;
             try
@@ -146,7 +136,7 @@ namespace Programming.View.Panels
                 textBox.BackColor = System.Drawing.Color.LightPink;
             }
         }
-        private void ListBoxSelectedRectangleUpdate()
+        void ListBoxSelectedRectangleUpdate()
         {
             int indexRectangles = ListBoxRectangles.Items.IndexOf(_currentRectangle);
             ListBoxRectangles.Items.RemoveAt(indexRectangles);
@@ -159,7 +149,7 @@ namespace Programming.View.Panels
             PanelRectangles.Controls.AddRange(_rectanglePanels.ToArray());
             FindCollisions(_currentRectangle);
         }
-        private void FindCollisions(Rectangle rectangle)
+        void FindCollisions(Rectangle rectangle)
         {
             // Создаём копию списка, чтобы из-за изменения во время выполнения цикла, не появлялась ошибка
             List<Rectangle> intersecting = new List<Rectangle>(_intersecting);
@@ -204,7 +194,7 @@ namespace Programming.View.Panels
                 _rectanglePanels[ListBoxRectangles.Items.IndexOf(rectangle)].BackColor = System.Drawing.Color.FromArgb(127, 255, 127, 127);
             }
         }
-        private void UpdateRectangleInfo(Rectangle rectangle, int selectedIndex)
+        void UpdateRectangleInfo(Rectangle rectangle, int selectedIndex)
         {
             _isProgrammaticChange = true;
             TextBoxRectanglesId.Text = rectangle.Id.ToString();
@@ -215,7 +205,7 @@ namespace Programming.View.Panels
             ListBoxRectangles.SelectedIndex = selectedIndex;
             _isProgrammaticChange = false;
         }
-        private void ClearRectangleInfo()
+        void ClearRectangleInfo()
         {
             foreach (TextBox tb in CustomMethods.TextBoxRectangles)
             {
@@ -228,7 +218,7 @@ namespace Programming.View.Panels
                 tb.BackColor = System.Drawing.Color.White;
             }
         }
-        private Panel InitialPanel(Rectangle rectangle)
+        Panel InitialPanel(Rectangle rectangle)
         {
             Panel panel = new Panel();
             panel.Location = new Point((int)rectangle.Coordinates.X, (int)rectangle.Coordinates.Y);
