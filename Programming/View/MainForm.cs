@@ -11,14 +11,11 @@ namespace Programming
 {
     public partial class MainForm : Form
     {
-        private bool _isProgrammaticChange = false;
-        List<int> _intersectingRectangleIndices = new List<int>();
-        private List<Rectangle> _rectangles;
+        private List<Rectangle> _rectangles = new List<Rectangle>();
         private Rectangle _currentRectangle;
-        private List<Panel> _rectanglePanels;
         private Movie[] _movies;
         private Movie _currentMovie;
-        private Random _random;
+        private Random _random = new Random();
 
         public MainForm()
         {
@@ -29,22 +26,11 @@ namespace Programming
                                                                         TextBoxClassesRectanglesLength,
                                                                         TextBoxClassesRectanglesCoordinateX, 
                                                                         TextBoxClassesRectanglesCoordinateY };
-            CustomMethods.TextBoxRectangles = new TextBox[5] {  TextBoxRectanglesId,
-                                                                TextBoxRectanglesWidth,
-                                                                TextBoxRectanglesHeight,
-                                                                TextBoxRectanglesX,
-                                                                TextBoxRectanglesY };
-
-            _rectangles = new List<Rectangle>();
-            _rectanglePanels = new List<Panel>();
-            _random = new Random();
-
             // 
             // Initialize ComboBoxSeasons
             // 
             object[] values = Enum.GetValues(typeof(Season)).Cast<object>().ToArray();
             ComboBoxSeasons.Items.AddRange(values);
-
             // 
             // Initialize _movies
             //
@@ -123,9 +109,9 @@ namespace Programming
 
         private void ListBoxClassesRectangles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ListBoxClassesRectangles.SelectedItem == null) return;
-            _currentRectangle = (Rectangle)ListBoxClassesRectangles.SelectedItem;
-            UpdateRectangleInfo(_currentRectangle, ListBoxClassesRectangles.SelectedIndex);
+            //    if (ListBoxClassesRectangles.SelectedItem == null) return;
+            //    _currentRectangle = (Rectangle)ListBoxClassesRectangles.SelectedItem;
+            //    UpdateRectangleInfo(_currentRectangle, ListBoxClassesRectangles.SelectedIndex);
         }
 
         private void TextBoxClassesRectanglesColor_TextChanged(object sender, EventArgs e)
@@ -143,27 +129,11 @@ namespace Programming
         }
         private void TextBoxClassesRectanglesLength_TextChanged(object sender, EventArgs e)
         {
-            TextBoxSizeRectangleHandler(TextBoxClassesRectanglesLength, "length");
+            //TextBoxSizeRectangleHandler(TextBoxClassesRectanglesLength, "length");
         }
         private void TextBoxClassesRectanglesWidth_TextChanged(object sender, EventArgs e)
         {
-            TextBoxSizeRectangleHandler(TextBoxClassesRectanglesWidth, "width");
-        }
-        private void TextBoxRectanglesX_TextChanged(object sender, EventArgs e)
-        {
-            TextBoxCoordinatesHandler(TextBoxRectanglesX, "x");
-        }
-        private void TextBoxRectanglesY_TextChanged(object sender, EventArgs e)
-        {
-            TextBoxCoordinatesHandler(TextBoxRectanglesY, "y");
-        }
-        private void TextBoxRectanglesWidth_TextChanged(object sender, EventArgs e)
-        {
-            TextBoxSizeRectangleHandler(TextBoxRectanglesWidth, "width");
-        }
-        private void TextBoxRectanglesHeight_TextChanged(object sender, EventArgs e)
-        {
-            TextBoxSizeRectangleHandler(TextBoxRectanglesHeight, "length");
+            //TextBoxSizeRectangleHandler(TextBoxClassesRectanglesWidth, "width");
         }
 
         private void ButtonFindRectangleWithMaxWidth_Click(object sender, EventArgs e)
@@ -255,43 +225,6 @@ namespace Programming
             ListBoxMovies.SelectedIndex = FindItemWithMaxValue(_movies, (movie) => movie.Rating);
         }
 
-        private void ButtonAddRectangle_Click(object sender, EventArgs e)
-        {
-            Rectangle rectangle = RectangleFactory.Randomize(PanelRectangles, 150, 150);
-            _rectangles.Add(rectangle);
-            ListBoxClassesRectangles.Items.Add(rectangle);
-            ListBoxRectangles.Items.Add(rectangle);
-            Panel panel = InitialPanel(rectangle);
-            panel.BackColor = System.Drawing.Color.FromArgb(127, 127, 255, 127);
-            _rectanglePanels.Add(panel);
-            PanelRectangles.Controls.Add(panel);
-            FindCollisions(rectangle);
-        }
-
-        private void ButtonRemoveRectangle_Click(object sender, EventArgs e)
-        {
-            if (ListBoxRectangles.SelectedItem == null && ListBoxRectangles.SelectedIndex == -1) return;
-            Rectangle rectangle = (Rectangle)ListBoxRectangles.SelectedItem;
-            int selectedIndex = ListBoxRectangles.SelectedIndex;
-            _rectangles.Remove(rectangle);
-            ListBoxClassesRectangles.Items.Remove(rectangle);
-            ListBoxRectangles.Items.Remove(rectangle);
-            ClearRectangleInfo();
-            _rectanglePanels.RemoveAt(selectedIndex);
-            PanelRectangles.Controls.RemoveAt(selectedIndex);
-            FindCollisions(rectangle);
-        }
-        private void ListBoxRectangles_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ListBoxRectangles.SelectedItem == null) return;
-            _currentRectangle = (Rectangle)ListBoxRectangles.SelectedItem;
-            UpdateRectangleInfo(_currentRectangle, ListBoxRectangles.SelectedIndex);
-        }
-        private void TextBoxDisable(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = true;
-        }
-
         private void SetBackColor(System.Drawing.Color color)
         {
             GroupBoxEnumerations.BackColor = color;
@@ -331,161 +264,9 @@ namespace Programming
             }
             return index;
         }
-
-        /// <summary>
-        /// Resizing a rectangle
-        /// </summary>
-        /// <param name="textBox"></param>
-        /// <param name="dimensionType">"width" or "length"</param>
-        private void TextBoxSizeRectangleHandler(TextBox textBox, string dimensionType)
+        private void TextBoxDisable(object sender, KeyPressEventArgs e)
         {
-            if (_currentRectangle == null || _isProgrammaticChange) return;
-            try
-            {
-                int value = int.Parse(textBox.Text);
-                switch (dimensionType)
-                {
-                    case "width":
-                        _currentRectangle.Width = value;
-                        break;
-                    case "length":
-                        _currentRectangle.Height = value;
-                        break;
-                    default: throw new ArgumentException("Non-existent argument value.");
-                }
-                ListBoxSelectedRectangleUpdate();
-
-                textBox.BackColor = System.Drawing.Color.White;
-            }
-            catch (Exception)
-            {
-                textBox.BackColor = System.Drawing.Color.LightPink;
-            }
-        }
-        /// <summary>
-        /// Moving a rectangle
-        /// </summary>
-        /// <param name="textBox"></param>
-        /// <param name="coordinateType">"x" or "y"</param>
-        private void TextBoxCoordinatesHandler(TextBox textBox, string coordinateType)
-        {
-            if (_currentRectangle == null || _isProgrammaticChange) return;
-            try
-            {
-                int coordinate = int.Parse(textBox.Text);
-                switch (coordinateType)
-                {
-                    case "x":
-                        _currentRectangle.Coordinates = new Point2D(coordinate, _currentRectangle.Coordinates.Y);
-                        break;
-                    case "y":
-                        _currentRectangle.Coordinates = new Point2D(_currentRectangle.Coordinates.X, coordinate);
-                        break;
-                    default: throw new ArgumentException("Non-existent argument value.");
-                }
-                ListBoxSelectedRectangleUpdate();
-                textBox.BackColor = System.Drawing.Color.White;
-            }
-            catch (Exception)
-            {
-                textBox.BackColor = System.Drawing.Color.LightPink;
-            }
-}
-        private void ListBoxSelectedRectangleUpdate()
-        {
-            int indexClassesRectangles = ListBoxClassesRectangles.Items.IndexOf(_currentRectangle);
-            int indexRectangles = ListBoxRectangles.Items.IndexOf(_currentRectangle);
-            ListBoxClassesRectangles.Items.RemoveAt(indexClassesRectangles);
-            ListBoxClassesRectangles.Items.Insert(indexClassesRectangles, _currentRectangle);
-            ListBoxClassesRectangles.SelectedIndex = indexClassesRectangles;
-            ListBoxRectangles.Items.RemoveAt(indexRectangles);
-            ListBoxRectangles.Items.Insert(indexRectangles, _currentRectangle);
-            ListBoxRectangles.SelectedIndex = indexRectangles;
-            Panel panel = InitialPanel(_currentRectangle);
-            panel.BackColor = System.Drawing.Color.FromArgb(127, 127, 255, 127);
-            _rectanglePanels[indexRectangles] = panel;
-            PanelRectangles.Controls.Clear();
-            PanelRectangles.Controls.AddRange(_rectanglePanels.ToArray());
-            FindCollisions(_currentRectangle);
-        }
-        private void FindCollisions(Rectangle rectangle)
-        {
-            int[] intersectingRectangleIndices = _intersectingRectangleIndices.ToArray();
-            // Проверяет, пересекаются ли ранее пересекающиеся прямоугольники, если нет - то делает их зелёными
-            foreach (int j in intersectingRectangleIndices)
-            {
-                Rectangle thisRectangle = _rectangles[j];
-                bool isRemove = true;
-                for (int i = 0; i < _rectanglePanels.Count; i++)
-                {
-                    if (j != i && CollisionManager.IsCollision(thisRectangle, _rectangles[i]))
-                    {
-                        isRemove = false;
-                    }
-                }
-                if (isRemove)
-                {
-                    _intersectingRectangleIndices.Remove(j);
-                    _rectanglePanels[j].BackColor = System.Drawing.Color.FromArgb(127, 127, 255, 127);
-                }
-            }
-            int currentPanelId = -1;
-            bool isCollision = false;
-            // Проверяет, пересекается ли обновлённый прямоугольник с каким-либо другим
-            for (int i = 0; i < _rectanglePanels.Count; i++)
-            {
-                if (rectangle.Id == _rectangles[i].Id)
-                {
-                    currentPanelId = i;
-                    continue;
-                }
-                if (CollisionManager.IsCollision(rectangle, _rectangles[i]))
-                {
-                    _intersectingRectangleIndices.Add(i);
-                    _rectanglePanels[i].BackColor = System.Drawing.Color.FromArgb(127, 255, 127, 127);
-                    isCollision = true;
-                }
-            }
-            if (isCollision && currentPanelId != -1) _rectanglePanels[currentPanelId].BackColor = System.Drawing.Color.FromArgb(127, 255, 127, 127);
-        }
-        private void UpdateRectangleInfo(Rectangle rectangle, int selectedIndex)
-        {
-            _isProgrammaticChange = true;
-            TextBoxClassesRectanglesLength.Text = rectangle.Height.ToString();
-            TextBoxClassesRectanglesWidth.Text = rectangle.Width.ToString();
-            TextBoxClassesRectanglesColor.Text = rectangle.Color.ToString();
-            TextBoxClassesRectanglesCoordinateX.Text = rectangle.Center.X.ToString();
-            TextBoxClassesRectanglesCoordinateY.Text = rectangle.Center.Y.ToString();
-            TextBoxClassesRectanglesId.Text = rectangle.Id.ToString();
-            TextBoxRectanglesId.Text = rectangle.Id.ToString();
-            TextBoxRectanglesX.Text = rectangle.Coordinates.X.ToString();
-            TextBoxRectanglesY.Text = rectangle.Coordinates.Y.ToString();
-            TextBoxRectanglesWidth.Text = rectangle.Width.ToString();
-            TextBoxRectanglesHeight.Text = rectangle.Height.ToString();
-            ListBoxClassesRectangles.SelectedIndex = selectedIndex;
-            ListBoxRectangles.SelectedIndex = selectedIndex;
-            _isProgrammaticChange = false;
-        }
-        private void ClearRectangleInfo()
-        {
-            foreach (TextBox tb in CustomMethods.TextBoxRectangles)
-            {
-                tb.Clear();
-                tb.BackColor = System.Drawing.Color.White;
-            }
-            foreach (TextBox tb in CustomMethods.TextBoxClassesRectangles)
-            {
-                tb.Clear();
-                tb.BackColor = System.Drawing.Color.White;
-            }
-        }
-        private Panel InitialPanel(Rectangle rectangle)
-        {
-            Panel panel = new Panel();
-            panel.Location = new Point((int)rectangle.Coordinates.X, (int)rectangle.Coordinates.Y);
-            panel.Width = rectangle.Width;
-            panel.Height = rectangle.Height;
-            return panel;
+            e.Handled = true;
         }
     }
 }

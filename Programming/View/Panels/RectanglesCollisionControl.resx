@@ -117,4 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="ButtonAddRectangle.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
+        qAAAAKgBefSzxgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAC4SURBVEhL7ZbN
+        CoJQEIV9jYR6PGlZPlcLLXe9Tq3a5zLPN7m6cP1jbiR44INBhnO8ONwxk3LRiFZ8nMALT7yteIiTKJzA
+        C8+bsLQzhbPwfFNwpCOFs/DE+78CDmL/LUe1KODSM0WLApgKm4wJ2gJGNRjAtNTiHvDqCZ/TG07XYADN
+        lQiNYgH0zgqIaT3fIKb1ByS/KpiUpJfdHP0uINXKLIWtzBRLnxd+iquwXwtGjzSO5AFeMs92HV++mmXN
+        MSP3AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="ButtonRemoveRectangle.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
+        qAAAAKgBefSzxgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAD9SURBVEhL7ZXN
+        DsFAFIW7sLQSv2+CZ/TzBHgaKyuWQixYIR5AJJxv4krblKoONj3Jl3SSuefMnSZzg5BaYihW4iyuGaGG
+        2oFoioi64ijYeBFbsc4INdTicRAd4cTJzXwkquJT1cRYWEhDuGsxc1+ykD4L7o3W8pw8LjrBc8mCn7Pj
+        w7PwxNu1suHDs/DEuwh4qv8HlMRUnFJYiIqI662AmUgyDTMXZRFXakBeFQGp+l3A1x87e655Yn2pLh7P
+        NTOUVhgSvjQRePZYMKAZbxaSpxNObuZ74UYmYkBbCK1xf0mD/RXUUGvmbRERacxQ7o2fw8YsUEMt13I/
+        eRDcAG7YqEI5pZLRAAAAAElFTkSuQmCC
+</value>
+  </data>
 </root>
