@@ -4,11 +4,11 @@ using System.Windows.Forms;
 
 namespace Programming.View.Panels
 {
-    public partial class ClassesRectanglesControl : UserControl
+    public partial class RectanglesControl : UserControl
     {
         private List<Rectangle> _rectangles = new List<Rectangle>();
         private Rectangle _currentRectangle;
-        public ClassesRectanglesControl()
+        public RectanglesControl()
         {
             InitializeComponent();
             CustomMethods.TextBoxClassesRectangles = new TextBox[6] {   TextBoxClassesRectanglesId,

@@ -1,6 +1,6 @@
 ﻿namespace Programming.View.Panels
 {
-    partial class ClassesMoviesControl
+    partial class MoviesControl
     {
         /// <summary> 
         /// Обязательная переменная конструктора.

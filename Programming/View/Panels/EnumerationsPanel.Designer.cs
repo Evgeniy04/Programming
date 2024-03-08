@@ -28,37 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.GroupBoxEnumerations = new System.Windows.Forms.GroupBox();
             this.LabelIntValue = new System.Windows.Forms.Label();
             this.TextBoxEnumsEnumerationsIntValue = new System.Windows.Forms.TextBox();
             this.LabelChooseValue = new System.Windows.Forms.Label();
             this.EnumsListBox = new System.Windows.Forms.ListBox();
             this.LabelChooseEnumeration = new System.Windows.Forms.Label();
             this.ValuesListBox = new System.Windows.Forms.ListBox();
-            this.GroupBoxEnumerations.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // GroupBoxEnumerations
-            // 
-            this.GroupBoxEnumerations.AutoSize = true;
-            this.GroupBoxEnumerations.BackColor = System.Drawing.Color.Transparent;
-            this.GroupBoxEnumerations.Controls.Add(this.LabelIntValue);
-            this.GroupBoxEnumerations.Controls.Add(this.TextBoxEnumsEnumerationsIntValue);
-            this.GroupBoxEnumerations.Controls.Add(this.LabelChooseValue);
-            this.GroupBoxEnumerations.Controls.Add(this.EnumsListBox);
-            this.GroupBoxEnumerations.Controls.Add(this.LabelChooseEnumeration);
-            this.GroupBoxEnumerations.Controls.Add(this.ValuesListBox);
-            this.GroupBoxEnumerations.Location = new System.Drawing.Point(0, 0);
-            this.GroupBoxEnumerations.Name = "GroupBoxEnumerations";
-            this.GroupBoxEnumerations.Size = new System.Drawing.Size(778, 240);
-            this.GroupBoxEnumerations.TabIndex = 7;
-            this.GroupBoxEnumerations.TabStop = false;
-            this.GroupBoxEnumerations.Text = "Enumerations";
             // 
             // LabelIntValue
             // 
             this.LabelIntValue.AutoSize = true;
-            this.LabelIntValue.Location = new System.Drawing.Point(311, 15);
+            this.LabelIntValue.Location = new System.Drawing.Point(308, 0);
             this.LabelIntValue.Name = "LabelIntValue";
             this.LabelIntValue.Size = new System.Drawing.Size(51, 13);
             this.LabelIntValue.TabIndex = 5;
@@ -66,7 +47,7 @@
             // 
             // TextBoxEnumsEnumerationsIntValue
             // 
-            this.TextBoxEnumsEnumerationsIntValue.Location = new System.Drawing.Point(314, 31);
+            this.TextBoxEnumsEnumerationsIntValue.Location = new System.Drawing.Point(311, 16);
             this.TextBoxEnumsEnumerationsIntValue.Name = "TextBoxEnumsEnumerationsIntValue";
             this.TextBoxEnumsEnumerationsIntValue.Size = new System.Drawing.Size(120, 20);
             this.TextBoxEnumsEnumerationsIntValue.TabIndex = 2;
@@ -75,7 +56,7 @@
             // LabelChooseValue
             // 
             this.LabelChooseValue.AutoSize = true;
-            this.LabelChooseValue.Location = new System.Drawing.Point(157, 15);
+            this.LabelChooseValue.Location = new System.Drawing.Point(154, 0);
             this.LabelChooseValue.Name = "LabelChooseValue";
             this.LabelChooseValue.Size = new System.Drawing.Size(75, 13);
             this.LabelChooseValue.TabIndex = 4;
@@ -91,7 +72,7 @@
             "Manufactures",
             "Season",
             "Weekday"});
-            this.EnumsListBox.Location = new System.Drawing.Point(6, 31);
+            this.EnumsListBox.Location = new System.Drawing.Point(3, 16);
             this.EnumsListBox.Name = "EnumsListBox";
             this.EnumsListBox.Size = new System.Drawing.Size(120, 186);
             this.EnumsListBox.TabIndex = 0;
@@ -100,7 +81,7 @@
             // LabelChooseEnumeration
             // 
             this.LabelChooseEnumeration.AutoSize = true;
-            this.LabelChooseEnumeration.Location = new System.Drawing.Point(3, 15);
+            this.LabelChooseEnumeration.Location = new System.Drawing.Point(0, 0);
             this.LabelChooseEnumeration.Name = "LabelChooseEnumeration";
             this.LabelChooseEnumeration.Size = new System.Drawing.Size(107, 13);
             this.LabelChooseEnumeration.TabIndex = 3;
@@ -109,7 +90,7 @@
             // ValuesListBox
             // 
             this.ValuesListBox.FormattingEnabled = true;
-            this.ValuesListBox.Location = new System.Drawing.Point(160, 31);
+            this.ValuesListBox.Location = new System.Drawing.Point(157, 16);
             this.ValuesListBox.Name = "ValuesListBox";
             this.ValuesListBox.Size = new System.Drawing.Size(120, 186);
             this.ValuesListBox.TabIndex = 1;
@@ -119,19 +100,21 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.GroupBoxEnumerations);
+            this.Controls.Add(this.LabelIntValue);
+            this.Controls.Add(this.TextBoxEnumsEnumerationsIntValue);
+            this.Controls.Add(this.EnumsListBox);
+            this.Controls.Add(this.LabelChooseValue);
+            this.Controls.Add(this.ValuesListBox);
+            this.Controls.Add(this.LabelChooseEnumeration);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "EnumerationsPanel";
-            this.Size = new System.Drawing.Size(778, 240);
-            this.GroupBoxEnumerations.ResumeLayout(false);
-            this.GroupBoxEnumerations.PerformLayout();
+            this.Size = new System.Drawing.Size(433, 204);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox GroupBoxEnumerations;
         private System.Windows.Forms.Label LabelIntValue;
         private System.Windows.Forms.TextBox TextBoxEnumsEnumerationsIntValue;
         private System.Windows.Forms.Label LabelChooseValue;

@@ -3,12 +3,12 @@ using System.Windows.Forms;
 
 namespace Programming.View.Panels
 {
-    public partial class ClassesMoviesControl : UserControl
+    public partial class MoviesControl : UserControl
     {
         private Movie[] _movies;
         private Movie _currentMovie;
         private Random _random = new Random();
-        public ClassesMoviesControl()
+        public MoviesControl()
         {
             InitializeComponent();
             // 

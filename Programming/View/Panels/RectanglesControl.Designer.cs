@@ -1,6 +1,6 @@
 ﻿namespace Programming.View.Panels
 {
-    partial class ClassesRectanglesControl
+    partial class RectanglesControl
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
