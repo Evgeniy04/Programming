@@ -11,12 +11,12 @@ namespace Programming.View.Panels
         public RectanglesControl()
         {
             InitializeComponent();
-            CustomMethods.TextBoxClassesRectangles = new TextBox[6] {   TextBoxClassesRectanglesId,
-                                                                        TextBoxClassesRectanglesColor,
-                                                                        TextBoxClassesRectanglesWidth,
-                                                                        TextBoxClassesRectanglesLength,
-                                                                        TextBoxClassesRectanglesCoordinateX,
-                                                                        TextBoxClassesRectanglesCoordinateY };
+            CustomMethods.TextBoxClassesRectangles = new TextBox[6] {   TextBoxRectanglesId,
+                                                                        TextBoxRectanglesColor,
+                                                                        TextBoxRectanglesWidth,
+                                                                        TextBoxRectanglesLength,
+                                                                        TextBoxRectanglesCoordinateX,
+                                                                        TextBoxRectanglesCoordinateY };
         }
 
         private void ListBoxClassesRectangles_SelectedIndexChanged(object sender, EventArgs e)
@@ -29,14 +29,14 @@ namespace Programming.View.Panels
         private void TextBoxClassesRectanglesColor_TextChanged(object sender, EventArgs e)
         {
             if (_currentRectangle == null) return;
-            if (CustomMethods.TryGetEnumValue<Color>(TextBoxClassesRectanglesColor.Text, out Color value))
+            if (CustomMethods.TryGetEnumValue<Color>(TextBoxRectanglesColor.Text, out Color value))
             {
                 _currentRectangle.Color = value;
-                TextBoxClassesRectanglesColor.BackColor = System.Drawing.Color.White;
+                TextBoxRectanglesColor.BackColor = System.Drawing.Color.White;
             }
             else
             {
-                TextBoxClassesRectanglesColor.BackColor = System.Drawing.Color.LightPink;
+                TextBoxRectanglesColor.BackColor = System.Drawing.Color.LightPink;
             }
         }
         private void TextBoxClassesRectanglesLength_TextChanged(object sender, EventArgs e)
@@ -49,7 +49,7 @@ namespace Programming.View.Panels
         }
         private void ButtonFindRectangleWithMaxWidth_Click(object sender, EventArgs e)
         {
-            ListBoxClassesRectangles.SelectedIndex = FindItemWithMaxValue(_rectangles, (rectangle) => rectangle.Width);
+            ListBoxRectangles.SelectedIndex = FindItemWithMaxValue(_rectangles, (rectangle) => rectangle.Width);
         }
         private int FindItemWithMaxValue<T>(List<T> classList, Func<T, double> getValue) where T : class
         {
