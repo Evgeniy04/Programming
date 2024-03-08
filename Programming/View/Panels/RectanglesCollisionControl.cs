@@ -49,7 +49,7 @@ namespace Programming.View.Panels
             _rectangles.Add(rectangle);
             ListBoxRectangles.Items.Add(rectangle);
             Panel panel = InitialPanel(rectangle);
-            panel.BackColor = System.Drawing.Color.FromArgb(127, 127, 255, 127);
+            panel.BackColor = AppColors.Success;
             _rectanglePanels.Add(panel);
             PanelRectangles.Controls.Add(panel);
             FindCollisions(rectangle);
@@ -100,11 +100,11 @@ namespace Programming.View.Panels
                 }
                 ListBoxSelectedRectangleUpdate();
 
-                textBox.BackColor = System.Drawing.Color.White;
+                textBox.BackColor = AppColors.Default;
             }
             catch (Exception)
             {
-                textBox.BackColor = System.Drawing.Color.LightPink;
+                textBox.BackColor = AppColors.Invalid;
             }
         }
         /// <summary>
@@ -129,11 +129,11 @@ namespace Programming.View.Panels
                     default: throw new ArgumentException("Non-existent argument value.");
                 }
                 ListBoxSelectedRectangleUpdate();
-                textBox.BackColor = System.Drawing.Color.White;
+                textBox.BackColor = AppColors.Default;
             }
             catch (Exception)
             {
-                textBox.BackColor = System.Drawing.Color.LightPink;
+                textBox.BackColor = AppColors.Invalid;
             }
         }
         void ListBoxSelectedRectangleUpdate()
@@ -143,7 +143,7 @@ namespace Programming.View.Panels
             ListBoxRectangles.Items.Insert(indexRectangles, _currentRectangle);
             ListBoxRectangles.SelectedIndex = indexRectangles;
             Panel panel = InitialPanel(_currentRectangle);
-            panel.BackColor = System.Drawing.Color.FromArgb(127, 127, 255, 127);
+            panel.BackColor = AppColors.Success;
             _rectanglePanels[indexRectangles] = panel;
             PanelRectangles.Controls.Clear();
             PanelRectangles.Controls.AddRange(_rectanglePanels.ToArray());
@@ -170,7 +170,7 @@ namespace Programming.View.Panels
                 if (isRemove)
                 {
                     _intersecting.Remove(e);
-                    _rectanglePanels[ListBoxRectangles.Items.IndexOf(e)].BackColor = System.Drawing.Color.FromArgb(127, 127, 255, 127);
+                    _rectanglePanels[ListBoxRectangles.Items.IndexOf(e)].BackColor = AppColors.Success;
                 }
             }
             // Удаляем из списка пересекающих изменённый прямоугольник
@@ -184,14 +184,14 @@ namespace Programming.View.Panels
                 if (rectangle != r && CollisionManager.IsCollision(rectangle, r))
                 {
                     if (!_intersecting.Contains(r)) _intersecting.Add(r);
-                    _rectanglePanels[ListBoxRectangles.Items.IndexOf(r)].BackColor = System.Drawing.Color.FromArgb(127, 255, 127, 127);
+                    _rectanglePanels[ListBoxRectangles.Items.IndexOf(r)].BackColor = AppColors.Danger;
                     flag = true;
                 }
             }
             if (flag)
             {
                 _intersecting.Add(rectangle);
-                _rectanglePanels[ListBoxRectangles.Items.IndexOf(rectangle)].BackColor = System.Drawing.Color.FromArgb(127, 255, 127, 127);
+                _rectanglePanels[ListBoxRectangles.Items.IndexOf(rectangle)].BackColor = AppColors.Danger;
             }
         }
         void UpdateRectangleInfo(Rectangle rectangle, int selectedIndex)
@@ -210,12 +210,12 @@ namespace Programming.View.Panels
             foreach (TextBox tb in CustomMethods.TextBoxRectangles)
             {
                 tb.Clear();
-                tb.BackColor = System.Drawing.Color.White;
+                tb.BackColor = AppColors.Default;
             }
             foreach (TextBox tb in CustomMethods.TextBoxClassesRectangles)
             {
                 tb.Clear();
-                tb.BackColor = System.Drawing.Color.White;
+                tb.BackColor = AppColors.Default;
             }
         }
         Panel InitialPanel(Rectangle rectangle)

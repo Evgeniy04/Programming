@@ -48,11 +48,11 @@ namespace Programming.View.Panels
             try
             {
                 _currentMovie.Title = TextBoxTitleMovie.Text;
-                TextBoxTitleMovie.BackColor = System.Drawing.Color.White;
+                TextBoxTitleMovie.BackColor = AppColors.Default;
             }
             catch (Exception)
             {
-                TextBoxTitleMovie.BackColor = System.Drawing.Color.LightPink;
+                TextBoxTitleMovie.BackColor = AppColors.Invalid;
             }
         }
         private void TextBoxDurationMinutesMovie_TextChanged(object sender, EventArgs e)
@@ -62,11 +62,11 @@ namespace Programming.View.Panels
             {
                 int durationMinutes = int.Parse(TextBoxDurationMinutesMovie.Text);
                 _currentMovie.DurationMinutes = durationMinutes;
-                TextBoxDurationMinutesMovie.BackColor = System.Drawing.Color.White;
+                TextBoxDurationMinutesMovie.BackColor = AppColors.Default;
             }
             catch (Exception)
             {
-                TextBoxDurationMinutesMovie.BackColor = System.Drawing.Color.LightPink;
+                TextBoxDurationMinutesMovie.BackColor = AppColors.Invalid;
             }
         }
         private void TextBoxReleaseYearMovie_TextChanged(object sender, EventArgs e)
@@ -76,11 +76,11 @@ namespace Programming.View.Panels
             {
                 int releaseYear = int.Parse(TextBoxReleaseYearMovie.Text);
                 _currentMovie.ReleaseYear = releaseYear;
-                TextBoxReleaseYearMovie.BackColor = System.Drawing.Color.White;
+                TextBoxReleaseYearMovie.BackColor = AppColors.Default;
             }
             catch (Exception)
             {
-                TextBoxReleaseYearMovie.BackColor = System.Drawing.Color.LightPink;
+                TextBoxReleaseYearMovie.BackColor = AppColors.Invalid;
             }
         }
         private void TextBoxGenreMovie_TextChanged(object sender, EventArgs e)
@@ -90,11 +90,11 @@ namespace Programming.View.Panels
             if (CustomMethods.TryGetEnumValue<Genre>(genre, out Genre value))
             {
                 _currentMovie.Genre = value;
-                TextBoxGenreMovie.BackColor = System.Drawing.Color.White;
+                TextBoxGenreMovie.BackColor = AppColors.Default;
             }
             else
             {
-                TextBoxGenreMovie.BackColor = System.Drawing.Color.LightPink;
+                TextBoxGenreMovie.BackColor = AppColors.Invalid;
             }
         }
         private void TextBoxRatingMovie_TextChanged(object sender, EventArgs e)
@@ -104,11 +104,11 @@ namespace Programming.View.Panels
             {
                 double rating = double.Parse(TextBoxRatingMovie.Text);
                 _currentMovie.Rating = rating;
-                TextBoxRatingMovie.BackColor = System.Drawing.Color.White;
+                TextBoxRatingMovie.BackColor = AppColors.Default;
             }
             catch (Exception)
             {
-                TextBoxRatingMovie.BackColor = System.Drawing.Color.LightPink;
+                TextBoxRatingMovie.BackColor = AppColors.Invalid;
             }
         }
         private void ButtonFindMovieWithMaxRating_Click(object sender, EventArgs e)

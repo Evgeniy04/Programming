@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\AppColors.cs" />
     <Compile Include="Model\Geometry\CollisionManager.cs" />
     <Compile Include="Model\Enums\Color.cs" />
     <Compile Include="Model\Contact.cs" />
@@ -97,9 +98,7 @@
     <Compile Include="View\Panels\RectanglesCollisionControl.Designer.cs">
       <DependentUpon>RectanglesCollisionControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Panels\SeasonsHandlePanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="View\Panels\SeasonsHandlePanel.cs" />
     <Compile Include="View\Panels\SeasonsHandlePanel.Designer.cs">
       <DependentUpon>SeasonsHandlePanel.cs</DependentUpon>
     </Compile>

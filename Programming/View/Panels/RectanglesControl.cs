@@ -32,11 +32,11 @@ namespace Programming.View.Panels
             if (CustomMethods.TryGetEnumValue<Color>(TextBoxRectanglesColor.Text, out Color value))
             {
                 _currentRectangle.Color = value;
-                TextBoxRectanglesColor.BackColor = System.Drawing.Color.White;
+                TextBoxRectanglesColor.BackColor = AppColors.Default;
             }
             else
             {
-                TextBoxRectanglesColor.BackColor = System.Drawing.Color.LightPink;
+                TextBoxRectanglesColor.BackColor = AppColors.Invalid;
             }
         }
         private void TextBoxClassesRectanglesLength_TextChanged(object sender, EventArgs e)
