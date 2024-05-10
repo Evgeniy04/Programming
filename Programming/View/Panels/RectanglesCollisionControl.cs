@@ -265,7 +265,7 @@ namespace Programming.View.Panels
         }
 
         /// <summary>
-        /// Метод обновления информации о прямоугольнике.
+        /// Обновление информации о прямоугольнике.
         /// </summary>
         /// <param name="rectangle">Обновляемый прямоугольник.</param>
         /// <param name="selectedIndex">Индекс выбранного прямоугольника в списке.</param>
@@ -281,7 +281,7 @@ namespace Programming.View.Panels
             _isProgrammaticChange = false;
         }
         /// <summary>
-        /// Метод очистки информации о прямоугольниках.
+        /// Очистка информации о прямоугольниках.
         /// </summary>
         void ClearRectangleInfo()
         {
@@ -298,7 +298,7 @@ namespace Programming.View.Panels
         }
 
         /// <summary>
-        /// Метод создания панели для отображения прямоугольника.
+        /// Создание панели для отображения прямоугольника.
         /// </summary>
         /// <param name="rectangle">Прямоугольник для отображения.</param>
         /// <returns>Созданная панель.</returns>

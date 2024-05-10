@@ -23,7 +23,7 @@ class Book
     /// <summary>
     /// Возвращает и изменяет жанр книги.
     /// </summary>
-    public Genre Genre { get; set; }
+    public Genres Genre { get; set; }
 
     /// <summary>
     /// Возвращает и изменяет название книги. Не более ста и не менее одного символов.
@@ -86,7 +86,7 @@ class Book
         ReleaseYear = DateTime.Now.Year;
         Author = "Default";
         PageCount = 1;
-        Genre = Genre.Biography;
+        Genre = Genres.Biography;
     }
 
     /// <summary>
@@ -97,13 +97,22 @@ class Book
     /// <param name="author">Автор книги.</param>
     /// <param name="pageCount">Количество страниц в книге.</param>
     /// <param name="genre">Возвращает и изменяет жанр книги.</param>
-    public Book(string title, int releaseYear, string author, int pageCount, Genre genre)
+    public Book(string title, int releaseYear, string author, int pageCount, Genres genre)
     {
         Title = title;
         ReleaseYear = releaseYear;
         Author = author;
         PageCount = pageCount;
         Genre = genre;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public override string ToString()
+    {
+        return $"{Title} / {Author} / {Genre}";
     }
 }
 

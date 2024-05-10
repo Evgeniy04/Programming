@@ -46,60 +46,67 @@
             // 
             // TextBoxRectanglesId
             // 
-            this.TextBoxRectanglesId.Location = new System.Drawing.Point(253, 112);
+            this.TextBoxRectanglesId.Location = new System.Drawing.Point(337, 138);
+            this.TextBoxRectanglesId.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.TextBoxRectanglesId.Name = "TextBoxRectanglesId";
-            this.TextBoxRectanglesId.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxRectanglesId.Size = new System.Drawing.Size(132, 22);
             this.TextBoxRectanglesId.TabIndex = 12;
             this.TextBoxRectanglesId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxDisable);
             // 
             // LabelIdRectangle
             // 
             this.LabelIdRectangle.AutoSize = true;
-            this.LabelIdRectangle.Location = new System.Drawing.Point(250, 96);
+            this.LabelIdRectangle.Location = new System.Drawing.Point(333, 118);
+            this.LabelIdRectangle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LabelIdRectangle.Name = "LabelIdRectangle";
-            this.LabelIdRectangle.Size = new System.Drawing.Size(19, 13);
+            this.LabelIdRectangle.Size = new System.Drawing.Size(21, 16);
             this.LabelIdRectangle.TabIndex = 11;
             this.LabelIdRectangle.Text = "Id:";
             // 
             // TextBoxRectanglesCoordinateY
             // 
-            this.TextBoxRectanglesCoordinateY.Location = new System.Drawing.Point(253, 16);
+            this.TextBoxRectanglesCoordinateY.Location = new System.Drawing.Point(337, 20);
+            this.TextBoxRectanglesCoordinateY.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.TextBoxRectanglesCoordinateY.Name = "TextBoxRectanglesCoordinateY";
-            this.TextBoxRectanglesCoordinateY.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxRectanglesCoordinateY.Size = new System.Drawing.Size(132, 22);
             this.TextBoxRectanglesCoordinateY.TabIndex = 10;
             this.TextBoxRectanglesCoordinateY.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxDisable);
             // 
             // LabelCenterCoordinateYRectangle
             // 
             this.LabelCenterCoordinateYRectangle.AutoSize = true;
-            this.LabelCenterCoordinateYRectangle.Location = new System.Drawing.Point(250, 0);
+            this.LabelCenterCoordinateYRectangle.Location = new System.Drawing.Point(333, 0);
+            this.LabelCenterCoordinateYRectangle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LabelCenterCoordinateYRectangle.Name = "LabelCenterCoordinateYRectangle";
-            this.LabelCenterCoordinateYRectangle.Size = new System.Drawing.Size(104, 13);
+            this.LabelCenterCoordinateYRectangle.Size = new System.Drawing.Size(128, 16);
             this.LabelCenterCoordinateYRectangle.TabIndex = 9;
             this.LabelCenterCoordinateYRectangle.Text = "Center coordinate Y:";
             // 
             // TextBoxRectanglesCoordinateX
             // 
-            this.TextBoxRectanglesCoordinateX.Location = new System.Drawing.Point(253, 64);
+            this.TextBoxRectanglesCoordinateX.Location = new System.Drawing.Point(337, 79);
+            this.TextBoxRectanglesCoordinateX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.TextBoxRectanglesCoordinateX.Name = "TextBoxRectanglesCoordinateX";
-            this.TextBoxRectanglesCoordinateX.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxRectanglesCoordinateX.Size = new System.Drawing.Size(132, 22);
             this.TextBoxRectanglesCoordinateX.TabIndex = 8;
             this.TextBoxRectanglesCoordinateX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBoxDisable);
             // 
             // LabelCenterCoordinateXRectangle
             // 
             this.LabelCenterCoordinateXRectangle.AutoSize = true;
-            this.LabelCenterCoordinateXRectangle.Location = new System.Drawing.Point(250, 48);
+            this.LabelCenterCoordinateXRectangle.Location = new System.Drawing.Point(333, 59);
+            this.LabelCenterCoordinateXRectangle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LabelCenterCoordinateXRectangle.Name = "LabelCenterCoordinateXRectangle";
-            this.LabelCenterCoordinateXRectangle.Size = new System.Drawing.Size(104, 13);
+            this.LabelCenterCoordinateXRectangle.Size = new System.Drawing.Size(127, 16);
             this.LabelCenterCoordinateXRectangle.TabIndex = 7;
             this.LabelCenterCoordinateXRectangle.Text = "Center coordinate X:";
             // 
             // ButtonFindRectangleWithMaxWidth
             // 
-            this.ButtonFindRectangleWithMaxWidth.Location = new System.Drawing.Point(126, 157);
+            this.ButtonFindRectangleWithMaxWidth.Location = new System.Drawing.Point(168, 193);
+            this.ButtonFindRectangleWithMaxWidth.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ButtonFindRectangleWithMaxWidth.Name = "ButtonFindRectangleWithMaxWidth";
-            this.ButtonFindRectangleWithMaxWidth.Size = new System.Drawing.Size(100, 29);
+            this.ButtonFindRectangleWithMaxWidth.Size = new System.Drawing.Size(133, 36);
             this.ButtonFindRectangleWithMaxWidth.TabIndex = 1;
             this.ButtonFindRectangleWithMaxWidth.Text = "Find";
             this.ButtonFindRectangleWithMaxWidth.UseVisualStyleBackColor = true;
@@ -107,67 +114,76 @@
             // 
             // TextBoxRectanglesColor
             // 
-            this.TextBoxRectanglesColor.Location = new System.Drawing.Point(126, 112);
+            this.TextBoxRectanglesColor.BackColor = System.Drawing.SystemColors.Window;
+            this.TextBoxRectanglesColor.Location = new System.Drawing.Point(168, 138);
+            this.TextBoxRectanglesColor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.TextBoxRectanglesColor.Name = "TextBoxRectanglesColor";
-            this.TextBoxRectanglesColor.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxRectanglesColor.Size = new System.Drawing.Size(132, 22);
             this.TextBoxRectanglesColor.TabIndex = 6;
             this.TextBoxRectanglesColor.TextChanged += new System.EventHandler(this.TextBoxClassesRectanglesColor_TextChanged);
             // 
             // TextBoxRectanglesWidth
             // 
-            this.TextBoxRectanglesWidth.Location = new System.Drawing.Point(126, 64);
+            this.TextBoxRectanglesWidth.Location = new System.Drawing.Point(168, 79);
+            this.TextBoxRectanglesWidth.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.TextBoxRectanglesWidth.Name = "TextBoxRectanglesWidth";
-            this.TextBoxRectanglesWidth.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxRectanglesWidth.Size = new System.Drawing.Size(132, 22);
             this.TextBoxRectanglesWidth.TabIndex = 5;
             this.TextBoxRectanglesWidth.TextChanged += new System.EventHandler(this.TextBoxClassesRectanglesWidth_TextChanged);
             // 
             // TextBoxRectanglesLength
             // 
-            this.TextBoxRectanglesLength.Location = new System.Drawing.Point(126, 16);
+            this.TextBoxRectanglesLength.Location = new System.Drawing.Point(168, 20);
+            this.TextBoxRectanglesLength.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.TextBoxRectanglesLength.Name = "TextBoxRectanglesLength";
-            this.TextBoxRectanglesLength.Size = new System.Drawing.Size(100, 20);
+            this.TextBoxRectanglesLength.Size = new System.Drawing.Size(132, 22);
             this.TextBoxRectanglesLength.TabIndex = 4;
             this.TextBoxRectanglesLength.TextChanged += new System.EventHandler(this.TextBoxClassesRectanglesLength_TextChanged);
             // 
             // LabelLengthRectangle
             // 
             this.LabelLengthRectangle.AutoSize = true;
-            this.LabelLengthRectangle.Location = new System.Drawing.Point(123, 0);
+            this.LabelLengthRectangle.Location = new System.Drawing.Point(164, 0);
+            this.LabelLengthRectangle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LabelLengthRectangle.Name = "LabelLengthRectangle";
-            this.LabelLengthRectangle.Size = new System.Drawing.Size(43, 13);
+            this.LabelLengthRectangle.Size = new System.Drawing.Size(50, 16);
             this.LabelLengthRectangle.TabIndex = 1;
             this.LabelLengthRectangle.Text = "Length:";
             // 
             // LabelWidthRectangle
             // 
             this.LabelWidthRectangle.AutoSize = true;
-            this.LabelWidthRectangle.Location = new System.Drawing.Point(123, 48);
+            this.LabelWidthRectangle.Location = new System.Drawing.Point(164, 59);
+            this.LabelWidthRectangle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LabelWidthRectangle.Name = "LabelWidthRectangle";
-            this.LabelWidthRectangle.Size = new System.Drawing.Size(38, 13);
+            this.LabelWidthRectangle.Size = new System.Drawing.Size(44, 16);
             this.LabelWidthRectangle.TabIndex = 2;
             this.LabelWidthRectangle.Text = "Width:";
             // 
             // LabelColorRectangle
             // 
             this.LabelColorRectangle.AutoSize = true;
-            this.LabelColorRectangle.Location = new System.Drawing.Point(126, 96);
+            this.LabelColorRectangle.Location = new System.Drawing.Point(168, 118);
+            this.LabelColorRectangle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LabelColorRectangle.Name = "LabelColorRectangle";
-            this.LabelColorRectangle.Size = new System.Drawing.Size(34, 13);
+            this.LabelColorRectangle.Size = new System.Drawing.Size(42, 16);
             this.LabelColorRectangle.TabIndex = 3;
             this.LabelColorRectangle.Text = "Color:";
             // 
             // ListBoxRectangles
             // 
             this.ListBoxRectangles.FormattingEnabled = true;
+            this.ListBoxRectangles.ItemHeight = 16;
             this.ListBoxRectangles.Location = new System.Drawing.Point(0, 0);
+            this.ListBoxRectangles.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ListBoxRectangles.Name = "ListBoxRectangles";
-            this.ListBoxRectangles.Size = new System.Drawing.Size(120, 186);
+            this.ListBoxRectangles.Size = new System.Drawing.Size(159, 228);
             this.ListBoxRectangles.TabIndex = 0;
             this.ListBoxRectangles.SelectedIndexChanged += new System.EventHandler(this.ListBoxClassesRectangles_SelectedIndexChanged);
             // 
             // RectanglesControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.TextBoxRectanglesId);
             this.Controls.Add(this.LabelIdRectangle);
@@ -183,8 +199,9 @@
             this.Controls.Add(this.ButtonFindRectangleWithMaxWidth);
             this.Controls.Add(this.TextBoxRectanglesWidth);
             this.Controls.Add(this.TextBoxRectanglesColor);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "RectanglesControl";
-            this.Size = new System.Drawing.Size(355, 189);
+            this.Size = new System.Drawing.Size(473, 233);
             this.ResumeLayout(false);
             this.PerformLayout();
 

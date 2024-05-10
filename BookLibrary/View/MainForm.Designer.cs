@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             ListBoxBooks = new ListBox();
             GroupBoxSelectedBook = new GroupBox();
-            ComboBoxGenre = new ComboBox();
+            ComboBoxGenres = new ComboBox();
             NumericUpDownPageCount = new NumericUpDown();
             TextBoxAuthor = new TextBox();
             LabelGenre = new Label();
@@ -56,11 +56,12 @@
             ListBoxBooks.Name = "ListBoxBooks";
             ListBoxBooks.Size = new Size(275, 384);
             ListBoxBooks.TabIndex = 0;
+            ListBoxBooks.SelectedIndexChanged += ListBoxBooks_SelectedIndexChanged;
             // 
             // GroupBoxSelectedBook
             // 
             GroupBoxSelectedBook.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            GroupBoxSelectedBook.Controls.Add(ComboBoxGenre);
+            GroupBoxSelectedBook.Controls.Add(ComboBoxGenres);
             GroupBoxSelectedBook.Controls.Add(NumericUpDownPageCount);
             GroupBoxSelectedBook.Controls.Add(TextBoxAuthor);
             GroupBoxSelectedBook.Controls.Add(LabelGenre);
@@ -77,25 +78,28 @@
             GroupBoxSelectedBook.TabStop = false;
             GroupBoxSelectedBook.Text = "Selected Book";
             // 
-            // ComboBoxGenre
+            // ComboBoxGenres
             // 
-            ComboBoxGenre.FormattingEnabled = true;
-            ComboBoxGenre.Location = new Point(107, 92);
-            ComboBoxGenre.Name = "ComboBoxGenre";
-            ComboBoxGenre.Size = new Size(203, 28);
-            ComboBoxGenre.TabIndex = 9;
+            ComboBoxGenres.FormattingEnabled = true;
+            ComboBoxGenres.Location = new Point(107, 92);
+            ComboBoxGenres.Name = "ComboBoxGenres";
+            ComboBoxGenres.Size = new Size(200, 28);
+            ComboBoxGenres.TabIndex = 9;
+            ComboBoxGenres.SelectedIndexChanged += ComboBoxGenres_SelectedIndexChanged;
+            ComboBoxGenres.KeyPress += TextBoxDisable;
             // 
             // NumericUpDownPageCount
             // 
             NumericUpDownPageCount.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             NumericUpDownPageCount.Location = new Point(107, 125);
             NumericUpDownPageCount.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            NumericUpDownPageCount.MaximumSize = new Size(250, 0);
+            NumericUpDownPageCount.MaximumSize = new Size(200, 0);
             NumericUpDownPageCount.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             NumericUpDownPageCount.Name = "NumericUpDownPageCount";
             NumericUpDownPageCount.Size = new Size(72, 27);
             NumericUpDownPageCount.TabIndex = 8;
             NumericUpDownPageCount.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            NumericUpDownPageCount.ValueChanged += NumericUpDownPageCount_ValueChanged;
             // 
             // TextBoxAuthor
             // 
@@ -104,6 +108,7 @@
             TextBoxAuthor.Name = "TextBoxAuthor";
             TextBoxAuthor.Size = new Size(203, 27);
             TextBoxAuthor.TabIndex = 6;
+            TextBoxAuthor.TextChanged += TextBoxAuthor_TextChanged;
             // 
             // LabelGenre
             // 
@@ -130,6 +135,7 @@
             DateTimePickerReleaseYear.Name = "DateTimePickerReleaseYear";
             DateTimePickerReleaseYear.Size = new Size(72, 27);
             DateTimePickerReleaseYear.TabIndex = 7;
+            DateTimePickerReleaseYear.ValueChanged += DateTimePickerReleaseYear_ValueChanged;
             // 
             // LabelPageCount
             // 
@@ -144,9 +150,11 @@
             // 
             TextBoxTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             TextBoxTitle.Location = new Point(107, 26);
+            TextBoxTitle.MaxLength = 100;
             TextBoxTitle.Name = "TextBoxTitle";
             TextBoxTitle.Size = new Size(376, 27);
             TextBoxTitle.TabIndex = 2;
+            TextBoxTitle.TextChanged += TextBoxTitle_TextChanged;
             // 
             // LabelReleaseYear
             // 
@@ -181,6 +189,7 @@
             ButtonAddBook.Size = new Size(40, 40);
             ButtonAddBook.TabIndex = 10;
             ButtonAddBook.UseVisualStyleBackColor = false;
+            ButtonAddBook.Click += ButtonAddBook_Click;
             // 
             // ButtonEditBook
             // 
@@ -197,6 +206,7 @@
             ButtonEditBook.Size = new Size(40, 40);
             ButtonEditBook.TabIndex = 11;
             ButtonEditBook.UseVisualStyleBackColor = false;
+            ButtonEditBook.Click += ButtonEditBook_Click;
             // 
             // ButtonRemoveBook
             // 
@@ -213,6 +223,7 @@
             ButtonRemoveBook.Size = new Size(40, 40);
             ButtonRemoveBook.TabIndex = 12;
             ButtonRemoveBook.UseVisualStyleBackColor = false;
+            ButtonRemoveBook.Click += ButtonRemoveBook_Click;
             // 
             // MainForm
             // 
@@ -245,7 +256,7 @@
         private Label LabelPageCount;
         private DateTimePicker DateTimePickerReleaseYear;
         private TextBox TextBoxAuthor;
-        private ComboBox ComboBoxGenre;
+        private ComboBox ComboBoxGenres;
         private NumericUpDown NumericUpDownPageCount;
         private Button ButtonAddBook;
         private Button ButtonEditBook;

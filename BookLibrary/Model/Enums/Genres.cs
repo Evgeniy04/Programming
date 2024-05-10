@@ -1,7 +1,7 @@
 ﻿/// <summary>
 /// Жанры книг.
 /// </summary>
-public enum Genre
+public enum Genres
 {
     Fiction,
     NonFiction,
