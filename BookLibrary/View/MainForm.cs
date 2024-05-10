@@ -1,19 +1,24 @@
 namespace BookLibrary
 {
+    /// <summary>
+    /// Главная форма.
+    /// </summary>
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="MainForm"/>.
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
+
             // Установка пользовательского формата даты для отображения только года
-            dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.CustomFormat = "yyyy";
+            DateTimePickerReleaseYear.Format = DateTimePickerFormat.Custom;
+            DateTimePickerReleaseYear.CustomFormat = "yyyy";
+            // Показать только стрелки вверх и вниз
+            DateTimePickerReleaseYear.ShowUpDown = true;
+            DateTimePickerReleaseYear.MaxDate = DateTime.Now;
 
-            // Скрытие элементов, которые не относятся к году
-            dateTimePicker1.ShowUpDown = true; // Показать только стрелки вверх и вниз
-
-            // Отключение возможности редактирования текста
-            //dateTimePicker1.Enabled = false;
 
         }
     }
