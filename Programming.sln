@@ -5,7 +5,12 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Programming", "Programming\Programming.csproj", "{A4EB72E8-FC46-4D5B-B5DE-7FAEA45646EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookLibrary", "BookLibrary\BookLibrary.csproj", "{6CC52D05-C449-47B5-B91F-0228CB9F6625}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookLibrary", "BookLibrary\BookLibrary.csproj", "{6CC52D05-C449-47B5-B91F-0228CB9F6625}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{82E2611E-4356-43B3-B925-4458D3E0BA86}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
