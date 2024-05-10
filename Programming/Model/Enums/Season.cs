@@ -1,4 +1,7 @@
-﻿public enum Season
+﻿/// <summary>
+/// Представляет времена года.
+/// </summary>
+public enum Season
 {
     Spring,
     Summer,

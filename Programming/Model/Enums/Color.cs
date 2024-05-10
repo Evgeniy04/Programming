@@ -1,4 +1,7 @@
-﻿public enum Color
+﻿/// <summary>
+/// Представляет цвета.
+/// </summary>
+public enum Color
 {
     Red,
     Green,

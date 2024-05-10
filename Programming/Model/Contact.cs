@@ -3,15 +3,39 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 
+/// <summary>
+/// Представление контакта в телефоне.
+/// </summary>
 class Contact
 {
+    /// <summary>
+    /// Имя контакта.
+    /// </summary>
     string _name;
+    /// <summary>
+    /// Фамилия контакта.
+    /// </summary>
     string _surname;
+    /// <summary>
+    /// Организация контакта.
+    /// </summary>
     string _organization;
+    /// <summary>
+    /// Номер телефона контакта.
+    /// </summary>
     string _phoneNumber;
+    /// <summary>
+    /// Адрес электронной почты контакта.
+    /// </summary>
     string _email;
+    /// <summary>
+    /// День рождения контакта.
+    /// </summary>
     DateTime Birthday { get; set; }
 
+    /// <summary>
+    /// Возвращает и изменяет имя контакта. Количество символов больше нуля.
+    /// </summary>
     public string Name
     {
         get { return _name; }
@@ -22,6 +46,9 @@ class Contact
             _name = value;
         }
     }
+    /// <summary>
+    /// Возвращает и изменяет фамилию контакта. Количество символов больше нуля.
+    /// </summary>
     public string Surname
     {
         get { return _surname; }
@@ -32,6 +59,9 @@ class Contact
             _surname = value;
         }
     }
+    /// <summary>
+    /// Возвращает и изменяет название организации контакта. Количество символов больше нуля.
+    /// </summary>
     public string Organization
     {
         get { return _organization; }
@@ -41,6 +71,9 @@ class Contact
             _organization = value;
         }
     }
+    /// <summary>
+    /// Возвращает и изменяет телефонный номер контакта. Значение должно быть больше 7 символов.
+    /// </summary>
     public string PhoneNumber
     {
         get { return _phoneNumber; }
@@ -50,6 +83,9 @@ class Contact
             _phoneNumber = value;
         }
     }
+    /// <summary>
+    /// Возвращает и изменяет адрес электронной почты.
+    /// </summary>
     public string Email
     {
         get { return _email; }
@@ -60,6 +96,9 @@ class Contact
         }
     }
 
+    /// <summary>
+    /// Создаёт экземпляр класса <see cref="Contact"/>.
+    /// </summary>
     public Contact()
     {
         Name = "Name";
@@ -70,6 +109,15 @@ class Contact
         Birthday = new DateTime(1962, 4, 21);
     }
 
+    /// <summary>
+    /// Создаёт экземпляр класса <see cref="Contact"/>.
+    /// </summary>
+    /// <param name="name">Имя контакта.</param>
+    /// <param name="surname">Фамилия контакта.</param>
+    /// <param name="organization">Организация контакта.</param>
+    /// <param name="phoneNumber">Номер телефона контакта.</param>
+    /// <param name="email">Адрес электронной почты контакта.</param>
+    /// <param name="birthday">День рождения контакта.</param>
     public Contact(string name, string surname, string organization, string phoneNumber, string email, DateTime birthday)
     {
         Name = name;
@@ -80,7 +128,12 @@ class Contact
         Birthday = birthday;
     }
 
-    // https://learn.microsoft.com/ru-ru/dotnet/standard/base-types/how-to-verify-that-strings-are-in-valid-email-format
+    /// <summary>
+    /// Проверяет, является ли указанная строка правильным адресом электронной почты. Пояснение: https://learn.microsoft.com/ru-ru/dotnet/standard/base-types/how-to-verify-that-strings-are-in-valid-email-format
+    /// </summary>
+    /// <param name="email">Строка для проверки.</param>
+    /// <returns><see langword="true"/>, если адрес электронной почты правильный, в противном случае — <see langword="false"/>.</returns>
+    /// <exception cref="ArgumentException">Вызывается, если адрес электронной почты недопустимый.</exception>
     public static bool IsValidEmail(string email)
     {
         if (string.IsNullOrWhiteSpace(email))
@@ -125,6 +178,11 @@ class Contact
         }
     }
 
+    /// <summary>
+    /// Проверяет, содержит ли указанная строка только буквы английского алфавита.
+    /// </summary>
+    /// <param name="value">Строка для проверки.</param>
+    /// <exception cref="ArgumentException">Вызывается, если строка содержит символы, отличные от букв английского алфавита.</exception>
     private void AssertStringContainsOnlyLetters(string value)
     {
         if (Regex.IsMatch(value, "^[a-zA-Z]*$"))

@@ -1,19 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Programming.View.Panels
 {
+    /// <summary>
+    /// Панель проверки введённого текста на соответствие дню недели.
+    /// </summary>
     public partial class WeekdayParsingPanel : UserControl
     {
+        /// <summary>
+        /// Цвет панели.
+        /// </summary>
         private System.Drawing.Color _color;
 
+        /// <summary>
+        /// Возвращает и задаёт цвет панели.
+        /// </summary>
         public System.Drawing.Color Color
         {
             get { return _color; }
@@ -24,10 +26,19 @@ namespace Programming.View.Panels
             }
         }
 
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="WeekdayParsingPanel"/>.
+        /// </summary>
         public WeekdayParsingPanel()
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Обработчик нажатия кнопки разбора дня недели.
+        /// </summary>
+        /// <param name="sender">Объект-отправитель события.</param>
+        /// <param name="e">Аргументы события нажатия кнопки.</param>
         private void ButtonWeekdayParsing_Click(object sender, EventArgs e)
         {
             string selectedItemName = TextBoxDayInput.Text;

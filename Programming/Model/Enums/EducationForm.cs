@@ -1,4 +1,7 @@
-﻿public enum EducationForm
+﻿/// <summary>
+/// Представляет формы обучения.
+/// </summary>
+public enum EducationForm
 {
     FullTime,
     PartTime,

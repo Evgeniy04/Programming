@@ -1,11 +1,26 @@
 using System;
 
+/// <summary>
+/// 
+/// </summary>
 class Time
 {
+    /// <summary>
+    /// 
+    /// </summary>
     int _hours;
+    /// <summary>
+    /// 
+    /// </summary>
     int _minutes;
+    /// <summary>
+    /// 
+    /// </summary>
     int _seconds;
 
+    /// <summary>
+    /// 
+    /// </summary>
     public int Hours
     {
         get { return _hours; }
@@ -15,6 +30,9 @@ class Time
             _hours = value;
         }
     }
+    /// <summary>
+    /// 
+    /// </summary>
     public int Minutes
     {
         get { return _minutes; }
@@ -24,6 +42,9 @@ class Time
             _minutes = value;
         }
     }
+    /// <summary>
+    /// 
+    /// </summary>
     public int Seconds
     {
         get { return _seconds; }
@@ -34,6 +55,9 @@ class Time
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public Time()
     {
         Hours = DateTime.Now.Hour;
@@ -41,6 +65,12 @@ class Time
         Seconds = DateTime.Now.Second;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="hours"></param>
+    /// <param name="minutes"></param>
+    /// <param name="seconds"></param>
     public Time(int hours, int minutes, int seconds)
     {
         Hours = hours;

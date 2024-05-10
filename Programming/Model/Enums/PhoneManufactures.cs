@@ -1,4 +1,7 @@
-﻿public enum PhoneManufactures
+﻿/// <summary>
+/// Представляет производителей телефонов.
+/// </summary>
+public enum PhoneManufactures
 {
     Apple,
     Samsung,

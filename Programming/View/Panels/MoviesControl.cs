@@ -3,11 +3,27 @@ using System.Windows.Forms;
 
 namespace Programming.View.Panels
 {
+    /// <summary>
+    /// Панель управления фильмами.
+    /// </summary>
     public partial class MoviesControl : UserControl
     {
+        /// <summary>
+        /// Массив фильмов.
+        /// </summary>
         private Movie[] _movies;
+        /// <summary>
+        /// Текущий выбранный фильм.
+        /// </summary>
         private Movie _currentMovie;
+        /// <summary>
+        /// Случайное число.
+        /// </summary>
         private Random _random = new Random();
+
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="MoviesControl"/>.
+        /// </summary>
         public MoviesControl()
         {
             InitializeComponent();
@@ -31,6 +47,12 @@ namespace Programming.View.Panels
             //
             ListBoxMovies.Items.AddRange(listBoxMoviesItems);
         }
+
+        /// <summary>
+        /// Обработчик изменения выбранного элемента в списке фильмов.
+        /// </summary>
+        /// <param name="sender">Объект-отправитель события.</param>
+        /// <param name="e">Аргументы события изменения текста.</param>
         private void ListBoxMovies_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ListBoxMovies.SelectedIndex == -1) return;
@@ -42,6 +64,12 @@ namespace Programming.View.Panels
             TextBoxGenreMovie.Text = _currentMovie.Genre.ToString();
             TextBoxRatingMovie.Text = _currentMovie.Rating.ToString();
         }
+
+        /// <summary>
+        /// Изменение названия фильма.
+        /// </summary>
+        /// <param name="sender">Объект-отправитель события.</param>
+        /// <param name="e">Аргументы события изменения текста.</param>
         private void TextBoxTitleMovie_TextChanged(object sender, EventArgs e)
         {
             if (_currentMovie == null) return;
@@ -55,6 +83,12 @@ namespace Programming.View.Panels
                 TextBoxTitleMovie.BackColor = AppColors.Invalid;
             }
         }
+
+        /// <summary>
+        /// Изменение продолжительности фильма.
+        /// </summary>
+        /// <param name="sender">Объект-отправитель события.</param>
+        /// <param name="e">Аргументы события изменения текста.</param>
         private void TextBoxDurationMinutesMovie_TextChanged(object sender, EventArgs e)
         {
             if (_currentMovie == null) return;
@@ -69,6 +103,11 @@ namespace Programming.View.Panels
                 TextBoxDurationMinutesMovie.BackColor = AppColors.Invalid;
             }
         }
+        /// <summary>
+        /// Изменение даты релиза фильма.
+        /// </summary>
+        /// <param name="sender">Объект-отправитель события.</param>
+        /// <param name="e">Аргументы события изменения текста.</param>
         private void TextBoxReleaseYearMovie_TextChanged(object sender, EventArgs e)
         {
             if (_currentMovie == null) return;
@@ -83,6 +122,11 @@ namespace Programming.View.Panels
                 TextBoxReleaseYearMovie.BackColor = AppColors.Invalid;
             }
         }
+        /// <summary>
+        /// Изменение жанра фильма.
+        /// </summary>
+        /// <param name="sender">Объект-отправитель события.</param>
+        /// <param name="e">Аргументы события изменения текста.</param>
         private void TextBoxGenreMovie_TextChanged(object sender, EventArgs e)
         {
             if (_currentMovie == null) return;
@@ -97,6 +141,11 @@ namespace Programming.View.Panels
                 TextBoxGenreMovie.BackColor = AppColors.Invalid;
             }
         }
+        /// <summary>
+        /// Изменение рейтинга фильма.
+        /// </summary>
+        /// <param name="sender">Объект-отправитель события.</param>
+        /// <param name="e">Аргументы события изменения текста.</param>
         private void TextBoxRatingMovie_TextChanged(object sender, EventArgs e)
         {
             if (_currentMovie == null) return;
@@ -111,10 +160,24 @@ namespace Programming.View.Panels
                 TextBoxRatingMovie.BackColor = AppColors.Invalid;
             }
         }
+
+        /// <summary>
+        /// Метод поиска фильма с максимальным рейтингом и выбора его в списке.
+        /// </summary>
+        /// <param name="sender">Объект-отправитель события.</param>
+        /// <param name="e">Аргументы события изменения текста.</param>
         private void ButtonFindMovieWithMaxRating_Click(object sender, EventArgs e)
         {
             ListBoxMovies.SelectedIndex = FindItemWithMaxValue(_movies, (movie) => movie.Rating);
         }
+
+        /// <summary>
+        /// Метод поиска индекса элемента массива с максимальным значением, основываясь на заданной функции.
+        /// </summary>
+        /// <typeparam name="T">Тип элемента массива.</typeparam>
+        /// <param name="classArray">Массив элементов.</param>
+        /// <param name="getValue">Функция, возвращающая значение элемента, по которому производится поиск максимального значения.</param>
+        /// <returns>Индекс элемента массива с максимальным значением.</returns>
         private int FindItemWithMaxValue<T>(T[] classArray, Func<T, double> getValue) where T : class
         {
             if (classArray.Length < 1) return -1;
@@ -131,6 +194,12 @@ namespace Programming.View.Panels
             }
             return index;
         }
+
+        /// <summary>
+        /// Метод, запрещающий ввод текста в текстовые поля.
+        /// </summary>
+        /// <param name="sender">Объект-отправитель события.</param>
+        /// <param name="e">Аргументы события нажатия клавиши.</param>
         private void TextBoxDisable(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;

@@ -1,4 +1,7 @@
-﻿public enum Genre
+﻿/// <summary>
+/// Представляет жанры фильмов.
+/// </summary>
+public enum Genre
 {
     Comedy,
     Drama,
