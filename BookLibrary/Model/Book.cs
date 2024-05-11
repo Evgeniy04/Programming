@@ -72,7 +72,7 @@ class Book
         get { return _pageCount; }
         set
         {
-            Validator.AssertOnPositiveValue(value);
+            Validator.AssertValueInRange(value, 1, int.MaxValue);
             _pageCount = value;
         }
     }

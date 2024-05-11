@@ -31,12 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             ListBoxBooks = new ListBox();
             GroupBoxSelectedBook = new GroupBox();
+            NumericUpDownReleaseYear = new NumericUpDown();
             ComboBoxGenres = new ComboBox();
             NumericUpDownPageCount = new NumericUpDown();
             TextBoxAuthor = new TextBox();
             LabelGenre = new Label();
             LabelAuthor = new Label();
-            DateTimePickerReleaseYear = new DateTimePicker();
             LabelPageCount = new Label();
             TextBoxTitle = new TextBox();
             LabelReleaseYear = new Label();
@@ -45,6 +45,7 @@
             ButtonEditBook = new Button();
             ButtonRemoveBook = new Button();
             GroupBoxSelectedBook.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)NumericUpDownReleaseYear).BeginInit();
             ((System.ComponentModel.ISupportInitialize)NumericUpDownPageCount).BeginInit();
             SuspendLayout();
             // 
@@ -61,12 +62,12 @@
             // GroupBoxSelectedBook
             // 
             GroupBoxSelectedBook.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            GroupBoxSelectedBook.Controls.Add(NumericUpDownReleaseYear);
             GroupBoxSelectedBook.Controls.Add(ComboBoxGenres);
             GroupBoxSelectedBook.Controls.Add(NumericUpDownPageCount);
             GroupBoxSelectedBook.Controls.Add(TextBoxAuthor);
             GroupBoxSelectedBook.Controls.Add(LabelGenre);
             GroupBoxSelectedBook.Controls.Add(LabelAuthor);
-            GroupBoxSelectedBook.Controls.Add(DateTimePickerReleaseYear);
             GroupBoxSelectedBook.Controls.Add(LabelPageCount);
             GroupBoxSelectedBook.Controls.Add(TextBoxTitle);
             GroupBoxSelectedBook.Controls.Add(LabelReleaseYear);
@@ -77,6 +78,19 @@
             GroupBoxSelectedBook.TabIndex = 1;
             GroupBoxSelectedBook.TabStop = false;
             GroupBoxSelectedBook.Text = "Selected Book";
+            // 
+            // NumericUpDownReleaseYear
+            // 
+            NumericUpDownReleaseYear.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            NumericUpDownReleaseYear.Location = new Point(107, 158);
+            NumericUpDownReleaseYear.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            NumericUpDownReleaseYear.MaximumSize = new Size(200, 0);
+            NumericUpDownReleaseYear.Minimum = new decimal(new int[] { 1000, 0, 0, int.MinValue });
+            NumericUpDownReleaseYear.Name = "NumericUpDownReleaseYear";
+            NumericUpDownReleaseYear.Size = new Size(72, 27);
+            NumericUpDownReleaseYear.TabIndex = 10;
+            NumericUpDownReleaseYear.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            NumericUpDownReleaseYear.ValueChanged += NumericUpDownReleaseYear_ValueChanged;
             // 
             // ComboBoxGenres
             // 
@@ -94,11 +108,9 @@
             NumericUpDownPageCount.Location = new Point(107, 125);
             NumericUpDownPageCount.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             NumericUpDownPageCount.MaximumSize = new Size(200, 0);
-            NumericUpDownPageCount.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             NumericUpDownPageCount.Name = "NumericUpDownPageCount";
             NumericUpDownPageCount.Size = new Size(72, 27);
             NumericUpDownPageCount.TabIndex = 8;
-            NumericUpDownPageCount.Value = new decimal(new int[] { 1, 0, 0, 0 });
             NumericUpDownPageCount.ValueChanged += NumericUpDownPageCount_ValueChanged;
             // 
             // TextBoxAuthor
@@ -128,15 +140,6 @@
             LabelAuthor.TabIndex = 3;
             LabelAuthor.Text = "Author:";
             // 
-            // DateTimePickerReleaseYear
-            // 
-            DateTimePickerReleaseYear.Location = new Point(107, 158);
-            DateTimePickerReleaseYear.MaxDate = new DateTime(2024, 12, 25, 23, 59, 59, 0);
-            DateTimePickerReleaseYear.Name = "DateTimePickerReleaseYear";
-            DateTimePickerReleaseYear.Size = new Size(72, 27);
-            DateTimePickerReleaseYear.TabIndex = 7;
-            DateTimePickerReleaseYear.ValueChanged += DateTimePickerReleaseYear_ValueChanged;
-            // 
             // LabelPageCount
             // 
             LabelPageCount.AutoSize = true;
@@ -150,7 +153,7 @@
             // 
             TextBoxTitle.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             TextBoxTitle.Location = new Point(107, 26);
-            TextBoxTitle.MaxLength = 100;
+            TextBoxTitle.MaxLength = 101;
             TextBoxTitle.Name = "TextBoxTitle";
             TextBoxTitle.Size = new Size(376, 27);
             TextBoxTitle.TabIndex = 2;
@@ -238,8 +241,10 @@
             MinimumSize = new Size(818, 497);
             Name = "MainForm";
             Text = "Book Library";
+            FormClosed += MainForm_FormClosed;
             GroupBoxSelectedBook.ResumeLayout(false);
             GroupBoxSelectedBook.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)NumericUpDownReleaseYear).EndInit();
             ((System.ComponentModel.ISupportInitialize)NumericUpDownPageCount).EndInit();
             ResumeLayout(false);
         }
@@ -254,12 +259,12 @@
         private Label LabelAuthor;
         private Label LabelGenre;
         private Label LabelPageCount;
-        private DateTimePicker DateTimePickerReleaseYear;
         private TextBox TextBoxAuthor;
         private ComboBox ComboBoxGenres;
         private NumericUpDown NumericUpDownPageCount;
         private Button ButtonAddBook;
         private Button ButtonEditBook;
         private Button ButtonRemoveBook;
+        private NumericUpDown NumericUpDownReleaseYear;
     }
 }
