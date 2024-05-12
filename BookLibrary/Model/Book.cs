@@ -107,9 +107,9 @@ class Book
     }
 
     /// <summary>
-    /// 
+    /// Представление класса как строки.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Строка в формате {Title} / {Author} / {Genre}.</returns>
     public override string ToString()
     {
         return $"{Title} / {Author} / {Genre}";

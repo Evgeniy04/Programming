@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-
-/// <summary>
+﻿/// <summary>
 /// Валидация значений.
 /// </summary>
 static class Validator
