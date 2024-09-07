@@ -20,6 +20,17 @@ namespace ObjectOrientedPractics.View.Tabs
         public ItemsTab()
         {
             InitializeComponent();
+            // Настройка вёрстки таблицы
+            ColumnStyle column;
+            for (int i = 0; i < ItemsTableLayoutPanel.ColumnStyles.Count; i++)
+            {
+                column = ItemsTableLayoutPanel.ColumnStyles[i];
+                if (i < 3) column.Width = 80;
+                column.SizeType = SizeType.Percent;
+            }
+            ItemsTableLayoutPanel.RowStyles[0].Height = 31;
+            ItemsTableLayoutPanel.RowStyles[0].SizeType = SizeType.Absolute;
+            // Иницализация списка товаров
             _items.Add(new Item("один", "декс", 12));
             ItemsListBox.Items.AddRange(_items.ToArray());
         }
@@ -37,6 +48,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 _items.Remove(_currentItem);
                 ItemsListBox.Items.Remove(_currentItem);
+                SelectedItemEvent(true);
             }
         }
 
@@ -110,13 +122,13 @@ namespace ObjectOrientedPractics.View.Tabs
             ItemsListBox.Items.AddRange(_items.ToArray());
         }
 
-        private void SelectedItemEvent()
+        private void SelectedItemEvent(bool isEmpty = false)
         {
             IdTextBox.BackColor = NameRichTextBox.BackColor = DescriptionRichTextBox.BackColor = CostTextBox.BackColor = Color.White;
-            IdTextBox.Text = _currentItem.Id.ToString();
-            NameRichTextBox.Text = _currentItem.Name.ToString();
-            DescriptionRichTextBox.Text = _currentItem.Info.ToString();
-            CostTextBox.Text = _currentItem.Cost.ToString();
+            IdTextBox.Text = isEmpty ? "Ничего не выбрано" : _currentItem.Id.ToString();
+            NameRichTextBox.Text = isEmpty ? "" : _currentItem.Name.ToString();
+            DescriptionRichTextBox.Text = isEmpty ? "" : _currentItem.Info.ToString();
+            CostTextBox.Text = isEmpty ? "0" : _currentItem.Cost.ToString();
         }
 
         private void CreateTooltip(TextBox textBox, string errorMessage)
