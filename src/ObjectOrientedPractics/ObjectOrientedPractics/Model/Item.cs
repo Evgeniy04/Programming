@@ -80,7 +80,7 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
-                ValueValidator.AssertValueInRange(value, 0, 100000);
+                ValueValidator.AssertValueInRange(value, 0, 100000, nameof(Cost));
                 _cost = value;
             }
         }
