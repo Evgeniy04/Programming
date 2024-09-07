@@ -68,6 +68,7 @@
             ItemsListBox.Name = "ItemsListBox";
             ItemsListBox.Size = new Size(309, 324);
             ItemsListBox.TabIndex = 4;
+            ItemsListBox.SelectedIndexChanged += ItemsListBox_SelectedIndexChanged;
             // 
             // RemoveItemButton
             // 
@@ -78,6 +79,7 @@
             RemoveItemButton.TabIndex = 5;
             RemoveItemButton.Text = "Remove";
             RemoveItemButton.UseVisualStyleBackColor = true;
+            RemoveItemButton.Click += RemoveItemButton_Click;
             // 
             // AddItemButton
             // 
@@ -88,6 +90,7 @@
             AddItemButton.TabIndex = 4;
             AddItemButton.Text = "Add";
             AddItemButton.UseVisualStyleBackColor = true;
+            AddItemButton.Click += AddItemButton_Click;
             // 
             // ItemsLabel
             // 
@@ -127,6 +130,7 @@
             DescriptionRichTextBox.Size = new Size(453, 145);
             DescriptionRichTextBox.TabIndex = 13;
             DescriptionRichTextBox.Text = "";
+            DescriptionRichTextBox.TextChanged += DescriptionRichTextBox_TextChanged;
             // 
             // NameRichTextBox
             // 
@@ -137,6 +141,7 @@
             NameRichTextBox.Size = new Size(453, 82);
             NameRichTextBox.TabIndex = 12;
             NameRichTextBox.Text = "";
+            NameRichTextBox.TextChanged += NameRichTextBox_TextChanged;
             // 
             // CostTextBox
             // 
@@ -144,6 +149,7 @@
             CostTextBox.Name = "CostTextBox";
             CostTextBox.Size = new Size(125, 27);
             CostTextBox.TabIndex = 11;
+            CostTextBox.TextChanged += CostTextBox_TextChanged;
             // 
             // IdTextBox
             // 
@@ -151,6 +157,7 @@
             IdTextBox.Name = "IdTextBox";
             IdTextBox.Size = new Size(125, 27);
             IdTextBox.TabIndex = 10;
+            IdTextBox.TextChanged += IdTextBox_TextChanged;
             // 
             // DescriptionLabel
             // 

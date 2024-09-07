@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObjectOrientedPractics.Model
+namespace Model
 {
     /// <summary>
     /// Класс Item представляет объект товара.
