@@ -30,8 +30,10 @@
         {
             MainTabControl = new TabControl();
             ItemsPage = new TabPage();
+            itemsTab1 = new View.Tabs.ItemsTab();
             tabPage2 = new TabPage();
             MainTabControl.SuspendLayout();
+            ItemsPage.SuspendLayout();
             SuspendLayout();
             // 
             // MainTabControl
@@ -47,6 +49,7 @@
             // 
             // ItemsPage
             // 
+            ItemsPage.Controls.Add(itemsTab1);
             ItemsPage.Location = new Point(4, 29);
             ItemsPage.Name = "ItemsPage";
             ItemsPage.Padding = new Padding(3);
@@ -54,6 +57,14 @@
             ItemsPage.TabIndex = 0;
             ItemsPage.Text = "Items";
             ItemsPage.UseVisualStyleBackColor = true;
+            // 
+            // itemsTab1
+            // 
+            itemsTab1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            itemsTab1.Location = new Point(3, 3);
+            itemsTab1.Name = "itemsTab1";
+            itemsTab1.Size = new Size(786, 411);
+            itemsTab1.TabIndex = 0;
             // 
             // tabPage2
             // 
@@ -74,6 +85,7 @@
             Name = "MainForm";
             Text = "Form1";
             MainTabControl.ResumeLayout(false);
+            ItemsPage.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -82,5 +94,6 @@
         private TabControl MainTabControl;
         private TabPage ItemsPage;
         private TabPage tabPage2;
+        private View.Tabs.ItemsTab itemsTab1;
     }
 }

@@ -49,28 +49,30 @@
             // 
             // ItemsPanel
             // 
-            ItemsPanel.AutoSize = true;
-            ItemsPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            ItemsPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             ItemsPanel.Controls.Add(ItemsListBox);
             ItemsPanel.Controls.Add(RemoveItemButton);
             ItemsPanel.Controls.Add(AddItemButton);
             ItemsPanel.Controls.Add(ItemsLabel);
             ItemsPanel.Location = new Point(0, 0);
             ItemsPanel.Name = "ItemsPanel";
-            ItemsPanel.Size = new Size(325, 485);
+            ItemsPanel.Size = new Size(325, 412);
             ItemsPanel.TabIndex = 2;
             // 
             // ItemsListBox
             // 
+            ItemsListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             ItemsListBox.FormattingEnabled = true;
             ItemsListBox.Location = new Point(13, 36);
+            ItemsListBox.MinimumSize = new Size(0, 324);
             ItemsListBox.Name = "ItemsListBox";
-            ItemsListBox.Size = new Size(309, 404);
+            ItemsListBox.Size = new Size(309, 324);
             ItemsListBox.TabIndex = 4;
             // 
             // RemoveItemButton
             // 
-            RemoveItemButton.Location = new Point(131, 447);
+            RemoveItemButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            RemoveItemButton.Location = new Point(131, 370);
             RemoveItemButton.Name = "RemoveItemButton";
             RemoveItemButton.Size = new Size(112, 35);
             RemoveItemButton.TabIndex = 5;
@@ -79,7 +81,8 @@
             // 
             // AddItemButton
             // 
-            AddItemButton.Location = new Point(13, 447);
+            AddItemButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            AddItemButton.Location = new Point(13, 370);
             AddItemButton.Name = "AddItemButton";
             AddItemButton.Size = new Size(112, 35);
             AddItemButton.TabIndex = 4;
@@ -98,7 +101,8 @@
             // 
             // SelectedItemPanel
             // 
-            SelectedItemPanel.AutoSize = true;
+            SelectedItemPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            SelectedItemPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             SelectedItemPanel.BackColor = SystemColors.ControlLightLight;
             SelectedItemPanel.Controls.Add(DescriptionRichTextBox);
             SelectedItemPanel.Controls.Add(NameRichTextBox);
@@ -109,24 +113,28 @@
             SelectedItemPanel.Controls.Add(NameLabel);
             SelectedItemPanel.Controls.Add(CostLabel);
             SelectedItemPanel.Controls.Add(IdLabel);
-            SelectedItemPanel.Location = new Point(331, 3);
+            SelectedItemPanel.Location = new Point(337, 3);
             SelectedItemPanel.Name = "SelectedItemPanel";
-            SelectedItemPanel.Size = new Size(484, 491);
+            SelectedItemPanel.Size = new Size(478, 406);
             SelectedItemPanel.TabIndex = 3;
             // 
             // DescriptionRichTextBox
             // 
+            DescriptionRichTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             DescriptionRichTextBox.Location = new Point(13, 257);
+            DescriptionRichTextBox.MinimumSize = new Size(196, 145);
             DescriptionRichTextBox.Name = "DescriptionRichTextBox";
-            DescriptionRichTextBox.Size = new Size(468, 145);
+            DescriptionRichTextBox.Size = new Size(453, 145);
             DescriptionRichTextBox.TabIndex = 13;
             DescriptionRichTextBox.Text = "";
             // 
             // NameRichTextBox
             // 
+            NameRichTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             NameRichTextBox.Location = new Point(13, 140);
+            NameRichTextBox.MinimumSize = new Size(196, 0);
             NameRichTextBox.Name = "NameRichTextBox";
-            NameRichTextBox.Size = new Size(468, 82);
+            NameRichTextBox.Size = new Size(453, 82);
             NameRichTextBox.TabIndex = 12;
             NameRichTextBox.Text = "";
             // 
@@ -194,16 +202,16 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
             Controls.Add(SelectedItemPanel);
             Controls.Add(ItemsPanel);
             Name = "ItemsTab";
-            Size = new Size(818, 497);
+            Size = new Size(818, 412);
             ItemsPanel.ResumeLayout(false);
             ItemsPanel.PerformLayout();
             SelectedItemPanel.ResumeLayout(false);
             SelectedItemPanel.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
