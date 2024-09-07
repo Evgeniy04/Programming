@@ -31,15 +31,17 @@
             MainTabControl = new TabControl();
             ItemsPage = new TabPage();
             itemsTab1 = new View.Tabs.ItemsTab();
-            tabPage2 = new TabPage();
+            CustomersPage = new TabPage();
+            customersTab1 = new View.Tabs.CustomersTab();
             MainTabControl.SuspendLayout();
             ItemsPage.SuspendLayout();
+            CustomersPage.SuspendLayout();
             SuspendLayout();
             // 
             // MainTabControl
             // 
             MainTabControl.Controls.Add(ItemsPage);
-            MainTabControl.Controls.Add(tabPage2);
+            MainTabControl.Controls.Add(CustomersPage);
             MainTabControl.Dock = DockStyle.Fill;
             MainTabControl.Location = new Point(0, 0);
             MainTabControl.Name = "MainTabControl";
@@ -61,20 +63,31 @@
             // itemsTab1
             // 
             itemsTab1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            itemsTab1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             itemsTab1.Location = new Point(3, 3);
             itemsTab1.Name = "itemsTab1";
             itemsTab1.Size = new Size(786, 411);
             itemsTab1.TabIndex = 0;
             // 
-            // tabPage2
+            // CustomersPage
             // 
-            tabPage2.Location = new Point(4, 29);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(792, 417);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "tabPage2";
-            tabPage2.UseVisualStyleBackColor = true;
+            CustomersPage.Controls.Add(customersTab1);
+            CustomersPage.Location = new Point(4, 29);
+            CustomersPage.Name = "CustomersPage";
+            CustomersPage.Padding = new Padding(3);
+            CustomersPage.Size = new Size(792, 417);
+            CustomersPage.TabIndex = 1;
+            CustomersPage.Text = "Customers";
+            CustomersPage.UseVisualStyleBackColor = true;
+            // 
+            // customersTab1
+            // 
+            customersTab1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            customersTab1.Dock = DockStyle.Fill;
+            customersTab1.Location = new Point(3, 3);
+            customersTab1.Name = "customersTab1";
+            customersTab1.Size = new Size(786, 411);
+            customersTab1.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -86,6 +99,7 @@
             Text = "Form1";
             MainTabControl.ResumeLayout(false);
             ItemsPage.ResumeLayout(false);
+            CustomersPage.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -93,7 +107,8 @@
 
         private TabControl MainTabControl;
         private TabPage ItemsPage;
-        private TabPage tabPage2;
+        private TabPage CustomersPage;
         private View.Tabs.ItemsTab itemsTab1;
+        private View.Tabs.CustomersTab customersTab1;
     }
 }

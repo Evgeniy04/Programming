@@ -28,11 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ItemsPanel = new Panel();
             ItemsListBox = new ListBox();
-            RemoveItemButton = new Button();
-            AddItemButton = new Button();
-            ItemsLabel = new Label();
             SelectedItemPanel = new Panel();
             DescriptionRichTextBox = new RichTextBox();
             NameRichTextBox = new RichTextBox();
@@ -43,64 +39,27 @@
             NameLabel = new Label();
             CostLabel = new Label();
             IdLabel = new Label();
-            ItemsPanel.SuspendLayout();
+            ItemsLabel = new Label();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            RemoveItemButton = new Button();
+            AddItemButton = new Button();
+            ItemsPanel = new Panel();
             SelectedItemPanel.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            ItemsPanel.SuspendLayout();
             SuspendLayout();
-            // 
-            // ItemsPanel
-            // 
-            ItemsPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            ItemsPanel.Controls.Add(ItemsListBox);
-            ItemsPanel.Controls.Add(RemoveItemButton);
-            ItemsPanel.Controls.Add(AddItemButton);
-            ItemsPanel.Controls.Add(ItemsLabel);
-            ItemsPanel.Location = new Point(0, 0);
-            ItemsPanel.Name = "ItemsPanel";
-            ItemsPanel.Size = new Size(325, 412);
-            ItemsPanel.TabIndex = 2;
             // 
             // ItemsListBox
             // 
             ItemsListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            tableLayoutPanel1.SetColumnSpan(ItemsListBox, 3);
             ItemsListBox.FormattingEnabled = true;
-            ItemsListBox.Location = new Point(13, 36);
+            ItemsListBox.Location = new Point(3, 3);
             ItemsListBox.MinimumSize = new Size(0, 324);
             ItemsListBox.Name = "ItemsListBox";
-            ItemsListBox.Size = new Size(309, 324);
+            ItemsListBox.Size = new Size(319, 324);
             ItemsListBox.TabIndex = 4;
             ItemsListBox.SelectedIndexChanged += ItemsListBox_SelectedIndexChanged;
-            // 
-            // RemoveItemButton
-            // 
-            RemoveItemButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            RemoveItemButton.Location = new Point(131, 370);
-            RemoveItemButton.Name = "RemoveItemButton";
-            RemoveItemButton.Size = new Size(112, 35);
-            RemoveItemButton.TabIndex = 5;
-            RemoveItemButton.Text = "Remove";
-            RemoveItemButton.UseVisualStyleBackColor = true;
-            RemoveItemButton.Click += RemoveItemButton_Click;
-            // 
-            // AddItemButton
-            // 
-            AddItemButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            AddItemButton.Location = new Point(13, 370);
-            AddItemButton.Name = "AddItemButton";
-            AddItemButton.Size = new Size(112, 35);
-            AddItemButton.TabIndex = 4;
-            AddItemButton.Text = "Add";
-            AddItemButton.UseVisualStyleBackColor = true;
-            AddItemButton.Click += AddItemButton_Click;
-            // 
-            // ItemsLabel
-            // 
-            ItemsLabel.AutoSize = true;
-            ItemsLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            ItemsLabel.Location = new Point(13, 13);
-            ItemsLabel.Name = "ItemsLabel";
-            ItemsLabel.Size = new Size(49, 20);
-            ItemsLabel.TabIndex = 0;
-            ItemsLabel.Text = "Items";
             // 
             // SelectedItemPanel
             // 
@@ -207,6 +166,67 @@
             IdLabel.TabIndex = 6;
             IdLabel.Text = "ID:";
             // 
+            // ItemsLabel
+            // 
+            ItemsLabel.AutoSize = true;
+            ItemsLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            ItemsLabel.Location = new Point(13, 13);
+            ItemsLabel.Name = "ItemsLabel";
+            ItemsLabel.Size = new Size(49, 20);
+            ItemsLabel.TabIndex = 0;
+            ItemsLabel.Text = "Items";
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 63.6F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 36.4F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 74F));
+            tableLayoutPanel1.Controls.Add(RemoveItemButton, 1, 1);
+            tableLayoutPanel1.Controls.Add(AddItemButton, 0, 1);
+            tableLayoutPanel1.Controls.Add(ItemsListBox, 0, 0);
+            tableLayoutPanel1.Location = new Point(0, 36);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 87.76596F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.2340422F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new Size(325, 376);
+            tableLayoutPanel1.TabIndex = 1;
+            // 
+            // RemoveItemButton
+            // 
+            RemoveItemButton.Dock = DockStyle.Fill;
+            RemoveItemButton.Location = new Point(162, 333);
+            RemoveItemButton.Name = "RemoveItemButton";
+            RemoveItemButton.Size = new Size(85, 40);
+            RemoveItemButton.TabIndex = 5;
+            RemoveItemButton.Text = "Remove";
+            RemoveItemButton.UseVisualStyleBackColor = true;
+            RemoveItemButton.Click += RemoveItemButton_Click;
+            // 
+            // AddItemButton
+            // 
+            AddItemButton.Dock = DockStyle.Fill;
+            AddItemButton.Location = new Point(3, 333);
+            AddItemButton.Name = "AddItemButton";
+            AddItemButton.Size = new Size(153, 40);
+            AddItemButton.TabIndex = 4;
+            AddItemButton.Text = "Add";
+            AddItemButton.UseVisualStyleBackColor = true;
+            AddItemButton.Click += AddItemButton_Click;
+            // 
+            // ItemsPanel
+            // 
+            ItemsPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            ItemsPanel.Controls.Add(tableLayoutPanel1);
+            ItemsPanel.Controls.Add(ItemsLabel);
+            ItemsPanel.Location = new Point(0, 0);
+            ItemsPanel.Name = "ItemsPanel";
+            ItemsPanel.Size = new Size(325, 412);
+            ItemsPanel.TabIndex = 2;
+            // 
             // ItemsTab
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -216,21 +236,17 @@
             Controls.Add(ItemsPanel);
             Name = "ItemsTab";
             Size = new Size(818, 412);
-            ItemsPanel.ResumeLayout(false);
-            ItemsPanel.PerformLayout();
             SelectedItemPanel.ResumeLayout(false);
             SelectedItemPanel.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
+            ItemsPanel.ResumeLayout(false);
+            ItemsPanel.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Panel ItemsPanel;
-        private Label ItemsLabel;
         private Panel SelectedItemPanel;
-        private Button AddItemButton;
         private Label SelectedItemLabel;
-        private Button RemoveItemButton;
         private ListBox ItemsListBox;
         private Label DescriptionLabel;
         private Label NameLabel;
@@ -240,5 +256,10 @@
         private RichTextBox DescriptionRichTextBox;
         private RichTextBox NameRichTextBox;
         private TextBox CostTextBox;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Button RemoveItemButton;
+        private Button AddItemButton;
+        private Label ItemsLabel;
+        private Panel ItemsPanel;
     }
 }
