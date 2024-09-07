@@ -61,10 +61,10 @@
             SelectedItemPanel.Controls.Add(NameLabel);
             SelectedItemPanel.Controls.Add(CostLabel);
             SelectedItemPanel.Controls.Add(IdLabel);
-            SelectedItemPanel.Location = new Point(343, 3);
+            SelectedItemPanel.Location = new Point(347, 3);
             SelectedItemPanel.Name = "SelectedItemPanel";
             ItemsTableLayoutPanel.SetRowSpan(SelectedItemPanel, 3);
-            SelectedItemPanel.Size = new Size(472, 406);
+            SelectedItemPanel.Size = new Size(468, 406);
             SelectedItemPanel.TabIndex = 3;
             // 
             // SelectedItemLabel
@@ -83,7 +83,7 @@
             DescriptionRichTextBox.Location = new Point(13, 257);
             DescriptionRichTextBox.MinimumSize = new Size(196, 50);
             DescriptionRichTextBox.Name = "DescriptionRichTextBox";
-            DescriptionRichTextBox.Size = new Size(447, 131);
+            DescriptionRichTextBox.Size = new Size(442, 131);
             DescriptionRichTextBox.TabIndex = 13;
             DescriptionRichTextBox.Text = "";
             DescriptionRichTextBox.TextChanged += DescriptionRichTextBox_TextChanged;
@@ -94,7 +94,7 @@
             NameRichTextBox.Location = new Point(13, 140);
             NameRichTextBox.MinimumSize = new Size(196, 0);
             NameRichTextBox.Name = "NameRichTextBox";
-            NameRichTextBox.Size = new Size(447, 82);
+            NameRichTextBox.Size = new Size(442, 82);
             NameRichTextBox.TabIndex = 12;
             NameRichTextBox.Text = "";
             NameRichTextBox.TextChanged += NameRichTextBox_TextChanged;
@@ -160,7 +160,7 @@
             ItemsLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             ItemsLabel.Location = new Point(3, 11);
             ItemsLabel.Name = "ItemsLabel";
-            ItemsLabel.Size = new Size(150, 20);
+            ItemsLabel.Size = new Size(152, 20);
             ItemsLabel.TabIndex = 0;
             ItemsLabel.Text = "Items";
             // 
@@ -168,10 +168,10 @@
             // 
             ItemsTableLayoutPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             ItemsTableLayoutPanel.ColumnCount = 4;
-            ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57.8125F));
-            ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 42.1875F));
-            ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 71F));
-            ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 477F));
+            ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.43765F));
+            ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.7139368F));
+            ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.02445F));
+            ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57.82396F));
             ItemsTableLayoutPanel.Controls.Add(ItemsLabel, 0, 0);
             ItemsTableLayoutPanel.Controls.Add(RemoveItemButton, 1, 2);
             ItemsTableLayoutPanel.Controls.Add(AddItemButton, 0, 2);
@@ -180,19 +180,18 @@
             ItemsTableLayoutPanel.Location = new Point(0, 0);
             ItemsTableLayoutPanel.Name = "ItemsTableLayoutPanel";
             ItemsTableLayoutPanel.RowCount = 3;
-            ItemsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 8.695652F));
-            ItemsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 91.3043442F));
+            ItemsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            ItemsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             ItemsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
-            ItemsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             ItemsTableLayoutPanel.Size = new Size(818, 412);
             ItemsTableLayoutPanel.TabIndex = 1;
             // 
             // RemoveItemButton
             // 
             RemoveItemButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            RemoveItemButton.Location = new Point(159, 366);
+            RemoveItemButton.Location = new Point(161, 367);
             RemoveItemButton.Name = "RemoveItemButton";
-            RemoveItemButton.Size = new Size(107, 43);
+            RemoveItemButton.Size = new Size(98, 42);
             RemoveItemButton.TabIndex = 5;
             RemoveItemButton.Text = "Remove";
             RemoveItemButton.UseVisualStyleBackColor = true;
@@ -201,9 +200,9 @@
             // AddItemButton
             // 
             AddItemButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            AddItemButton.Location = new Point(3, 366);
+            AddItemButton.Location = new Point(3, 367);
             AddItemButton.Name = "AddItemButton";
-            AddItemButton.Size = new Size(150, 43);
+            AddItemButton.Size = new Size(152, 42);
             AddItemButton.TabIndex = 4;
             AddItemButton.Text = "Add";
             AddItemButton.UseVisualStyleBackColor = true;
@@ -217,7 +216,7 @@
             ItemsListBox.Location = new Point(3, 34);
             ItemsListBox.MinimumSize = new Size(0, 324);
             ItemsListBox.Name = "ItemsListBox";
-            ItemsListBox.Size = new Size(334, 324);
+            ItemsListBox.Size = new Size(338, 324);
             ItemsListBox.TabIndex = 4;
             ItemsListBox.SelectedIndexChanged += ItemsListBox_SelectedIndexChanged;
             // 

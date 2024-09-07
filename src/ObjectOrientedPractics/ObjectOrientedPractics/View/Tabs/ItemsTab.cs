@@ -20,17 +20,6 @@ namespace ObjectOrientedPractics.View.Tabs
         public ItemsTab()
         {
             InitializeComponent();
-            // Настройка вёрстки таблицы
-            ColumnStyle column;
-            for (int i = 0; i < ItemsTableLayoutPanel.ColumnStyles.Count; i++)
-            {
-                column = ItemsTableLayoutPanel.ColumnStyles[i];
-                if (i < 3) column.Width = 80;
-                column.SizeType = SizeType.Percent;
-            }
-            ItemsTableLayoutPanel.RowStyles[0].Height = 31;
-            ItemsTableLayoutPanel.RowStyles[0].SizeType = SizeType.Absolute;
-            // Иницализация списка товаров
             _items.Add(new Item("один", "декс", 12));
             ItemsListBox.Items.AddRange(_items.ToArray());
         }
