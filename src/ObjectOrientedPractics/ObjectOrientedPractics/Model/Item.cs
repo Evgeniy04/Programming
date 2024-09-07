@@ -84,6 +84,18 @@ namespace Model
                 _cost = value;
             }
         }
+
+        /// <summary>
+        /// Конструктор класса Item.
+        /// </summary>
+        public Item()
+        {
+            _id = IdGenerator.GetNextId();
+            Name = Id.ToString();
+            Info = "";
+            Cost = 0;
+        }
+
         /// <summary>
         /// Конструктор класса Item.
         /// </summary>
@@ -96,6 +108,11 @@ namespace Model
             Info = info;
             Cost = cost;
             _id = IdGenerator.GetNextId();
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

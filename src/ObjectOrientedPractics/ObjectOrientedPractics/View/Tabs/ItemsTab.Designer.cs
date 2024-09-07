@@ -153,11 +153,13 @@
             // 
             // IdTextBox
             // 
+            IdTextBox.Enabled = false;
             IdTextBox.Location = new Point(84, 48);
             IdTextBox.Name = "IdTextBox";
+            IdTextBox.ReadOnly = true;
             IdTextBox.Size = new Size(125, 27);
             IdTextBox.TabIndex = 10;
-            IdTextBox.TextChanged += IdTextBox_TextChanged;
+            IdTextBox.KeyPress += DisableTextBox;
             // 
             // DescriptionLabel
             // 
