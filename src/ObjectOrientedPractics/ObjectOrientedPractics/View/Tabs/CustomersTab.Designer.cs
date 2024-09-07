@@ -30,8 +30,8 @@
         {
             SelectedCustomerPanel = new Panel();
             SelectedItemLabel = new Label();
-            NameRichTextBox = new RichTextBox();
-            CostTextBox = new TextBox();
+            AddressRichTextBox = new RichTextBox();
+            FullnameTextBox = new TextBox();
             IdTextBox = new TextBox();
             AddressLabel = new Label();
             FullnameLabel = new Label();
@@ -51,16 +51,16 @@
             SelectedCustomerPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             SelectedCustomerPanel.BackColor = SystemColors.ControlLightLight;
             SelectedCustomerPanel.Controls.Add(SelectedItemLabel);
-            SelectedCustomerPanel.Controls.Add(NameRichTextBox);
-            SelectedCustomerPanel.Controls.Add(CostTextBox);
+            SelectedCustomerPanel.Controls.Add(AddressRichTextBox);
+            SelectedCustomerPanel.Controls.Add(FullnameTextBox);
             SelectedCustomerPanel.Controls.Add(IdTextBox);
             SelectedCustomerPanel.Controls.Add(AddressLabel);
             SelectedCustomerPanel.Controls.Add(FullnameLabel);
             SelectedCustomerPanel.Controls.Add(IdLabel);
             SelectedCustomerPanel.Location = new Point(346, 3);
             SelectedCustomerPanel.Name = "SelectedCustomerPanel";
-            CustomersTableLayoutPanel.SetRowSpan(SelectedCustomerPanel, 3);
-            SelectedCustomerPanel.Size = new Size(469, 406);
+            CustomersTableLayoutPanel.SetRowSpan(SelectedCustomerPanel, 2);
+            SelectedCustomerPanel.Size = new Size(469, 191);
             SelectedCustomerPanel.TabIndex = 3;
             // 
             // SelectedItemLabel
@@ -73,23 +73,25 @@
             SelectedItemLabel.TabIndex = 1;
             SelectedItemLabel.Text = "Selected Customer";
             // 
-            // NameRichTextBox
+            // AddressRichTextBox
             // 
-            NameRichTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            NameRichTextBox.Location = new Point(122, 117);
-            NameRichTextBox.MinimumSize = new Size(196, 0);
-            NameRichTextBox.Name = "NameRichTextBox";
-            NameRichTextBox.Size = new Size(344, 82);
-            NameRichTextBox.TabIndex = 12;
-            NameRichTextBox.Text = "";
+            AddressRichTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            AddressRichTextBox.Location = new Point(122, 117);
+            AddressRichTextBox.MinimumSize = new Size(196, 0);
+            AddressRichTextBox.Name = "AddressRichTextBox";
+            AddressRichTextBox.Size = new Size(332, 71);
+            AddressRichTextBox.TabIndex = 12;
+            AddressRichTextBox.Text = "";
+            AddressRichTextBox.TextChanged += AddressRichTextBox_TextChanged;
             // 
-            // CostTextBox
+            // FullnameTextBox
             // 
-            CostTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            CostTextBox.Location = new Point(122, 81);
-            CostTextBox.Name = "CostTextBox";
-            CostTextBox.Size = new Size(344, 27);
-            CostTextBox.TabIndex = 11;
+            FullnameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            FullnameTextBox.Location = new Point(122, 81);
+            FullnameTextBox.Name = "FullnameTextBox";
+            FullnameTextBox.Size = new Size(332, 27);
+            FullnameTextBox.TabIndex = 11;
+            FullnameTextBox.TextChanged += FullnameTextBox_TextChanged;
             // 
             // IdTextBox
             // 
@@ -99,6 +101,7 @@
             IdTextBox.ReadOnly = true;
             IdTextBox.Size = new Size(125, 27);
             IdTextBox.TabIndex = 10;
+            IdTextBox.KeyPress += DisableTextBox;
             // 
             // AddressLabel
             // 
@@ -147,38 +150,42 @@
             CustomersTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.03746F));
             CustomersTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57.92076F));
             CustomersTableLayoutPanel.Controls.Add(CustomersLabel, 0, 0);
-            CustomersTableLayoutPanel.Controls.Add(RemoveItemButton, 1, 2);
-            CustomersTableLayoutPanel.Controls.Add(AddItemButton, 0, 2);
+            CustomersTableLayoutPanel.Controls.Add(RemoveItemButton, 1, 3);
+            CustomersTableLayoutPanel.Controls.Add(AddItemButton, 0, 3);
             CustomersTableLayoutPanel.Controls.Add(CustomersListBox, 0, 1);
             CustomersTableLayoutPanel.Controls.Add(SelectedCustomerPanel, 3, 0);
             CustomersTableLayoutPanel.Location = new Point(0, 0);
             CustomersTableLayoutPanel.Name = "CustomersTableLayoutPanel";
-            CustomersTableLayoutPanel.RowCount = 3;
+            CustomersTableLayoutPanel.RowCount = 4;
             CustomersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            CustomersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            CustomersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            CustomersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             CustomersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
+            CustomersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             CustomersTableLayoutPanel.Size = new Size(818, 412);
             CustomersTableLayoutPanel.TabIndex = 2;
             // 
             // RemoveItemButton
             // 
             RemoveItemButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            RemoveItemButton.Location = new Point(161, 367);
+            RemoveItemButton.Location = new Point(161, 366);
             RemoveItemButton.Name = "RemoveItemButton";
-            RemoveItemButton.Size = new Size(97, 42);
+            RemoveItemButton.Size = new Size(97, 43);
             RemoveItemButton.TabIndex = 5;
             RemoveItemButton.Text = "Remove";
             RemoveItemButton.UseVisualStyleBackColor = true;
+            RemoveItemButton.Click += RemoveCustomerButton_Click;
             // 
             // AddItemButton
             // 
             AddItemButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            AddItemButton.Location = new Point(3, 367);
+            AddItemButton.Location = new Point(3, 366);
             AddItemButton.Name = "AddItemButton";
-            AddItemButton.Size = new Size(152, 42);
+            AddItemButton.Size = new Size(152, 43);
             AddItemButton.TabIndex = 4;
             AddItemButton.Text = "Add";
             AddItemButton.UseVisualStyleBackColor = true;
+            AddItemButton.Click += AddCustomerButton_Click;
             // 
             // CustomersListBox
             // 
@@ -188,8 +195,10 @@
             CustomersListBox.Location = new Point(3, 34);
             CustomersListBox.MinimumSize = new Size(0, 324);
             CustomersListBox.Name = "CustomersListBox";
+            CustomersTableLayoutPanel.SetRowSpan(CustomersListBox, 2);
             CustomersListBox.Size = new Size(337, 324);
             CustomersListBox.TabIndex = 4;
+            CustomersListBox.SelectedIndexChanged += CustomersListBox_SelectedIndexChanged;
             // 
             // CustomersTab
             // 
@@ -210,8 +219,8 @@
 
         private Panel SelectedCustomerPanel;
         private Label SelectedItemLabel;
-        private RichTextBox NameRichTextBox;
-        private TextBox CostTextBox;
+        private RichTextBox AddressRichTextBox;
+        private TextBox FullnameTextBox;
         private TextBox IdTextBox;
         private Label AddressLabel;
         private Label FullnameLabel;

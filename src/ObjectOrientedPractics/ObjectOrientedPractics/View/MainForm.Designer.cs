@@ -75,7 +75,7 @@
             CustomersPage.Location = new Point(4, 29);
             CustomersPage.Name = "CustomersPage";
             CustomersPage.Padding = new Padding(3);
-            CustomersPage.Size = new Size(792, 417);
+            CustomersPage.Size = new Size(192, 67);
             CustomersPage.TabIndex = 1;
             CustomersPage.Text = "Customers";
             CustomersPage.UseVisualStyleBackColor = true;
@@ -86,7 +86,7 @@
             customersTab1.Dock = DockStyle.Fill;
             customersTab1.Location = new Point(3, 3);
             customersTab1.Name = "customersTab1";
-            customersTab1.Size = new Size(786, 411);
+            customersTab1.Size = new Size(186, 61);
             customersTab1.TabIndex = 0;
             // 
             // MainForm
@@ -96,7 +96,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(MainTabControl);
             Name = "MainForm";
-            Text = "Form1";
+            Text = "Object Oriented Practics";
             MainTabControl.ResumeLayout(false);
             ItemsPage.ResumeLayout(false);
             CustomersPage.ResumeLayout(false);

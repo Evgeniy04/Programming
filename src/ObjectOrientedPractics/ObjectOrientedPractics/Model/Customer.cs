@@ -69,6 +69,16 @@ namespace Model
         /// <summary>
         /// Конструктор класса Customer.
         /// </summary>
+        public Customer()
+        {
+            _id = IdGenerator.GetNextId();
+            Fullname = Id.ToString();
+            Address = "";
+        }
+
+        /// <summary>
+        /// Конструктор класса Customer.
+        /// </summary>
         /// <param name="fullname">Полное имя клиента.</param>
         /// <param name="address">Адрес клиента.</param>
         public Customer(string fullname, string address)
@@ -76,6 +86,11 @@ namespace Model
             Fullname = fullname;
             Address = address;
             _id = IdGenerator.GetNextId();
+        }
+
+        public override string ToString()
+        {
+            return Fullname;
         }
     }
 }

@@ -11,12 +11,28 @@ using Model;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
+    /// <summary>
+    /// Класс управления вкладкой товаров (ItemsTab).
+    /// Позволяет добавлять, удалять и редактировать товары в списке.
+    /// </summary>
     public partial class ItemsTab : UserControl
     {
+        /// <summary>
+        /// Список всех товаров.
+        /// </summary>
         List<Item> _items = [];
+        /// <summary>
+        /// Текущий выбранный товар.
+        /// </summary>
         Item _currentItem;
+        /// <summary>
+        /// Флаг, указывающий на системные изменения, чтобы избежать лишних действий при обновлении UI.
+        /// </summary>
         bool isSystemChanged = false;
 
+        /// <summary>
+        /// Инициализирует новый экземпляр <c>ItemsTab</c>.
+        /// </summary>
         public ItemsTab()
         {
             InitializeComponent();
@@ -24,13 +40,22 @@ namespace ObjectOrientedPractics.View.Tabs
             ItemsListBox.Items.AddRange(_items.ToArray());
         }
 
+        /// <summary>
+        /// Обработчик события нажатия кнопки добавления нового товара.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Данные события.</param>
         private void AddItemButton_Click(object sender, EventArgs e)
         {
             _items.Add(new Item());
             ItemsListBox.Items.Add(_items[_items.Count - 1]);
-            //UpdateItemsListBox();
         }
 
+        /// <summary>
+        /// Обработчик события нажатия кнопки удаления текущего товара.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Данные события.</param>
         private void RemoveItemButton_Click(object sender, EventArgs e)
         {
             if (_currentItem != null)
@@ -41,6 +66,12 @@ namespace ObjectOrientedPractics.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Обрабатывает изменение текста в поле CostTextBox. 
+        /// В случае ошибки отображает всплывающую подсказку с сообщением и меняет фон на розовый.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void CostTextBox_TextChanged(object sender, EventArgs e)
         {
             if (_currentItem == null || isSystemChanged) return;
@@ -62,6 +93,12 @@ namespace ObjectOrientedPractics.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Обрабатывает изменение текста в поле NameRichTextBox. 
+        /// В случае ошибки отображает всплывающую подсказку с сообщением и меняет фон на розовый.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void NameRichTextBox_TextChanged(object sender, EventArgs e)
         {
             if (_currentItem == null || isSystemChanged) return;
@@ -70,6 +107,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 NameRichTextBox.BackColor = Color.White;
                 _currentItem.Name = NameRichTextBox.Text;
+                UpdateItemsListBox();
             }
             catch (ArgumentException error)
             {
@@ -78,6 +116,12 @@ namespace ObjectOrientedPractics.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Обрабатывает изменение текста в поле DescriptionRichTextBox. 
+        /// В случае ошибки отображает всплывающую подсказку с сообщением и меняет фон на розовый.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
         private void DescriptionRichTextBox_TextChanged(object sender, EventArgs e)
         {
             if (_currentItem == null || isSystemChanged) return;
@@ -94,6 +138,12 @@ namespace ObjectOrientedPractics.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Обработчик выбора товара в списке.
+        /// Обновляет текущий товар и отображает его данные.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Данные события.</param>
         private void ItemsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ItemsListBox.SelectedIndex != -1 && ItemsListBox.SelectedItem != null)
@@ -105,12 +155,19 @@ namespace ObjectOrientedPractics.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Обновляет список клиентов в <c>ItemsListBox</c> и выделяет текущий товар.
+        /// </summary>
         private void UpdateItemsListBox()
         {
             ItemsListBox.Items.Clear();
             ItemsListBox.Items.AddRange(_items.ToArray());
         }
 
+        /// <summary>
+        /// Обновляет текстовые поля в зависимости от выбранного клиента.
+        /// </summary>
+        /// <param name="isEmpty">Указывает, отображать ли заглушку.</param>
         private void SelectedItemEvent(bool isEmpty = false)
         {
             IdTextBox.BackColor = NameRichTextBox.BackColor = DescriptionRichTextBox.BackColor = CostTextBox.BackColor = Color.White;
@@ -120,12 +177,22 @@ namespace ObjectOrientedPractics.View.Tabs
             CostTextBox.Text = isEmpty ? "0" : _currentItem.Cost.ToString();
         }
 
+        /// <summary>
+        /// Создает подсказку с сообщением об ошибке для текстового поля.
+        /// </summary>
+        /// <param name="textBox">Текстовое поле, для которого создается подсказка.</param>
+        /// <param name="errorMessage">Сообщение об ошибке.</param>
         private void CreateTooltip(TextBox textBox, string errorMessage)
         {
             ToolTip toolTip = new ToolTip();
             toolTip.AutomaticDelay = 500;
             toolTip.SetToolTip(textBox, errorMessage);
         }
+        /// <summary>
+        /// Создает подсказку с сообщением об ошибке для большого текстового поля.
+        /// </summary>
+        /// <param name="richTextBox">Поле с текстом, для которого создается подсказка.</param>
+        /// <param name="errorMessage">Сообщение об ошибке.</param>
         private void CreateTooltip(RichTextBox richTextBox, string errorMessage)
         {
             ToolTip toolTip = new ToolTip();
@@ -133,6 +200,9 @@ namespace ObjectOrientedPractics.View.Tabs
             toolTip.SetToolTip(richTextBox, errorMessage);
         }
 
+        /// <summary>
+        /// Отключает ввод данных в текстовое поле при нажатии клавиши.
+        /// </summary>
         private void DisableTextBox(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;

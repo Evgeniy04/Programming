@@ -6,10 +6,19 @@ using System.Threading.Tasks;
 
 namespace ObjectOrientedPractics.Services
 {
+    /// <summary>
+    /// Класс для генерации уникальных идентификаторов.
+    /// </summary>
     internal static class IdGenerator
     {
+        /// <summary>
+        /// Поле, содержащее текущее значение идентификатора.
+        /// </summary>
         static int _id;
 
+        /// <summary>
+        /// Свойство для получения и установки текущего значения идентификатора.
+        /// </summary>
         static int Id
         {
             get
@@ -21,6 +30,11 @@ namespace ObjectOrientedPractics.Services
             }
         }
 
+        /// <summary>
+        /// Возвращает следующий уникальный идентификатор.
+        /// Увеличивает значение текущего идентификатора на 1.
+        /// </summary>
+        /// <returns>Следующий идентификатор.</returns>
         public static int GetNextId()
         {
             return Id++;
