@@ -10,7 +10,7 @@ namespace ObjectOrientedPractics.Services
     /// <summary>
     /// Валидация значений.
     /// </summary>
-    internal class ValueValidator
+    internal static class ValueValidator
     {
         /// <summary>
         /// Проверяет длину строки на допустимые пределы.
