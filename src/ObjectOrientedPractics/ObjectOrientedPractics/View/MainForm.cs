@@ -37,9 +37,9 @@ namespace ObjectOrientedPractics
                     // Десериализация JSON в объект
                     Tuple<List<Item>, List<Customer>> data = JsonSerializer.Deserialize<Tuple<List<Item>, List<Customer>>>(jsonString)!;
                     // Запись данных в провайдер
-                    Provider.ItemsListBox.Items.AddRange(data.Item1.ToArray());
+                    ItemsTab.ItemsListBox.Items.AddRange(data.Item1.ToArray());
+                    CustomersTab.CustomersListBox.Items.AddRange(data.Item2.ToArray());
                     Provider.Items = data.Item1;
-                    Provider.CustomersListBox.Items.AddRange(data.Item2.ToArray());
                     Provider.Customers = data.Item2;
                 }
                 catch

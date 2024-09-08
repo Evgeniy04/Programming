@@ -22,7 +22,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <summary>
         /// Текущий выбранный клиент.
         /// </summary>
-        Customer _currentCustomer;
+        public Customer _currentCustomer;
         /// <summary>
         /// Флаг, указывающий на системные изменения, чтобы избежать лишних действий при обновлении UI.
         /// </summary>
@@ -34,7 +34,6 @@ namespace ObjectOrientedPractics.View.Tabs
         public CustomersTab()
         {
             InitializeComponent();
-            Provider.CustomersListBox = CustomersListBox;
             SelectedCustomerEvent(true);
         }
 
@@ -74,7 +73,6 @@ namespace ObjectOrientedPractics.View.Tabs
             if (_currentCustomer == null || CustomersListBox.SelectedItems == null || !int.TryParse(IdTextBox.Text, out int _)) return;
             Customer customer = CustomerFactory.Randomize();
             FullnameTextBox.Text = customer.Fullname;
-            AddressRichTextBox.Text = customer.Address;
         }
 
         /// <summary>
@@ -97,28 +95,6 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 CreateTooltip(FullnameTextBox, error.Message);
                 FullnameTextBox.BackColor = Color.Pink;
-            }
-        }
-
-        /// <summary>
-        /// Обработчик изменения текста в поле адреса клиента.
-        /// Обновляет информацию о клиенте и обрабатывает ошибки ввода.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="e">Данные события.</param>
-        private void AddressRichTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (_currentCustomer == null || isSystemChanged) return;
-
-            try
-            {
-                AddressRichTextBox.BackColor = Color.White;
-                _currentCustomer.Address = AddressRichTextBox.Text;
-            }
-            catch (ArgumentException error)
-            {
-                CreateTooltip(AddressRichTextBox, error.Message);
-                AddressRichTextBox.BackColor = Color.Pink;
             }
         }
 
@@ -155,10 +131,10 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="isEmpty">Указывает, отображать ли заглушку.</param>
         private void SelectedCustomerEvent(bool isEmpty = false)
         {
-            IdTextBox.BackColor = FullnameTextBox.BackColor = AddressRichTextBox.BackColor = Color.White;
+            IdTextBox.BackColor = FullnameTextBox.BackColor = Color.White;
             IdTextBox.Text = isEmpty ? "Ничего не выбрано" : _currentCustomer.Id.ToString();
             FullnameTextBox.Text = isEmpty ? "" : _currentCustomer.Fullname.ToString();
-            AddressRichTextBox.Text = isEmpty ? "" : _currentCustomer.Address.ToString();
+            AddressControl.Address = isEmpty ? new Address() : _currentCustomer.Address;
         }
 
         /// <summary>
@@ -171,17 +147,6 @@ namespace ObjectOrientedPractics.View.Tabs
             ToolTip toolTip = new ToolTip();
             toolTip.AutomaticDelay = 500;
             toolTip.SetToolTip(textBox, errorMessage);
-        }
-        /// <summary>
-        /// Создает подсказку с сообщением об ошибке для текстового поля с форматированным текстом.
-        /// </summary>
-        /// <param name="richTextBox">Поле с форматированным текстом, для которого создается подсказка.</param>
-        /// <param name="errorMessage">Сообщение об ошибке.</param>
-        private void CreateTooltip(RichTextBox richTextBox, string errorMessage)
-        {
-            ToolTip toolTip = new ToolTip();
-            toolTip.AutomaticDelay = 500;
-            toolTip.SetToolTip(richTextBox, errorMessage);
         }
 
         /// <summary>

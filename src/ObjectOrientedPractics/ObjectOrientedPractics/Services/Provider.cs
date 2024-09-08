@@ -20,13 +20,5 @@ namespace ObjectOrientedPractics.Services
         /// Список клиентов приложения.
         /// </summary>
         public static List<Customer> Customers = [];
-        /// <summary>
-        /// Элемент управления ListBox для отображения списка элементов (товаров).
-        /// </summary>
-        public static ListBox ItemsListBox = new ListBox();
-        /// <summary>
-        /// Элемент управления ListBox для отображения списка клиентов.
-        /// </summary>
-        public static ListBox CustomersListBox = new ListBox();
     }
 }

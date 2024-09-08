@@ -284,12 +284,12 @@
         private RichTextBox NameRichTextBox;
         private TextBox CostTextBox;
         private TableLayoutPanel ItemsTableLayoutPanel;
-        private ListBox ItemsListBox;
         private Label ItemsLabel;
         private Button RemoveItemButton;
         private Button AddItemButton;
         private Button ItemDataGenerateButton;
         private ComboBox CategoryComboBox;
         private Label CategoryLabel;
+        public ListBox ItemsListBox;
     }
 }

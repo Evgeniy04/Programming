@@ -34,7 +34,6 @@ namespace ObjectOrientedPractics.View.Tabs
         public ItemsTab()
         {
             InitializeComponent();
-            Provider.ItemsListBox = ItemsListBox;
             SelectedItemEvent(true);
             CategoryComboBox.Items.AddRange(Enum.GetValues(typeof(Category)).Cast<object>().ToArray());
         }
