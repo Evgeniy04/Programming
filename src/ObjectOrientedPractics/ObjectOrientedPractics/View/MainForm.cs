@@ -1,6 +1,8 @@
 using Model;
 using System.Text.Json;
 using ObjectOrientedPractics.Services;
+using ObjectOrientedPractics.View.Tabs;
+using System.Windows.Forms;
 
 namespace ObjectOrientedPractics
 {
@@ -10,6 +12,11 @@ namespace ObjectOrientedPractics
         /// Путь до папки с файлом сохранения.
         /// </summary>
         string _appFolderPath;
+
+        /// <summary>
+        /// Конструктор главной формы.
+        /// Инициализирует компоненты и загружает данные из файла сохранения, если они существуют.
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
@@ -20,7 +27,6 @@ namespace ObjectOrientedPractics
             {
                 Directory.CreateDirectory(_appFolderPath);
             }
-
             // Чтение данных из файла сохранения
             if (File.Exists(_appFolderPath + @"\data.json"))
             {
@@ -28,10 +34,12 @@ namespace ObjectOrientedPractics
                 {
                     // Чтение JSON из файла
                     string jsonString = File.ReadAllText(_appFolderPath + @"\data.json");
-
                     // Десериализация JSON в объект
                     Tuple<List<Item>, List<Customer>> data = JsonSerializer.Deserialize<Tuple<List<Item>, List<Customer>>>(jsonString)!;
+                    // Запись данных в провайдер
+                    Provider.ItemsListBox.Items.AddRange(data.Item1.ToArray());
                     Provider.Items = data.Item1;
+                    Provider.CustomersListBox.Items.AddRange(data.Item2.ToArray());
                     Provider.Customers = data.Item2;
                 }
                 catch
@@ -41,6 +49,12 @@ namespace ObjectOrientedPractics
             }
         }
 
+        /// <summary>
+        /// Обработчик события закрытия формы.
+        /// Сериализует данные и сохраняет их в файл.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события закрытия формы.</param>
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             // Открываем поток для записи в файл

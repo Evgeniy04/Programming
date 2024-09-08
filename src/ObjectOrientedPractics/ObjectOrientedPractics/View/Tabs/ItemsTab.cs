@@ -34,8 +34,7 @@ namespace ObjectOrientedPractics.View.Tabs
         public ItemsTab()
         {
             InitializeComponent();
-            Provider.Items.Add(new Item("один", "декс", 12));
-            ItemsListBox.Items.AddRange(Provider.Items.ToArray());
+            Provider.ItemsListBox = ItemsListBox;
         }
 
         /// <summary>

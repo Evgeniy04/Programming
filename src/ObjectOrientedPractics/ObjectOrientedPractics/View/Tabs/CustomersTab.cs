@@ -34,8 +34,7 @@ namespace ObjectOrientedPractics.View.Tabs
         public CustomersTab()
         {
             InitializeComponent();
-            Provider.Customers.Add(new Customer("Аврамов Евгений Владимирович", "Деревня Гадюкино"));
-            CustomersListBox.Items.AddRange(Provider.Customers.ToArray());
+            Provider.CustomersListBox = CustomersListBox;
         }
 
         /// <summary>
