@@ -36,6 +36,7 @@ namespace ObjectOrientedPractics.View.Tabs
             InitializeComponent();
             Provider.ItemsListBox = ItemsListBox;
             SelectedItemEvent(true);
+            CategoryComboBox.Items.AddRange(Enum.GetValues(typeof(Category)).Cast<object>().ToArray());
         }
 
         /// <summary>
@@ -62,6 +63,22 @@ namespace ObjectOrientedPractics.View.Tabs
                 ItemsListBox.Items.Remove(_currentItem);
                 SelectedItemEvent(true);
             }
+        }
+
+        /// <summary>
+        /// Обрабатывает событие изменения выбранного элемента в ComboBox для категорий.
+        /// </summary>
+        /// <param name="sender">Источник события, ComboBox.</param>
+        /// <param name="e">Аргументы события изменения индекса.</param>
+        private void ItemDataGenerateButton_Click(object sender, EventArgs e)
+        {
+            if (_currentItem == null || ItemsListBox.SelectedItems == null || !int.TryParse(IdTextBox.Text, out int _)) return;
+            Item item = ItemFactory.Randomize();
+            NameRichTextBox.Text = item.Name;
+            DescriptionRichTextBox.Text = item.Info;
+            CostTextBox.Text = item.Cost.ToString();
+            CategoryComboBox.SelectedItem = item.Category;
+            ItemsListBox.SelectedItem = _currentItem;
         }
 
         /// <summary>
@@ -137,6 +154,13 @@ namespace ObjectOrientedPractics.View.Tabs
             }
         }
 
+        private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_currentItem == null || CategoryComboBox.SelectedItem == null || isSystemChanged) return;
+
+            _currentItem.Category = (Category)CategoryComboBox.SelectedItem;
+        }
+
         /// <summary>
         /// Обработчик выбора товара в списке.
         /// Обновляет текущий товар и отображает его данные.
@@ -174,6 +198,7 @@ namespace ObjectOrientedPractics.View.Tabs
             NameRichTextBox.Text = isEmpty ? "" : _currentItem.Name.ToString();
             DescriptionRichTextBox.Text = isEmpty ? "" : _currentItem.Info.ToString();
             CostTextBox.Text = isEmpty ? "0" : _currentItem.Cost.ToString();
+            CategoryComboBox.SelectedItem = isEmpty ? null : _currentItem.Category;
         }
 
         /// <summary>
@@ -205,15 +230,6 @@ namespace ObjectOrientedPractics.View.Tabs
         private void DisableTextBox(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
-        }
-
-        private void ItemDataGenerateButton_Click(object sender, EventArgs e)
-        {
-            if (_currentItem == null || ItemsListBox.SelectedItems == null || !int.TryParse(IdTextBox.Text, out int _)) return;
-            Item item = ItemFactory.Randomize();
-            NameRichTextBox.Text = item.Name;
-            DescriptionRichTextBox.Text = item.Info;
-            CostTextBox.Text = item.Cost.ToString();
         }
     }
 }

@@ -65,6 +65,19 @@ namespace ObjectOrientedPractics.View.Tabs
         }
 
         /// <summary>
+        /// Обрабатывает нажатие кнопки для генерации случайных данных клиента.
+        /// </summary>
+        /// <param name="sender">Источник события, кнопка.</param>
+        /// <param name="e">Аргументы события клика.</param>
+        private void CustomerDataGenerateButton_Click(object sender, EventArgs e)
+        {
+            if (_currentCustomer == null || CustomersListBox.SelectedItems == null || !int.TryParse(IdTextBox.Text, out int _)) return;
+            Customer customer = CustomerFactory.Randomize();
+            FullnameTextBox.Text = customer.Fullname;
+            AddressRichTextBox.Text = customer.Address;
+        }
+
+        /// <summary>
         /// Обработчик изменения текста в поле имени клиента.
         /// Обновляет информацию о клиенте и обрабатывает ошибки ввода.
         /// </summary>
@@ -179,14 +192,6 @@ namespace ObjectOrientedPractics.View.Tabs
         private void DisableTextBox(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
-        }
-
-        private void CustomerDataGenerateButton_Click(object sender, EventArgs e)
-        {
-            if (_currentCustomer == null || CustomersListBox.SelectedItems == null || !int.TryParse(IdTextBox.Text, out int _)) return;
-            Customer customer = CustomerFactory.Randomize();
-            FullnameTextBox.Text = customer.Fullname;
-            AddressRichTextBox.Text = customer.Address;
         }
     }
 }
