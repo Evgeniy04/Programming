@@ -40,6 +40,7 @@
             IdLabel = new Label();
             ItemsLabel = new Label();
             ItemsTableLayoutPanel = new TableLayoutPanel();
+            ItemDataGenerateButton = new Button();
             RemoveItemButton = new Button();
             AddItemButton = new Button();
             ItemsListBox = new ListBox();
@@ -172,6 +173,7 @@
             ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.7139368F));
             ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.02445F));
             ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57.82396F));
+            ItemsTableLayoutPanel.Controls.Add(ItemDataGenerateButton, 2, 2);
             ItemsTableLayoutPanel.Controls.Add(ItemsLabel, 0, 0);
             ItemsTableLayoutPanel.Controls.Add(RemoveItemButton, 1, 2);
             ItemsTableLayoutPanel.Controls.Add(AddItemButton, 0, 2);
@@ -185,6 +187,17 @@
             ItemsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
             ItemsTableLayoutPanel.Size = new Size(818, 412);
             ItemsTableLayoutPanel.TabIndex = 1;
+            // 
+            // ItemDataGenerateButton
+            // 
+            ItemDataGenerateButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            ItemDataGenerateButton.Location = new Point(265, 367);
+            ItemDataGenerateButton.Name = "ItemDataGenerateButton";
+            ItemDataGenerateButton.Size = new Size(76, 42);
+            ItemDataGenerateButton.TabIndex = 2;
+            ItemDataGenerateButton.Text = "Gen";
+            ItemDataGenerateButton.UseVisualStyleBackColor = true;
+            ItemDataGenerateButton.Click += ItemDataGenerateButton_Click;
             // 
             // RemoveItemButton
             // 
@@ -251,5 +264,6 @@
         private Label ItemsLabel;
         private Button RemoveItemButton;
         private Button AddItemButton;
+        private Button ItemDataGenerateButton;
     }
 }

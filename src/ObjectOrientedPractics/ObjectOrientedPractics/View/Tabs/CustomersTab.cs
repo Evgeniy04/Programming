@@ -35,6 +35,7 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             InitializeComponent();
             Provider.CustomersListBox = CustomersListBox;
+            SelectedCustomerEvent(true);
         }
 
         /// <summary>
@@ -59,7 +60,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 Provider.Customers.Remove(_currentCustomer);
                 CustomersListBox.Items.Remove(_currentCustomer);
-                SelectedItemEvent(true);
+                SelectedCustomerEvent(true);
             }
         }
 
@@ -120,7 +121,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 _currentCustomer = (Customer)CustomersListBox.SelectedItem;
                 isSystemChanged = true;
-                SelectedItemEvent();
+                SelectedCustomerEvent();
                 isSystemChanged = false;
             }
         }
@@ -139,7 +140,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// Обновляет текстовые поля в зависимости от выбранного клиента.
         /// </summary>
         /// <param name="isEmpty">Указывает, отображать ли заглушку.</param>
-        private void SelectedItemEvent(bool isEmpty = false)
+        private void SelectedCustomerEvent(bool isEmpty = false)
         {
             IdTextBox.BackColor = FullnameTextBox.BackColor = AddressRichTextBox.BackColor = Color.White;
             IdTextBox.Text = isEmpty ? "Ничего не выбрано" : _currentCustomer.Id.ToString();
@@ -178,6 +179,14 @@ namespace ObjectOrientedPractics.View.Tabs
         private void DisableTextBox(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void CustomerDataGenerateButton_Click(object sender, EventArgs e)
+        {
+            if (_currentCustomer == null || CustomersListBox.SelectedItems == null || !int.TryParse(IdTextBox.Text, out int _)) return;
+            Customer customer = CustomerFactory.Randomize();
+            FullnameTextBox.Text = customer.Fullname;
+            AddressRichTextBox.Text = customer.Address;
         }
     }
 }

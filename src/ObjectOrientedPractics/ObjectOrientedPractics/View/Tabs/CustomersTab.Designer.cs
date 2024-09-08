@@ -38,6 +38,7 @@
             IdLabel = new Label();
             CustomersLabel = new Label();
             CustomersTableLayoutPanel = new TableLayoutPanel();
+            CustomerDataGenerateButton = new Button();
             RemoveItemButton = new Button();
             AddItemButton = new Button();
             CustomersListBox = new ListBox();
@@ -149,6 +150,7 @@
             CustomersTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.6672163F));
             CustomersTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.03746F));
             CustomersTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57.92076F));
+            CustomersTableLayoutPanel.Controls.Add(CustomerDataGenerateButton, 2, 3);
             CustomersTableLayoutPanel.Controls.Add(CustomersLabel, 0, 0);
             CustomersTableLayoutPanel.Controls.Add(RemoveItemButton, 1, 3);
             CustomersTableLayoutPanel.Controls.Add(AddItemButton, 0, 3);
@@ -164,6 +166,17 @@
             CustomersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             CustomersTableLayoutPanel.Size = new Size(818, 412);
             CustomersTableLayoutPanel.TabIndex = 2;
+            // 
+            // CustomerDataGenerateButton
+            // 
+            CustomerDataGenerateButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            CustomerDataGenerateButton.Location = new Point(264, 366);
+            CustomerDataGenerateButton.Name = "CustomerDataGenerateButton";
+            CustomerDataGenerateButton.Size = new Size(76, 43);
+            CustomerDataGenerateButton.TabIndex = 3;
+            CustomerDataGenerateButton.Text = "Gen";
+            CustomerDataGenerateButton.UseVisualStyleBackColor = true;
+            CustomerDataGenerateButton.Click += CustomerDataGenerateButton_Click;
             // 
             // RemoveItemButton
             // 
@@ -230,5 +243,6 @@
         private Button RemoveItemButton;
         private Button AddItemButton;
         private ListBox CustomersListBox;
+        private Button CustomerDataGenerateButton;
     }
 }

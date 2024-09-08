@@ -35,6 +35,7 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             InitializeComponent();
             Provider.ItemsListBox = ItemsListBox;
+            SelectedItemEvent(true);
         }
 
         /// <summary>
@@ -204,6 +205,15 @@ namespace ObjectOrientedPractics.View.Tabs
         private void DisableTextBox(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void ItemDataGenerateButton_Click(object sender, EventArgs e)
+        {
+            if (_currentItem == null || ItemsListBox.SelectedItems == null || !int.TryParse(IdTextBox.Text, out int _)) return;
+            Item item = ItemFactory.Randomize();
+            NameRichTextBox.Text = item.Name;
+            DescriptionRichTextBox.Text = item.Info;
+            CostTextBox.Text = item.Cost.ToString();
         }
     }
 }
