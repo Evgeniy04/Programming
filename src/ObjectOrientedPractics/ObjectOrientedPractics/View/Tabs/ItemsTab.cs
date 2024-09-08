@@ -5,8 +5,10 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ObjectOrientedPractics.Services;
 using Model;
 
 namespace ObjectOrientedPractics.View.Tabs
@@ -17,10 +19,6 @@ namespace ObjectOrientedPractics.View.Tabs
     /// </summary>
     public partial class ItemsTab : UserControl
     {
-        /// <summary>
-        /// Список всех товаров.
-        /// </summary>
-        List<Item> _items = [];
         /// <summary>
         /// Текущий выбранный товар.
         /// </summary>
@@ -36,8 +34,8 @@ namespace ObjectOrientedPractics.View.Tabs
         public ItemsTab()
         {
             InitializeComponent();
-            _items.Add(new Item("один", "декс", 12));
-            ItemsListBox.Items.AddRange(_items.ToArray());
+            Provider.Items.Add(new Item("один", "декс", 12));
+            ItemsListBox.Items.AddRange(Provider.Items.ToArray());
         }
 
         /// <summary>
@@ -47,8 +45,8 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные события.</param>
         private void AddItemButton_Click(object sender, EventArgs e)
         {
-            _items.Add(new Item());
-            ItemsListBox.Items.Add(_items[_items.Count - 1]);
+            Provider.Items.Add(new Item());
+            ItemsListBox.Items.Add(Provider.Items[Provider.Items.Count - 1]);
         }
 
         /// <summary>
@@ -60,7 +58,7 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (_currentItem != null)
             {
-                _items.Remove(_currentItem);
+                Provider.Items.Remove(_currentItem);
                 ItemsListBox.Items.Remove(_currentItem);
                 SelectedItemEvent(true);
             }
@@ -86,7 +84,8 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 CostTextBox.BackColor = Color.White;
                 _currentItem.Cost = cost;
-            } catch (ArgumentException error)
+            }
+            catch (ArgumentException error)
             {
                 CreateTooltip(CostTextBox, error.Message);
                 CostTextBox.BackColor = Color.Pink;
@@ -161,7 +160,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void UpdateItemsListBox()
         {
             ItemsListBox.Items.Clear();
-            ItemsListBox.Items.AddRange(_items.ToArray());
+            ItemsListBox.Items.AddRange(Provider.Items.ToArray());
         }
 
         /// <summary>

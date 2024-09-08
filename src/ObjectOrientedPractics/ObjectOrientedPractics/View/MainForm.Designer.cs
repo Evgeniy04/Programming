@@ -97,6 +97,7 @@
             Controls.Add(MainTabControl);
             Name = "MainForm";
             Text = "Object Oriented Practics";
+            FormClosed += MainForm_FormClosed;
             MainTabControl.ResumeLayout(false);
             ItemsPage.ResumeLayout(false);
             CustomersPage.ResumeLayout(false);

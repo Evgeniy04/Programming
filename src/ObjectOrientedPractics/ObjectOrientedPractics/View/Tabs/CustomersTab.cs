@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ObjectOrientedPractics.Services;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
@@ -18,10 +19,6 @@ namespace ObjectOrientedPractics.View.Tabs
     /// </summary>
     public partial class CustomersTab : UserControl
     {
-        /// <summary>
-        /// Список клиентов.
-        /// </summary>
-        List<Customer> _customers = [];
         /// <summary>
         /// Текущий выбранный клиент.
         /// </summary>
@@ -37,8 +34,8 @@ namespace ObjectOrientedPractics.View.Tabs
         public CustomersTab()
         {
             InitializeComponent();
-            _customers.Add(new Customer("Аврамов Евгений Владимирович", "Деревня Гадюкино"));
-            CustomersListBox.Items.AddRange(_customers.ToArray());
+            Provider.Customers.Add(new Customer("Аврамов Евгений Владимирович", "Деревня Гадюкино"));
+            CustomersListBox.Items.AddRange(Provider.Customers.ToArray());
         }
 
         /// <summary>
@@ -48,8 +45,8 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные события.</param>
         private void AddCustomerButton_Click(object sender, EventArgs e)
         {
-            _customers.Add(new Customer());
-            CustomersListBox.Items.Add(_customers[_customers.Count - 1]);
+            Provider.Customers.Add(new Customer());
+            CustomersListBox.Items.Add(Provider.Customers[Provider.Customers.Count - 1]);
         }
 
         /// <summary>
@@ -61,7 +58,7 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (_currentCustomer != null)
             {
-                _customers.Remove(_currentCustomer);
+                Provider.Customers.Remove(_currentCustomer);
                 CustomersListBox.Items.Remove(_currentCustomer);
                 SelectedItemEvent(true);
             }
@@ -135,7 +132,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void UpdateCustomersListBox()
         {
             CustomersListBox.Items.Clear();
-            CustomersListBox.Items.AddRange(_customers.ToArray());
+            CustomersListBox.Items.AddRange(Provider.Customers.ToArray());
             CustomersListBox.SelectedItem = _currentCustomer;
         }
 
