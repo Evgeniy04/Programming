@@ -20,13 +20,36 @@ namespace ObjectOrientedPractics.View.Tabs
     public partial class CustomersTab : UserControl
     {
         /// <summary>
+        /// Список клиентов.
+        /// </summary>
+        List<Customer> _customers;
+        /// <summary>
         /// Текущий выбранный клиент.
         /// </summary>
-        public Customer _currentCustomer;
+        Customer _currentCustomer;
         /// <summary>
         /// Флаг, указывающий на системные изменения, чтобы избежать лишних действий при обновлении UI.
         /// </summary>
-        bool isSystemChanged = false;
+        bool _isSystemChanged = false;
+
+        /// <summary>
+        /// Получает или задает список клиентов.
+        /// При установке значения добавляет клиентов в ListBox и вызывает событие сброса выбранного элемента.
+        /// </summary>
+        /// <value>Список объектов <see cref="Customer"/>, представляющий клиентов.</value>
+        public List<Customer> Customers
+        {
+            get
+            {
+                return _customers;
+            }
+            set
+            {
+                _customers = value;
+                CustomersListBox.Items.AddRange(value.ToArray());
+                SelectedCustomerEvent(true);
+            }
+        }
 
         /// <summary>
         /// Инициализирует новый экземпляр <c>CustomersTab</c>.
@@ -44,8 +67,8 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные события.</param>
         private void AddCustomerButton_Click(object sender, EventArgs e)
         {
-            Provider.Customers.Add(new Customer());
-            CustomersListBox.Items.Add(Provider.Customers[Provider.Customers.Count - 1]);
+            Customers.Add(new Customer());
+            CustomersListBox.Items.Add(Customers[Customers.Count - 1]);
         }
 
         /// <summary>
@@ -57,7 +80,7 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (_currentCustomer != null)
             {
-                Provider.Customers.Remove(_currentCustomer);
+                Customers.Remove(_currentCustomer);
                 CustomersListBox.Items.Remove(_currentCustomer);
                 SelectedCustomerEvent(true);
             }
@@ -83,7 +106,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные события.</param>
         private void FullnameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (_currentCustomer == null || isSystemChanged) return;
+            if (_currentCustomer == null || _isSystemChanged) return;
 
             try
             {
@@ -109,9 +132,9 @@ namespace ObjectOrientedPractics.View.Tabs
             if (CustomersListBox.SelectedIndex != -1 && CustomersListBox.SelectedItem != null)
             {
                 _currentCustomer = (Customer)CustomersListBox.SelectedItem;
-                isSystemChanged = true;
+                _isSystemChanged = true;
                 SelectedCustomerEvent();
-                isSystemChanged = false;
+                _isSystemChanged = false;
             }
         }
 
@@ -121,7 +144,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void UpdateCustomersListBox()
         {
             CustomersListBox.Items.Clear();
-            CustomersListBox.Items.AddRange(Provider.Customers.ToArray());
+            CustomersListBox.Items.AddRange(Customers.ToArray());
             CustomersListBox.SelectedItem = _currentCustomer;
         }
 

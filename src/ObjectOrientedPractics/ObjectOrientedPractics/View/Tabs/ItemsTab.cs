@@ -20,13 +20,36 @@ namespace ObjectOrientedPractics.View.Tabs
     public partial class ItemsTab : UserControl
     {
         /// <summary>
+        /// Список товаров.
+        /// </summary>
+        List<Item> _items;
+        /// <summary>
         /// Текущий выбранный товар.
         /// </summary>
         Item _currentItem;
         /// <summary>
         /// Флаг, указывающий на системные изменения, чтобы избежать лишних действий при обновлении UI.
         /// </summary>
-        bool isSystemChanged = false;
+        bool _isSystemChanged = false;
+
+        /// <summary>
+        /// Получает или задает список товаров.
+        /// При установке значения добавляет товары в ListBox и вызывает событие сброса выбранного элемента.
+        /// </summary>
+        /// <value>Список объектов <see cref="Items"/>, представляющий клиентов.</value>
+        public List<Item> Items
+        {
+            get
+            {
+                return _items;
+            }
+            set
+            {
+                _items = value;
+                ItemsListBox.Items.AddRange(value.ToArray());
+                SelectedItemEvent(true);
+            }
+        }
 
         /// <summary>
         /// Инициализирует новый экземпляр <c>ItemsTab</c>.
@@ -45,8 +68,8 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные события.</param>
         private void AddItemButton_Click(object sender, EventArgs e)
         {
-            Provider.Items.Add(new Item());
-            ItemsListBox.Items.Add(Provider.Items[Provider.Items.Count - 1]);
+            Items.Add(new Item());
+            ItemsListBox.Items.Add(Items[Items.Count - 1]);
         }
 
         /// <summary>
@@ -58,7 +81,7 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (_currentItem != null)
             {
-                Provider.Items.Remove(_currentItem);
+                Items.Remove(_currentItem);
                 ItemsListBox.Items.Remove(_currentItem);
                 SelectedItemEvent(true);
             }
@@ -88,7 +111,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Аргументы события.</param>
         private void CostTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (_currentItem == null || isSystemChanged) return;
+            if (_currentItem == null || _isSystemChanged) return;
 
             if (!Double.TryParse(CostTextBox.Text, out double cost))
             {
@@ -116,7 +139,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Аргументы события.</param>
         private void NameRichTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (_currentItem == null || isSystemChanged) return;
+            if (_currentItem == null || _isSystemChanged) return;
 
             try
             {
@@ -139,7 +162,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Аргументы события.</param>
         private void DescriptionRichTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (_currentItem == null || isSystemChanged) return;
+            if (_currentItem == null || _isSystemChanged) return;
 
             try
             {
@@ -155,7 +178,7 @@ namespace ObjectOrientedPractics.View.Tabs
 
         private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_currentItem == null || CategoryComboBox.SelectedItem == null || isSystemChanged) return;
+            if (_currentItem == null || CategoryComboBox.SelectedItem == null || _isSystemChanged) return;
 
             _currentItem.Category = (Category)CategoryComboBox.SelectedItem;
         }
@@ -171,9 +194,9 @@ namespace ObjectOrientedPractics.View.Tabs
             if (ItemsListBox.SelectedIndex != -1 && ItemsListBox.SelectedItem != null)
             {
                 _currentItem = (Item)ItemsListBox.SelectedItem;
-                isSystemChanged = true;
+                _isSystemChanged = true;
                 SelectedItemEvent();
-                isSystemChanged = false;
+                _isSystemChanged = false;
             }
         }
 
@@ -183,7 +206,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void UpdateItemsListBox()
         {
             ItemsListBox.Items.Clear();
-            ItemsListBox.Items.AddRange(Provider.Items.ToArray());
+            ItemsListBox.Items.AddRange(Items.ToArray());
         }
 
         /// <summary>

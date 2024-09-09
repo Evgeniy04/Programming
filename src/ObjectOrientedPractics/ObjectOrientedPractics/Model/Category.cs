@@ -9,7 +9,7 @@ namespace Model
     /// <summary>
     /// Категории товаров, представленные в магазине.
     /// </summary>
-    enum Category
+    public enum Category
     {
         /// <summary>
         /// Электроника, включая смартфоны, ноутбуки, телевизоры и другие устройства.

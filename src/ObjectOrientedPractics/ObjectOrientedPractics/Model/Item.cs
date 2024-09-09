@@ -10,7 +10,7 @@ namespace Model
     /// <summary>
     /// Класс Item представляет объект товара.
     /// </summary>
-    internal class Item
+    public class Item
     {
         /// <summary>
         /// Категория товара.
