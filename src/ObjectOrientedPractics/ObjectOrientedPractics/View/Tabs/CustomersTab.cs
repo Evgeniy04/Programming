@@ -45,6 +45,7 @@ namespace ObjectOrientedPractics.View.Tabs
             }
             set
             {
+                if (value == null) return;
                 _customers = value;
                 CustomersListBox.Items.AddRange(value.ToArray());
                 SelectedCustomerEvent(true);

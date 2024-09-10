@@ -103,6 +103,8 @@ namespace Model
             _id = IdGenerator.GetNextId();
             Fullname = Id.ToString();
             Address = new Address();
+            Cart = new Cart();
+            Orders = new List<Order>();
         }
 
         /// <summary>
@@ -116,6 +118,7 @@ namespace Model
             Address = address;
             _id = IdGenerator.GetNextId();
             Cart = new Cart();
+            Orders = new List<Order>();
         }
 
         public override string ToString()

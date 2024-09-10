@@ -45,6 +45,7 @@ namespace ObjectOrientedPractics.View.Tabs
             }
             set
             {
+                if (value == null) return;
                 _items = value;
                 ItemsListBox.Items.AddRange(value.ToArray());
                 SelectedItemEvent(true);
