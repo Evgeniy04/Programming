@@ -24,6 +24,10 @@ namespace Model
         /// Адрес клиента.
         /// </summary>
         Address _address;
+        /// <summary>
+        /// Корзина товаров.
+        /// </summary>
+        Cart _cart;
 
         /// <summary>
         /// Получает идентификатор клиента.
@@ -64,6 +68,20 @@ namespace Model
                 _address = value;
             }
         }
+        /// <summary>
+        /// Возвращает или меняет содержимое корзины товаров.
+        /// </summary>
+        public Cart Cart
+        {
+            get
+            {
+                return _cart;
+            }
+            set
+            {
+                _cart = value;
+            }
+        }
 
         /// <summary>
         /// Конструктор класса Customer.
@@ -85,6 +103,7 @@ namespace Model
             Fullname = fullname;
             Address = address;
             _id = IdGenerator.GetNextId();
+            Cart = new Cart();
         }
 
         public override string ToString()
