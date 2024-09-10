@@ -28,6 +28,10 @@ namespace Model
         /// Корзина товаров.
         /// </summary>
         Cart _cart;
+        /// <summary>
+        /// Список заказов.
+        /// </summary>
+        List<Order> _orders;
 
         /// <summary>
         /// Получает идентификатор клиента.
@@ -81,6 +85,14 @@ namespace Model
             {
                 _cart = value;
             }
+        }
+        /// <summary>
+        /// Возвращает или меняет список заказов.
+        /// </summary>
+        public List<Order> Orders
+        {
+            get { return _orders; }
+            set { _orders = value; }
         }
 
         /// <summary>
