@@ -35,7 +35,7 @@ namespace ObjectOrientedPractics.Services
         {
             Random random = new Random();
             string fullname = _fullnames[random.Next(_fullnames.Count)];
-            string address = _addresses[random.Next(_addresses.Count)];
+            Address address = new Address();
             Customer customer = new Customer(fullname, address);
             return customer;
         }

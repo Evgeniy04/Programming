@@ -10,8 +10,12 @@ namespace Model
     /// <summary>
     /// Класс Item представляет объект товара.
     /// </summary>
-    internal class Item
+    public class Item
     {
+        /// <summary>
+        /// Категория товара.
+        /// </summary>
+        public Category Category { get; set; }
         /// <summary>
         /// Идентификатор товара.
         /// </summary>
@@ -94,6 +98,7 @@ namespace Model
             Name = Id.ToString();
             Info = "";
             Cost = 0;
+            Category = Category.Electronics;
         }
 
         /// <summary>
@@ -102,12 +107,14 @@ namespace Model
         /// <param name="name">Наименование товара.</param>
         /// <param name="info">Подробная информация о товаре.</param>
         /// <param name="cost">Стоимость товара.</param>
-        public Item(string name, string info, double cost)
+        /// <param name="category">Категория товара.</param>
+        public Item(string name, string info, double cost, Category category)
         {
+            _id = IdGenerator.GetNextId();
             Name = name;
             Info = info;
             Cost = cost;
-            _id = IdGenerator.GetNextId();
+            Category = category;
         }
 
         public override string ToString()

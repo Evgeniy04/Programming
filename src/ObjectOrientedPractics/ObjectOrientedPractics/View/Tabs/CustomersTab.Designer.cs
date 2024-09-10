@@ -28,12 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Model.Address address1 = new Model.Address();
             SelectedCustomerPanel = new Panel();
             SelectedItemLabel = new Label();
-            AddressRichTextBox = new RichTextBox();
             FullnameTextBox = new TextBox();
             IdTextBox = new TextBox();
-            AddressLabel = new Label();
             FullnameLabel = new Label();
             IdLabel = new Label();
             CustomersLabel = new Label();
@@ -42,6 +41,7 @@
             RemoveItemButton = new Button();
             AddItemButton = new Button();
             CustomersListBox = new ListBox();
+            AddressControl = new Controls.AddressControl();
             SelectedCustomerPanel.SuspendLayout();
             CustomersTableLayoutPanel.SuspendLayout();
             SuspendLayout();
@@ -52,10 +52,8 @@
             SelectedCustomerPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             SelectedCustomerPanel.BackColor = SystemColors.ControlLightLight;
             SelectedCustomerPanel.Controls.Add(SelectedItemLabel);
-            SelectedCustomerPanel.Controls.Add(AddressRichTextBox);
             SelectedCustomerPanel.Controls.Add(FullnameTextBox);
             SelectedCustomerPanel.Controls.Add(IdTextBox);
-            SelectedCustomerPanel.Controls.Add(AddressLabel);
             SelectedCustomerPanel.Controls.Add(FullnameLabel);
             SelectedCustomerPanel.Controls.Add(IdLabel);
             SelectedCustomerPanel.Location = new Point(346, 3);
@@ -73,17 +71,6 @@
             SelectedItemLabel.Size = new Size(139, 20);
             SelectedItemLabel.TabIndex = 1;
             SelectedItemLabel.Text = "Selected Customer";
-            // 
-            // AddressRichTextBox
-            // 
-            AddressRichTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            AddressRichTextBox.Location = new Point(122, 117);
-            AddressRichTextBox.MinimumSize = new Size(196, 0);
-            AddressRichTextBox.Name = "AddressRichTextBox";
-            AddressRichTextBox.Size = new Size(332, 71);
-            AddressRichTextBox.TabIndex = 12;
-            AddressRichTextBox.Text = "";
-            AddressRichTextBox.TextChanged += AddressRichTextBox_TextChanged;
             // 
             // FullnameTextBox
             // 
@@ -103,15 +90,6 @@
             IdTextBox.Size = new Size(125, 27);
             IdTextBox.TabIndex = 10;
             IdTextBox.KeyPress += DisableTextBox;
-            // 
-            // AddressLabel
-            // 
-            AddressLabel.AutoSize = true;
-            AddressLabel.Location = new Point(13, 117);
-            AddressLabel.Name = "AddressLabel";
-            AddressLabel.Size = new Size(65, 20);
-            AddressLabel.TabIndex = 8;
-            AddressLabel.Text = "Address:";
             // 
             // FullnameLabel
             // 
@@ -156,6 +134,7 @@
             CustomersTableLayoutPanel.Controls.Add(AddItemButton, 0, 3);
             CustomersTableLayoutPanel.Controls.Add(CustomersListBox, 0, 1);
             CustomersTableLayoutPanel.Controls.Add(SelectedCustomerPanel, 3, 0);
+            CustomersTableLayoutPanel.Controls.Add(AddressControl, 3, 2);
             CustomersTableLayoutPanel.Location = new Point(0, 0);
             CustomersTableLayoutPanel.Name = "CustomersTableLayoutPanel";
             CustomersTableLayoutPanel.RowCount = 4;
@@ -213,6 +192,23 @@
             CustomersListBox.TabIndex = 4;
             CustomersListBox.SelectedIndexChanged += CustomersListBox_SelectedIndexChanged;
             // 
+            // AddressControl
+            // 
+            address1.Apartment = "";
+            address1.Building = "";
+            address1.City = "";
+            address1.Country = "";
+            address1.Index = 100000;
+            address1.Street = "";
+            AddressControl.Address = address1;
+            AddressControl.BackColor = SystemColors.ControlLightLight;
+            AddressControl.Dock = DockStyle.Fill;
+            AddressControl.Location = new Point(346, 200);
+            AddressControl.Name = "AddressControl";
+            CustomersTableLayoutPanel.SetRowSpan(AddressControl, 2);
+            AddressControl.Size = new Size(469, 209);
+            AddressControl.TabIndex = 6;
+            // 
             // CustomersTab
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -232,17 +228,16 @@
 
         private Panel SelectedCustomerPanel;
         private Label SelectedItemLabel;
-        private RichTextBox AddressRichTextBox;
         private TextBox FullnameTextBox;
         private TextBox IdTextBox;
-        private Label AddressLabel;
         private Label FullnameLabel;
         private Label IdLabel;
         private TableLayoutPanel CustomersTableLayoutPanel;
         private Label CustomersLabel;
         private Button RemoveItemButton;
         private Button AddItemButton;
-        private ListBox CustomersListBox;
         private Button CustomerDataGenerateButton;
+        public ListBox CustomersListBox;
+        private Controls.AddressControl AddressControl;
     }
 }

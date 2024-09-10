@@ -58,7 +58,9 @@ namespace ObjectOrientedPractics.Services
             string name = _names[random.Next(_names.Count)];
             string description = _descriptions[random.Next(_descriptions.Count)];
             double cost = _prices[random.Next(_prices.Count)];
-            Item item = new Item(name, description, cost);
+            Array values = Enum.GetValues(typeof(Category));
+            Category category = (Category)values.GetValue(random.Next(values.Length))!;
+            Item item = new Item(name, description, cost, category);
             return item;
         }
     }

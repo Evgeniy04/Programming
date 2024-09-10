@@ -9,9 +9,13 @@ namespace ObjectOrientedPractics
     public partial class MainForm : Form
     {
         /// <summary>
+        /// Получает или задает объект <see cref="Store"/>, представляющий магазин.
+        /// </summary>
+        Store _store { get; set; }
+        /// <summary>
         /// Путь до папки с файлом сохранения.
         /// </summary>
-        string _appFolderPath;
+        string _appFolderPath { get; set; }
 
         /// <summary>
         /// Конструктор главной формы.
@@ -20,6 +24,7 @@ namespace ObjectOrientedPractics
         public MainForm()
         {
             InitializeComponent();
+            _store = new Store();
             // Получение пути к файлу с данными приложения
             string appDataFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             _appFolderPath = Path.Combine(appDataFolderPath, "avradev", "OOP");
@@ -35,18 +40,18 @@ namespace ObjectOrientedPractics
                     // Чтение JSON из файла
                     string jsonString = File.ReadAllText(_appFolderPath + @"\data.json");
                     // Десериализация JSON в объект
-                    Tuple<List<Item>, List<Customer>> data = JsonSerializer.Deserialize<Tuple<List<Item>, List<Customer>>>(jsonString)!;
+                    Store data = JsonSerializer.Deserialize<Store>(jsonString)!;
                     // Запись данных в провайдер
-                    Provider.ItemsListBox.Items.AddRange(data.Item1.ToArray());
-                    Provider.Items = data.Item1;
-                    Provider.CustomersListBox.Items.AddRange(data.Item2.ToArray());
-                    Provider.Customers = data.Item2;
+                    if (data == null) return;
+                    _store = data;
                 }
                 catch
                 {
                     Console.WriteLine();
                 }
             }
+            ItemsTab.Items = _store.Items;
+            CustomersTab.Customers = _store.Customers;
         }
 
         /// <summary>
@@ -60,8 +65,7 @@ namespace ObjectOrientedPractics
             // Открываем поток для записи в файл
             using FileStream stream = new FileStream(_appFolderPath + @"\data.json", FileMode.Create);
             // Сериализуем список книг в XML и записываем его в файл
-            Tuple<List<Item>, List<Customer>> array = Tuple.Create(Provider.Items, Provider.Customers);
-            JsonSerializer.Serialize(stream, array);
+            JsonSerializer.Serialize(stream, _store);
         }
     }
 }

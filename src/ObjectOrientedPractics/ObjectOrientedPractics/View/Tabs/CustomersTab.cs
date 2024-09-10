@@ -20,13 +20,36 @@ namespace ObjectOrientedPractics.View.Tabs
     public partial class CustomersTab : UserControl
     {
         /// <summary>
+        /// Список клиентов.
+        /// </summary>
+        List<Customer> _customers;
+        /// <summary>
         /// Текущий выбранный клиент.
         /// </summary>
         Customer _currentCustomer;
         /// <summary>
         /// Флаг, указывающий на системные изменения, чтобы избежать лишних действий при обновлении UI.
         /// </summary>
-        bool isSystemChanged = false;
+        bool _isSystemChanged = false;
+
+        /// <summary>
+        /// Получает или задает список клиентов.
+        /// При установке значения добавляет клиентов в ListBox и вызывает событие сброса выбранного элемента.
+        /// </summary>
+        /// <value>Список объектов <see cref="Customer"/>, представляющий клиентов.</value>
+        public List<Customer> Customers
+        {
+            get
+            {
+                return _customers;
+            }
+            set
+            {
+                _customers = value;
+                CustomersListBox.Items.AddRange(value.ToArray());
+                SelectedCustomerEvent(true);
+            }
+        }
 
         /// <summary>
         /// Инициализирует новый экземпляр <c>CustomersTab</c>.
@@ -34,7 +57,6 @@ namespace ObjectOrientedPractics.View.Tabs
         public CustomersTab()
         {
             InitializeComponent();
-            Provider.CustomersListBox = CustomersListBox;
             SelectedCustomerEvent(true);
         }
 
@@ -45,8 +67,8 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные события.</param>
         private void AddCustomerButton_Click(object sender, EventArgs e)
         {
-            Provider.Customers.Add(new Customer());
-            CustomersListBox.Items.Add(Provider.Customers[Provider.Customers.Count - 1]);
+            Customers.Add(new Customer());
+            CustomersListBox.Items.Add(Customers[Customers.Count - 1]);
         }
 
         /// <summary>
@@ -58,10 +80,22 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (_currentCustomer != null)
             {
-                Provider.Customers.Remove(_currentCustomer);
+                Customers.Remove(_currentCustomer);
                 CustomersListBox.Items.Remove(_currentCustomer);
                 SelectedCustomerEvent(true);
             }
+        }
+
+        /// <summary>
+        /// Обрабатывает нажатие кнопки для генерации случайных данных клиента.
+        /// </summary>
+        /// <param name="sender">Источник события, кнопка.</param>
+        /// <param name="e">Аргументы события клика.</param>
+        private void CustomerDataGenerateButton_Click(object sender, EventArgs e)
+        {
+            if (_currentCustomer == null || CustomersListBox.SelectedItems == null || !int.TryParse(IdTextBox.Text, out int _)) return;
+            Customer customer = CustomerFactory.Randomize();
+            FullnameTextBox.Text = customer.Fullname;
         }
 
         /// <summary>
@@ -72,7 +106,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные события.</param>
         private void FullnameTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (_currentCustomer == null || isSystemChanged) return;
+            if (_currentCustomer == null || _isSystemChanged) return;
 
             try
             {
@@ -88,28 +122,6 @@ namespace ObjectOrientedPractics.View.Tabs
         }
 
         /// <summary>
-        /// Обработчик изменения текста в поле адреса клиента.
-        /// Обновляет информацию о клиенте и обрабатывает ошибки ввода.
-        /// </summary>
-        /// <param name="sender">Источник события.</param>
-        /// <param name="e">Данные события.</param>
-        private void AddressRichTextBox_TextChanged(object sender, EventArgs e)
-        {
-            if (_currentCustomer == null || isSystemChanged) return;
-
-            try
-            {
-                AddressRichTextBox.BackColor = Color.White;
-                _currentCustomer.Address = AddressRichTextBox.Text;
-            }
-            catch (ArgumentException error)
-            {
-                CreateTooltip(AddressRichTextBox, error.Message);
-                AddressRichTextBox.BackColor = Color.Pink;
-            }
-        }
-
-        /// <summary>
         /// Обработчик выбора клиента в списке.
         /// Обновляет текущего клиента и отображает его данные.
         /// </summary>
@@ -120,9 +132,9 @@ namespace ObjectOrientedPractics.View.Tabs
             if (CustomersListBox.SelectedIndex != -1 && CustomersListBox.SelectedItem != null)
             {
                 _currentCustomer = (Customer)CustomersListBox.SelectedItem;
-                isSystemChanged = true;
+                _isSystemChanged = true;
                 SelectedCustomerEvent();
-                isSystemChanged = false;
+                _isSystemChanged = false;
             }
         }
 
@@ -132,7 +144,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void UpdateCustomersListBox()
         {
             CustomersListBox.Items.Clear();
-            CustomersListBox.Items.AddRange(Provider.Customers.ToArray());
+            CustomersListBox.Items.AddRange(Customers.ToArray());
             CustomersListBox.SelectedItem = _currentCustomer;
         }
 
@@ -142,10 +154,10 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="isEmpty">Указывает, отображать ли заглушку.</param>
         private void SelectedCustomerEvent(bool isEmpty = false)
         {
-            IdTextBox.BackColor = FullnameTextBox.BackColor = AddressRichTextBox.BackColor = Color.White;
+            IdTextBox.BackColor = FullnameTextBox.BackColor = Color.White;
             IdTextBox.Text = isEmpty ? "Ничего не выбрано" : _currentCustomer.Id.ToString();
             FullnameTextBox.Text = isEmpty ? "" : _currentCustomer.Fullname.ToString();
-            AddressRichTextBox.Text = isEmpty ? "" : _currentCustomer.Address.ToString();
+            AddressControl.Address = isEmpty ? new Address() : _currentCustomer.Address;
         }
 
         /// <summary>
@@ -159,17 +171,6 @@ namespace ObjectOrientedPractics.View.Tabs
             toolTip.AutomaticDelay = 500;
             toolTip.SetToolTip(textBox, errorMessage);
         }
-        /// <summary>
-        /// Создает подсказку с сообщением об ошибке для текстового поля с форматированным текстом.
-        /// </summary>
-        /// <param name="richTextBox">Поле с форматированным текстом, для которого создается подсказка.</param>
-        /// <param name="errorMessage">Сообщение об ошибке.</param>
-        private void CreateTooltip(RichTextBox richTextBox, string errorMessage)
-        {
-            ToolTip toolTip = new ToolTip();
-            toolTip.AutomaticDelay = 500;
-            toolTip.SetToolTip(richTextBox, errorMessage);
-        }
 
         /// <summary>
         /// Отключает ввод текста в текстовое поле.
@@ -179,14 +180,6 @@ namespace ObjectOrientedPractics.View.Tabs
         private void DisableTextBox(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
-        }
-
-        private void CustomerDataGenerateButton_Click(object sender, EventArgs e)
-        {
-            if (_currentCustomer == null || CustomersListBox.SelectedItems == null || !int.TryParse(IdTextBox.Text, out int _)) return;
-            Customer customer = CustomerFactory.Randomize();
-            FullnameTextBox.Text = customer.Fullname;
-            AddressRichTextBox.Text = customer.Address;
         }
     }
 }

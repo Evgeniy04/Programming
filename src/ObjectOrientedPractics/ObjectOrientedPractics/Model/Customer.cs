@@ -10,7 +10,7 @@ namespace Model
     /// <summary>
     /// Класс Customer представляет данные клиента.
     /// </summary>
-    internal class Customer
+    public class Customer
     {
         /// <summary>
         /// Идентификатор клиента.
@@ -23,7 +23,7 @@ namespace Model
         /// <summary>
         /// Адрес клиента.
         /// </summary>
-        string _address;
+        Address _address;
 
         /// <summary>
         /// Получает идентификатор клиента.
@@ -53,7 +53,7 @@ namespace Model
         /// <summary>
         /// Возвращает или меняет адрес клиента.
         /// </summary>
-        public string Address
+        public Address Address
         {
             get
             {
@@ -61,7 +61,6 @@ namespace Model
             }
             set
             {
-                ValueValidator.AssertStringOnLength(value, 500, nameof(Address));
                 _address = value;
             }
         }
@@ -73,7 +72,7 @@ namespace Model
         {
             _id = IdGenerator.GetNextId();
             Fullname = Id.ToString();
-            Address = "";
+            Address = new Address();
         }
 
         /// <summary>
@@ -81,7 +80,7 @@ namespace Model
         /// </summary>
         /// <param name="fullname">Полное имя клиента.</param>
         /// <param name="address">Адрес клиента.</param>
-        public Customer(string fullname, string address)
+        public Customer(string fullname, Address address)
         {
             Fullname = fullname;
             Address = address;

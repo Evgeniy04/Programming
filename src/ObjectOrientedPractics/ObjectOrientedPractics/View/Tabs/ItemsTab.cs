@@ -20,13 +20,36 @@ namespace ObjectOrientedPractics.View.Tabs
     public partial class ItemsTab : UserControl
     {
         /// <summary>
+        /// Список товаров.
+        /// </summary>
+        List<Item> _items;
+        /// <summary>
         /// Текущий выбранный товар.
         /// </summary>
         Item _currentItem;
         /// <summary>
         /// Флаг, указывающий на системные изменения, чтобы избежать лишних действий при обновлении UI.
         /// </summary>
-        bool isSystemChanged = false;
+        bool _isSystemChanged = false;
+
+        /// <summary>
+        /// Получает или задает список товаров.
+        /// При установке значения добавляет товары в ListBox и вызывает событие сброса выбранного элемента.
+        /// </summary>
+        /// <value>Список объектов <see cref="Items"/>, представляющий клиентов.</value>
+        public List<Item> Items
+        {
+            get
+            {
+                return _items;
+            }
+            set
+            {
+                _items = value;
+                ItemsListBox.Items.AddRange(value.ToArray());
+                SelectedItemEvent(true);
+            }
+        }
 
         /// <summary>
         /// Инициализирует новый экземпляр <c>ItemsTab</c>.
@@ -34,8 +57,8 @@ namespace ObjectOrientedPractics.View.Tabs
         public ItemsTab()
         {
             InitializeComponent();
-            Provider.ItemsListBox = ItemsListBox;
             SelectedItemEvent(true);
+            CategoryComboBox.Items.AddRange(Enum.GetValues(typeof(Category)).Cast<object>().ToArray());
         }
 
         /// <summary>
@@ -45,8 +68,8 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные события.</param>
         private void AddItemButton_Click(object sender, EventArgs e)
         {
-            Provider.Items.Add(new Item());
-            ItemsListBox.Items.Add(Provider.Items[Provider.Items.Count - 1]);
+            Items.Add(new Item());
+            ItemsListBox.Items.Add(Items[Items.Count - 1]);
         }
 
         /// <summary>
@@ -58,10 +81,26 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (_currentItem != null)
             {
-                Provider.Items.Remove(_currentItem);
+                Items.Remove(_currentItem);
                 ItemsListBox.Items.Remove(_currentItem);
                 SelectedItemEvent(true);
             }
+        }
+
+        /// <summary>
+        /// Обрабатывает событие изменения выбранного элемента в ComboBox для категорий.
+        /// </summary>
+        /// <param name="sender">Источник события, ComboBox.</param>
+        /// <param name="e">Аргументы события изменения индекса.</param>
+        private void ItemDataGenerateButton_Click(object sender, EventArgs e)
+        {
+            if (_currentItem == null || ItemsListBox.SelectedItems == null || !int.TryParse(IdTextBox.Text, out int _)) return;
+            Item item = ItemFactory.Randomize();
+            NameRichTextBox.Text = item.Name;
+            DescriptionRichTextBox.Text = item.Info;
+            CostTextBox.Text = item.Cost.ToString();
+            CategoryComboBox.SelectedItem = item.Category;
+            ItemsListBox.SelectedItem = _currentItem;
         }
 
         /// <summary>
@@ -72,7 +111,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Аргументы события.</param>
         private void CostTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (_currentItem == null || isSystemChanged) return;
+            if (_currentItem == null || _isSystemChanged) return;
 
             if (!Double.TryParse(CostTextBox.Text, out double cost))
             {
@@ -100,7 +139,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Аргументы события.</param>
         private void NameRichTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (_currentItem == null || isSystemChanged) return;
+            if (_currentItem == null || _isSystemChanged) return;
 
             try
             {
@@ -123,7 +162,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Аргументы события.</param>
         private void DescriptionRichTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (_currentItem == null || isSystemChanged) return;
+            if (_currentItem == null || _isSystemChanged) return;
 
             try
             {
@@ -137,6 +176,13 @@ namespace ObjectOrientedPractics.View.Tabs
             }
         }
 
+        private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_currentItem == null || CategoryComboBox.SelectedItem == null || _isSystemChanged) return;
+
+            _currentItem.Category = (Category)CategoryComboBox.SelectedItem;
+        }
+
         /// <summary>
         /// Обработчик выбора товара в списке.
         /// Обновляет текущий товар и отображает его данные.
@@ -148,9 +194,9 @@ namespace ObjectOrientedPractics.View.Tabs
             if (ItemsListBox.SelectedIndex != -1 && ItemsListBox.SelectedItem != null)
             {
                 _currentItem = (Item)ItemsListBox.SelectedItem;
-                isSystemChanged = true;
+                _isSystemChanged = true;
                 SelectedItemEvent();
-                isSystemChanged = false;
+                _isSystemChanged = false;
             }
         }
 
@@ -160,7 +206,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void UpdateItemsListBox()
         {
             ItemsListBox.Items.Clear();
-            ItemsListBox.Items.AddRange(Provider.Items.ToArray());
+            ItemsListBox.Items.AddRange(Items.ToArray());
         }
 
         /// <summary>
@@ -174,6 +220,7 @@ namespace ObjectOrientedPractics.View.Tabs
             NameRichTextBox.Text = isEmpty ? "" : _currentItem.Name.ToString();
             DescriptionRichTextBox.Text = isEmpty ? "" : _currentItem.Info.ToString();
             CostTextBox.Text = isEmpty ? "0" : _currentItem.Cost.ToString();
+            CategoryComboBox.SelectedItem = isEmpty ? null : _currentItem.Category;
         }
 
         /// <summary>
@@ -205,15 +252,6 @@ namespace ObjectOrientedPractics.View.Tabs
         private void DisableTextBox(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
-        }
-
-        private void ItemDataGenerateButton_Click(object sender, EventArgs e)
-        {
-            if (_currentItem == null || ItemsListBox.SelectedItems == null || !int.TryParse(IdTextBox.Text, out int _)) return;
-            Item item = ItemFactory.Randomize();
-            NameRichTextBox.Text = item.Name;
-            DescriptionRichTextBox.Text = item.Info;
-            CostTextBox.Text = item.Cost.ToString();
         }
     }
 }
