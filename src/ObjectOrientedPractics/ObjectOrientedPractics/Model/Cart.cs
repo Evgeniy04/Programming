@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Model
 {
@@ -36,7 +37,7 @@ namespace Model
             {
                 double sum = 0;
                 Items.ForEach(x => { sum += x.Cost; });
-                return sum;
+                return Math.Round(sum, 2); ;
             }
         }
     }

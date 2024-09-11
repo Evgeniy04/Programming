@@ -130,7 +130,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные события.</param>
         private void CustomersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CustomersListBox.SelectedIndex != -1 && CustomersListBox.SelectedItem != null)
+            if (CustomersListBox.SelectedItem != null)
             {
                 _currentCustomer = (Customer)CustomersListBox.SelectedItem;
                 _isSystemChanged = true;

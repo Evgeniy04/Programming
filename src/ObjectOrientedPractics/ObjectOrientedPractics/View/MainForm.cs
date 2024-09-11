@@ -70,5 +70,15 @@ namespace ObjectOrientedPractics
             // Сериализуем список книг в XML и записываем его в файл
             JsonSerializer.Serialize(stream, _store);
         }
+
+        /// <summary>
+        /// Событие смены вкладки.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы.</param>
+        private void MainTabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CartsTab.RefreshData();
+        }
     }
 }

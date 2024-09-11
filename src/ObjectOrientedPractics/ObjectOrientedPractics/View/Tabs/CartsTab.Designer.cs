@@ -38,7 +38,7 @@
             ClearCartButton = new Button();
             AmountLabel = new Label();
             TextAmountLabel = new Label();
-            CartListBox = new ListBox();
+            CartItemsListBox = new ListBox();
             CustomerComboBox = new ComboBox();
             CustomerLabel = new Label();
             CartLabel = new Label();
@@ -98,6 +98,7 @@
             AddToCartButton.TabIndex = 2;
             AddToCartButton.Text = "Add To Cart";
             AddToCartButton.UseVisualStyleBackColor = true;
+            AddToCartButton.Click += AddToCartButton_Click;
             // 
             // panel1
             // 
@@ -107,7 +108,7 @@
             panel1.Controls.Add(ClearCartButton);
             panel1.Controls.Add(AmountLabel);
             panel1.Controls.Add(TextAmountLabel);
-            panel1.Controls.Add(CartListBox);
+            panel1.Controls.Add(CartItemsListBox);
             panel1.Controls.Add(CustomerComboBox);
             panel1.Controls.Add(CustomerLabel);
             panel1.Controls.Add(CartLabel);
@@ -127,6 +128,7 @@
             RemoveItemButton.TabIndex = 10;
             RemoveItemButton.Text = "Remove Item";
             RemoveItemButton.UseVisualStyleBackColor = true;
+            RemoveItemButton.Click += RemoveItemButton_Click;
             // 
             // CreateOrderButton
             // 
@@ -136,6 +138,7 @@
             CreateOrderButton.TabIndex = 9;
             CreateOrderButton.Text = "Create Order";
             CreateOrderButton.UseVisualStyleBackColor = true;
+            CreateOrderButton.Click += CreateOrderButton_Click;
             // 
             // ClearCartButton
             // 
@@ -146,17 +149,18 @@
             ClearCartButton.TabIndex = 8;
             ClearCartButton.Text = "Clear Cart";
             ClearCartButton.UseVisualStyleBackColor = true;
+            ClearCartButton.Click += ClearCartButton_Click;
             // 
             // AmountLabel
             // 
-            AmountLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            AmountLabel.AutoSize = true;
+            AmountLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             AmountLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            AmountLabel.Location = new Point(319, 224);
+            AmountLabel.Location = new Point(13, 224);
             AmountLabel.Name = "AmountLabel";
-            AmountLabel.Size = new Size(83, 32);
+            AmountLabel.Size = new Size(389, 32);
             AmountLabel.TabIndex = 7;
-            AmountLabel.Text = "label2";
+            AmountLabel.Text = "0";
+            AmountLabel.TextAlign = ContentAlignment.MiddleRight;
             // 
             // TextAmountLabel
             // 
@@ -169,23 +173,25 @@
             TextAmountLabel.TabIndex = 6;
             TextAmountLabel.Text = "Amount:";
             // 
-            // CartListBox
+            // CartItemsListBox
             // 
-            CartListBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            CartListBox.FormattingEnabled = true;
-            CartListBox.Location = new Point(13, 97);
-            CartListBox.Name = "CartListBox";
-            CartListBox.Size = new Size(389, 104);
-            CartListBox.TabIndex = 5;
+            CartItemsListBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            CartItemsListBox.FormattingEnabled = true;
+            CartItemsListBox.Location = new Point(13, 97);
+            CartItemsListBox.Name = "CartItemsListBox";
+            CartItemsListBox.Size = new Size(389, 104);
+            CartItemsListBox.TabIndex = 5;
             // 
             // CustomerComboBox
             // 
             CustomerComboBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            CustomerComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             CustomerComboBox.FormattingEnabled = true;
             CustomerComboBox.Location = new Point(101, 28);
             CustomerComboBox.Name = "CustomerComboBox";
             CustomerComboBox.Size = new Size(301, 28);
             CustomerComboBox.TabIndex = 1;
+            CustomerComboBox.SelectedIndexChanged += CustomerComboBox_SelectedIndexChanged;
             // 
             // CustomerLabel
             // 
@@ -229,7 +235,7 @@
         private Panel panel1;
         private Label CustomerLabel;
         private ComboBox CustomerComboBox;
-        private ListBox CartListBox;
+        private ListBox CartItemsListBox;
         private Label CartLabel;
         private Label TextAmountLabel;
         private Label AmountLabel;

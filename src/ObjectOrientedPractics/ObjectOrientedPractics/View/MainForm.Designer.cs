@@ -52,6 +52,7 @@
             MainTabControl.SelectedIndex = 0;
             MainTabControl.Size = new Size(800, 450);
             MainTabControl.TabIndex = 0;
+            MainTabControl.SelectedIndexChanged += MainTabControl_SelectedIndexChanged;
             // 
             // ItemsPage
             // 
@@ -80,7 +81,7 @@
             CustomersPage.Location = new Point(4, 29);
             CustomersPage.Name = "CustomersPage";
             CustomersPage.Padding = new Padding(3);
-            CustomersPage.Size = new Size(192, 67);
+            CustomersPage.Size = new Size(792, 417);
             CustomersPage.TabIndex = 1;
             CustomersPage.Text = "Customers";
             CustomersPage.UseVisualStyleBackColor = true;
@@ -92,7 +93,7 @@
             CustomersTab.Dock = DockStyle.Fill;
             CustomersTab.Location = new Point(3, 3);
             CustomersTab.Name = "CustomersTab";
-            CustomersTab.Size = new Size(186, 61);
+            CustomersTab.Size = new Size(786, 411);
             CustomersTab.TabIndex = 0;
             // 
             // CartsPage

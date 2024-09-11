@@ -18,7 +18,7 @@ namespace Model
         /// <summary>
         /// Уникальный идентификатор заказа.
         /// </summary>
-        Guid _id = Guid.NewGuid();
+        Guid _id;
         /// <summary>
         /// Дата и время создания заказа.
         /// </summary>
@@ -31,10 +31,6 @@ namespace Model
         /// Список товаров в заказе.
         /// </summary>
         List<Item> _items;
-        /// <summary>
-        /// Общая сумма заказа.
-        /// </summary>
-        double _amount;
 
         /// <summary>
         /// Получает или задает статус заказа.
@@ -77,12 +73,16 @@ namespace Model
             set { _items = value; }
         }
         /// <summary>
-        /// Получает или задает общую сумму заказа.
+        /// Получает общую сумму заказа.
         /// </summary>
         public double Amount
         {
-            get { return _amount; }
-            set { _amount = value; }    
+            get
+            {
+                double sum = 0;
+                Items.ForEach(x => { sum += x.Cost; });
+                return Math.Round(sum, 2); ;
+            }
         }
 
         /// <summary>
@@ -97,8 +97,7 @@ namespace Model
             CreatedAt = DateTime.Now;
             Status = status;
             Address = address;
-            Items = items;
-            Amount = 0;
+            Items = new List<Item>(items);
         }
     }
 }

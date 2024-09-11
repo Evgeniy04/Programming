@@ -192,7 +192,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные события.</param>
         private void ItemsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ItemsListBox.SelectedIndex != -1 && ItemsListBox.SelectedItem != null)
+            if (ItemsListBox.SelectedItem != null)
             {
                 _currentItem = (Item)ItemsListBox.SelectedItem;
                 _isSystemChanged = true;
