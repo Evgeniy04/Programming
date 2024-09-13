@@ -152,7 +152,7 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (CurrentCustomer == null) return;
             if (CurrentCustomer.Cart.Items.Count < 1) return;
-            Order order = new(OrderStatus.New, CurrentCustomer.Address, CurrentCustomer.Cart.Items);
+            Order order = new(Guid.NewGuid(), DateTime.Now, OrderStatus.New, CurrentCustomer.Address, CurrentCustomer.Cart.Items);
             CurrentCustomer.Orders.Add(order);
             ClearCart();
             UpdateAmount();

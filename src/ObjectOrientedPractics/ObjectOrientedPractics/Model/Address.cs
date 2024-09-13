@@ -182,5 +182,14 @@ namespace Model
             Building = building;
             Apartment = apartment;
         }
+
+        /// <summary>
+        /// Представление класса в виде строки.
+        /// </summary>
+        /// <returns>Строка.</returns>
+        public override string ToString()
+        {
+            return $"{Index}, {Country}, {City}, {Street}, {Building}, {Apartment}";
+        }
     }
 }

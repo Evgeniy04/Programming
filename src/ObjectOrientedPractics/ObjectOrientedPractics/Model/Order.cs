@@ -88,16 +88,31 @@ namespace Model
         /// <summary>
         /// Инициализирует новый экземпляр заказа.
         /// </summary>
+        /// <param name="id">Идентификатор заказа.</param>
+        /// <param name="createdAt">Дата создания.</param>
         /// <param name="status">Статус заказа.</param>
         /// <param name="address">Адрес доставки.</param>
         /// <param name="items">Список товаров в заказе.</param>
-        public Order(OrderStatus status, Address address, List<Item> items)
+        public Order(Guid id, DateTime createdAt, OrderStatus status, Address address, List<Item> items)
         {
-            Id = Guid.NewGuid();
-            CreatedAt = DateTime.Now;
+            Id = id;
+            CreatedAt = createdAt;
             Status = status;
             Address = address;
             Items = new List<Item>(items);
+        }
+    }
+    /// <summary>
+    /// Вспомогательный класс, представляющий заказ с полным именем клиента.
+    /// </summary>
+    public class OrderWithCustomerFullname : Order
+    {
+        public string CustomerFullname { get; set; }
+
+        public OrderWithCustomerFullname(Order order, string customerFullname)
+            : base(order.Id, order.CreatedAt, order.Status, order.Address, order.Items)
+        {
+            CustomerFullname = customerFullname;
         }
     }
 }
