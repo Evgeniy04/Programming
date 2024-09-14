@@ -12,17 +12,17 @@ namespace Model
     public class Order
     {
         /// <summary>
-        /// Статус заказа.
-        /// </summary>
-        OrderStatus _status;
-        /// <summary>
         /// Уникальный идентификатор заказа.
         /// </summary>
         Guid _id;
         /// <summary>
-        /// Дата и время создания заказа.
+        /// Статус заказа.
         /// </summary>
-        DateTime _createdAt;
+        OrderStatus _status;
+        /// <summary>
+        /// Дата и время изменения статуса заказа.
+        /// </summary>
+        Dictionary<DateTime, OrderStatus> _statusHistory;
         /// <summary>
         /// Адрес доставки заказа.
         /// </summary>
@@ -33,14 +33,6 @@ namespace Model
         List<Item> _items;
 
         /// <summary>
-        /// Получает или задает статус заказа.
-        /// </summary>
-        public OrderStatus Status
-        {
-            get { return _status; }
-            set { _status = value; }
-        }
-        /// <summary>
         /// Получает уникальный идентификатор заказа.
         /// </summary>
         public Guid Id
@@ -49,12 +41,27 @@ namespace Model
             private set { _id = value; }
         }
         /// <summary>
+        /// Получает или задает статус заказа.
+        /// </summary>
+        public OrderStatus Status
+        {
+            get { return _status; }
+            set
+            {
+                if ((_status != value && _status != OrderStatus.New && StatusHistory.Count > 0) || (value == OrderStatus.New && StatusHistory.Count == 0))
+                { 
+                    StatusHistory.Add(DateTime.Now, value); 
+                }
+                _status = value;
+            }
+        }
+        /// <summary>
         /// Получает дату и время создания заказа.
         /// </summary>
-        public DateTime CreatedAt
+        public Dictionary<DateTime, OrderStatus> StatusHistory
         {
-            get { return _createdAt; }
-            private set { _createdAt = value; }
+            get { return _statusHistory; }
+            private set { _statusHistory = value; }
         }
         /// <summary>
         /// Получает или задает адрес доставки заказа.
@@ -93,10 +100,10 @@ namespace Model
         /// <param name="status">Статус заказа.</param>
         /// <param name="address">Адрес доставки.</param>
         /// <param name="items">Список товаров в заказе.</param>
-        public Order(Guid id, DateTime createdAt, OrderStatus status, Address address, List<Item> items)
+        public Order(Guid id, Dictionary<DateTime, OrderStatus> statusHistory, OrderStatus status, Address address, List<Item> items)
         {
             Id = id;
-            CreatedAt = createdAt;
+            StatusHistory = statusHistory;
             Status = status;
             Address = address;
             Items = new List<Item>(items);
@@ -110,7 +117,7 @@ namespace Model
         public string CustomerFullname { get; set; }
 
         public OrderWithCustomerFullname(Order order, string customerFullname)
-            : base(order.Id, order.CreatedAt, order.Status, order.Address, order.Items)
+            : base(order.Id, order.StatusHistory, order.Status, order.Address, order.Items)
         {
             CustomerFullname = customerFullname;
         }

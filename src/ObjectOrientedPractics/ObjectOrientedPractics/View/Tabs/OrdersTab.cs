@@ -74,9 +74,10 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (OrdersDataGridView.CurrentRow != null)
             {
+                OrderItemsListBox.Items.Clear();
                 _currentOrder = (OrderWithCustomerFullname)OrdersDataGridView.CurrentRow.DataBoundItem;
                 IdTextBox.Text = _currentOrder.Id.ToString();
-                CreatedTextBox.Text = _currentOrder.CreatedAt.ToString();
+                ChangeStatusTextBox.Text = _currentOrder.StatusHistory.Aggregate((l, r) => l.Key > r.Key ? l : r).Key.ToString();
                 StatusComboBox.SelectedItem = _currentOrder.Status;
                 OrderItemsListBox.Items.AddRange(_currentOrder.Items.ToArray());
                 AddressControl.Address = _currentOrder.Address;
@@ -95,6 +96,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 _data[_currentOrder].Orders.Find((order) => order.Id == _currentOrder.Id)!.Status = (OrderStatus)StatusComboBox.SelectedItem;
                 OrdersDataGridView.CurrentRow.Cells["Status"].Value = (OrderStatus)StatusComboBox.SelectedItem;
+                ChangeStatusTextBox.Text = _currentOrder.StatusHistory.Aggregate((l, r) => l.Key > r.Key ? l : r).Key.ToString();
             }
         }
 
@@ -143,15 +145,15 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         public void RefreshData()
         {
-            IdTextBox.Text = "";
-            CreatedTextBox.Text = "";
-            StatusComboBox.SelectedItem = null;
             _currentOrder = null;
             _data.Clear();
-            OrdersWithCustomerFullname.Clear();
-            AddressControl.Address = new Address();
             OrderItemsListBox.Items.Clear();
+            OrdersWithCustomerFullname.Clear();
             OrdersDataGridView.ClearSelection();
+            IdTextBox.Text = "";
+            ChangeStatusTextBox.Text = "";
+            StatusComboBox.SelectedItem = null;
+            AddressControl.Address = new Address();
             UpdateAmount();
             UpdateOrders();
         }

@@ -38,10 +38,10 @@
             StatusComboBox = new ComboBox();
             StatusLabel = new Label();
             SelectedOrderLabel = new Label();
-            CreatedTextBox = new TextBox();
+            ChangeStatusTextBox = new TextBox();
             IdTextBox = new TextBox();
             OrderItemsLabel = new Label();
-            CreatedAtLabel = new Label();
+            ChangedAtLabel = new Label();
             IdLabel = new Label();
             OrdersLabel = new Label();
             OrdersDataGridView = new DataGridView();
@@ -79,10 +79,10 @@
             SelectedItemPanel.Controls.Add(StatusComboBox);
             SelectedItemPanel.Controls.Add(StatusLabel);
             SelectedItemPanel.Controls.Add(SelectedOrderLabel);
-            SelectedItemPanel.Controls.Add(CreatedTextBox);
+            SelectedItemPanel.Controls.Add(ChangeStatusTextBox);
             SelectedItemPanel.Controls.Add(IdTextBox);
             SelectedItemPanel.Controls.Add(OrderItemsLabel);
-            SelectedItemPanel.Controls.Add(CreatedAtLabel);
+            SelectedItemPanel.Controls.Add(ChangedAtLabel);
             SelectedItemPanel.Controls.Add(IdLabel);
             SelectedItemPanel.Dock = DockStyle.Fill;
             SelectedItemPanel.Location = new Point(492, 3);
@@ -168,14 +168,14 @@
             SelectedOrderLabel.TabIndex = 1;
             SelectedOrderLabel.Text = "Selected Order";
             // 
-            // CreatedTextBox
+            // ChangeStatusTextBox
             // 
-            CreatedTextBox.BackColor = SystemColors.Control;
-            CreatedTextBox.Location = new Point(93, 81);
-            CreatedTextBox.Name = "CreatedTextBox";
-            CreatedTextBox.Size = new Size(151, 27);
-            CreatedTextBox.TabIndex = 11;
-            CreatedTextBox.KeyPress += DisableTextBox;
+            ChangeStatusTextBox.BackColor = SystemColors.Control;
+            ChangeStatusTextBox.Location = new Point(93, 81);
+            ChangeStatusTextBox.Name = "ChangeStatusTextBox";
+            ChangeStatusTextBox.Size = new Size(151, 27);
+            ChangeStatusTextBox.TabIndex = 11;
+            ChangeStatusTextBox.KeyPress += DisableTextBox;
             // 
             // IdTextBox
             // 
@@ -196,14 +196,14 @@
             OrderItemsLabel.TabIndex = 8;
             OrderItemsLabel.Text = "Order Items:";
             // 
-            // CreatedAtLabel
+            // ChangedAtLabel
             // 
-            CreatedAtLabel.AutoSize = true;
-            CreatedAtLabel.Location = new Point(11, 84);
-            CreatedAtLabel.Name = "CreatedAtLabel";
-            CreatedAtLabel.Size = new Size(64, 20);
-            CreatedAtLabel.TabIndex = 7;
-            CreatedAtLabel.Text = "Created:";
+            ChangedAtLabel.AutoSize = true;
+            ChangedAtLabel.Location = new Point(11, 84);
+            ChangedAtLabel.Name = "ChangedAtLabel";
+            ChangedAtLabel.Size = new Size(71, 20);
+            ChangedAtLabel.TabIndex = 7;
+            ChangedAtLabel.Text = "Changed:";
             // 
             // IdLabel
             // 
@@ -265,10 +265,10 @@
         private ComboBox StatusComboBox;
         private Label StatusLabel;
         private Label SelectedOrderLabel;
-        private TextBox CreatedTextBox;
+        private TextBox ChangeStatusTextBox;
         private TextBox IdTextBox;
         private Label OrderItemsLabel;
-        private Label CreatedAtLabel;
+        private Label ChangedAtLabel;
         private Label IdLabel;
         private Controls.AddressControl AddressControl;
         private Label AmountLabel;
