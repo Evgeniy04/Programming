@@ -48,9 +48,9 @@ namespace Model
             get { return _status; }
             set
             {
-                if ((_status != value && _status != OrderStatus.New && StatusHistory.Count > 0) || (value == OrderStatus.New && StatusHistory.Count == 0))
-                { 
-                    StatusHistory.Add(DateTime.Now, value); 
+                if ((_status != value && _status != OrderStatus.New && StatusHistory.Count > 0) || (value == OrderStatus.New && StatusHistory.Count <= 1))
+                {
+                    StatusHistory.Add(DateTime.Now, value);
                 }
                 _status = value;
             }
@@ -114,12 +114,14 @@ namespace Model
     /// </summary>
     public class OrderWithCustomerFullname : Order
     {
-        public string CustomerFullname { get; set; }
+        public string CustomerFullname { get; private set; }
+        public string ChangedAt { get; private set; }
 
         public OrderWithCustomerFullname(Order order, string customerFullname)
             : base(order.Id, order.StatusHistory, order.Status, order.Address, order.Items)
         {
             CustomerFullname = customerFullname;
+            ChangedAt = order.StatusHistory.Aggregate((l, r) => l.Key > r.Key ? l : r).Key.ToString();
         }
     }
 }

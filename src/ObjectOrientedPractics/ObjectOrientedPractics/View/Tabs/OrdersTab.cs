@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -77,7 +76,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 OrderItemsListBox.Items.Clear();
                 _currentOrder = (OrderWithCustomerFullname)OrdersDataGridView.CurrentRow.DataBoundItem;
                 IdTextBox.Text = _currentOrder.Id.ToString();
-                ChangeStatusTextBox.Text = _currentOrder.StatusHistory.Aggregate((l, r) => l.Key > r.Key ? l : r).Key.ToString();
+                ChangedAtTextBox.Text = _currentOrder.StatusHistory.Aggregate((l, r) => l.Key > r.Key ? l : r).Key.ToString();
                 StatusComboBox.SelectedItem = _currentOrder.Status;
                 OrderItemsListBox.Items.AddRange(_currentOrder.Items.ToArray());
                 AddressControl.Address = _currentOrder.Address;
@@ -96,8 +95,43 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 _data[_currentOrder].Orders.Find((order) => order.Id == _currentOrder.Id)!.Status = (OrderStatus)StatusComboBox.SelectedItem;
                 OrdersDataGridView.CurrentRow.Cells["Status"].Value = (OrderStatus)StatusComboBox.SelectedItem;
-                ChangeStatusTextBox.Text = _currentOrder.StatusHistory.Aggregate((l, r) => l.Key > r.Key ? l : r).Key.ToString();
+                ChangedAtTextBox.Text = _currentOrder.StatusHistory.Aggregate((l, r) => l.Key > r.Key ? l : r).Key.ToString();
             }
+        }
+
+        private void FindTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (FindTextBox.Text.Length == 0 || OrdersWithCustomerFullname.Count == 0)
+            {
+                _bindingSource.DataSource = OrdersWithCustomerFullname;
+                if (OrdersDataGridView.Columns.Contains("StatusHistory")) OrdersDataGridView.Columns.Remove("StatusHistory");
+                return;
+            };
+            OrdersDataGridView.ClearSelection();
+            _currentOrder = null;
+            OrderItemsListBox.Items.Clear();
+            IdTextBox.Text = "";
+            ChangedAtTextBox.Text = "";
+            StatusComboBox.SelectedItem = null;
+            AddressControl.Address = new Address();
+            string search = FindTextBox.Text.ToLower();
+
+            // Фильтрация данных
+            List<OrderWithCustomerFullname>? filteredOrders = OrdersWithCustomerFullname
+                .Where(order =>
+                {
+                    List<bool> flags = [];
+                    foreach (var prop in typeof(OrderWithCustomerFullname).GetProperties())
+                    {
+                        flags.Add(prop.GetValue(order)!.ToString()!.ToLower().Contains(search));
+                    }
+                    return flags.Any(b => b);
+                })
+                .ToList();
+
+            // Обновляем BindingSource с отфильтрованными данными
+            _bindingSource.DataSource = filteredOrders;
+            if (OrdersDataGridView.Columns.Contains("StatusHistory")) OrdersDataGridView.Columns.Remove("StatusHistory");
         }
 
         /// <summary>
@@ -130,6 +164,7 @@ namespace ObjectOrientedPractics.View.Tabs
             });
             _bindingSource.DataSource = OrdersWithCustomerFullname;
             OrdersDataGridView.DataSource = _bindingSource;
+            if (OrdersDataGridView.Columns.Contains("StatusHistory")) OrdersDataGridView.Columns.Remove("StatusHistory");
         }
 
         /// <summary>
@@ -151,7 +186,7 @@ namespace ObjectOrientedPractics.View.Tabs
             OrdersWithCustomerFullname.Clear();
             OrdersDataGridView.ClearSelection();
             IdTextBox.Text = "";
-            ChangeStatusTextBox.Text = "";
+            ChangedAtTextBox.Text = "";
             StatusComboBox.SelectedItem = null;
             AddressControl.Address = new Address();
             UpdateAmount();

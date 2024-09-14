@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Model.Address address2 = new Model.Address();
+            Model.Address address1 = new Model.Address();
             tableLayoutPanel1 = new TableLayoutPanel();
             SelectedItemPanel = new Panel();
             OrderItemsListBox = new ListBox();
@@ -38,13 +38,15 @@
             StatusComboBox = new ComboBox();
             StatusLabel = new Label();
             SelectedOrderLabel = new Label();
-            ChangeStatusTextBox = new TextBox();
+            ChangedAtTextBox = new TextBox();
             IdTextBox = new TextBox();
             OrderItemsLabel = new Label();
             ChangedAtLabel = new Label();
             IdLabel = new Label();
             OrdersLabel = new Label();
             OrdersDataGridView = new DataGridView();
+            FindLabel = new Label();
+            FindTextBox = new TextBox();
             tableLayoutPanel1.SuspendLayout();
             SelectedItemPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)OrdersDataGridView).BeginInit();
@@ -52,19 +54,24 @@
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 68F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Controls.Add(SelectedItemPanel, 1, 0);
+            tableLayoutPanel1.Controls.Add(SelectedItemPanel, 2, 0);
             tableLayoutPanel1.Controls.Add(OrdersLabel, 0, 0);
             tableLayoutPanel1.Controls.Add(OrdersDataGridView, 0, 1);
+            tableLayoutPanel1.Controls.Add(FindLabel, 0, 2);
+            tableLayoutPanel1.Controls.Add(FindTextBox, 1, 2);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.MinimumSize = new Size(0, 565);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowCount = 3;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel1.Size = new Size(979, 565);
             tableLayoutPanel1.TabIndex = 0;
             // 
@@ -79,16 +86,16 @@
             SelectedItemPanel.Controls.Add(StatusComboBox);
             SelectedItemPanel.Controls.Add(StatusLabel);
             SelectedItemPanel.Controls.Add(SelectedOrderLabel);
-            SelectedItemPanel.Controls.Add(ChangeStatusTextBox);
+            SelectedItemPanel.Controls.Add(ChangedAtTextBox);
             SelectedItemPanel.Controls.Add(IdTextBox);
             SelectedItemPanel.Controls.Add(OrderItemsLabel);
             SelectedItemPanel.Controls.Add(ChangedAtLabel);
             SelectedItemPanel.Controls.Add(IdLabel);
             SelectedItemPanel.Dock = DockStyle.Fill;
-            SelectedItemPanel.Location = new Point(492, 3);
+            SelectedItemPanel.Location = new Point(526, 3);
             SelectedItemPanel.Name = "SelectedItemPanel";
-            tableLayoutPanel1.SetRowSpan(SelectedItemPanel, 2);
-            SelectedItemPanel.Size = new Size(484, 559);
+            tableLayoutPanel1.SetRowSpan(SelectedItemPanel, 3);
+            SelectedItemPanel.Size = new Size(450, 559);
             SelectedItemPanel.TabIndex = 4;
             // 
             // OrderItemsListBox
@@ -99,14 +106,14 @@
             OrderItemsListBox.Location = new Point(11, 353);
             OrderItemsListBox.MinimumSize = new Size(0, 150);
             OrderItemsListBox.Name = "OrderItemsListBox";
-            OrderItemsListBox.Size = new Size(470, 144);
+            OrderItemsListBox.Size = new Size(436, 144);
             OrderItemsListBox.TabIndex = 19;
             // 
             // AmountLabel
             // 
             AmountLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             AmountLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            AmountLabel.Location = new Point(92, 527);
+            AmountLabel.Location = new Point(58, 527);
             AmountLabel.Name = "AmountLabel";
             AmountLabel.Size = new Size(389, 32);
             AmountLabel.TabIndex = 18;
@@ -118,7 +125,7 @@
             TextAmountLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             TextAmountLabel.AutoSize = true;
             TextAmountLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            TextAmountLabel.Location = new Point(410, 507);
+            TextAmountLabel.Location = new Point(376, 507);
             TextAmountLabel.Name = "TextAmountLabel";
             TextAmountLabel.Size = new Size(71, 20);
             TextAmountLabel.TabIndex = 17;
@@ -126,13 +133,13 @@
             // 
             // AddressControl
             // 
-            address2.Apartment = "";
-            address2.Building = "";
-            address2.City = "";
-            address2.Country = "";
-            address2.Index = 100000;
-            address2.Street = "";
-            AddressControl.Address = address2;
+            address1.Apartment = "";
+            address1.Building = "";
+            address1.City = "";
+            address1.Country = "";
+            address1.Index = 100000;
+            address1.Street = "";
+            AddressControl.Address = address1;
             AddressControl.Enabled = false;
             AddressControl.Location = new Point(0, 148);
             AddressControl.Name = "AddressControl";
@@ -168,14 +175,14 @@
             SelectedOrderLabel.TabIndex = 1;
             SelectedOrderLabel.Text = "Selected Order";
             // 
-            // ChangeStatusTextBox
+            // ChangedAtTextBox
             // 
-            ChangeStatusTextBox.BackColor = SystemColors.Control;
-            ChangeStatusTextBox.Location = new Point(93, 81);
-            ChangeStatusTextBox.Name = "ChangeStatusTextBox";
-            ChangeStatusTextBox.Size = new Size(151, 27);
-            ChangeStatusTextBox.TabIndex = 11;
-            ChangeStatusTextBox.KeyPress += DisableTextBox;
+            ChangedAtTextBox.BackColor = SystemColors.Control;
+            ChangedAtTextBox.Location = new Point(93, 81);
+            ChangedAtTextBox.Name = "ChangedAtTextBox";
+            ChangedAtTextBox.Size = new Size(151, 27);
+            ChangedAtTextBox.TabIndex = 11;
+            ChangedAtTextBox.KeyPress += DisableTextBox;
             // 
             // IdTextBox
             // 
@@ -221,25 +228,51 @@
             OrdersLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             OrdersLabel.Location = new Point(3, 11);
             OrdersLabel.Name = "OrdersLabel";
-            OrdersLabel.Size = new Size(483, 20);
+            OrdersLabel.Size = new Size(62, 20);
             OrdersLabel.TabIndex = 1;
             OrdersLabel.Text = "Orders";
             // 
             // OrdersDataGridView
             // 
             OrdersDataGridView.AllowUserToAddRows = false;
+            OrdersDataGridView.AllowUserToDeleteRows = false;
+            OrdersDataGridView.AllowUserToOrderColumns = true;
+            OrdersDataGridView.AllowUserToResizeColumns = false;
             OrdersDataGridView.AllowUserToResizeRows = false;
             OrdersDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tableLayoutPanel1.SetColumnSpan(OrdersDataGridView, 2);
             OrdersDataGridView.Dock = DockStyle.Fill;
             OrdersDataGridView.Location = new Point(3, 34);
             OrdersDataGridView.MultiSelect = false;
             OrdersDataGridView.Name = "OrdersDataGridView";
             OrdersDataGridView.ReadOnly = true;
+            OrdersDataGridView.RowHeadersVisible = false;
             OrdersDataGridView.RowHeadersWidth = 51;
-            OrdersDataGridView.Size = new Size(483, 528);
+            OrdersDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            OrdersDataGridView.Size = new Size(517, 498);
             OrdersDataGridView.TabIndex = 2;
             OrdersDataGridView.CellContentClick += OrdersDataGridView_CellContentClick;
             OrdersDataGridView.KeyPress += DisableTextBox;
+            // 
+            // FindLabel
+            // 
+            FindLabel.AutoSize = true;
+            FindLabel.Dock = DockStyle.Fill;
+            FindLabel.Location = new Point(3, 535);
+            FindLabel.Name = "FindLabel";
+            FindLabel.Size = new Size(62, 30);
+            FindLabel.TabIndex = 5;
+            FindLabel.Text = "Find:";
+            FindLabel.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // FindTextBox
+            // 
+            FindTextBox.Dock = DockStyle.Fill;
+            FindTextBox.Location = new Point(71, 538);
+            FindTextBox.Name = "FindTextBox";
+            FindTextBox.Size = new Size(449, 27);
+            FindTextBox.TabIndex = 6;
+            FindTextBox.TextChanged += FindTextBox_TextChanged;
             // 
             // OrdersTab
             // 
@@ -265,7 +298,7 @@
         private ComboBox StatusComboBox;
         private Label StatusLabel;
         private Label SelectedOrderLabel;
-        private TextBox ChangeStatusTextBox;
+        private TextBox ChangedAtTextBox;
         private TextBox IdTextBox;
         private Label OrderItemsLabel;
         private Label ChangedAtLabel;
@@ -274,5 +307,7 @@
         private Label AmountLabel;
         private Label TextAmountLabel;
         private ListBox OrderItemsListBox;
+        private Label FindLabel;
+        private TextBox FindTextBox;
     }
 }
