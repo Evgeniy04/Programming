@@ -206,11 +206,11 @@
         private Label BuildingLabel;
         private Label CountryLabel;
         private TextBox StreetTextBox;
-        private TextBox CityTextBox;
-        private TextBox CountryTextBox;
-        private TextBox PostIndexTextBox;
         private TextBox BuildingTextBox;
         private TextBox ApartmentTextBox;
         private Label StreetLabel;
+        private TextBox CityTextBox;
+        private TextBox CountryTextBox;
+        private TextBox PostIndexTextBox;
     }
 }

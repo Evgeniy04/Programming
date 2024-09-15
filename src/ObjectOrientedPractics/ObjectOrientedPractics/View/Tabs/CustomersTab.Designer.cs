@@ -42,6 +42,7 @@
             AddItemButton = new Button();
             CustomersListBox = new ListBox();
             AddressControl = new Controls.AddressControl();
+            AddOrderGenerateButton = new Button();
             SelectedCustomerPanel.SuspendLayout();
             CustomersTableLayoutPanel.SuspendLayout();
             SuspendLayout();
@@ -135,6 +136,7 @@
             CustomersTableLayoutPanel.Controls.Add(CustomersListBox, 0, 1);
             CustomersTableLayoutPanel.Controls.Add(SelectedCustomerPanel, 3, 0);
             CustomersTableLayoutPanel.Controls.Add(AddressControl, 3, 2);
+            CustomersTableLayoutPanel.Controls.Add(AddOrderGenerateButton, 1, 0);
             CustomersTableLayoutPanel.Location = new Point(0, 0);
             CustomersTableLayoutPanel.Name = "CustomersTableLayoutPanel";
             CustomersTableLayoutPanel.RowCount = 4;
@@ -209,6 +211,18 @@
             AddressControl.Size = new Size(469, 209);
             AddressControl.TabIndex = 6;
             // 
+            // AddOrderGenerateButton
+            // 
+            AddOrderGenerateButton.Dock = DockStyle.Fill;
+            AddOrderGenerateButton.Location = new Point(158, 0);
+            AddOrderGenerateButton.Margin = new Padding(0);
+            AddOrderGenerateButton.Name = "AddOrderGenerateButton";
+            AddOrderGenerateButton.Size = new Size(103, 31);
+            AddOrderGenerateButton.TabIndex = 3;
+            AddOrderGenerateButton.Text = "GenOrder";
+            AddOrderGenerateButton.UseVisualStyleBackColor = true;
+            AddOrderGenerateButton.Click += AddOrderGenerateButton_Click;
+            // 
             // CustomersTab
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -239,5 +253,6 @@
         private Button CustomerDataGenerateButton;
         public ListBox CustomersListBox;
         private Controls.AddressControl AddressControl;
+        private Button AddOrderGenerateButton;
     }
 }

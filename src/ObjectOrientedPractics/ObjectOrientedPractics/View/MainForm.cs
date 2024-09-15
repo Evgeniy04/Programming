@@ -1,8 +1,11 @@
 using Model;
-using System.Text.Json;
+//using System.Text.Json;
 using ObjectOrientedPractics.Services;
 using ObjectOrientedPractics.View.Tabs;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using System;
+using Microsoft.VisualBasic.Devices;
 
 namespace ObjectOrientedPractics
 {
@@ -16,12 +19,20 @@ namespace ObjectOrientedPractics
         /// Путь до папки с файлом сохранения.
         /// </summary>
         string _appFolderPath { get; set; }
-
         /// <summary>
-        /// Конструктор главной формы.
-        /// Инициализирует компоненты и загружает данные из файла сохранения, если они существуют.
+        /// Настройки сериализатора.
         /// </summary>
-        public MainForm()
+        JsonSerializerSettings _settings = new JsonSerializerSettings
+        {
+            PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+            Formatting = Formatting.Indented
+        };
+
+    /// <summary>
+    /// Конструктор главной формы.
+    /// Инициализирует компоненты и загружает данные из файла сохранения, если они существуют.
+    /// </summary>
+    public MainForm()
         {
             InitializeComponent();
             _store = new Store();
@@ -38,12 +49,13 @@ namespace ObjectOrientedPractics
                 try
                 {
                     // Чтение JSON из файла
-                    string jsonString = File.ReadAllText(_appFolderPath + @"\data.json");
+                    //string jsonString = File.ReadAllText(_appFolderPath + @"\data.json");
                     // Десериализация JSON в объект
-                    Store data = JsonSerializer.Deserialize<Store>(jsonString)!;
+                    Store data = JsonConvert.DeserializeObject<Store>(File.ReadAllText(_appFolderPath + @"\data.json"), _settings)!;
+                    //Store? data = JsonConvert.DeserializeObject<Store>(jsonString, _settings);
+                    //Store data = JsonSerializer.Deserialize<Store>(jsonString)!;
                     // Запись данных в провайдер
-                    if (data == null) return;
-                    _store = data;
+                    if (data != null) _store = data;
                 }
                 catch
                 {
@@ -51,7 +63,13 @@ namespace ObjectOrientedPractics
                 }
             }
             ItemsTab.Items = _store.Items;
+            CustomersTab.Items = _store.Items;
             CustomersTab.Customers = _store.Customers;
+
+            CartsTab.Items = _store.Items;
+            CartsTab.Customers = _store.Customers;
+
+            OrdersTab.Customers = _store.Customers;
         }
 
         /// <summary>
@@ -63,9 +81,23 @@ namespace ObjectOrientedPractics
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             // Открываем поток для записи в файл
-            using FileStream stream = new FileStream(_appFolderPath + @"\data.json", FileMode.Create);
+            //using FileStream stream = new FileStream(_appFolderPath + @"\data.json", FileMode.Create);
             // Сериализуем список книг в XML и записываем его в файл
-            JsonSerializer.Serialize(stream, _store);
+            //JsonConvert.SerializeObject(stream, Formatting.Indented, _settings);
+            // serialize JSON directly to a file
+            File.WriteAllText(_appFolderPath + @"\data.json", JsonConvert.SerializeObject(_store, Formatting.Indented, _settings));
+            //JsonSerializer.Serialize(stream, _store);
+        }
+
+        /// <summary>
+        /// Событие смены вкладки.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы.</param>
+        private void MainTabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CartsTab.RefreshData();
+            OrdersTab.RefreshData();
         }
     }
 }

@@ -15,14 +15,14 @@ namespace ObjectOrientedPractics.Services
         /// <summary>
         /// Список доступных наименований товаров.
         /// </summary>
-        static List<string> _names = new List<string>() {"Ноутбук Lenovo ThinkPad X1 Carbon", "Смартфон Apple iPhone 15 Pro", "Беспроводные наушники Sony WH-1000XM5",
+        static string[] _names = new string[12] {       "Ноутбук Lenovo ThinkPad X1 Carbon", "Смартфон Apple iPhone 15 Pro", "Беспроводные наушники Sony WH-1000XM5",
                                                         "Телевизор Samsung QLED 4K", "Планшет Microsoft Surface Pro 9", "Игровая консоль Sony PlayStation 5",
                                                         "Умные часы Apple Watch Series 9", "Кофемашина DeLonghi Magnifica S", "Фотоаппарат Canon EOS R6",
                                                         "Робот-пылесос Xiaomi Roborock S7", "Электросамокат Segway Ninebot Max", "Внешний жесткий диск Seagate 2TB" };
         /// <summary>
         /// Список доступных описаний товаров.
         /// </summary>
-        static List<string> _descriptions = new List<string>()
+        static string[] _descriptions = new string[12]
         {
             "Ноутбук Lenovo ThinkPad X1 Carbon – ультратонкий бизнес-ноутбук с процессором Intel i7, 16 ГБ RAM",
             "Смартфон Apple iPhone 15 Pro – новейшая модель с A17 Bionic, 6.1-дюймовый дисплей, 128 ГБ памяти",
@@ -43,7 +43,7 @@ namespace ObjectOrientedPractics.Services
         /// <summary>
         /// Список цен для товаров.
         /// </summary>
-        static List<double> _prices = new List<double>() {   1499.99, 999.99, 349.99,
+        static double[] _prices = new double[12] {   1499.99, 999.99, 349.99,
                                                             799.99, 1199.99, 499.99,
                                                             399.99, 599.99, 1899.99,
                                                             499.99, 749.99, 129.99 };
@@ -55,9 +55,9 @@ namespace ObjectOrientedPractics.Services
         public static Item Randomize()
         {
             Random random = new Random();
-            string name = _names[random.Next(_names.Count)];
-            string description = _descriptions[random.Next(_descriptions.Count)];
-            double cost = _prices[random.Next(_prices.Count)];
+            string name = _names[random.Next(_names.Length)];
+            string description = _descriptions[random.Next(_descriptions.Length)];
+            double cost = _prices[random.Next(_prices.Length)];
             Array values = Enum.GetValues(typeof(Category));
             Category category = (Category)values.GetValue(random.Next(values.Length))!;
             Item item = new Item(name, description, cost, category);

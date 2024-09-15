@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ObjectOrientedPractics.Services;
+using Services;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
@@ -45,11 +45,17 @@ namespace ObjectOrientedPractics.View.Tabs
             }
             set
             {
+                if (value == null) return;
                 _customers = value;
                 CustomersListBox.Items.AddRange(value.ToArray());
                 SelectedCustomerEvent(true);
             }
         }
+        /// <summary>
+        /// Получает или задает список товаров.
+        /// </summary>
+        /// <value>Список объектов <see cref="Item"/>, представляющий товары.</value>
+        public List<Item> Items { get; set; }
 
         /// <summary>
         /// Инициализирует новый экземпляр <c>CustomersTab</c>.
@@ -95,7 +101,21 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (_currentCustomer == null || CustomersListBox.SelectedItems == null || !int.TryParse(IdTextBox.Text, out int _)) return;
             Customer customer = CustomerFactory.Randomize();
-            FullnameTextBox.Text = customer.Fullname;
+            _currentCustomer.Fullname = customer.Fullname;
+            _currentCustomer.Address = customer.Address;
+            SelectedCustomerEvent();
+            UpdateCustomersListBox();
+        }
+
+        /// <summary>
+        /// Обрабатывает нажатие кнопки для генерации случайных заказов клиента.
+        /// </summary>
+        /// <param name="sender">Источник события, кнопка.</param>
+        /// <param name="e">Аргументы события клика.</param>
+        private void AddOrderGenerateButton_Click(object sender, EventArgs e)
+        {
+            if (_currentCustomer == null || CustomersListBox.SelectedItems == null || !int.TryParse(IdTextBox.Text, out int _)) return;
+            _currentCustomer.Orders.Add(new OrderFactory().Randomize(_currentCustomer.Address, Items));
         }
 
         /// <summary>
@@ -129,7 +149,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Данные события.</param>
         private void CustomersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CustomersListBox.SelectedIndex != -1 && CustomersListBox.SelectedItem != null)
+            if (CustomersListBox.SelectedItem != null)
             {
                 _currentCustomer = (Customer)CustomersListBox.SelectedItem;
                 _isSystemChanged = true;
