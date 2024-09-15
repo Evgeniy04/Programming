@@ -99,6 +99,12 @@ namespace ObjectOrientedPractics.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Обрабатывает событие изменения текста в поле поиска FindTextBox. 
+        /// Фильтрует заказы в зависимости от введенного текста и обновляет таблицу с заказами.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Параметры события изменения текста.</param>
         private void FindTextBox_TextChanged(object sender, EventArgs e)
         {
             if (FindTextBox.Text.Length == 0 || OrdersWithCustomerFullname.Count == 0)
