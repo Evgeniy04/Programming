@@ -105,11 +105,13 @@
             // DeliveryTimeComboBox
             // 
             DeliveryTimeComboBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            DeliveryTimeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             DeliveryTimeComboBox.FormattingEnabled = true;
             DeliveryTimeComboBox.Location = new Point(129, 9);
             DeliveryTimeComboBox.Name = "DeliveryTimeComboBox";
             DeliveryTimeComboBox.Size = new Size(243, 28);
             DeliveryTimeComboBox.TabIndex = 1;
+            DeliveryTimeComboBox.SelectedIndexChanged += DeliveryTimeComboBox_SelectedIndexChanged;
             // 
             // DeliveryTimeLabel
             // 
@@ -142,6 +144,7 @@
             AddItemButton.TabIndex = 1;
             AddItemButton.Text = "Add Item";
             AddItemButton.UseVisualStyleBackColor = true;
+            AddItemButton.Click += AddToOrderButton_Click;
             // 
             // PriorityOptionsLabel
             // 
@@ -165,6 +168,7 @@
             RemoveItemButton.TabIndex = 3;
             RemoveItemButton.Text = "Remove Item";
             RemoveItemButton.UseVisualStyleBackColor = true;
+            RemoveItemButton.Click += RemoveItemButton_Click;
             // 
             // ClearOrderButton
             // 
@@ -175,6 +179,7 @@
             ClearOrderButton.TabIndex = 4;
             ClearOrderButton.Text = "Clear Order";
             ClearOrderButton.UseVisualStyleBackColor = true;
+            ClearOrderButton.Click += ClearOrderButton_Click;
             // 
             // AddressControl
             // 
@@ -187,6 +192,7 @@
             AddressControl.Address = address1;
             tableLayoutPanel1.SetColumnSpan(AddressControl, 5);
             AddressControl.Dock = DockStyle.Fill;
+            AddressControl.Enabled = false;
             AddressControl.Location = new Point(3, 149);
             AddressControl.Name = "AddressControl";
             AddressControl.Size = new Size(700, 174);
@@ -218,9 +224,9 @@
             OrderItemsLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             OrderItemsLabel.Location = new Point(19, 9);
             OrderItemsLabel.Name = "OrderItemsLabel";
-            OrderItemsLabel.Size = new Size(89, 20);
+            OrderItemsLabel.Size = new Size(93, 20);
             OrderItemsLabel.TabIndex = 0;
-            OrderItemsLabel.Text = "OrderItems";
+            OrderItemsLabel.Text = "Order Items";
             // 
             // AmountPanel
             // 
@@ -271,15 +277,18 @@
             // StatusComboBox
             // 
             StatusComboBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            StatusComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             StatusComboBox.FormattingEnabled = true;
             StatusComboBox.Location = new Point(87, 75);
             StatusComboBox.Name = "StatusComboBox";
             StatusComboBox.Size = new Size(229, 28);
             StatusComboBox.TabIndex = 5;
+            StatusComboBox.SelectedIndexChanged += StatusComboBox_SelectedIndexChanged;
             // 
             // ChangedAtTextBox
             // 
             ChangedAtTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            ChangedAtTextBox.Enabled = false;
             ChangedAtTextBox.Location = new Point(87, 42);
             ChangedAtTextBox.Name = "ChangedAtTextBox";
             ChangedAtTextBox.Size = new Size(229, 27);
@@ -289,6 +298,7 @@
             // IdTextBox
             // 
             IdTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            IdTextBox.Enabled = false;
             IdTextBox.Location = new Point(87, 9);
             IdTextBox.Name = "IdTextBox";
             IdTextBox.Size = new Size(229, 27);

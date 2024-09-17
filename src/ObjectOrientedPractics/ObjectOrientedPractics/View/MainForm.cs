@@ -70,6 +70,8 @@ namespace ObjectOrientedPractics
             CartsTab.Customers = _store.Customers;
 
             OrdersTab.Customers = _store.Customers;
+
+            PriorityOrdersTab.Items = _store.Items;
         }
 
         /// <summary>

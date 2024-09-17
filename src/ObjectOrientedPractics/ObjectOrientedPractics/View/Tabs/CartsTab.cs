@@ -112,10 +112,10 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void AddToCartButton_Click(object sender, EventArgs e)
         {
-            if (ItemsListBox.SelectedItem != null && CurrentCustomer != null && CurrentItem != null)
+            if (CurrentCustomer != null && CurrentItem != null)
             {
                 CurrentCustomer.Cart.Items.Add(CurrentItem);
-                CartItemsListBox.Items.Add(ItemsListBox.SelectedItem);
+                CartItemsListBox.Items.Add(CurrentItem);
             }
             UpdateAmount();
         }
@@ -126,10 +126,10 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void RemoveItemButton_Click(object sender, EventArgs e)
         {
-            if (CartItemsListBox.SelectedItem != null && CurrentCustomer != null && CurrentCartItem != null)
+            if (CurrentCustomer != null && CurrentCartItem != null)
             {
                 CurrentCustomer.Cart.Items.Remove(CurrentCartItem);
-                CartItemsListBox.Items.Remove(CartItemsListBox.SelectedItem);
+                CartItemsListBox.Items.Remove(CurrentCartItem);
             }
             UpdateAmount();
         }

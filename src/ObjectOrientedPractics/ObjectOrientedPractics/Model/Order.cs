@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -90,6 +91,18 @@ namespace Model
                 Items.ForEach(x => { sum += x.Cost; });
                 return Math.Round(sum, 2); ;
             }
+        }
+
+        /// <summary>
+        /// Инициализирует новый экземпляр заказа.
+        /// </summary>
+        public Order()
+        {
+            Id = Guid.NewGuid();
+            StatusHistory = new Dictionary<DateTime, OrderStatus>();
+            Status = OrderStatus.New;
+            Address = AddressFactory.Randomize();
+            Items = new List<Item>();
         }
 
         /// <summary>

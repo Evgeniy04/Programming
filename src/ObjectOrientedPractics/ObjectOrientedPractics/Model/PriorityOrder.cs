@@ -21,6 +21,15 @@ namespace Model
         public DeliveryTimeRange DesiredDeliveryTimeRange { get; set; }
 
         /// <summary>
+        /// Создает новый экземпляр приоритетного заказа.
+        /// </summary>
+        public PriorityOrder()
+        {
+            DesiredDeliveryDate = DateTime.Now.AddDays(7);
+            DesiredDeliveryTimeRange = DeliveryTimeRange.Range9To11;
+        }
+
+        /// <summary>
         /// Создает новый экземпляр приоритетного заказа с указанной датой и временем доставки.
         /// </summary>
         /// <param name="order">Экземпляр основного заказа.</param>
