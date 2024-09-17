@@ -96,20 +96,8 @@ namespace Model
         /// <summary>
         /// Инициализирует новый экземпляр заказа.
         /// </summary>
-        public Order()
-        {
-            Id = Guid.NewGuid();
-            StatusHistory = new Dictionary<DateTime, OrderStatus>();
-            Status = OrderStatus.New;
-            Address = AddressFactory.Randomize();
-            Items = new List<Item>();
-        }
-
-        /// <summary>
-        /// Инициализирует новый экземпляр заказа.
-        /// </summary>
         /// <param name="id">Идентификатор заказа.</param>
-        /// <param name="createdAt">Дата создания.</param>
+        /// <param name="statusHistory">Словарь Текущее время: статус заказа.</param>
         /// <param name="status">Статус заказа.</param>
         /// <param name="address">Адрес доставки.</param>
         /// <param name="items">Список товаров в заказе.</param>
@@ -125,12 +113,12 @@ namespace Model
     /// <summary>
     /// Вспомогательный класс, представляющий заказ с полным именем клиента.
     /// </summary>
-    public class OrderWithCustomerFullname : Order
+    public class OrderForDataGridView : Order
     {
         public string CustomerFullname { get; private set; }
         public string ChangedAt { get; private set; }
 
-        public OrderWithCustomerFullname(Order order, string customerFullname)
+        public OrderForDataGridView(Order order, string customerFullname)
             : base(order.Id, order.StatusHistory, order.Status, order.Address, order.Items)
         {
             CustomerFullname = customerFullname;

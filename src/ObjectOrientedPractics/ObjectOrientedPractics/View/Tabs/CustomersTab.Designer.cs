@@ -30,6 +30,7 @@
         {
             Model.Address address1 = new Model.Address();
             SelectedCustomerPanel = new Panel();
+            IsPriorityCheckBox = new CheckBox();
             SelectedItemLabel = new Label();
             FullnameTextBox = new TextBox();
             IdTextBox = new TextBox();
@@ -52,6 +53,7 @@
             SelectedCustomerPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             SelectedCustomerPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             SelectedCustomerPanel.BackColor = SystemColors.ControlLightLight;
+            SelectedCustomerPanel.Controls.Add(IsPriorityCheckBox);
             SelectedCustomerPanel.Controls.Add(SelectedItemLabel);
             SelectedCustomerPanel.Controls.Add(FullnameTextBox);
             SelectedCustomerPanel.Controls.Add(IdTextBox);
@@ -62,6 +64,17 @@
             CustomersTableLayoutPanel.SetRowSpan(SelectedCustomerPanel, 2);
             SelectedCustomerPanel.Size = new Size(469, 191);
             SelectedCustomerPanel.TabIndex = 3;
+            // 
+            // IsPriorityCheckBox
+            // 
+            IsPriorityCheckBox.AutoSize = true;
+            IsPriorityCheckBox.Location = new Point(122, 114);
+            IsPriorityCheckBox.Name = "IsPriorityCheckBox";
+            IsPriorityCheckBox.Size = new Size(92, 24);
+            IsPriorityCheckBox.TabIndex = 3;
+            IsPriorityCheckBox.Text = "Is Priority";
+            IsPriorityCheckBox.UseVisualStyleBackColor = true;
+            IsPriorityCheckBox.CheckedChanged += IsPriorityCheckBox_CheckedChanged;
             // 
             // SelectedItemLabel
             // 
@@ -254,5 +267,6 @@
         public ListBox CustomersListBox;
         private Controls.AddressControl AddressControl;
         private Button AddOrderGenerateButton;
+        private CheckBox IsPriorityCheckBox;
     }
 }

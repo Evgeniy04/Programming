@@ -25,6 +25,7 @@ namespace ObjectOrientedPractics
         JsonSerializerSettings _settings = new JsonSerializerSettings
         {
             PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+            TypeNameHandling = TypeNameHandling.All,
             Formatting = Formatting.Indented
         };
 

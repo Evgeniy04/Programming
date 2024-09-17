@@ -115,7 +115,22 @@ namespace ObjectOrientedPractics.View.Tabs
         private void AddOrderGenerateButton_Click(object sender, EventArgs e)
         {
             if (_currentCustomer == null || CustomersListBox.SelectedItems == null || !int.TryParse(IdTextBox.Text, out int _)) return;
-            _currentCustomer.Orders.Add(new OrderFactory().Randomize(_currentCustomer.Address, Items));
+
+            Order order = new OrderFactory().Randomize(_currentCustomer.Address, Items);
+            PriorityOrder priorityOrder = new(order.Id, order.StatusHistory, order.Status, order.Address, order.Items, DateTime.Now.AddDays(7), DeliveryTimeRange.Range9To11);
+            _currentCustomer.Orders.Add(_currentCustomer.IsPriority ? priorityOrder : order);
+        }
+
+        /// <summary>
+        /// Обрабатывает изменение приоритета клиента.
+        /// </summary>
+        /// <param name="sender">Источник события, кнопка.</param>
+        /// <param name="e">Аргументы события клика.</param>
+        private void IsPriorityCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_currentCustomer == null || _isSystemChanged) return;
+
+            _currentCustomer.IsPriority = IsPriorityCheckBox.Checked;
         }
 
         /// <summary>
@@ -177,6 +192,7 @@ namespace ObjectOrientedPractics.View.Tabs
             IdTextBox.BackColor = FullnameTextBox.BackColor = Color.White;
             IdTextBox.Text = isEmpty ? "Ничего не выбрано" : _currentCustomer.Id.ToString();
             FullnameTextBox.Text = isEmpty ? "" : _currentCustomer.Fullname.ToString();
+            IsPriorityCheckBox.Checked = isEmpty ? false : _currentCustomer.IsPriority;
             AddressControl.Address = isEmpty ? new Address() : _currentCustomer.Address;
         }
 

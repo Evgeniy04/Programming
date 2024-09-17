@@ -152,8 +152,11 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (CurrentCustomer == null) return;
             if (CurrentCustomer.Cart.Items.Count < 1) return;
+
             Order order = new(Guid.NewGuid(), new Dictionary<DateTime, OrderStatus>(), OrderStatus.New, CurrentCustomer.Address, CurrentCustomer.Cart.Items);
-            CurrentCustomer.Orders.Add(order);
+            PriorityOrder priorityOrder = new(Guid.NewGuid(), new Dictionary<DateTime, OrderStatus>(), OrderStatus.New, CurrentCustomer.Address, CurrentCustomer.Cart.Items, DateTime.Now.AddDays(7), DeliveryTimeRange.Range9To11);
+            CurrentCustomer.Orders.Add(CurrentCustomer.IsPriority ? priorityOrder : order);
+
             ClearCart();
             UpdateAmount();
         }

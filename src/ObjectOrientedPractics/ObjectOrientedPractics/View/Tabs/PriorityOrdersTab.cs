@@ -177,7 +177,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void UpdateTab()
         {
             Order order = new(Guid.NewGuid(), new Dictionary<DateTime, OrderStatus>(), OrderStatus.New, AddressFactory.Randomize(), new List<Item>());
-            PriorityOrder = new PriorityOrder(order, DateTime.Now.AddDays(7), DeliveryTimeRange.Range9To11);
+            PriorityOrder = new PriorityOrder(Guid.NewGuid(), new Dictionary<DateTime, OrderStatus>(), OrderStatus.New, AddressFactory.Randomize(), new List<Item>(), DateTime.Now.AddDays(7), DeliveryTimeRange.Range9To11);
             IdTextBox.Text = PriorityOrder.Id.ToString();
             ChangedAtTextBox.Text = PriorityOrder.StatusHistory.Aggregate((l, r) => l.Key > r.Key ? l : r).Key.ToString();
             AddressControl.Address = PriorityOrder.Address;
