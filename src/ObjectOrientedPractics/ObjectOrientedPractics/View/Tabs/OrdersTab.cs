@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Linq;
 using System.Collections;
+using Newtonsoft.Json.Linq;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
@@ -17,6 +18,10 @@ namespace ObjectOrientedPractics.View.Tabs
     /// </summary>
     public partial class OrdersTab : UserControl
     {
+        /// <summary>
+        /// Флаг, указывающий на системные изменения, чтобы избежать лишних действий при обновлении UI.
+        /// </summary>
+        bool _isSystemChanged = false;
         /// <summary>
         /// Выбранный заказ.
         /// </summary>
@@ -126,7 +131,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Аргументы события.</param>
         private void StatusComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (SelectedOrder != null && StatusComboBox.SelectedItem != null)
+            if (SelectedOrder != null && StatusComboBox.SelectedItem != null && !_isSystemChanged)
             {
                 SelectedOrder.Status = (OrderStatus)StatusComboBox.SelectedItem;
                 OrdersDataGridView.CurrentRow.Cells["Status"].Value = (OrderStatus)StatusComboBox.SelectedItem;
@@ -141,7 +146,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Аргументы события.</param>
         private void DeliveryTimeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (SelectedPriorityOrder == null || DeliveryTimeComboBox.SelectedValue == null) return;
+            if (SelectedPriorityOrder == null || DeliveryTimeComboBox.SelectedValue == null || _isSystemChanged) return;
             SelectedPriorityOrder.DesiredDeliveryTimeRange = (DeliveryTimeRange)DeliveryTimeComboBox.SelectedValue;
         }
 
@@ -153,22 +158,19 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Параметры события изменения текста.</param>
         private void FindTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (_isSystemChanged) return;
+            _isSystemChanged = true;
+            Reset();
             if (FindTextBox.Text.Length == 0 || OrdersWithCustomerFullname.Count == 0)
             {
                 _bindingSource.DataSource = OrdersWithCustomerFullname;
                 if (OrdersDataGridView.Columns.Contains("StatusHistory")) OrdersDataGridView.Columns.Remove("StatusHistory");
+                if (OrdersDataGridView.Columns.Contains("DeliveryTimeComboBox")) OrdersDataGridView.Columns.Remove("DeliveryTimeComboBox");
+                _isSystemChanged = false;
                 return;
             };
-            OrdersDataGridView.ClearSelection();
-            SelectedOrder = null;
-            OrderItemsListBox.Items.Clear();
-            IdTextBox.Text = "";
-            ChangedAtTextBox.Text = "";
-            StatusComboBox.SelectedItem = null;
-            DeliveryTimeComboBox.SelectedValue = DeliveryTimeRange.Range9To11;
-            AddressControl.Address = new Address();
-            string search = FindTextBox.Text.ToLower();
 
+            string search = FindTextBox.Text.ToLower();
             // Фильтрация данных
             List<OrderForDataGridView>? filteredOrders = OrdersWithCustomerFullname
                 .Where(order =>
@@ -185,6 +187,58 @@ namespace ObjectOrientedPractics.View.Tabs
             // Обновляем BindingSource с отфильтрованными данными
             _bindingSource.DataSource = filteredOrders;
             if (OrdersDataGridView.Columns.Contains("StatusHistory")) OrdersDataGridView.Columns.Remove("StatusHistory");
+            if (OrdersDataGridView.Columns.Contains("DeliveryTimeComboBox")) OrdersDataGridView.Columns.Remove("DeliveryTimeComboBox");
+            _isSystemChanged = false;
+        }
+
+        /// <summary>
+        /// Отображение только приоритетных заказов.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Параметры события изменения текста.</param>
+        private void ShowOnlyPriorityOrdersCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_isSystemChanged) return;
+            _isSystemChanged = true;
+            Reset();
+            if (!ShowOnlyPriorityOrdersCheckBox.Checked || OrdersWithCustomerFullname.Count == 0)
+            {
+                _bindingSource.DataSource = OrdersWithCustomerFullname;
+                if (OrdersDataGridView.Columns.Contains("StatusHistory")) OrdersDataGridView.Columns.Remove("StatusHistory");
+                if (OrdersDataGridView.Columns.Contains("DeliveryTimeComboBox")) OrdersDataGridView.Columns.Remove("DeliveryTimeComboBox");
+                _isSystemChanged = false;
+                return;
+            };
+
+            // Фильтрация данных
+            List<OrderForDataGridView>? filteredOrders = OrdersWithCustomerFullname
+                .Where(order =>
+                {
+                    return order.IsPriority;
+                })
+                .ToList();
+
+            // Обновляем BindingSource с отфильтрованными данными
+            _bindingSource.DataSource = filteredOrders;
+            if (OrdersDataGridView.Columns.Contains("StatusHistory")) OrdersDataGridView.Columns.Remove("StatusHistory");
+            if (OrdersDataGridView.Columns.Contains("DeliveryTimeComboBox")) OrdersDataGridView.Columns.Remove("DeliveryTimeComboBox");
+            _isSystemChanged = false;
+        }
+
+        /// <summary>
+        /// Сброс всех элементов.
+        /// </summary>
+        private void Reset()
+        {
+            // Очистка выделения и сброс текущей позиции
+            OrdersDataGridView.ClearSelection();
+            SelectedOrder = null;
+            OrderItemsListBox.Items.Clear();
+            IdTextBox.Text = "";
+            ChangedAtTextBox.Text = "";
+            StatusComboBox.SelectedItem = null;
+            DeliveryTimeComboBox.SelectedValue = DeliveryTimeRange.Range9To11;
+            AddressControl.Address = new Address();
         }
 
         /// <summary>
@@ -210,7 +264,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 if (customer.Orders.Count == 0) return;
                 foreach (Order order in customer.Orders)
                 {
-                    OrderForDataGridView orderForDataGridView = new OrderForDataGridView(order, customer.Fullname);
+                    OrderForDataGridView orderForDataGridView = new OrderForDataGridView(order, order is PriorityOrder, customer.Fullname);
                     OrdersWithCustomerFullname.Add(orderForDataGridView);
                     _data.Add(orderForDataGridView, order);
                 }
@@ -218,6 +272,7 @@ namespace ObjectOrientedPractics.View.Tabs
             _bindingSource.DataSource = OrdersWithCustomerFullname;
             OrdersDataGridView.DataSource = _bindingSource;
             if (OrdersDataGridView.Columns.Contains("StatusHistory")) OrdersDataGridView.Columns.Remove("StatusHistory");
+            if (OrdersDataGridView.Columns.Contains("IsPriority")) OrdersDataGridView.Columns.Remove("IsPriority");
         }
 
         /// <summary>
