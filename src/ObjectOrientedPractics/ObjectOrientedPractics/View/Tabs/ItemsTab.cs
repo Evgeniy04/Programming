@@ -177,6 +177,12 @@ namespace ObjectOrientedPractics.View.Tabs
             }
         }
 
+        /// <summary>
+        /// Обрабатывает событие изменения выбранного элемента в ComboBox категорий.
+        /// Обновляет категорию текущего элемента, если выбор был изменен пользователем.
+        /// </summary>
+        /// <param name="sender">Источник события, обычно это CategoryComboBox.</param>
+        /// <param name="e">Параметры события изменения индекса.</param>
         private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_currentItem == null || CategoryComboBox.SelectedItem == null || _isSystemChanged) return;

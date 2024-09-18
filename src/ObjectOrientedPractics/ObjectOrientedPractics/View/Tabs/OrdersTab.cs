@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Linq;
 using System.Collections;
+using Newtonsoft.Json.Linq;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
@@ -17,15 +18,22 @@ namespace ObjectOrientedPractics.View.Tabs
     /// </summary>
     public partial class OrdersTab : UserControl
     {
-        OrderWithCustomerFullname? _currentOrder;
+        /// <summary>
+        /// Флаг, указывающий на системные изменения, чтобы избежать лишних действий при обновлении UI.
+        /// </summary>
+        bool _isSystemChanged = false;
+        /// <summary>
+        /// Выбранный заказ.
+        /// </summary>
+        Order? _selectedOrder;
         /// <summary>
         /// Список клиентов.
         /// </summary>
         List<Customer> _customers;
         /// <summary>
-        /// Словарь для привязки заказа к клиенту.
+        /// Словарь для привязки заказа для таблицы к заказу клиента.
         /// </summary>
-        Dictionary<OrderWithCustomerFullname, Customer> _data = [];
+        Dictionary<OrderForDataGridView, Order> _data = [];
         /// <summary>
         /// Источник привязки данных для заказов.
         /// </summary>
@@ -34,7 +42,30 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <summary>
         /// Список заказов с полными именами клиентов.
         /// </summary>
-        BindingList<OrderWithCustomerFullname> OrdersWithCustomerFullname { get; set; }
+        BindingList<OrderForDataGridView> OrdersWithCustomerFullname { get; set; }
+        /// <summary>
+        /// Выбранный приоритетный заказ.
+        /// </summary>
+        PriorityOrder? SelectedPriorityOrder { get; set; }
+
+        Order? SelectedOrder
+        {
+            get
+            {
+                return _selectedOrder;
+            }
+            set
+            {
+                if (value is PriorityOrder priority)
+                {
+                    SelectedPriorityOrder = priority;
+                    PriorityOptionsPanel.Visible = true;
+                    DeliveryTimeComboBox.SelectedValue = priority.DesiredDeliveryTimeRange;
+                }
+                _selectedOrder = value;
+            }
+        }
+
         /// <summary>
         /// Получает или задает список клиентов.
         /// При установке значения вызывает метод обновления заказов.
@@ -62,6 +93,13 @@ namespace ObjectOrientedPractics.View.Tabs
             InitializeComponent();
             OrdersWithCustomerFullname = [];
             StatusComboBox.Items.AddRange(Enum.GetValues(typeof(OrderStatus)).Cast<object>().ToArray());
+            DeliveryTimeComboBox.DataSource = Enum.GetValues(typeof(DeliveryTimeRange))
+            .Cast<DeliveryTimeRange>()
+            .Select(range => new { Value = range, Display = GetDisplayName(range) })
+            .ToList();
+            DeliveryTimeComboBox.DisplayMember = "Display";
+            DeliveryTimeComboBox.ValueMember = "Value";
+            PriorityOptionsPanel.Visible = false;
         }
 
         /// <summary>
@@ -71,17 +109,19 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Аргументы события.</param>
         private void OrdersDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (OrdersDataGridView.CurrentRow != null)
-            {
-                OrderItemsListBox.Items.Clear();
-                _currentOrder = (OrderWithCustomerFullname)OrdersDataGridView.CurrentRow.DataBoundItem;
-                IdTextBox.Text = _currentOrder.Id.ToString();
-                ChangedAtTextBox.Text = _currentOrder.StatusHistory.Aggregate((l, r) => l.Key > r.Key ? l : r).Key.ToString();
-                StatusComboBox.SelectedItem = _currentOrder.Status;
-                OrderItemsListBox.Items.AddRange(_currentOrder.Items.ToArray());
-                AddressControl.Address = _currentOrder.Address;
-                UpdateAmount();
-            }
+            PriorityOptionsPanel.Visible = false;
+            SelectedOrder = null;
+            SelectedPriorityOrder = null;
+            if (OrdersDataGridView.CurrentRow == null) return;
+            OrderItemsListBox.Items.Clear();
+            OrderForDataGridView order = (OrderForDataGridView)OrdersDataGridView.CurrentRow.DataBoundItem;
+            SelectedOrder = _data[order];
+            IdTextBox.Text = SelectedOrder.Id.ToString();
+            ChangedAtTextBox.Text = SelectedOrder.StatusHistory.Aggregate((l, r) => l.Key > r.Key ? l : r).Key.ToString();
+            StatusComboBox.SelectedItem = SelectedOrder.Status;
+            OrderItemsListBox.Items.AddRange(SelectedOrder.Items.ToArray());
+            AddressControl.Address = SelectedOrder.Address;
+            UpdateAmount();
         }
 
         /// <summary>
@@ -91,37 +131,52 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="e">Аргументы события.</param>
         private void StatusComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_currentOrder != null && StatusComboBox.SelectedItem != null)
+            if (SelectedOrder != null && StatusComboBox.SelectedItem != null && !_isSystemChanged)
             {
-                _data[_currentOrder].Orders.Find((order) => order.Id == _currentOrder.Id)!.Status = (OrderStatus)StatusComboBox.SelectedItem;
+                SelectedOrder.Status = (OrderStatus)StatusComboBox.SelectedItem;
                 OrdersDataGridView.CurrentRow.Cells["Status"].Value = (OrderStatus)StatusComboBox.SelectedItem;
-                ChangedAtTextBox.Text = _currentOrder.StatusHistory.Aggregate((l, r) => l.Key > r.Key ? l : r).Key.ToString();
+                ChangedAtTextBox.Text = SelectedOrder.StatusHistory.Aggregate((l, r) => l.Key > r.Key ? l : r).Key.ToString();
             }
         }
 
+        /// <summary>
+        /// Обрабатывает изменение выбранного элемента в ComboBox для времени доставки заказа.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы события.</param>
+        private void DeliveryTimeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SelectedPriorityOrder == null || DeliveryTimeComboBox.SelectedValue == null || _isSystemChanged) return;
+            SelectedPriorityOrder.DesiredDeliveryTimeRange = (DeliveryTimeRange)DeliveryTimeComboBox.SelectedValue;
+        }
+
+        /// <summary>
+        /// Обрабатывает событие изменения текста в поле поиска FindTextBox. 
+        /// Фильтрует заказы в зависимости от введенного текста и обновляет таблицу с заказами.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Параметры события изменения текста.</param>
         private void FindTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (_isSystemChanged) return;
+            _isSystemChanged = true;
+            Reset();
             if (FindTextBox.Text.Length == 0 || OrdersWithCustomerFullname.Count == 0)
             {
                 _bindingSource.DataSource = OrdersWithCustomerFullname;
                 if (OrdersDataGridView.Columns.Contains("StatusHistory")) OrdersDataGridView.Columns.Remove("StatusHistory");
+                if (OrdersDataGridView.Columns.Contains("DeliveryTimeComboBox")) OrdersDataGridView.Columns.Remove("DeliveryTimeComboBox");
+                _isSystemChanged = false;
                 return;
             };
-            OrdersDataGridView.ClearSelection();
-            _currentOrder = null;
-            OrderItemsListBox.Items.Clear();
-            IdTextBox.Text = "";
-            ChangedAtTextBox.Text = "";
-            StatusComboBox.SelectedItem = null;
-            AddressControl.Address = new Address();
-            string search = FindTextBox.Text.ToLower();
 
+            string search = FindTextBox.Text.ToLower();
             // Фильтрация данных
-            List<OrderWithCustomerFullname>? filteredOrders = OrdersWithCustomerFullname
+            List<OrderForDataGridView>? filteredOrders = OrdersWithCustomerFullname
                 .Where(order =>
                 {
                     List<bool> flags = [];
-                    foreach (var prop in typeof(OrderWithCustomerFullname).GetProperties())
+                    foreach (var prop in typeof(OrderForDataGridView).GetProperties())
                     {
                         flags.Add(prop.GetValue(order)!.ToString()!.ToLower().Contains(search));
                     }
@@ -132,6 +187,58 @@ namespace ObjectOrientedPractics.View.Tabs
             // Обновляем BindingSource с отфильтрованными данными
             _bindingSource.DataSource = filteredOrders;
             if (OrdersDataGridView.Columns.Contains("StatusHistory")) OrdersDataGridView.Columns.Remove("StatusHistory");
+            if (OrdersDataGridView.Columns.Contains("DeliveryTimeComboBox")) OrdersDataGridView.Columns.Remove("DeliveryTimeComboBox");
+            _isSystemChanged = false;
+        }
+
+        /// <summary>
+        /// Отображение только приоритетных заказов.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Параметры события изменения текста.</param>
+        private void ShowOnlyPriorityOrdersCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_isSystemChanged) return;
+            _isSystemChanged = true;
+            Reset();
+            if (!ShowOnlyPriorityOrdersCheckBox.Checked || OrdersWithCustomerFullname.Count == 0)
+            {
+                _bindingSource.DataSource = OrdersWithCustomerFullname;
+                if (OrdersDataGridView.Columns.Contains("StatusHistory")) OrdersDataGridView.Columns.Remove("StatusHistory");
+                if (OrdersDataGridView.Columns.Contains("DeliveryTimeComboBox")) OrdersDataGridView.Columns.Remove("DeliveryTimeComboBox");
+                _isSystemChanged = false;
+                return;
+            };
+
+            // Фильтрация данных
+            List<OrderForDataGridView>? filteredOrders = OrdersWithCustomerFullname
+                .Where(order =>
+                {
+                    return order.IsPriority;
+                })
+                .ToList();
+
+            // Обновляем BindingSource с отфильтрованными данными
+            _bindingSource.DataSource = filteredOrders;
+            if (OrdersDataGridView.Columns.Contains("StatusHistory")) OrdersDataGridView.Columns.Remove("StatusHistory");
+            if (OrdersDataGridView.Columns.Contains("DeliveryTimeComboBox")) OrdersDataGridView.Columns.Remove("DeliveryTimeComboBox");
+            _isSystemChanged = false;
+        }
+
+        /// <summary>
+        /// Сброс всех элементов.
+        /// </summary>
+        private void Reset()
+        {
+            // Очистка выделения и сброс текущей позиции
+            OrdersDataGridView.ClearSelection();
+            SelectedOrder = null;
+            OrderItemsListBox.Items.Clear();
+            IdTextBox.Text = "";
+            ChangedAtTextBox.Text = "";
+            StatusComboBox.SelectedItem = null;
+            DeliveryTimeComboBox.SelectedValue = DeliveryTimeRange.Range9To11;
+            AddressControl.Address = new Address();
         }
 
         /// <summary>
@@ -139,12 +246,12 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void UpdateAmount()
         {
-            if (_currentOrder == null)
+            if (SelectedOrder == null)
             {
                 AmountLabel.Text = "0";
                 return;
             };
-            AmountLabel.Text = _currentOrder.Amount.ToString();
+            AmountLabel.Text = SelectedOrder.Amount.ToString();
         }
 
         /// <summary>
@@ -157,14 +264,41 @@ namespace ObjectOrientedPractics.View.Tabs
                 if (customer.Orders.Count == 0) return;
                 foreach (Order order in customer.Orders)
                 {
-                    OrderWithCustomerFullname orderWithCustomerFullname = new OrderWithCustomerFullname(order, customer.Fullname);
-                    OrdersWithCustomerFullname.Add(orderWithCustomerFullname);
-                    _data.Add(orderWithCustomerFullname, customer);
+                    OrderForDataGridView orderForDataGridView = new OrderForDataGridView(order, order is PriorityOrder, customer.Fullname);
+                    OrdersWithCustomerFullname.Add(orderForDataGridView);
+                    _data.Add(orderForDataGridView, order);
                 }
             });
             _bindingSource.DataSource = OrdersWithCustomerFullname;
             OrdersDataGridView.DataSource = _bindingSource;
             if (OrdersDataGridView.Columns.Contains("StatusHistory")) OrdersDataGridView.Columns.Remove("StatusHistory");
+            if (OrdersDataGridView.Columns.Contains("IsPriority")) OrdersDataGridView.Columns.Remove("IsPriority");
+        }
+
+        /// <summary>
+        /// Получить выбранный диапазон в удобном формате.
+        /// </summary>
+        /// <param name="range">Выбранный диапазон.</param>
+        /// <returns>Строка в которой написаны диапазоны в удобном формате.</returns>
+        private string GetDisplayName(DeliveryTimeRange range)
+        {
+            switch (range)
+            {
+                case DeliveryTimeRange.Range9To11:
+                    return "9:00 – 11:00";
+                case DeliveryTimeRange.Range11To13:
+                    return "11:00 – 13:00";
+                case DeliveryTimeRange.Range13To15:
+                    return "13:00 – 15:00";
+                case DeliveryTimeRange.Range15To17:
+                    return "15:00 – 17:00";
+                case DeliveryTimeRange.Range17To19:
+                    return "17:00 – 19:00";
+                case DeliveryTimeRange.Range19To21:
+                    return "19:00 – 21:00";
+                default:
+                    return string.Empty;
+            }
         }
 
         /// <summary>
@@ -180,7 +314,8 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         public void RefreshData()
         {
-            _currentOrder = null;
+            SelectedOrder = null;
+            SelectedPriorityOrder = null;
             _data.Clear();
             OrderItemsListBox.Items.Clear();
             OrdersWithCustomerFullname.Clear();
@@ -188,6 +323,7 @@ namespace ObjectOrientedPractics.View.Tabs
             IdTextBox.Text = "";
             ChangedAtTextBox.Text = "";
             StatusComboBox.SelectedItem = null;
+            DeliveryTimeComboBox.SelectedValue = DeliveryTimeRange.Range9To11;
             AddressControl.Address = new Address();
             UpdateAmount();
             UpdateOrders();

@@ -112,10 +112,10 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void AddToCartButton_Click(object sender, EventArgs e)
         {
-            if (ItemsListBox.SelectedItem != null && CurrentCustomer != null && CurrentItem != null)
+            if (CurrentCustomer != null && CurrentItem != null)
             {
                 CurrentCustomer.Cart.Items.Add(CurrentItem);
-                CartItemsListBox.Items.Add(ItemsListBox.SelectedItem);
+                CartItemsListBox.Items.Add(CurrentItem);
             }
             UpdateAmount();
         }
@@ -126,10 +126,10 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void RemoveItemButton_Click(object sender, EventArgs e)
         {
-            if (CartItemsListBox.SelectedItem != null && CurrentCustomer != null && CurrentCartItem != null)
+            if (CurrentCustomer != null && CurrentCartItem != null)
             {
                 CurrentCustomer.Cart.Items.Remove(CurrentCartItem);
-                CartItemsListBox.Items.Remove(CartItemsListBox.SelectedItem);
+                CartItemsListBox.Items.Remove(CurrentCartItem);
             }
             UpdateAmount();
         }
@@ -152,8 +152,11 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             if (CurrentCustomer == null) return;
             if (CurrentCustomer.Cart.Items.Count < 1) return;
+
             Order order = new(Guid.NewGuid(), new Dictionary<DateTime, OrderStatus>(), OrderStatus.New, CurrentCustomer.Address, CurrentCustomer.Cart.Items);
-            CurrentCustomer.Orders.Add(order);
+            PriorityOrder priorityOrder = new(Guid.NewGuid(), new Dictionary<DateTime, OrderStatus>(), OrderStatus.New, CurrentCustomer.Address, CurrentCustomer.Cart.Items, DateTime.Now.AddDays(7), DeliveryTimeRange.Range9To11);
+            CurrentCustomer.Orders.Add(CurrentCustomer.IsPriority ? priorityOrder : order);
+
             ClearCart();
             UpdateAmount();
         }

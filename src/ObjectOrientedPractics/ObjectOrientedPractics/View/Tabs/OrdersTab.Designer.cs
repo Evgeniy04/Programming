@@ -31,6 +31,10 @@
             Model.Address address1 = new Model.Address();
             tableLayoutPanel1 = new TableLayoutPanel();
             SelectedItemPanel = new Panel();
+            PriorityOptionsPanel = new Panel();
+            DeliveryTimeComboBox = new ComboBox();
+            DeliveryTimeLabel = new Label();
+            PriorityOptionsLabel = new Label();
             OrderItemsListBox = new ListBox();
             AmountLabel = new Label();
             TextAmountLabel = new Label();
@@ -47,22 +51,26 @@
             OrdersDataGridView = new DataGridView();
             FindLabel = new Label();
             FindTextBox = new TextBox();
+            ShowOnlyPriorityOrdersCheckBox = new CheckBox();
             tableLayoutPanel1.SuspendLayout();
             SelectedItemPanel.SuspendLayout();
+            PriorityOptionsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)OrdersDataGridView).BeginInit();
             SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnCount = 4;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 68F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Controls.Add(SelectedItemPanel, 2, 0);
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 24.93404F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 75.06597F));
+            tableLayoutPanel1.Controls.Add(SelectedItemPanel, 3, 0);
             tableLayoutPanel1.Controls.Add(OrdersLabel, 0, 0);
             tableLayoutPanel1.Controls.Add(OrdersDataGridView, 0, 1);
             tableLayoutPanel1.Controls.Add(FindLabel, 0, 2);
             tableLayoutPanel1.Controls.Add(FindTextBox, 1, 2);
+            tableLayoutPanel1.Controls.Add(ShowOnlyPriorityOrdersCheckBox, 2, 2);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.MinimumSize = new Size(0, 565);
@@ -71,7 +79,6 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel1.Size = new Size(979, 565);
             tableLayoutPanel1.TabIndex = 0;
             // 
@@ -79,6 +86,7 @@
             // 
             SelectedItemPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             SelectedItemPanel.BackColor = SystemColors.ControlLightLight;
+            SelectedItemPanel.Controls.Add(PriorityOptionsPanel);
             SelectedItemPanel.Controls.Add(OrderItemsListBox);
             SelectedItemPanel.Controls.Add(AmountLabel);
             SelectedItemPanel.Controls.Add(TextAmountLabel);
@@ -92,11 +100,51 @@
             SelectedItemPanel.Controls.Add(ChangedAtLabel);
             SelectedItemPanel.Controls.Add(IdLabel);
             SelectedItemPanel.Dock = DockStyle.Fill;
-            SelectedItemPanel.Location = new Point(526, 3);
+            SelectedItemPanel.Location = new Point(388, 3);
             SelectedItemPanel.Name = "SelectedItemPanel";
             tableLayoutPanel1.SetRowSpan(SelectedItemPanel, 3);
-            SelectedItemPanel.Size = new Size(450, 559);
+            SelectedItemPanel.Size = new Size(588, 559);
             SelectedItemPanel.TabIndex = 4;
+            // 
+            // PriorityOptionsPanel
+            // 
+            PriorityOptionsPanel.Controls.Add(DeliveryTimeComboBox);
+            PriorityOptionsPanel.Controls.Add(DeliveryTimeLabel);
+            PriorityOptionsPanel.Controls.Add(PriorityOptionsLabel);
+            PriorityOptionsPanel.Location = new Point(269, 0);
+            PriorityOptionsPanel.Name = "PriorityOptionsPanel";
+            PriorityOptionsPanel.Size = new Size(316, 149);
+            PriorityOptionsPanel.TabIndex = 1;
+            PriorityOptionsPanel.Visible = false;
+            // 
+            // DeliveryTimeComboBox
+            // 
+            DeliveryTimeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            DeliveryTimeComboBox.FormattingEnabled = true;
+            DeliveryTimeComboBox.Location = new Point(112, 47);
+            DeliveryTimeComboBox.Name = "DeliveryTimeComboBox";
+            DeliveryTimeComboBox.Size = new Size(201, 28);
+            DeliveryTimeComboBox.TabIndex = 2;
+            DeliveryTimeComboBox.SelectedIndexChanged += DeliveryTimeComboBox_SelectedIndexChanged;
+            // 
+            // DeliveryTimeLabel
+            // 
+            DeliveryTimeLabel.AutoSize = true;
+            DeliveryTimeLabel.Location = new Point(3, 51);
+            DeliveryTimeLabel.Name = "DeliveryTimeLabel";
+            DeliveryTimeLabel.Size = new Size(103, 20);
+            DeliveryTimeLabel.TabIndex = 1;
+            DeliveryTimeLabel.Text = "Delivery Time:";
+            // 
+            // PriorityOptionsLabel
+            // 
+            PriorityOptionsLabel.AutoSize = true;
+            PriorityOptionsLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            PriorityOptionsLabel.Location = new Point(3, 8);
+            PriorityOptionsLabel.Name = "PriorityOptionsLabel";
+            PriorityOptionsLabel.Size = new Size(120, 20);
+            PriorityOptionsLabel.TabIndex = 0;
+            PriorityOptionsLabel.Text = "Priority Options";
             // 
             // OrderItemsListBox
             // 
@@ -106,14 +154,14 @@
             OrderItemsListBox.Location = new Point(11, 353);
             OrderItemsListBox.MinimumSize = new Size(0, 150);
             OrderItemsListBox.Name = "OrderItemsListBox";
-            OrderItemsListBox.Size = new Size(436, 144);
+            OrderItemsListBox.Size = new Size(574, 144);
             OrderItemsListBox.TabIndex = 19;
             // 
             // AmountLabel
             // 
             AmountLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             AmountLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            AmountLabel.Location = new Point(58, 527);
+            AmountLabel.Location = new Point(196, 527);
             AmountLabel.Name = "AmountLabel";
             AmountLabel.Size = new Size(389, 32);
             AmountLabel.TabIndex = 18;
@@ -125,7 +173,7 @@
             TextAmountLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             TextAmountLabel.AutoSize = true;
             TextAmountLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            TextAmountLabel.Location = new Point(376, 507);
+            TextAmountLabel.Location = new Point(514, 507);
             TextAmountLabel.Name = "TextAmountLabel";
             TextAmountLabel.Size = new Size(71, 20);
             TextAmountLabel.TabIndex = 17;
@@ -237,10 +285,9 @@
             OrdersDataGridView.AllowUserToAddRows = false;
             OrdersDataGridView.AllowUserToDeleteRows = false;
             OrdersDataGridView.AllowUserToOrderColumns = true;
-            OrdersDataGridView.AllowUserToResizeColumns = false;
             OrdersDataGridView.AllowUserToResizeRows = false;
             OrdersDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tableLayoutPanel1.SetColumnSpan(OrdersDataGridView, 2);
+            tableLayoutPanel1.SetColumnSpan(OrdersDataGridView, 3);
             OrdersDataGridView.Dock = DockStyle.Fill;
             OrdersDataGridView.Location = new Point(3, 34);
             OrdersDataGridView.MultiSelect = false;
@@ -249,7 +296,7 @@
             OrdersDataGridView.RowHeadersVisible = false;
             OrdersDataGridView.RowHeadersWidth = 51;
             OrdersDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            OrdersDataGridView.Size = new Size(517, 498);
+            OrdersDataGridView.Size = new Size(379, 498);
             OrdersDataGridView.TabIndex = 2;
             OrdersDataGridView.CellContentClick += OrdersDataGridView_CellContentClick;
             OrdersDataGridView.KeyPress += DisableTextBox;
@@ -270,9 +317,20 @@
             FindTextBox.Dock = DockStyle.Fill;
             FindTextBox.Location = new Point(71, 538);
             FindTextBox.Name = "FindTextBox";
-            FindTextBox.Size = new Size(449, 27);
+            FindTextBox.Size = new Size(191, 27);
             FindTextBox.TabIndex = 6;
             FindTextBox.TextChanged += FindTextBox_TextChanged;
+            // 
+            // ShowOnlyPriorityOrdersCheckBox
+            // 
+            ShowOnlyPriorityOrdersCheckBox.AutoSize = true;
+            ShowOnlyPriorityOrdersCheckBox.Location = new Point(268, 538);
+            ShowOnlyPriorityOrdersCheckBox.Name = "ShowOnlyPriorityOrdersCheckBox";
+            ShowOnlyPriorityOrdersCheckBox.Size = new Size(112, 24);
+            ShowOnlyPriorityOrdersCheckBox.TabIndex = 7;
+            ShowOnlyPriorityOrdersCheckBox.Text = "Only Priority";
+            ShowOnlyPriorityOrdersCheckBox.UseVisualStyleBackColor = true;
+            ShowOnlyPriorityOrdersCheckBox.CheckedChanged += ShowOnlyPriorityOrdersCheckBox_CheckedChanged;
             // 
             // OrdersTab
             // 
@@ -285,6 +343,8 @@
             tableLayoutPanel1.PerformLayout();
             SelectedItemPanel.ResumeLayout(false);
             SelectedItemPanel.PerformLayout();
+            PriorityOptionsPanel.ResumeLayout(false);
+            PriorityOptionsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)OrdersDataGridView).EndInit();
             ResumeLayout(false);
         }
@@ -309,5 +369,10 @@
         private ListBox OrderItemsListBox;
         private Label FindLabel;
         private TextBox FindTextBox;
+        private Panel PriorityOptionsPanel;
+        private ComboBox DeliveryTimeComboBox;
+        private Label DeliveryTimeLabel;
+        private Label PriorityOptionsLabel;
+        private CheckBox ShowOnlyPriorityOrdersCheckBox;
     }
 }

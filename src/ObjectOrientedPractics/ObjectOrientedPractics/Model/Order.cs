@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Forms.PropertyGridInternal;
 
 namespace Model
 {
@@ -96,7 +99,7 @@ namespace Model
         /// Инициализирует новый экземпляр заказа.
         /// </summary>
         /// <param name="id">Идентификатор заказа.</param>
-        /// <param name="createdAt">Дата создания.</param>
+        /// <param name="statusHistory">Словарь Текущее время: статус заказа.</param>
         /// <param name="status">Статус заказа.</param>
         /// <param name="address">Адрес доставки.</param>
         /// <param name="items">Список товаров в заказе.</param>
@@ -112,16 +115,54 @@ namespace Model
     /// <summary>
     /// Вспомогательный класс, представляющий заказ с полным именем клиента.
     /// </summary>
-    public class OrderWithCustomerFullname : Order
+    public class OrderForDataGridView : Order
     {
+        /// <summary>
+        /// Иконка заказа в таблице.
+        /// </summary>
+        public Image Image { get; private set; }
+        /// <summary>
+        /// Приоритетный ли заказ.
+        /// </summary>
+        public bool IsPriority {  get; set; }
+        /// <summary>
+        /// ФИО клиента.
+        /// </summary>
         public string CustomerFullname { get; private set; }
+        /// <summary>
+        /// Последнее изменение.
+        /// </summary>
         public string ChangedAt { get; private set; }
 
-        public OrderWithCustomerFullname(Order order, string customerFullname)
+        /// <summary>
+        /// Конструктор класса.
+        /// </summary>
+        /// <param name="order">Объект заказа.</param>
+        /// <param name="isPriorityOrder">Является ли заказ приоритетным.</param>
+        /// <param name="customerFullname">ФИО клиента.</param>
+        public OrderForDataGridView(Order order, bool isPriorityOrder, string customerFullname)
             : base(order.Id, order.StatusHistory, order.Status, order.Address, order.Items)
         {
+            IsPriority = isPriorityOrder;
             CustomerFullname = customerFullname;
             ChangedAt = order.StatusHistory.Aggregate((l, r) => l.Key > r.Key ? l : r).Key.ToString();
+
+            if (IsPriority)
+            {
+                byte[] imageData = (byte[])ObjectOrientedPractics.Properties.Resources.ResourceManager.GetObject("Star")!;
+                using (MemoryStream ms = new MemoryStream(imageData))
+                {
+                    Image = Image.FromStream(ms);
+                }
+            }
+            else
+            {
+                byte[] imageData = (byte[])ObjectOrientedPractics.Properties.Resources.ResourceManager.GetObject("Snowflake")!;
+                using (MemoryStream ms = new MemoryStream(imageData))
+                {
+                    Image = Image.FromStream(ms);
+                }
+            }
         }
     }
 }

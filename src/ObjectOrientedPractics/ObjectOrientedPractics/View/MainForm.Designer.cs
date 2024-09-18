@@ -37,11 +37,14 @@
             CartsTab = new View.Tabs.CartsTab();
             OrdersPage = new TabPage();
             OrdersTab = new View.Tabs.OrdersTab();
+            PriorityOrdersPage = new TabPage();
+            PriorityOrdersTab = new View.Tabs.PriorityOrdersTab();
             MainTabControl.SuspendLayout();
             ItemsPage.SuspendLayout();
             CustomersPage.SuspendLayout();
             CartsPage.SuspendLayout();
             OrdersPage.SuspendLayout();
+            PriorityOrdersPage.SuspendLayout();
             SuspendLayout();
             // 
             // MainTabControl
@@ -50,6 +53,7 @@
             MainTabControl.Controls.Add(CustomersPage);
             MainTabControl.Controls.Add(CartsPage);
             MainTabControl.Controls.Add(OrdersPage);
+            MainTabControl.Controls.Add(PriorityOrdersPage);
             MainTabControl.Dock = DockStyle.Fill;
             MainTabControl.Location = new Point(0, 0);
             MainTabControl.Name = "MainTabControl";
@@ -95,6 +99,7 @@
             CustomersTab.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             CustomersTab.Customers = null;
             CustomersTab.Dock = DockStyle.Fill;
+            CustomersTab.Items = null;
             CustomersTab.Location = new Point(3, 3);
             CustomersTab.Name = "CustomersTab";
             CustomersTab.Size = new Size(186, 61);
@@ -126,7 +131,7 @@
             OrdersPage.Location = new Point(4, 29);
             OrdersPage.Name = "OrdersPage";
             OrdersPage.Padding = new Padding(3);
-            OrdersPage.Size = new Size(792, 417);
+            OrdersPage.Size = new Size(192, 67);
             OrdersPage.TabIndex = 3;
             OrdersPage.Text = "Orders";
             OrdersPage.UseVisualStyleBackColor = true;
@@ -137,8 +142,28 @@
             OrdersTab.Dock = DockStyle.Fill;
             OrdersTab.Location = new Point(3, 3);
             OrdersTab.Name = "OrdersTab";
-            OrdersTab.Size = new Size(786, 411);
+            OrdersTab.Size = new Size(186, 61);
             OrdersTab.TabIndex = 0;
+            // 
+            // PriorityOrdersPage
+            // 
+            PriorityOrdersPage.Controls.Add(PriorityOrdersTab);
+            PriorityOrdersPage.Location = new Point(4, 29);
+            PriorityOrdersPage.Name = "PriorityOrdersPage";
+            PriorityOrdersPage.Padding = new Padding(3);
+            PriorityOrdersPage.Size = new Size(792, 417);
+            PriorityOrdersPage.TabIndex = 4;
+            PriorityOrdersPage.Text = "Priority Orders";
+            PriorityOrdersPage.UseVisualStyleBackColor = true;
+            // 
+            // PriorityOrdersTab
+            // 
+            PriorityOrdersTab.Dock = DockStyle.Fill;
+            PriorityOrdersTab.Items = null;
+            PriorityOrdersTab.Location = new Point(3, 3);
+            PriorityOrdersTab.Name = "PriorityOrdersTab";
+            PriorityOrdersTab.Size = new Size(786, 411);
+            PriorityOrdersTab.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -154,6 +179,7 @@
             CustomersPage.ResumeLayout(false);
             CartsPage.ResumeLayout(false);
             OrdersPage.ResumeLayout(false);
+            PriorityOrdersPage.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -168,5 +194,7 @@
         private View.Tabs.CartsTab CartsTab;
         private TabPage OrdersPage;
         private View.Tabs.OrdersTab OrdersTab;
+        private TabPage PriorityOrdersPage;
+        private View.Tabs.PriorityOrdersTab PriorityOrdersTab;
     }
 }

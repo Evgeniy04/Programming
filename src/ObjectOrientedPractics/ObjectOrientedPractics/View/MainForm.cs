@@ -25,6 +25,7 @@ namespace ObjectOrientedPractics
         JsonSerializerSettings _settings = new JsonSerializerSettings
         {
             PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+            TypeNameHandling = TypeNameHandling.All,
             Formatting = Formatting.Indented
         };
 
@@ -70,6 +71,8 @@ namespace ObjectOrientedPractics
             CartsTab.Customers = _store.Customers;
 
             OrdersTab.Customers = _store.Customers;
+
+            PriorityOrdersTab.Items = _store.Items;
         }
 
         /// <summary>

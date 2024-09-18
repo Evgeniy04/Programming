@@ -36,12 +36,12 @@ namespace Model
         /// <summary>
         /// Получает идентификатор клиента.
         /// </summary>
-        public int Id 
-        { 
-            get 
-            { 
-                return _id; 
-            } 
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
         }
         /// <summary>
         /// Возвращает или меняет полное имя клиента.
@@ -94,6 +94,10 @@ namespace Model
             get { return _orders; }
             set { _orders = value; }
         }
+        /// <summary>
+        /// Возвращает или меняет приоритет клиента.
+        /// </summary>
+        public bool IsPriority { get; set; }
 
         /// <summary>
         /// Конструктор класса Customer.
