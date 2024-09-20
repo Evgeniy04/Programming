@@ -11,7 +11,7 @@ namespace Model
     /// <summary>
     /// Представляет скидку в процентах, основанную на общей сумме покупок в определенной категории.
     /// </summary>
-    class PercentDiscount
+    class PercentDiscount: IDiscount
     {
         /// <summary>
         /// Категория товаров, на которые распространяется скидка.

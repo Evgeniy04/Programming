@@ -10,7 +10,7 @@ namespace Model
     /// <summary>
     /// Представляет систему скидок на основе накопленных баллов.
     /// </summary>
-    class PointsDiscount
+    class PointsDiscount: IDiscount
     {
         /// <summary>
         /// Количество баллов.
