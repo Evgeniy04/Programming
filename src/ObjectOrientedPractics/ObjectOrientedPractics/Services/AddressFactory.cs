@@ -1,11 +1,11 @@
-﻿using Model;
+﻿using ObjectOrientedPractics.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services
+namespace ObjectOrientedPractics.Services
 {
     /// <summary>
     /// Фабрика для создания объектов типа Address.

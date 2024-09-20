@@ -1,11 +1,13 @@
-﻿using Model;
+﻿using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Model.Enums;
+using ObjectOrientedPractics.Model.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services
+namespace ObjectOrientedPractics.Services
 {
     /// <summary>
     /// Фабрика для создания объектов типа Order.

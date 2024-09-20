@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ObjectOrientedPractics.Model.Enums;
 
-namespace Model
+namespace ObjectOrientedPractics.Model.Orders
 {
     /// <summary>
     /// Представляет приоритетный заказ с желаемой датой и диапазоном времени доставки.
     /// </summary>
-    internal class PriorityOrder: Order
+    internal class PriorityOrder : Order
     {
         /// <summary>
         /// Желаемая дата доставки.

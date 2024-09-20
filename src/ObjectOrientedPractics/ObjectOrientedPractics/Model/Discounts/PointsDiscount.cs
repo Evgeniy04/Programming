@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Services;
 
-namespace Model
+namespace ObjectOrientedPractics.Model.Discounts
 {
     /// <summary>
     /// Представляет систему скидок на основе накопленных баллов.
     /// </summary>
-    class PointsDiscount: IDiscount
+    class PointsDiscount : IDiscount
     {
         /// <summary>
         /// Количество баллов.
@@ -82,7 +83,7 @@ namespace Model
             double amount = GetAmount(items);
             PointsBalance += (int)Math.Ceiling(amount * 0.1);
         }
-        
+
         /// <summary>
         /// Возвращает общую сумму заказа.
         /// </summary>

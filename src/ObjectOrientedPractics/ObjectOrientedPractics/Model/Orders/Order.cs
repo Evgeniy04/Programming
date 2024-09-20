@@ -1,4 +1,5 @@
-﻿using Services;
+﻿using ObjectOrientedPractics.Model.Enums;
+using ObjectOrientedPractics.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.PropertyGridInternal;
 
-namespace Model
+namespace ObjectOrientedPractics.Model.Orders
 {
     /// <summary>
     /// Класс, представляющий заказ.
@@ -34,6 +35,10 @@ namespace Model
         /// Список товаров в заказе.
         /// </summary>
         List<Item> _items;
+        /// <summary>
+        /// Размер скидки.
+        /// </summary>
+        double _discountAmount;
 
         /// <summary>
         /// Получает уникальный идентификатор заказа.
@@ -51,7 +56,7 @@ namespace Model
             get { return _status; }
             set
             {
-                if ((_status != value && _status != OrderStatus.New && StatusHistory.Count > 0) || (value == OrderStatus.New && StatusHistory.Count <= 1))
+                if (_status != value && _status != OrderStatus.New && StatusHistory.Count > 0 || value == OrderStatus.New && StatusHistory.Count <= 1)
                 {
                     StatusHistory.Add(DateTime.Now, value);
                 }
@@ -94,6 +99,33 @@ namespace Model
                 return Math.Round(sum, 2);
             }
         }
+        /// <summary>
+        /// Получает или задаёт размер скидки.
+        /// </summary>
+        public double DiscountAmount
+        {
+            get
+            {
+                return _discountAmount;
+            }
+            set
+            {
+                ValueValidator.AssertOnPositiveValue(value, nameof(DiscountAmount));
+                _discountAmount = value;
+            }
+        }
+        /// <summary>
+        /// Получает стоимость заказа с применённой скидкой.
+        /// </summary>
+        public double Total
+        {
+            get
+            {
+                double total = Amount - DiscountAmount;
+                ValueValidator.AssertOnPositiveValue(total, nameof(Total));
+                return Amount - DiscountAmount;
+            }
+        }
 
         /// <summary>
         /// Инициализирует новый экземпляр заказа.
@@ -124,7 +156,7 @@ namespace Model
         /// <summary>
         /// Приоритетный ли заказ.
         /// </summary>
-        public bool IsPriority {  get; set; }
+        public bool IsPriority { get; set; }
         /// <summary>
         /// ФИО клиента.
         /// </summary>
@@ -149,7 +181,7 @@ namespace Model
 
             if (IsPriority)
             {
-                byte[] imageData = (byte[])ObjectOrientedPractics.Properties.Resources.ResourceManager.GetObject("Star")!;
+                byte[] imageData = (byte[])Properties.Resources.ResourceManager.GetObject("Star")!;
                 using (MemoryStream ms = new MemoryStream(imageData))
                 {
                     Image = Image.FromStream(ms);
@@ -157,7 +189,7 @@ namespace Model
             }
             else
             {
-                byte[] imageData = (byte[])ObjectOrientedPractics.Properties.Resources.ResourceManager.GetObject("Snowflake")!;
+                byte[] imageData = (byte[])Properties.Resources.ResourceManager.GetObject("Snowflake")!;
                 using (MemoryStream ms = new MemoryStream(imageData))
                 {
                     Image = Image.FromStream(ms);

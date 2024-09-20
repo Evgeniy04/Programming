@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace Model
+namespace ObjectOrientedPractics.Model
 {
     /// <summary>
     /// Класс, представляющий корзину покупок.

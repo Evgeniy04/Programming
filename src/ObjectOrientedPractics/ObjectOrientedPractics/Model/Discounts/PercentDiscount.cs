@@ -1,4 +1,4 @@
-﻿using Model;
+﻿using ObjectOrientedPractics.Model.Enums;
 using ObjectOrientedPractics.Services;
 using System;
 using System.Collections.Generic;
@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace ObjectOrientedPractics.Model.Discounts
 {
     /// <summary>
     /// Представляет скидку в процентах, основанную на общей сумме покупок в определенной категории.
     /// </summary>
-    class PercentDiscount: IDiscount
+    class PercentDiscount : IDiscount
     {
         /// <summary>
         /// Категория товаров, на которые распространяется скидка.
@@ -87,7 +87,7 @@ namespace Model
             double sum = 0;
             items.ForEach(x =>
                 {
-                    if (x.Category == Category) 
+                    if (x.Category == Category)
                     {
                         sum += x.Cost;
                     }

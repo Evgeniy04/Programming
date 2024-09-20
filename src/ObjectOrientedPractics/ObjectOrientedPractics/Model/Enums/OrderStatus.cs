@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace ObjectOrientedPractics.Model.Enums
 {
     /// <summary>
     /// Перечисление, представляющее статус заказа.
