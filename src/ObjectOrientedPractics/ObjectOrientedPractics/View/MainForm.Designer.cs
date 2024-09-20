@@ -39,12 +39,15 @@
             OrdersTab = new View.Tabs.OrdersTab();
             PriorityOrdersPage = new TabPage();
             PriorityOrdersTab = new View.Tabs.PriorityOrdersTab();
+            DiscountsPage = new TabPage();
+            DiscountsTab = new View.Tabs.DiscountsTab();
             MainTabControl.SuspendLayout();
             ItemsPage.SuspendLayout();
             CustomersPage.SuspendLayout();
             CartsPage.SuspendLayout();
             OrdersPage.SuspendLayout();
             PriorityOrdersPage.SuspendLayout();
+            DiscountsPage.SuspendLayout();
             SuspendLayout();
             // 
             // MainTabControl
@@ -54,6 +57,7 @@
             MainTabControl.Controls.Add(CartsPage);
             MainTabControl.Controls.Add(OrdersPage);
             MainTabControl.Controls.Add(PriorityOrdersPage);
+            MainTabControl.Controls.Add(DiscountsPage);
             MainTabControl.Dock = DockStyle.Fill;
             MainTabControl.Location = new Point(0, 0);
             MainTabControl.Name = "MainTabControl";
@@ -89,7 +93,7 @@
             CustomersPage.Location = new Point(4, 29);
             CustomersPage.Name = "CustomersPage";
             CustomersPage.Padding = new Padding(3);
-            CustomersPage.Size = new Size(192, 67);
+            CustomersPage.Size = new Size(792, 417);
             CustomersPage.TabIndex = 1;
             CustomersPage.Text = "Customers";
             CustomersPage.UseVisualStyleBackColor = true;
@@ -102,7 +106,7 @@
             CustomersTab.Items = null;
             CustomersTab.Location = new Point(3, 3);
             CustomersTab.Name = "CustomersTab";
-            CustomersTab.Size = new Size(186, 61);
+            CustomersTab.Size = new Size(786, 411);
             CustomersTab.TabIndex = 0;
             // 
             // CartsPage
@@ -110,7 +114,7 @@
             CartsPage.Controls.Add(CartsTab);
             CartsPage.Location = new Point(4, 29);
             CartsPage.Name = "CartsPage";
-            CartsPage.Size = new Size(192, 67);
+            CartsPage.Size = new Size(792, 417);
             CartsPage.TabIndex = 2;
             CartsPage.Text = "Carts";
             CartsPage.UseVisualStyleBackColor = true;
@@ -122,7 +126,7 @@
             CartsTab.Items = null;
             CartsTab.Location = new Point(0, 0);
             CartsTab.Name = "CartsTab";
-            CartsTab.Size = new Size(192, 67);
+            CartsTab.Size = new Size(792, 417);
             CartsTab.TabIndex = 0;
             // 
             // OrdersPage
@@ -131,7 +135,7 @@
             OrdersPage.Location = new Point(4, 29);
             OrdersPage.Name = "OrdersPage";
             OrdersPage.Padding = new Padding(3);
-            OrdersPage.Size = new Size(192, 67);
+            OrdersPage.Size = new Size(792, 417);
             OrdersPage.TabIndex = 3;
             OrdersPage.Text = "Orders";
             OrdersPage.UseVisualStyleBackColor = true;
@@ -142,7 +146,7 @@
             OrdersTab.Dock = DockStyle.Fill;
             OrdersTab.Location = new Point(3, 3);
             OrdersTab.Name = "OrdersTab";
-            OrdersTab.Size = new Size(186, 61);
+            OrdersTab.Size = new Size(786, 411);
             OrdersTab.TabIndex = 0;
             // 
             // PriorityOrdersPage
@@ -165,6 +169,26 @@
             PriorityOrdersTab.Size = new Size(786, 411);
             PriorityOrdersTab.TabIndex = 0;
             // 
+            // DiscountsPage
+            // 
+            DiscountsPage.Controls.Add(DiscountsTab);
+            DiscountsPage.Location = new Point(4, 29);
+            DiscountsPage.Name = "DiscountsPage";
+            DiscountsPage.Padding = new Padding(3);
+            DiscountsPage.Size = new Size(792, 417);
+            DiscountsPage.TabIndex = 5;
+            DiscountsPage.Text = "Discounts Test";
+            DiscountsPage.UseVisualStyleBackColor = true;
+            // 
+            // DiscountsTab
+            // 
+            DiscountsTab.Dock = DockStyle.Fill;
+            DiscountsTab.Items = null;
+            DiscountsTab.Location = new Point(3, 3);
+            DiscountsTab.Name = "DiscountsTab";
+            DiscountsTab.Size = new Size(786, 411);
+            DiscountsTab.TabIndex = 0;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -180,6 +204,7 @@
             CartsPage.ResumeLayout(false);
             OrdersPage.ResumeLayout(false);
             PriorityOrdersPage.ResumeLayout(false);
+            DiscountsPage.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -196,5 +221,7 @@
         private View.Tabs.OrdersTab OrdersTab;
         private TabPage PriorityOrdersPage;
         private View.Tabs.PriorityOrdersTab PriorityOrdersTab;
+        private TabPage DiscountsPage;
+        private View.Tabs.DiscountsTab DiscountsTab;
     }
 }

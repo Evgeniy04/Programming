@@ -73,6 +73,8 @@ namespace ObjectOrientedPractics
             OrdersTab.Customers = _store.Customers;
 
             PriorityOrdersTab.Items = _store.Items;
+
+            DiscountsTab.Items = _store.Items;
         }
 
         /// <summary>

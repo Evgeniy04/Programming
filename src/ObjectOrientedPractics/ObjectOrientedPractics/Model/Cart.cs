@@ -37,7 +37,7 @@ namespace Model
             {
                 double sum = 0;
                 Items.ForEach(x => { sum += x.Cost; });
-                return Math.Round(sum, 2); ;
+                return Math.Round(sum, 2);
             }
         }
     }
