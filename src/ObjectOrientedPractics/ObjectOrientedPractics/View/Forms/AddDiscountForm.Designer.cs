@@ -137,6 +137,6 @@
         private Label CategoryLabel;
         private ComboBox CategoryComboBox;
         private Button OkButton;
-        private Button CancelButton;
+        new private Button CancelButton;
     }
 }

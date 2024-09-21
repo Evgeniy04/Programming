@@ -28,7 +28,6 @@ namespace ObjectOrientedPractics.View.Forms
         public AddDiscountForm()
         {
             InitializeComponent();
-            PercentDiscount = new PercentDiscount();
             CategoryComboBox.Items.AddRange(Enum.GetValues(typeof(Category)).Cast<object>().ToArray());
         }
 
@@ -45,7 +44,7 @@ namespace ObjectOrientedPractics.View.Forms
                 MessageBox.Show("Вы не выбрали категорию!");
                 return;
             }
-            PercentDiscount.Category = (Category)CategoryComboBox.SelectedItem;
+            PercentDiscount = new PercentDiscount((Category)CategoryComboBox.SelectedItem, 0);
             DialogResult = DialogResult.OK;
             Close();
         }

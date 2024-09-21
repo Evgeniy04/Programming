@@ -94,6 +94,15 @@ namespace ObjectOrientedPractics.Model.Discounts
             return Math.Round(sum, 2);
         }
 
+        /// <summary>
+        /// Конструктор класса.
+        /// </summary>
+        /// <param name="pointsBalance">Баланс накопленных баллов.</param>
+        public PointsDiscount(int pointsBalance)
+        {
+            PointsBalance = pointsBalance;
+        }
+
         public override string ToString()
         {
             return Info;

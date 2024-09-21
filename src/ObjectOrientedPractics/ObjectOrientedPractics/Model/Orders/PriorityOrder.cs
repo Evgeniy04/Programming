@@ -29,10 +29,11 @@ namespace ObjectOrientedPractics.Model.Orders
         /// <param name="status">Статус заказа.</param>
         /// <param name="address">Адрес доставки.</param>
         /// <param name="items">Список товаров в заказе.</param>
+        /// <param name="discountAmount">Скидка.</param>
         /// <param name="desiredDeliveryDate">Желаемая дата доставки.</param>
         /// <param name="desiredDeliveryTimeRange">Желаемый диапазон времени доставки.</param>
-        public PriorityOrder(Guid id, Dictionary<DateTime, OrderStatus> statusHistory, OrderStatus status, Address address, List<Item> items, DateTime desiredDeliveryDate, DeliveryTimeRange desiredDeliveryTimeRange)
-            : base(id, statusHistory, status, address, items)
+        public PriorityOrder(Guid id, Dictionary<DateTime, OrderStatus> statusHistory, OrderStatus status, Address address, List<Item> items, double discountAmount, DateTime desiredDeliveryDate, DeliveryTimeRange desiredDeliveryTimeRange)
+            : base(id, statusHistory, status, address, items, discountAmount)
         {
             DesiredDeliveryDate = desiredDeliveryDate;
             DesiredDeliveryTimeRange = desiredDeliveryTimeRange;

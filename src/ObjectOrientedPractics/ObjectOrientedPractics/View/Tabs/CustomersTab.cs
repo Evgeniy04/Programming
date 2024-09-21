@@ -118,7 +118,7 @@ namespace ObjectOrientedPractics.View.Tabs
             if (_currentCustomer == null || CustomersListBox.SelectedItems == null || !int.TryParse(IdTextBox.Text, out int _)) return;
 
             Order order = new OrderFactory().Randomize(_currentCustomer.Address, Items);
-            PriorityOrder priorityOrder = new(order.Id, order.StatusHistory, order.Status, order.Address, order.Items, DateTime.Now.AddDays(7), DeliveryTimeRange.Range9To11);
+            PriorityOrder priorityOrder = new(order.Id, order.StatusHistory, order.Status, order.Address, order.Items, 0, DateTime.Now.AddDays(7), DeliveryTimeRange.Range9To11);
             _currentCustomer.Orders.Add(_currentCustomer.IsPriority ? priorityOrder : order);
         }
 

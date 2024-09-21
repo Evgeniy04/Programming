@@ -26,7 +26,7 @@ namespace ObjectOrientedPractics.Services
                 cart.AddRange(Enumerable.Repeat(item, random.Next(5) * random.Next(2)));
             });
             if (cart.Count == 0 && items.Count > 0) cart.Add(items[0]);
-            Order order = new(Guid.NewGuid(), new Dictionary<DateTime, OrderStatus>(), OrderStatus.New, address, cart);
+            Order order = new(Guid.NewGuid(), new Dictionary<DateTime, OrderStatus>(), OrderStatus.New, address, cart, 0);
             return order;
         }
     }

@@ -135,13 +135,15 @@ namespace ObjectOrientedPractics.Model.Orders
         /// <param name="status">Статус заказа.</param>
         /// <param name="address">Адрес доставки.</param>
         /// <param name="items">Список товаров в заказе.</param>
-        public Order(Guid id, Dictionary<DateTime, OrderStatus> statusHistory, OrderStatus status, Address address, List<Item> items)
+        /// <param name="discountAmount">Скидка.</param>
+        public Order(Guid id, Dictionary<DateTime, OrderStatus> statusHistory, OrderStatus status, Address address, List<Item> items, double discountAmount)
         {
             Id = id;
             StatusHistory = statusHistory;
             Status = status;
             Address = address;
             Items = new List<Item>(items);
+            DiscountAmount = discountAmount;
         }
     }
     /// <summary>
@@ -173,7 +175,7 @@ namespace ObjectOrientedPractics.Model.Orders
         /// <param name="isPriorityOrder">Является ли заказ приоритетным.</param>
         /// <param name="customerFullname">ФИО клиента.</param>
         public OrderForDataGridView(Order order, bool isPriorityOrder, string customerFullname)
-            : base(order.Id, order.StatusHistory, order.Status, order.Address, order.Items)
+            : base(order.Id, order.StatusHistory, order.Status, order.Address, order.Items, order.DiscountAmount)
         {
             IsPriority = isPriorityOrder;
             CustomerFullname = customerFullname;

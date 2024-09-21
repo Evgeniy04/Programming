@@ -20,7 +20,7 @@ namespace ObjectOrientedPractics.Model.Discounts
         /// <summary>
         /// Общая сумма, на которую покупатель уже совершил покупки в данной категории.
         /// </summary>
-        double TotalSpent { get; set; }
+        public double TotalSpent { get; private set; }
 
         /// <summary>
         /// Процент скидки, рассчитываемый на основе потраченной суммы.
@@ -31,8 +31,8 @@ namespace ObjectOrientedPractics.Model.Discounts
             get
             {
                 int discountPercentage = (int)Math.Floor(TotalSpent / 1000);
-                if (discountPercentage > 10) discountPercentage = 10;
-                return discountPercentage;
+                if (discountPercentage > 9) discountPercentage = 9;
+                return discountPercentage + 1;
             }
         }
         /// <summary>
@@ -54,7 +54,7 @@ namespace ObjectOrientedPractics.Model.Discounts
         public double Calculate(List<Item> items)
         {
             double amount = GetAmount(items);
-            double discountAmount = amount * (DiscountPercentage / 100);
+            double discountAmount = amount * ((double)DiscountPercentage) / 100;
             return discountAmount;
         }
 
@@ -94,6 +94,17 @@ namespace ObjectOrientedPractics.Model.Discounts
                 }
             );
             return Math.Round(sum, 2);
+        }
+
+        /// <summary>
+        /// Конструктор класса.
+        /// </summary>
+        /// <param name="category">Категория товаров, на которую распространяется скидка.</param>
+        /// <param name="totalSpent">Сумма покупок по этой категории.</param>
+        public PercentDiscount(Category category, double totalSpent)
+        {
+            Category = category;
+            TotalSpent = totalSpent;
         }
 
         public override string ToString()

@@ -251,9 +251,11 @@ namespace ObjectOrientedPractics.View.Tabs
             if (SelectedOrder == null)
             {
                 AmountLabel.Text = "0";
+                TotalLabel.Text = "0";
                 return;
             };
             AmountLabel.Text = SelectedOrder.Amount.ToString();
+            TotalLabel.Text = SelectedOrder.Total.ToString();
         }
 
         /// <summary>

@@ -34,7 +34,6 @@ namespace ObjectOrientedPractics.View.Tabs
             }
             set
             {
-                if (value == null) return;
                 _discounts = value;
                 UpdateDiscounts();
             }
@@ -95,7 +94,7 @@ namespace ObjectOrientedPractics.View.Tabs
             if (Discounts == null) return;
             if (Discounts.Count == 0)
             {
-                Discounts.Add(new PointsDiscount());
+                Discounts.Add(new PointsDiscount(0));
             }
             DiscountsListBox.Items.AddRange(Discounts.ToArray());
         }
