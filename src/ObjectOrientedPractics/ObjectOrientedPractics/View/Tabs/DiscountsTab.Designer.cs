@@ -77,6 +77,7 @@
             AddButton.TabIndex = 1;
             AddButton.Text = "Add";
             AddButton.UseVisualStyleBackColor = true;
+            AddButton.Click += AddButton_Click;
             // 
             // RemoveButton
             // 
@@ -87,6 +88,7 @@
             RemoveButton.TabIndex = 2;
             RemoveButton.Text = "Remove";
             RemoveButton.UseVisualStyleBackColor = true;
+            RemoveButton.Click += RemoveButton_Click;
             // 
             // DiscountsListBox
             // 

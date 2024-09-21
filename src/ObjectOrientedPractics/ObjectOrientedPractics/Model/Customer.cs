@@ -103,7 +103,7 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Список возможных скидок.
         /// </summary>
-        List<IDiscount> Discounts { get; set; }
+        public List<IDiscount> Discounts { get; set; }
 
         /// <summary>
         /// Конструктор класса Customer.
@@ -115,7 +115,7 @@ namespace ObjectOrientedPractics.Model
             Address = new Address();
             Cart = new Cart();
             Orders = new List<Order>();
-            Discounts = [new PointsDiscount()];
+            Discounts = new List<IDiscount>();
         }
 
         /// <summary>
@@ -130,6 +130,7 @@ namespace ObjectOrientedPractics.Model
             _id = IdGenerator.GetNextId();
             Cart = new Cart();
             Orders = new List<Order>();
+            Discounts = new List<IDiscount>();
         }
 
         public override string ToString()

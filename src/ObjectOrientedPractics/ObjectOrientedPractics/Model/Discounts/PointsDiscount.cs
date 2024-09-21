@@ -93,5 +93,10 @@ namespace ObjectOrientedPractics.Model.Discounts
             items.ForEach(x => { sum += x.Cost; });
             return Math.Round(sum, 2);
         }
+
+        public override string ToString()
+        {
+            return Info;
+        }
     }
 }

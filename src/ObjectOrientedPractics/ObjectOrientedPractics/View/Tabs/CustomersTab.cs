@@ -195,6 +195,7 @@ namespace ObjectOrientedPractics.View.Tabs
             FullnameTextBox.Text = isEmpty ? "" : _currentCustomer.Fullname.ToString();
             IsPriorityCheckBox.Checked = isEmpty ? false : _currentCustomer.IsPriority;
             AddressControl.Address = isEmpty ? new Address() : _currentCustomer.Address;
+            DiscountsTab.Discounts = isEmpty ? null : _currentCustomer.Discounts;
         }
 
         /// <summary>

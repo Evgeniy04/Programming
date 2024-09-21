@@ -11,12 +11,12 @@ namespace ObjectOrientedPractics.Model.Discounts
     /// <summary>
     /// Представляет скидку в процентах, основанную на общей сумме покупок в определенной категории.
     /// </summary>
-    class PercentDiscount : IDiscount
+    public class PercentDiscount : IDiscount
     {
         /// <summary>
         /// Категория товаров, на которые распространяется скидка.
         /// </summary>
-        Category Category { get; set; }
+        public Category Category { get; set; }
         /// <summary>
         /// Общая сумма, на которую покупатель уже совершил покупки в данной категории.
         /// </summary>
@@ -94,6 +94,11 @@ namespace ObjectOrientedPractics.Model.Discounts
                 }
             );
             return Math.Round(sum, 2);
+        }
+
+        public override string ToString()
+        {
+            return Info;
         }
     }
 }
