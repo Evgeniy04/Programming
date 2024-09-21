@@ -40,7 +40,7 @@
             // 
             DiscountsTabTableLayoutPanel.ColumnCount = 2;
             DiscountsTabTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70.491806F));
-            DiscountsTabTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 29.508194F));
+            DiscountsTabTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 29.50819F));
             DiscountsTabTableLayoutPanel.Controls.Add(DiscountsLabel, 0, 0);
             DiscountsTabTableLayoutPanel.Controls.Add(AddButton, 1, 1);
             DiscountsTabTableLayoutPanel.Controls.Add(RemoveButton, 1, 2);
@@ -50,9 +50,9 @@
             DiscountsTabTableLayoutPanel.Name = "DiscountsTabTableLayoutPanel";
             DiscountsTabTableLayoutPanel.RowCount = 4;
             DiscountsTabTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            DiscountsTabTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            DiscountsTabTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            DiscountsTabTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            DiscountsTabTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
+            DiscountsTabTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
+            DiscountsTabTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             DiscountsTabTableLayoutPanel.Size = new Size(549, 209);
             DiscountsTabTableLayoutPanel.TabIndex = 0;
             // 
@@ -72,7 +72,7 @@
             AddButton.Dock = DockStyle.Fill;
             AddButton.Location = new Point(390, 34);
             AddButton.Name = "AddButton";
-            AddButton.Size = new Size(156, 53);
+            AddButton.Size = new Size(156, 42);
             AddButton.TabIndex = 1;
             AddButton.Text = "Add";
             AddButton.UseVisualStyleBackColor = true;
@@ -80,9 +80,9 @@
             // RemoveButton
             // 
             RemoveButton.Dock = DockStyle.Fill;
-            RemoveButton.Location = new Point(390, 93);
+            RemoveButton.Location = new Point(390, 82);
             RemoveButton.Name = "RemoveButton";
-            RemoveButton.Size = new Size(156, 53);
+            RemoveButton.Size = new Size(156, 42);
             RemoveButton.TabIndex = 2;
             RemoveButton.Text = "Remove";
             RemoveButton.UseVisualStyleBackColor = true;
