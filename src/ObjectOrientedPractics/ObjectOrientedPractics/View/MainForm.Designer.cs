@@ -93,7 +93,7 @@
             CustomersPage.Location = new Point(4, 29);
             CustomersPage.Name = "CustomersPage";
             CustomersPage.Padding = new Padding(3);
-            CustomersPage.Size = new Size(792, 417);
+            CustomersPage.Size = new Size(192, 67);
             CustomersPage.TabIndex = 1;
             CustomersPage.Text = "Customers";
             CustomersPage.UseVisualStyleBackColor = true;
@@ -106,7 +106,7 @@
             CustomersTab.Items = null;
             CustomersTab.Location = new Point(3, 3);
             CustomersTab.Name = "CustomersTab";
-            CustomersTab.Size = new Size(786, 411);
+            CustomersTab.Size = new Size(186, 61);
             CustomersTab.TabIndex = 0;
             // 
             // CartsPage
@@ -114,7 +114,7 @@
             CartsPage.Controls.Add(CartsTab);
             CartsPage.Location = new Point(4, 29);
             CartsPage.Name = "CartsPage";
-            CartsPage.Size = new Size(792, 417);
+            CartsPage.Size = new Size(192, 67);
             CartsPage.TabIndex = 2;
             CartsPage.Text = "Carts";
             CartsPage.UseVisualStyleBackColor = true;
@@ -126,7 +126,7 @@
             CartsTab.Items = null;
             CartsTab.Location = new Point(0, 0);
             CartsTab.Name = "CartsTab";
-            CartsTab.Size = new Size(792, 417);
+            CartsTab.Size = new Size(192, 67);
             CartsTab.TabIndex = 0;
             // 
             // OrdersPage
@@ -155,7 +155,7 @@
             PriorityOrdersPage.Location = new Point(4, 29);
             PriorityOrdersPage.Name = "PriorityOrdersPage";
             PriorityOrdersPage.Padding = new Padding(3);
-            PriorityOrdersPage.Size = new Size(792, 417);
+            PriorityOrdersPage.Size = new Size(192, 67);
             PriorityOrdersPage.TabIndex = 4;
             PriorityOrdersPage.Text = "Priority Orders";
             PriorityOrdersPage.UseVisualStyleBackColor = true;
@@ -166,7 +166,7 @@
             PriorityOrdersTab.Items = null;
             PriorityOrdersTab.Location = new Point(3, 3);
             PriorityOrdersTab.Name = "PriorityOrdersTab";
-            PriorityOrdersTab.Size = new Size(786, 411);
+            PriorityOrdersTab.Size = new Size(186, 61);
             PriorityOrdersTab.TabIndex = 0;
             // 
             // DiscountsPage
@@ -175,7 +175,7 @@
             DiscountsPage.Location = new Point(4, 29);
             DiscountsPage.Name = "DiscountsPage";
             DiscountsPage.Padding = new Padding(3);
-            DiscountsPage.Size = new Size(792, 417);
+            DiscountsPage.Size = new Size(192, 67);
             DiscountsPage.TabIndex = 5;
             DiscountsPage.Text = "Discounts Test";
             DiscountsPage.UseVisualStyleBackColor = true;
@@ -183,10 +183,9 @@
             // DiscountsTab
             // 
             DiscountsTab.Dock = DockStyle.Fill;
-            DiscountsTab.Items = null;
             DiscountsTab.Location = new Point(3, 3);
             DiscountsTab.Name = "DiscountsTab";
-            DiscountsTab.Size = new Size(786, 411);
+            DiscountsTab.Size = new Size(186, 61);
             DiscountsTab.TabIndex = 0;
             // 
             // MainForm

@@ -29,135 +29,73 @@
         private void InitializeComponent()
         {
             DiscountsTabTableLayoutPanel = new TableLayoutPanel();
-            InfoLabel = new Label();
-            CalculateButton = new Button();
-            ApplyButton = new Button();
-            UpdateButton = new Button();
-            TextProductsAmountLabel = new Label();
-            ProductsAmountLabel = new Label();
-            TextDiscountAmountLabel = new Label();
-            DiscountAmountLabel = new Label();
+            DiscountsLabel = new Label();
+            AddButton = new Button();
+            RemoveButton = new Button();
+            DiscountsListBox = new ListBox();
             DiscountsTabTableLayoutPanel.SuspendLayout();
             SuspendLayout();
             // 
             // DiscountsTabTableLayoutPanel
             // 
-            DiscountsTabTableLayoutPanel.ColumnCount = 4;
-            DiscountsTabTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            DiscountsTabTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            DiscountsTabTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 21.3114758F));
-            DiscountsTabTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 28.7796F));
-            DiscountsTabTableLayoutPanel.Controls.Add(InfoLabel, 0, 0);
-            DiscountsTabTableLayoutPanel.Controls.Add(CalculateButton, 0, 1);
-            DiscountsTabTableLayoutPanel.Controls.Add(ApplyButton, 1, 1);
-            DiscountsTabTableLayoutPanel.Controls.Add(UpdateButton, 2, 1);
-            DiscountsTabTableLayoutPanel.Controls.Add(TextProductsAmountLabel, 3, 0);
-            DiscountsTabTableLayoutPanel.Controls.Add(ProductsAmountLabel, 3, 1);
-            DiscountsTabTableLayoutPanel.Controls.Add(TextDiscountAmountLabel, 3, 2);
-            DiscountsTabTableLayoutPanel.Controls.Add(DiscountAmountLabel, 3, 3);
+            DiscountsTabTableLayoutPanel.ColumnCount = 2;
+            DiscountsTabTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70.491806F));
+            DiscountsTabTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 29.508194F));
+            DiscountsTabTableLayoutPanel.Controls.Add(DiscountsLabel, 0, 0);
+            DiscountsTabTableLayoutPanel.Controls.Add(AddButton, 1, 1);
+            DiscountsTabTableLayoutPanel.Controls.Add(RemoveButton, 1, 2);
+            DiscountsTabTableLayoutPanel.Controls.Add(DiscountsListBox, 0, 1);
             DiscountsTabTableLayoutPanel.Dock = DockStyle.Fill;
             DiscountsTabTableLayoutPanel.Location = new Point(0, 0);
             DiscountsTabTableLayoutPanel.Name = "DiscountsTabTableLayoutPanel";
             DiscountsTabTableLayoutPanel.RowCount = 4;
-            DiscountsTabTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            DiscountsTabTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            DiscountsTabTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            DiscountsTabTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            DiscountsTabTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            DiscountsTabTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            DiscountsTabTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
+            DiscountsTabTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             DiscountsTabTableLayoutPanel.Size = new Size(549, 209);
             DiscountsTabTableLayoutPanel.TabIndex = 0;
             // 
-            // InfoLabel
+            // DiscountsLabel
             // 
-            InfoLabel.AutoSize = true;
-            DiscountsTabTableLayoutPanel.SetColumnSpan(InfoLabel, 3);
-            InfoLabel.Dock = DockStyle.Fill;
-            InfoLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            InfoLabel.Location = new Point(3, 0);
-            InfoLabel.Name = "InfoLabel";
-            InfoLabel.Size = new Size(384, 52);
-            InfoLabel.TabIndex = 0;
-            InfoLabel.Text = "Info: ";
-            InfoLabel.TextAlign = ContentAlignment.BottomLeft;
+            DiscountsLabel.AutoSize = true;
+            DiscountsLabel.Dock = DockStyle.Bottom;
+            DiscountsLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            DiscountsLabel.Location = new Point(3, 11);
+            DiscountsLabel.Name = "DiscountsLabel";
+            DiscountsLabel.Size = new Size(381, 20);
+            DiscountsLabel.TabIndex = 0;
+            DiscountsLabel.Text = "Discounts";
             // 
-            // CalculateButton
+            // AddButton
             // 
-            CalculateButton.Dock = DockStyle.Fill;
-            CalculateButton.Location = new Point(3, 55);
-            CalculateButton.Name = "CalculateButton";
-            CalculateButton.Size = new Size(131, 46);
-            CalculateButton.TabIndex = 1;
-            CalculateButton.Text = "Calculate";
-            CalculateButton.UseVisualStyleBackColor = true;
-            CalculateButton.Click += CalculateButton_Click;
+            AddButton.Dock = DockStyle.Fill;
+            AddButton.Location = new Point(390, 34);
+            AddButton.Name = "AddButton";
+            AddButton.Size = new Size(156, 53);
+            AddButton.TabIndex = 1;
+            AddButton.Text = "Add";
+            AddButton.UseVisualStyleBackColor = true;
             // 
-            // ApplyButton
+            // RemoveButton
             // 
-            ApplyButton.Dock = DockStyle.Fill;
-            ApplyButton.Location = new Point(140, 55);
-            ApplyButton.Name = "ApplyButton";
-            ApplyButton.Size = new Size(131, 46);
-            ApplyButton.TabIndex = 2;
-            ApplyButton.Text = "Apply";
-            ApplyButton.UseVisualStyleBackColor = true;
-            ApplyButton.Click += ApplyButton_Click;
+            RemoveButton.Dock = DockStyle.Fill;
+            RemoveButton.Location = new Point(390, 93);
+            RemoveButton.Name = "RemoveButton";
+            RemoveButton.Size = new Size(156, 53);
+            RemoveButton.TabIndex = 2;
+            RemoveButton.Text = "Remove";
+            RemoveButton.UseVisualStyleBackColor = true;
             // 
-            // UpdateButton
+            // DiscountsListBox
             // 
-            UpdateButton.Dock = DockStyle.Fill;
-            UpdateButton.Location = new Point(277, 55);
-            UpdateButton.Name = "UpdateButton";
-            UpdateButton.Size = new Size(110, 46);
-            UpdateButton.TabIndex = 3;
-            UpdateButton.Text = "Update";
-            UpdateButton.UseVisualStyleBackColor = true;
-            UpdateButton.Click += UpdateButton_Click;
-            // 
-            // TextProductsAmountLabel
-            // 
-            TextProductsAmountLabel.AutoSize = true;
-            TextProductsAmountLabel.Dock = DockStyle.Bottom;
-            TextProductsAmountLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            TextProductsAmountLabel.Location = new Point(393, 32);
-            TextProductsAmountLabel.Name = "TextProductsAmountLabel";
-            TextProductsAmountLabel.Size = new Size(153, 20);
-            TextProductsAmountLabel.TabIndex = 4;
-            TextProductsAmountLabel.Text = "Products Amount:";
-            TextProductsAmountLabel.TextAlign = ContentAlignment.TopRight;
-            // 
-            // ProductsAmountLabel
-            // 
-            ProductsAmountLabel.AutoSize = true;
-            ProductsAmountLabel.Dock = DockStyle.Top;
-            ProductsAmountLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            ProductsAmountLabel.Location = new Point(393, 52);
-            ProductsAmountLabel.Name = "ProductsAmountLabel";
-            ProductsAmountLabel.Size = new Size(153, 32);
-            ProductsAmountLabel.TabIndex = 5;
-            ProductsAmountLabel.Text = "0";
-            ProductsAmountLabel.TextAlign = ContentAlignment.TopRight;
-            // 
-            // TextDiscountAmountLabel
-            // 
-            TextDiscountAmountLabel.AutoSize = true;
-            TextDiscountAmountLabel.Dock = DockStyle.Bottom;
-            TextDiscountAmountLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            TextDiscountAmountLabel.Location = new Point(393, 136);
-            TextDiscountAmountLabel.Name = "TextDiscountAmountLabel";
-            TextDiscountAmountLabel.Size = new Size(153, 20);
-            TextDiscountAmountLabel.TabIndex = 6;
-            TextDiscountAmountLabel.Text = "Discount Amount:";
-            TextDiscountAmountLabel.TextAlign = ContentAlignment.TopRight;
-            // 
-            // DiscountAmountLabel
-            // 
-            DiscountAmountLabel.Dock = DockStyle.Top;
-            DiscountAmountLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            DiscountAmountLabel.Location = new Point(393, 156);
-            DiscountAmountLabel.Name = "DiscountAmountLabel";
-            DiscountAmountLabel.Size = new Size(153, 32);
-            DiscountAmountLabel.TabIndex = 7;
-            DiscountAmountLabel.Text = "0";
-            DiscountAmountLabel.TextAlign = ContentAlignment.TopRight;
+            DiscountsListBox.Dock = DockStyle.Fill;
+            DiscountsListBox.FormattingEnabled = true;
+            DiscountsListBox.Location = new Point(3, 34);
+            DiscountsListBox.Name = "DiscountsListBox";
+            DiscountsTabTableLayoutPanel.SetRowSpan(DiscountsListBox, 3);
+            DiscountsListBox.Size = new Size(381, 172);
+            DiscountsListBox.TabIndex = 3;
             // 
             // DiscountsTab
             // 
@@ -174,13 +112,9 @@
         #endregion
 
         private TableLayoutPanel DiscountsTabTableLayoutPanel;
-        private Label InfoLabel;
-        private Button CalculateButton;
-        private Button ApplyButton;
-        private Button UpdateButton;
-        private Label TextProductsAmountLabel;
-        private Label ProductsAmountLabel;
-        private Label TextDiscountAmountLabel;
-        private Label DiscountAmountLabel;
+        private Label DiscountsLabel;
+        private Button AddButton;
+        private Button RemoveButton;
+        private ListBox DiscountsListBox;
     }
 }
