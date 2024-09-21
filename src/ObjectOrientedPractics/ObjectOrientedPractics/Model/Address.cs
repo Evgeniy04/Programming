@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace ObjectOrientedPractics.Model
     /// <summary>
     /// Представляет адрес с почтовым индексом, страной, городом, улицей, номером дома и квартирой.
     /// </summary>
-    public class Address
+    public class Address: ICloneable, IEquatable<Address>
     {
         /// <summary>
         /// Почтовый индекс.
@@ -183,13 +184,40 @@ namespace ObjectOrientedPractics.Model
             Apartment = apartment;
         }
 
-        /// <summary>
-        /// Представление класса в виде строки.
-        /// </summary>
-        /// <returns>Строка.</returns>
+        /// <inheritdoc/>
         public override string ToString()
         {
             return $"{Index}, {Country}, {City}, {Street}, {Building}, {Apartment}";
+        }
+
+        /// <inheritdoc/>
+        public object Clone()
+        {
+            return new Address(Index, Country, City, Street, Building, Apartment);
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(Item? address2)
+        {
+            if (address2 == null)
+                return false;
+            if (object.ReferenceEquals(this, address2))
+                return true;
+
+            PropertyInfo[] properties = typeof(Address).GetProperties();
+
+            foreach (PropertyInfo property in properties)
+            {
+                var value1 = property.GetValue(this);
+                var value2 = property.GetValue(address2);
+
+                if (value1 == null && value2 == null)
+                    continue;
+                if (value1 == null || value2 == null || value1 != value2)
+                    return false; // Если одно из значений null или они не равны
+            }
+
+            return true;
         }
     }
 }
