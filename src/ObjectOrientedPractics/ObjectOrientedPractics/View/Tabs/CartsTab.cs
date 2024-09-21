@@ -7,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Model;
+using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Model.Enums;
+using ObjectOrientedPractics.Model.Orders;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
@@ -104,6 +106,7 @@ namespace ObjectOrientedPractics.View.Tabs
         public CartsTab()
         {
             InitializeComponent();
+            CartDiscountPanel.TotalLabel = TotalLabel;
         }
 
         /// <summary>
@@ -153,8 +156,9 @@ namespace ObjectOrientedPractics.View.Tabs
             if (CurrentCustomer == null) return;
             if (CurrentCustomer.Cart.Items.Count < 1) return;
 
-            Order order = new(Guid.NewGuid(), new Dictionary<DateTime, OrderStatus>(), OrderStatus.New, CurrentCustomer.Address, CurrentCustomer.Cart.Items);
-            PriorityOrder priorityOrder = new(Guid.NewGuid(), new Dictionary<DateTime, OrderStatus>(), OrderStatus.New, CurrentCustomer.Address, CurrentCustomer.Cart.Items, DateTime.Now.AddDays(7), DeliveryTimeRange.Range9To11);
+            double discountAmount = (double)CartDiscountPanel.CreateOrder();
+            Order order = new(Guid.NewGuid(), new Dictionary<DateTime, OrderStatus>(), OrderStatus.New, CurrentCustomer.Address, CurrentCustomer.Cart.Items, discountAmount);
+            PriorityOrder priorityOrder = new(Guid.NewGuid(), new Dictionary<DateTime, OrderStatus>(), OrderStatus.New, CurrentCustomer.Address, CurrentCustomer.Cart.Items, discountAmount, DateTime.Now.AddDays(7), DeliveryTimeRange.Range9To11);
             CurrentCustomer.Orders.Add(CurrentCustomer.IsPriority ? priorityOrder : order);
 
             ClearCart();
@@ -186,6 +190,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 CurrentCustomer.Cart.Items.Clear();
                 CartItemsListBox.Items.Clear();
+                CartDiscountPanel.Customer = CurrentCustomer;
             }
         }
 
@@ -194,6 +199,7 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void UpdateAmount()
         {
+            CartDiscountPanel.Customer = CurrentCustomer;
             if (CurrentCustomer == null)
             {
                 AmountLabel.Text = "0";

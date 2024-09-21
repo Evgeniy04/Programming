@@ -31,6 +31,8 @@
             Model.Address address1 = new Model.Address();
             tableLayoutPanel1 = new TableLayoutPanel();
             SelectedItemPanel = new Panel();
+            TotalLabel = new Label();
+            TextTotalLabel = new Label();
             PriorityOptionsPanel = new Panel();
             DeliveryTimeComboBox = new ComboBox();
             DeliveryTimeLabel = new Label();
@@ -86,6 +88,8 @@
             // 
             SelectedItemPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             SelectedItemPanel.BackColor = SystemColors.ControlLightLight;
+            SelectedItemPanel.Controls.Add(TotalLabel);
+            SelectedItemPanel.Controls.Add(TextTotalLabel);
             SelectedItemPanel.Controls.Add(PriorityOptionsPanel);
             SelectedItemPanel.Controls.Add(OrderItemsListBox);
             SelectedItemPanel.Controls.Add(AmountLabel);
@@ -105,6 +109,29 @@
             tableLayoutPanel1.SetRowSpan(SelectedItemPanel, 3);
             SelectedItemPanel.Size = new Size(588, 559);
             SelectedItemPanel.TabIndex = 4;
+            // 
+            // TotalLabel
+            // 
+            TotalLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            TotalLabel.AutoSize = true;
+            TotalLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            TotalLabel.Location = new Point(557, 526);
+            TotalLabel.Name = "TotalLabel";
+            TotalLabel.Size = new Size(28, 32);
+            TotalLabel.TabIndex = 22;
+            TotalLabel.Text = "0";
+            TotalLabel.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // TextTotalLabel
+            // 
+            TextTotalLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            TextTotalLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            TextTotalLabel.Location = new Point(514, 504);
+            TextTotalLabel.Name = "TextTotalLabel";
+            TextTotalLabel.Size = new Size(71, 25);
+            TextTotalLabel.TabIndex = 20;
+            TextTotalLabel.Text = "TOTAL:";
+            TextTotalLabel.TextAlign = ContentAlignment.BottomRight;
             // 
             // PriorityOptionsPanel
             // 
@@ -159,21 +186,22 @@
             // 
             // AmountLabel
             // 
-            AmountLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            AmountLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            AmountLabel.AutoSize = true;
             AmountLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            AmountLabel.Location = new Point(196, 527);
+            AmountLabel.Location = new Point(3, 526);
             AmountLabel.Name = "AmountLabel";
-            AmountLabel.Size = new Size(389, 32);
+            AmountLabel.Size = new Size(28, 32);
             AmountLabel.TabIndex = 18;
             AmountLabel.Text = "0";
-            AmountLabel.TextAlign = ContentAlignment.MiddleRight;
+            AmountLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // TextAmountLabel
             // 
-            TextAmountLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            TextAmountLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             TextAmountLabel.AutoSize = true;
             TextAmountLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            TextAmountLabel.Location = new Point(514, 507);
+            TextAmountLabel.Location = new Point(3, 509);
             TextAmountLabel.Name = "TextAmountLabel";
             TextAmountLabel.Size = new Size(71, 20);
             TextAmountLabel.TabIndex = 17;
@@ -374,5 +402,7 @@
         private Label DeliveryTimeLabel;
         private Label PriorityOptionsLabel;
         private CheckBox ShowOnlyPriorityOrdersCheckBox;
+        private Label TextTotalLabel;
+        private Label TotalLabel;
     }
 }

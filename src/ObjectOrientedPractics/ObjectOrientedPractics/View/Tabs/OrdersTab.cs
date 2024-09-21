@@ -1,4 +1,4 @@
-﻿using Model;
+﻿using ObjectOrientedPractics.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Linq;
 using System.Collections;
 using Newtonsoft.Json.Linq;
+using ObjectOrientedPractics.Model.Orders;
+using ObjectOrientedPractics.Model.Enums;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
@@ -249,9 +251,11 @@ namespace ObjectOrientedPractics.View.Tabs
             if (SelectedOrder == null)
             {
                 AmountLabel.Text = "0";
+                TotalLabel.Text = "0";
                 return;
             };
             AmountLabel.Text = SelectedOrder.Amount.ToString();
+            TotalLabel.Text = SelectedOrder.Total.ToString();
         }
 
         /// <summary>

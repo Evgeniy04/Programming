@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Model.Address address1 = new Model.Address();
+            Model.Address address2 = new Model.Address();
             SelectedCustomerPanel = new Panel();
             IsPriorityCheckBox = new CheckBox();
             SelectedItemLabel = new Label();
@@ -38,6 +38,7 @@
             IdLabel = new Label();
             CustomersLabel = new Label();
             CustomersTableLayoutPanel = new TableLayoutPanel();
+            DiscountsTab = new DiscountsTab();
             CustomerDataGenerateButton = new Button();
             RemoveItemButton = new Button();
             AddItemButton = new Button();
@@ -62,7 +63,7 @@
             SelectedCustomerPanel.Location = new Point(346, 3);
             SelectedCustomerPanel.Name = "SelectedCustomerPanel";
             CustomersTableLayoutPanel.SetRowSpan(SelectedCustomerPanel, 2);
-            SelectedCustomerPanel.Size = new Size(469, 191);
+            SelectedCustomerPanel.Size = new Size(469, 144);
             SelectedCustomerPanel.TabIndex = 3;
             // 
             // IsPriorityCheckBox
@@ -142,31 +143,42 @@
             CustomersTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.6672163F));
             CustomersTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.03746F));
             CustomersTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57.92076F));
-            CustomersTableLayoutPanel.Controls.Add(CustomerDataGenerateButton, 2, 3);
+            CustomersTableLayoutPanel.Controls.Add(DiscountsTab, 3, 3);
+            CustomersTableLayoutPanel.Controls.Add(CustomerDataGenerateButton, 2, 4);
             CustomersTableLayoutPanel.Controls.Add(CustomersLabel, 0, 0);
-            CustomersTableLayoutPanel.Controls.Add(RemoveItemButton, 1, 3);
-            CustomersTableLayoutPanel.Controls.Add(AddItemButton, 0, 3);
+            CustomersTableLayoutPanel.Controls.Add(RemoveItemButton, 1, 4);
+            CustomersTableLayoutPanel.Controls.Add(AddItemButton, 0, 4);
             CustomersTableLayoutPanel.Controls.Add(CustomersListBox, 0, 1);
             CustomersTableLayoutPanel.Controls.Add(SelectedCustomerPanel, 3, 0);
             CustomersTableLayoutPanel.Controls.Add(AddressControl, 3, 2);
             CustomersTableLayoutPanel.Controls.Add(AddOrderGenerateButton, 1, 0);
             CustomersTableLayoutPanel.Location = new Point(0, 0);
             CustomersTableLayoutPanel.Name = "CustomersTableLayoutPanel";
-            CustomersTableLayoutPanel.RowCount = 4;
+            CustomersTableLayoutPanel.RowCount = 5;
             CustomersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
-            CustomersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            CustomersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            CustomersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 119F));
+            CustomersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 200F));
+            CustomersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             CustomersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
-            CustomersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            CustomersTableLayoutPanel.Size = new Size(818, 412);
+            CustomersTableLayoutPanel.Size = new Size(818, 542);
             CustomersTableLayoutPanel.TabIndex = 2;
+            // 
+            // DiscountsTab
+            // 
+            DiscountsTab.BackColor = SystemColors.ControlLightLight;
+            DiscountsTab.Dock = DockStyle.Fill;
+            DiscountsTab.Location = new Point(346, 353);
+            DiscountsTab.Name = "DiscountsTab";
+            CustomersTableLayoutPanel.SetRowSpan(DiscountsTab, 2);
+            DiscountsTab.Size = new Size(469, 186);
+            DiscountsTab.TabIndex = 3;
             // 
             // CustomerDataGenerateButton
             // 
             CustomerDataGenerateButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            CustomerDataGenerateButton.Location = new Point(264, 366);
+            CustomerDataGenerateButton.Location = new Point(264, 497);
             CustomerDataGenerateButton.Name = "CustomerDataGenerateButton";
-            CustomerDataGenerateButton.Size = new Size(76, 43);
+            CustomerDataGenerateButton.Size = new Size(76, 42);
             CustomerDataGenerateButton.TabIndex = 3;
             CustomerDataGenerateButton.Text = "Gen";
             CustomerDataGenerateButton.UseVisualStyleBackColor = true;
@@ -175,9 +187,9 @@
             // RemoveItemButton
             // 
             RemoveItemButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            RemoveItemButton.Location = new Point(161, 366);
+            RemoveItemButton.Location = new Point(161, 497);
             RemoveItemButton.Name = "RemoveItemButton";
-            RemoveItemButton.Size = new Size(97, 43);
+            RemoveItemButton.Size = new Size(97, 42);
             RemoveItemButton.TabIndex = 5;
             RemoveItemButton.Text = "Remove";
             RemoveItemButton.UseVisualStyleBackColor = true;
@@ -186,9 +198,9 @@
             // AddItemButton
             // 
             AddItemButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            AddItemButton.Location = new Point(3, 366);
+            AddItemButton.Location = new Point(3, 497);
             AddItemButton.Name = "AddItemButton";
-            AddItemButton.Size = new Size(152, 43);
+            AddItemButton.Size = new Size(152, 42);
             AddItemButton.TabIndex = 4;
             AddItemButton.Text = "Add";
             AddItemButton.UseVisualStyleBackColor = true;
@@ -196,32 +208,31 @@
             // 
             // CustomersListBox
             // 
-            CustomersListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             CustomersTableLayoutPanel.SetColumnSpan(CustomersListBox, 3);
+            CustomersListBox.Dock = DockStyle.Fill;
             CustomersListBox.FormattingEnabled = true;
             CustomersListBox.Location = new Point(3, 34);
             CustomersListBox.MinimumSize = new Size(0, 324);
             CustomersListBox.Name = "CustomersListBox";
-            CustomersTableLayoutPanel.SetRowSpan(CustomersListBox, 2);
-            CustomersListBox.Size = new Size(337, 324);
+            CustomersTableLayoutPanel.SetRowSpan(CustomersListBox, 3);
+            CustomersListBox.Size = new Size(337, 457);
             CustomersListBox.TabIndex = 4;
             CustomersListBox.SelectedIndexChanged += CustomersListBox_SelectedIndexChanged;
             // 
             // AddressControl
             // 
-            address1.Apartment = "";
-            address1.Building = "";
-            address1.City = "";
-            address1.Country = "";
-            address1.Index = 100000;
-            address1.Street = "";
-            AddressControl.Address = address1;
+            address2.Apartment = "";
+            address2.Building = "";
+            address2.City = "";
+            address2.Country = "";
+            address2.Index = 100000;
+            address2.Street = "";
+            AddressControl.Address = address2;
             AddressControl.BackColor = SystemColors.ControlLightLight;
             AddressControl.Dock = DockStyle.Fill;
-            AddressControl.Location = new Point(346, 200);
+            AddressControl.Location = new Point(346, 153);
             AddressControl.Name = "AddressControl";
-            CustomersTableLayoutPanel.SetRowSpan(AddressControl, 2);
-            AddressControl.Size = new Size(469, 209);
+            AddressControl.Size = new Size(469, 194);
             AddressControl.TabIndex = 6;
             // 
             // AddOrderGenerateButton
@@ -243,7 +254,7 @@
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             Controls.Add(CustomersTableLayoutPanel);
             Name = "CustomersTab";
-            Size = new Size(818, 412);
+            Size = new Size(818, 542);
             SelectedCustomerPanel.ResumeLayout(false);
             SelectedCustomerPanel.PerformLayout();
             CustomersTableLayoutPanel.ResumeLayout(false);
@@ -268,5 +279,6 @@
         private Controls.AddressControl AddressControl;
         private Button AddOrderGenerateButton;
         private CheckBox IsPriorityCheckBox;
+        private DiscountsTab DiscountsTab;
     }
 }

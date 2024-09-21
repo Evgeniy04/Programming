@@ -1,4 +1,5 @@
-﻿using Services;
+﻿using ObjectOrientedPractics.Model.Enums;
+using ObjectOrientedPractics.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.PropertyGridInternal;
 
-namespace Model
+namespace ObjectOrientedPractics.Model.Orders
 {
     /// <summary>
     /// Класс, представляющий заказ.
@@ -34,6 +35,10 @@ namespace Model
         /// Список товаров в заказе.
         /// </summary>
         List<Item> _items;
+        /// <summary>
+        /// Размер скидки.
+        /// </summary>
+        double _discountAmount;
 
         /// <summary>
         /// Получает уникальный идентификатор заказа.
@@ -51,7 +56,7 @@ namespace Model
             get { return _status; }
             set
             {
-                if ((_status != value && _status != OrderStatus.New && StatusHistory.Count > 0) || (value == OrderStatus.New && StatusHistory.Count <= 1))
+                if (_status != value && _status != OrderStatus.New && StatusHistory.Count > 0 || value == OrderStatus.New && StatusHistory.Count <= 1)
                 {
                     StatusHistory.Add(DateTime.Now, value);
                 }
@@ -91,7 +96,34 @@ namespace Model
             {
                 double sum = 0;
                 Items.ForEach(x => { sum += x.Cost; });
-                return Math.Round(sum, 2); ;
+                return Math.Round(sum, 2);
+            }
+        }
+        /// <summary>
+        /// Получает или задаёт размер скидки.
+        /// </summary>
+        public double DiscountAmount
+        {
+            get
+            {
+                return _discountAmount;
+            }
+            set
+            {
+                ValueValidator.AssertOnPositiveValue(value, nameof(DiscountAmount));
+                _discountAmount = value;
+            }
+        }
+        /// <summary>
+        /// Получает стоимость заказа с применённой скидкой.
+        /// </summary>
+        public double Total
+        {
+            get
+            {
+                double total = Amount - DiscountAmount;
+                ValueValidator.AssertOnPositiveValue(total, nameof(Total));
+                return Amount - DiscountAmount;
             }
         }
 
@@ -103,13 +135,15 @@ namespace Model
         /// <param name="status">Статус заказа.</param>
         /// <param name="address">Адрес доставки.</param>
         /// <param name="items">Список товаров в заказе.</param>
-        public Order(Guid id, Dictionary<DateTime, OrderStatus> statusHistory, OrderStatus status, Address address, List<Item> items)
+        /// <param name="discountAmount">Скидка.</param>
+        public Order(Guid id, Dictionary<DateTime, OrderStatus> statusHistory, OrderStatus status, Address address, List<Item> items, double discountAmount)
         {
             Id = id;
             StatusHistory = statusHistory;
             Status = status;
             Address = address;
             Items = new List<Item>(items);
+            DiscountAmount = discountAmount;
         }
     }
     /// <summary>
@@ -124,7 +158,7 @@ namespace Model
         /// <summary>
         /// Приоритетный ли заказ.
         /// </summary>
-        public bool IsPriority {  get; set; }
+        public bool IsPriority { get; set; }
         /// <summary>
         /// ФИО клиента.
         /// </summary>
@@ -141,7 +175,7 @@ namespace Model
         /// <param name="isPriorityOrder">Является ли заказ приоритетным.</param>
         /// <param name="customerFullname">ФИО клиента.</param>
         public OrderForDataGridView(Order order, bool isPriorityOrder, string customerFullname)
-            : base(order.Id, order.StatusHistory, order.Status, order.Address, order.Items)
+            : base(order.Id, order.StatusHistory, order.Status, order.Address, order.Items, order.DiscountAmount)
         {
             IsPriority = isPriorityOrder;
             CustomerFullname = customerFullname;
@@ -149,7 +183,7 @@ namespace Model
 
             if (IsPriority)
             {
-                byte[] imageData = (byte[])ObjectOrientedPractics.Properties.Resources.ResourceManager.GetObject("Star")!;
+                byte[] imageData = (byte[])Properties.Resources.ResourceManager.GetObject("Star")!;
                 using (MemoryStream ms = new MemoryStream(imageData))
                 {
                     Image = Image.FromStream(ms);
@@ -157,7 +191,7 @@ namespace Model
             }
             else
             {
-                byte[] imageData = (byte[])ObjectOrientedPractics.Properties.Resources.ResourceManager.GetObject("Snowflake")!;
+                byte[] imageData = (byte[])Properties.Resources.ResourceManager.GetObject("Snowflake")!;
                 using (MemoryStream ms = new MemoryStream(imageData))
                 {
                     Image = Image.FromStream(ms);

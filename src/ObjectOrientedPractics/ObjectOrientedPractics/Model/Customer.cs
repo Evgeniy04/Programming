@@ -1,11 +1,13 @@
-﻿using ObjectOrientedPractics.Services;
+﻿using ObjectOrientedPractics.Model.Orders;
+using ObjectOrientedPractics.Model.Discounts;
+using ObjectOrientedPractics.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace ObjectOrientedPractics.Model
 {
     /// <summary>
     /// Класс Customer представляет данные клиента.
@@ -98,6 +100,10 @@ namespace Model
         /// Возвращает или меняет приоритет клиента.
         /// </summary>
         public bool IsPriority { get; set; }
+        /// <summary>
+        /// Список возможных скидок.
+        /// </summary>
+        public List<IDiscount> Discounts { get; set; }
 
         /// <summary>
         /// Конструктор класса Customer.
@@ -109,6 +115,7 @@ namespace Model
             Address = new Address();
             Cart = new Cart();
             Orders = new List<Order>();
+            Discounts = new List<IDiscount>();
         }
 
         /// <summary>
@@ -123,6 +130,7 @@ namespace Model
             _id = IdGenerator.GetNextId();
             Cart = new Cart();
             Orders = new List<Order>();
+            Discounts = new List<IDiscount>();
         }
 
         public override string ToString()

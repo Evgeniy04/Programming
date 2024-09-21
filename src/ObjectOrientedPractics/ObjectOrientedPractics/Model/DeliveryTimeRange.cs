@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace ObjectOrientedPractics.Model
 {
     /// <summary>
     /// Определяет возможные диапазоны времени для доставки.

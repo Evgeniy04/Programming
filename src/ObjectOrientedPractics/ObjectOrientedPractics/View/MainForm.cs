@@ -1,4 +1,4 @@
-using Model;
+using ObjectOrientedPractics.Model;
 //using System.Text.Json;
 using ObjectOrientedPractics.Services;
 using ObjectOrientedPractics.View.Tabs;
@@ -49,13 +49,7 @@ namespace ObjectOrientedPractics
             {
                 try
                 {
-                    // Чтение JSON из файла
-                    //string jsonString = File.ReadAllText(_appFolderPath + @"\data.json");
-                    // Десериализация JSON в объект
                     Store data = JsonConvert.DeserializeObject<Store>(File.ReadAllText(_appFolderPath + @"\data.json"), _settings)!;
-                    //Store? data = JsonConvert.DeserializeObject<Store>(jsonString, _settings);
-                    //Store data = JsonSerializer.Deserialize<Store>(jsonString)!;
-                    // Запись данных в провайдер
                     if (data != null) _store = data;
                 }
                 catch
@@ -71,8 +65,6 @@ namespace ObjectOrientedPractics
             CartsTab.Customers = _store.Customers;
 
             OrdersTab.Customers = _store.Customers;
-
-            PriorityOrdersTab.Items = _store.Items;
         }
 
         /// <summary>
@@ -83,13 +75,7 @@ namespace ObjectOrientedPractics
         /// <param name="e">Аргументы события закрытия формы.</param>
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            // Открываем поток для записи в файл
-            //using FileStream stream = new FileStream(_appFolderPath + @"\data.json", FileMode.Create);
-            // Сериализуем список книг в XML и записываем его в файл
-            //JsonConvert.SerializeObject(stream, Formatting.Indented, _settings);
-            // serialize JSON directly to a file
             File.WriteAllText(_appFolderPath + @"\data.json", JsonConvert.SerializeObject(_store, Formatting.Indented, _settings));
-            //JsonSerializer.Serialize(stream, _store);
         }
 
         /// <summary>

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace ObjectOrientedPractics.Model
 {
     /// <summary>
     /// Представляет адрес с почтовым индексом, страной, городом, улицей, номером дома и квартирой.

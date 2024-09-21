@@ -1,11 +1,13 @@
-﻿using Model;
+﻿using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Model.Enums;
+using ObjectOrientedPractics.Model.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services
+namespace ObjectOrientedPractics.Services
 {
     /// <summary>
     /// Фабрика для создания объектов типа Order.
@@ -24,7 +26,7 @@ namespace Services
                 cart.AddRange(Enumerable.Repeat(item, random.Next(5) * random.Next(2)));
             });
             if (cart.Count == 0 && items.Count > 0) cart.Add(items[0]);
-            Order order = new(Guid.NewGuid(), new Dictionary<DateTime, OrderStatus>(), OrderStatus.New, address, cart);
+            Order order = new(Guid.NewGuid(), new Dictionary<DateTime, OrderStatus>(), OrderStatus.New, address, cart, 0);
             return order;
         }
     }

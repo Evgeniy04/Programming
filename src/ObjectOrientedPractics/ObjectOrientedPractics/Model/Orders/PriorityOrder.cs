@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ObjectOrientedPractics.Model.Enums;
 
-namespace Model
+namespace ObjectOrientedPractics.Model.Orders
 {
     /// <summary>
     /// Представляет приоритетный заказ с желаемой датой и диапазоном времени доставки.
     /// </summary>
-    internal class PriorityOrder: Order
+    internal class PriorityOrder : Order
     {
         /// <summary>
         /// Желаемая дата доставки.
@@ -28,10 +29,11 @@ namespace Model
         /// <param name="status">Статус заказа.</param>
         /// <param name="address">Адрес доставки.</param>
         /// <param name="items">Список товаров в заказе.</param>
+        /// <param name="discountAmount">Скидка.</param>
         /// <param name="desiredDeliveryDate">Желаемая дата доставки.</param>
         /// <param name="desiredDeliveryTimeRange">Желаемый диапазон времени доставки.</param>
-        public PriorityOrder(Guid id, Dictionary<DateTime, OrderStatus> statusHistory, OrderStatus status, Address address, List<Item> items, DateTime desiredDeliveryDate, DeliveryTimeRange desiredDeliveryTimeRange)
-            : base(id, statusHistory, status, address, items)
+        public PriorityOrder(Guid id, Dictionary<DateTime, OrderStatus> statusHistory, OrderStatus status, Address address, List<Item> items, double discountAmount, DateTime desiredDeliveryDate, DeliveryTimeRange desiredDeliveryTimeRange)
+            : base(id, statusHistory, status, address, items, discountAmount)
         {
             DesiredDeliveryDate = desiredDeliveryDate;
             DesiredDeliveryTimeRange = desiredDeliveryTimeRange;

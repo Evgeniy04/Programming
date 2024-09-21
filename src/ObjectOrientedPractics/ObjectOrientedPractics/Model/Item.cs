@@ -1,11 +1,12 @@
-﻿using ObjectOrientedPractics.Services;
+﻿using ObjectOrientedPractics.Model.Enums;
+using ObjectOrientedPractics.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace ObjectOrientedPractics.Model
 {
     /// <summary>
     /// Класс Item представляет объект товара.

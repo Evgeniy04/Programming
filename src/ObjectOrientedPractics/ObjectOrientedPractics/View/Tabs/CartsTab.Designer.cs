@@ -30,9 +30,12 @@
         {
             ItemsLabel = new Label();
             CartsTableLayoutPanel = new TableLayoutPanel();
+            TotalLabel = new Label();
             ItemsListBox = new ListBox();
             AddToCartButton = new Button();
             panel1 = new Panel();
+            TextTotalLabel = new Label();
+            CartDiscountPanel = new Panels.CartDiscountPanel();
             RemoveItemButton = new Button();
             CreateOrderButton = new Button();
             ClearCartButton = new Button();
@@ -63,6 +66,7 @@
             CartsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 21.0914612F));
             CartsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 24.6609535F));
             CartsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 54.2475853F));
+            CartsTableLayoutPanel.Controls.Add(TotalLabel, 2, 3);
             CartsTableLayoutPanel.Controls.Add(ItemsLabel, 0, 0);
             CartsTableLayoutPanel.Controls.Add(ItemsListBox, 0, 1);
             CartsTableLayoutPanel.Controls.Add(AddToCartButton, 0, 3);
@@ -75,8 +79,20 @@
             CartsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 58.84956F));
             CartsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 41.15044F));
             CartsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
-            CartsTableLayoutPanel.Size = new Size(756, 435);
+            CartsTableLayoutPanel.Size = new Size(756, 600);
             CartsTableLayoutPanel.TabIndex = 1;
+            // 
+            // TotalLabel
+            // 
+            TotalLabel.AutoSize = true;
+            TotalLabel.Dock = DockStyle.Fill;
+            TotalLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            TotalLabel.Location = new Point(348, 551);
+            TotalLabel.Name = "TotalLabel";
+            TotalLabel.Size = new Size(405, 49);
+            TotalLabel.TabIndex = 12;
+            TotalLabel.Text = "0";
+            TotalLabel.TextAlign = ContentAlignment.TopRight;
             // 
             // ItemsListBox
             // 
@@ -86,13 +102,13 @@
             ItemsListBox.Location = new Point(3, 34);
             ItemsListBox.Name = "ItemsListBox";
             CartsTableLayoutPanel.SetRowSpan(ItemsListBox, 2);
-            ItemsListBox.Size = new Size(339, 349);
+            ItemsListBox.Size = new Size(339, 514);
             ItemsListBox.TabIndex = 1;
             // 
             // AddToCartButton
             // 
             AddToCartButton.Dock = DockStyle.Fill;
-            AddToCartButton.Location = new Point(3, 389);
+            AddToCartButton.Location = new Point(3, 554);
             AddToCartButton.Name = "AddToCartButton";
             AddToCartButton.Size = new Size(153, 43);
             AddToCartButton.TabIndex = 2;
@@ -103,6 +119,8 @@
             // panel1
             // 
             panel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            panel1.Controls.Add(TextTotalLabel);
+            panel1.Controls.Add(CartDiscountPanel);
             panel1.Controls.Add(RemoveItemButton);
             panel1.Controls.Add(CreateOrderButton);
             panel1.Controls.Add(ClearCartButton);
@@ -115,9 +133,29 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(348, 3);
             panel1.Name = "panel1";
-            CartsTableLayoutPanel.SetRowSpan(panel1, 4);
-            panel1.Size = new Size(405, 429);
+            CartsTableLayoutPanel.SetRowSpan(panel1, 3);
+            panel1.Size = new Size(405, 545);
             panel1.TabIndex = 3;
+            // 
+            // TextTotalLabel
+            // 
+            TextTotalLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            TextTotalLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            TextTotalLabel.Location = new Point(334, 517);
+            TextTotalLabel.Name = "TextTotalLabel";
+            TextTotalLabel.Size = new Size(71, 25);
+            TextTotalLabel.TabIndex = 4;
+            TextTotalLabel.Text = "TOTAL:";
+            TextTotalLabel.TextAlign = ContentAlignment.BottomRight;
+            // 
+            // CartDiscountPanel
+            // 
+            CartDiscountPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            CartDiscountPanel.Customer = null;
+            CartDiscountPanel.Location = new Point(13, 297);
+            CartDiscountPanel.Name = "CartDiscountPanel";
+            CartDiscountPanel.Size = new Size(389, 245);
+            CartDiscountPanel.TabIndex = 11;
             // 
             // RemoveItemButton
             // 
@@ -218,7 +256,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(CartsTableLayoutPanel);
             Name = "CartsTab";
-            Size = new Size(756, 435);
+            Size = new Size(756, 600);
             CartsTableLayoutPanel.ResumeLayout(false);
             CartsTableLayoutPanel.PerformLayout();
             panel1.ResumeLayout(false);
@@ -242,5 +280,8 @@
         private Button RemoveItemButton;
         private Button CreateOrderButton;
         private Button ClearCartButton;
+        private Panels.CartDiscountPanel CartDiscountPanel;
+        private Label TextTotalLabel;
+        private Label TotalLabel;
     }
 }

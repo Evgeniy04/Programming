@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Model;
+using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.View.Tabs;
 
 namespace ObjectOrientedPractics.View.Controls
