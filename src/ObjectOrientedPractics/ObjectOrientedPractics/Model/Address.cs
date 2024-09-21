@@ -197,7 +197,7 @@ namespace ObjectOrientedPractics.Model
         }
 
         /// <inheritdoc/>
-        public bool Equals(Item? address2)
+        public bool Equals(Address? address2)
         {
             if (address2 == null)
                 return false;
