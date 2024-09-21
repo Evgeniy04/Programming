@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
+            AddressPanel = new Panel();
             StreetLabel = new Label();
             StreetTextBox = new TextBox();
             CityTextBox = new TextBox();
@@ -42,29 +42,29 @@
             CityLabel = new Label();
             PostIndexLabel = new Label();
             DeliveryAddressLabel = new Label();
-            panel1.SuspendLayout();
+            AddressPanel.SuspendLayout();
             SuspendLayout();
             // 
-            // panel1
+            // AddressPanel
             // 
-            panel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            panel1.Controls.Add(StreetLabel);
-            panel1.Controls.Add(StreetTextBox);
-            panel1.Controls.Add(CityTextBox);
-            panel1.Controls.Add(CountryTextBox);
-            panel1.Controls.Add(PostIndexTextBox);
-            panel1.Controls.Add(BuildingTextBox);
-            panel1.Controls.Add(ApartmentTextBox);
-            panel1.Controls.Add(ApartmentLabel);
-            panel1.Controls.Add(BuildingLabel);
-            panel1.Controls.Add(CountryLabel);
-            panel1.Controls.Add(CityLabel);
-            panel1.Controls.Add(PostIndexLabel);
-            panel1.Controls.Add(DeliveryAddressLabel);
-            panel1.Location = new Point(3, 3);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(402, 183);
-            panel1.TabIndex = 0;
+            AddressPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            AddressPanel.Controls.Add(StreetLabel);
+            AddressPanel.Controls.Add(StreetTextBox);
+            AddressPanel.Controls.Add(CityTextBox);
+            AddressPanel.Controls.Add(CountryTextBox);
+            AddressPanel.Controls.Add(PostIndexTextBox);
+            AddressPanel.Controls.Add(BuildingTextBox);
+            AddressPanel.Controls.Add(ApartmentTextBox);
+            AddressPanel.Controls.Add(ApartmentLabel);
+            AddressPanel.Controls.Add(BuildingLabel);
+            AddressPanel.Controls.Add(CountryLabel);
+            AddressPanel.Controls.Add(CityLabel);
+            AddressPanel.Controls.Add(PostIndexLabel);
+            AddressPanel.Controls.Add(DeliveryAddressLabel);
+            AddressPanel.Location = new Point(3, 3);
+            AddressPanel.Name = "AddressPanel";
+            AddressPanel.Size = new Size(402, 183);
+            AddressPanel.TabIndex = 0;
             // 
             // StreetLabel
             // 
@@ -188,17 +188,17 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(panel1);
+            Controls.Add(AddressPanel);
             Name = "AddressControl";
             Size = new Size(408, 189);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            AddressPanel.ResumeLayout(false);
+            AddressPanel.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Panel panel1;
+        private Panel AddressPanel;
         private Label CityLabel;
         private Label PostIndexLabel;
         private Label DeliveryAddressLabel;

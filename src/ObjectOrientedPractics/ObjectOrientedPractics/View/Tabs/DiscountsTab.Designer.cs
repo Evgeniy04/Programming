@@ -61,9 +61,10 @@
             DiscountsLabel.AutoSize = true;
             DiscountsLabel.Dock = DockStyle.Bottom;
             DiscountsLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            DiscountsLabel.Location = new Point(3, 11);
+            DiscountsLabel.Location = new Point(16, 11);
+            DiscountsLabel.Margin = new Padding(16, 0, 3, 0);
             DiscountsLabel.Name = "DiscountsLabel";
-            DiscountsLabel.Size = new Size(381, 20);
+            DiscountsLabel.Size = new Size(368, 20);
             DiscountsLabel.TabIndex = 0;
             DiscountsLabel.Text = "Discounts";
             // 
@@ -91,10 +92,11 @@
             // 
             DiscountsListBox.Dock = DockStyle.Fill;
             DiscountsListBox.FormattingEnabled = true;
-            DiscountsListBox.Location = new Point(3, 34);
+            DiscountsListBox.Location = new Point(16, 34);
+            DiscountsListBox.Margin = new Padding(16, 3, 3, 3);
             DiscountsListBox.Name = "DiscountsListBox";
             DiscountsTabTableLayoutPanel.SetRowSpan(DiscountsListBox, 3);
-            DiscountsListBox.Size = new Size(381, 172);
+            DiscountsListBox.Size = new Size(368, 172);
             DiscountsListBox.TabIndex = 3;
             // 
             // DiscountsTab

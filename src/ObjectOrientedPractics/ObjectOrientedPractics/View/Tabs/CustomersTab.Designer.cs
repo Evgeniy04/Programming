@@ -38,13 +38,13 @@
             IdLabel = new Label();
             CustomersLabel = new Label();
             CustomersTableLayoutPanel = new TableLayoutPanel();
+            DiscountsTab = new DiscountsTab();
             CustomerDataGenerateButton = new Button();
             RemoveItemButton = new Button();
             AddItemButton = new Button();
             CustomersListBox = new ListBox();
             AddressControl = new Controls.AddressControl();
             AddOrderGenerateButton = new Button();
-            discountsTab1 = new DiscountsTab();
             SelectedCustomerPanel.SuspendLayout();
             CustomersTableLayoutPanel.SuspendLayout();
             SuspendLayout();
@@ -143,7 +143,7 @@
             CustomersTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.6672163F));
             CustomersTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.03746F));
             CustomersTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57.92076F));
-            CustomersTableLayoutPanel.Controls.Add(discountsTab1, 3, 3);
+            CustomersTableLayoutPanel.Controls.Add(DiscountsTab, 3, 3);
             CustomersTableLayoutPanel.Controls.Add(CustomerDataGenerateButton, 2, 4);
             CustomersTableLayoutPanel.Controls.Add(CustomersLabel, 0, 0);
             CustomersTableLayoutPanel.Controls.Add(RemoveItemButton, 1, 4);
@@ -162,6 +162,16 @@
             CustomersTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
             CustomersTableLayoutPanel.Size = new Size(818, 542);
             CustomersTableLayoutPanel.TabIndex = 2;
+            // 
+            // DiscountsTab
+            // 
+            DiscountsTab.BackColor = SystemColors.ControlLightLight;
+            DiscountsTab.Dock = DockStyle.Fill;
+            DiscountsTab.Location = new Point(346, 353);
+            DiscountsTab.Name = "DiscountsTab";
+            CustomersTableLayoutPanel.SetRowSpan(DiscountsTab, 2);
+            DiscountsTab.Size = new Size(469, 186);
+            DiscountsTab.TabIndex = 3;
             // 
             // CustomerDataGenerateButton
             // 
@@ -237,15 +247,6 @@
             AddOrderGenerateButton.UseVisualStyleBackColor = true;
             AddOrderGenerateButton.Click += AddOrderGenerateButton_Click;
             // 
-            // discountsTab1
-            // 
-            discountsTab1.Dock = DockStyle.Fill;
-            discountsTab1.Location = new Point(346, 353);
-            discountsTab1.Name = "discountsTab1";
-            CustomersTableLayoutPanel.SetRowSpan(discountsTab1, 2);
-            discountsTab1.Size = new Size(469, 186);
-            discountsTab1.TabIndex = 3;
-            // 
             // CustomersTab
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -278,6 +279,6 @@
         private Controls.AddressControl AddressControl;
         private Button AddOrderGenerateButton;
         private CheckBox IsPriorityCheckBox;
-        private DiscountsTab discountsTab1;
+        private DiscountsTab DiscountsTab;
     }
 }
