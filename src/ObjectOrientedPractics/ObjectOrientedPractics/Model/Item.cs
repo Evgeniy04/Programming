@@ -1,4 +1,6 @@
-﻿using ObjectOrientedPractics.Model.Enums;
+﻿using ObjectOrientedPractics.Model.Discounts;
+using ObjectOrientedPractics.Model.Enums;
+using ObjectOrientedPractics.Model.Orders;
 using ObjectOrientedPractics.Services;
 using System;
 using System.Collections.Generic;
@@ -11,7 +13,7 @@ namespace ObjectOrientedPractics.Model
     /// <summary>
     /// Класс Item представляет объект товара.
     /// </summary>
-    public class Item
+    public class Item: ICloneable, IEquatable<Item>, IComparable<Item>
     {
         /// <summary>
         /// Категория товара.
@@ -118,9 +120,45 @@ namespace ObjectOrientedPractics.Model
             Category = category;
         }
 
+        /// <inheritdoc/>
         public override string ToString()
         {
             return Name;
+        }
+
+        /// <inheritdoc/>
+        public object Clone()
+        {
+            return new Item(Name, Info, Cost, Category);
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(Item? item2)
+        {
+            if (item2 == null)
+                return false;
+            if (object.ReferenceEquals(this, item2))
+                return true;
+            return (Id == item2.Id);
+        }
+
+        /// <inheritdoc/>
+        public int CompareTo(Item? item2)
+        {
+            if (item2 == null)
+                return 1;
+            if (object.ReferenceEquals(this, item2))
+                return 0;
+
+            if (Cost < item2.Cost)
+            {
+                return -1;
+            }
+            else if (Cost == item2.Cost)
+            {
+                return 0;
+            }
+            return 1;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace ObjectOrientedPractics.Model.Discounts
     /// <summary>
     /// Представляет скидку в процентах, основанную на общей сумме покупок в определенной категории.
     /// </summary>
-    public class PercentDiscount : IDiscount
+    public class PercentDiscount : IDiscount, IComparable<PercentDiscount>
     {
         /// <summary>
         /// Категория товаров, на которые распространяется скидка.
@@ -107,9 +107,30 @@ namespace ObjectOrientedPractics.Model.Discounts
             TotalSpent = totalSpent;
         }
 
+        /// <inheritdoc/>
         public override string ToString()
         {
             return Info;
+        }
+
+
+        /// <inheritdoc/>
+        public int CompareTo(PercentDiscount? percentDiscount2)
+        {
+            if (percentDiscount2 == null)
+                return 1;
+            if (object.ReferenceEquals(this, percentDiscount2))
+                return 0;
+
+            if (DiscountPercentage < percentDiscount2.DiscountPercentage)
+            {
+                return -1;
+            }
+            else if (DiscountPercentage == percentDiscount2.DiscountPercentage)
+            {
+                return 0;
+            }
+            return 1;
         }
     }
 }

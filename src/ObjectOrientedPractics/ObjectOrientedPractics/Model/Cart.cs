@@ -11,7 +11,7 @@ namespace ObjectOrientedPractics.Model
     /// <summary>
     /// Класс, представляющий корзину покупок.
     /// </summary>
-    public class Cart
+    public class Cart: ICloneable
     {
         /// <summary>
         /// Список товаров в корзине.
@@ -39,6 +39,14 @@ namespace ObjectOrientedPractics.Model
                 Items.ForEach(x => { sum += x.Cost; });
                 return Math.Round(sum, 2);
             }
+        }
+
+        /// <inheritdoc/>
+        public object Clone()
+        {
+            Cart copy = new();
+            copy.Items.AddRange([..Items]);
+            return copy;
         }
     }
 }

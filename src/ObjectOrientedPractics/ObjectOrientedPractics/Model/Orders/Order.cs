@@ -13,7 +13,7 @@ namespace ObjectOrientedPractics.Model.Orders
     /// <summary>
     /// Класс, представляющий заказ.
     /// </summary>
-    public class Order
+    public class Order: IEquatable<Order>
     {
         /// <summary>
         /// Уникальный идентификатор заказа.
@@ -144,6 +144,16 @@ namespace ObjectOrientedPractics.Model.Orders
             Address = address;
             Items = new List<Item>(items);
             DiscountAmount = discountAmount;
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(Order? order2)
+        {
+            if (order2 == null)
+                return false;
+            if (object.ReferenceEquals(this, order2))
+                return true;
+            return (Id == order2.Id);
         }
     }
     /// <summary>

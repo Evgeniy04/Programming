@@ -11,7 +11,7 @@ namespace ObjectOrientedPractics.Model.Discounts
     /// <summary>
     /// Представляет систему скидок на основе накопленных баллов.
     /// </summary>
-    class PointsDiscount : IDiscount
+    class PointsDiscount : IDiscount, IComparable<PointsDiscount>
     {
         /// <summary>
         /// Количество баллов.
@@ -103,9 +103,29 @@ namespace ObjectOrientedPractics.Model.Discounts
             PointsBalance = pointsBalance;
         }
 
+        /// <inheritdoc/>
         public override string ToString()
         {
             return Info;
+        }
+
+        /// <inheritdoc/>
+        public int CompareTo(PointsDiscount? pointsDiscount2)
+        {
+            if (pointsDiscount2 == null)
+                return 1;
+            if (object.ReferenceEquals(this, pointsDiscount2))
+                return 0;
+
+            if (PointsBalance < pointsDiscount2.PointsBalance)
+            {
+                return -1;
+            }
+            else if (PointsBalance == pointsDiscount2.PointsBalance)
+            {
+                return 0;
+            }
+            return 1;
         }
     }
 }
