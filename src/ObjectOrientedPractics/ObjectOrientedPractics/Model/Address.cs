@@ -52,8 +52,10 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
+                if (_index == value) return;
                 ValueValidator.AssertValueInRange(value, 100000, 1000000, nameof(Index));
                 _index = value;
+                AddressChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -71,8 +73,10 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
+                if (_country == value) return;
                 ValueValidator.AssertStringOnLength(value, 50, nameof(Country));
                 _country = value;
+                AddressChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -90,8 +94,10 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
+                if (_city == value) return;
                 ValueValidator.AssertStringOnLength(value, 50, nameof(City));
                 _city = value;
+                AddressChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -109,8 +115,10 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
+                if (_street == value) return;
                 ValueValidator.AssertStringOnLength(value, 100, nameof(Street));
                 _street = value;
+                AddressChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -128,8 +136,10 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
+                if (_building == value) return;
                 ValueValidator.AssertStringOnLength(value, 10, nameof(Building));
                 _building = value;
+                AddressChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -147,10 +157,16 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
+                if (_apartment == value) return;
                 ValueValidator.AssertStringOnLength(value, 10, nameof(Apartment));
                 _apartment = value;
+                AddressChanged?.Invoke(this, EventArgs.Empty);
             }
         }
+        /// <summary>
+        /// Событие изменения адреса.
+        /// </summary>
+        public event EventHandler<EventArgs> AddressChanged;
 
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Address"/> со значениями по умолчанию.
