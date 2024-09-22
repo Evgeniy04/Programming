@@ -65,6 +65,8 @@ namespace ObjectOrientedPractics
             CartsTab.Customers = _store.Customers;
 
             OrdersTab.Customers = _store.Customers;
+
+            ItemsTab.ItemsChanged += ItemsChanged;
         }
 
         /// <summary>
@@ -76,6 +78,18 @@ namespace ObjectOrientedPractics
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             File.WriteAllText(_appFolderPath + @"\data.json", JsonConvert.SerializeObject(_store, Formatting.Indented, _settings));
+        }
+
+        /// <summary>
+        /// Событие изменения товара.
+        /// </summary>
+        /// <param name="sender">Источник события.</param>
+        /// <param name="e">Аргументы.</param>
+        private void ItemsChanged(object? sender, EventArgs e)
+        {
+            //MessageBox.Show("Изменено!");
+            CartsTab.RefreshData();
+            OrdersTab.RefreshData();
         }
 
         /// <summary>
