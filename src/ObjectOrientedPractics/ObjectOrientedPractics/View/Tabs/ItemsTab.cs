@@ -52,6 +52,10 @@ namespace ObjectOrientedPractics.View.Tabs
                 SelectedItemEvent(true);
             }
         }
+        /// <summary>
+        /// Событие изменения товаров.
+        /// </summary>
+        public event EventHandler<EventArgs> ItemsChanged;
 
         /// <summary>
         /// Инициализирует новый экземпляр <c>ItemsTab</c>.
@@ -74,6 +78,7 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             Items.Add(new Item());
             UpdateItemsListBox();
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -88,6 +93,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 Items.Remove(_currentItem);
                 UpdateItemsListBox();
                 SelectedItemEvent(true);
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -106,6 +112,7 @@ namespace ObjectOrientedPractics.View.Tabs
             CategoryComboBox.SelectedItem = item.Category;
             ItemsListBox.SelectedItem = _currentItem;
             UpdateItemsListBox();
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -128,6 +135,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 CostTextBox.BackColor = Color.White;
                 _currentItem.Cost = cost;
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
             catch (ArgumentException error)
             {
@@ -151,6 +159,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 NameRichTextBox.BackColor = Color.White;
                 _currentItem.Name = NameRichTextBox.Text;
                 UpdateItemsListBox();
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
             catch (ArgumentException error)
             {
@@ -173,6 +182,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 DescriptionRichTextBox.BackColor = Color.White;
                 _currentItem.Info = DescriptionRichTextBox.Text;
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
             catch (ArgumentException error)
             {
@@ -218,6 +228,7 @@ namespace ObjectOrientedPractics.View.Tabs
             if (_currentItem == null || CategoryComboBox.SelectedItem == null || _isSystemChanged) return;
 
             _currentItem.Category = (Category)CategoryComboBox.SelectedItem;
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>

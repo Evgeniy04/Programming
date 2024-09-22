@@ -57,8 +57,10 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
+                if (_name == value) return;
                 ValueValidator.AssertStringOnLength(value, 200, nameof(Name));
                 _name = value;
+                NameChanged?.Invoke(this, EventArgs.Empty);
             }
         }
         /// <summary>
@@ -72,8 +74,10 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
+                if (_info == value) return;
                 ValueValidator.AssertStringOnLength(value, 2000, nameof(Info));
                 _info = value;
+                InfoChanged?.Invoke(this, EventArgs.Empty);
             }
         }
         /// <summary>
@@ -87,10 +91,24 @@ namespace ObjectOrientedPractics.Model
             }
             set
             {
+                if (_cost == value) return;
                 ValueValidator.AssertValueInRange(value, 0, 100000, nameof(Cost));
                 _cost = value;
+                CostChanged?.Invoke(this, EventArgs.Empty);
             }
         }
+        /// <summary>
+        /// Событие изменения названия товара.
+        /// </summary>
+        public event EventHandler<EventArgs> NameChanged;
+        /// <summary>
+        /// Событие изменения описания товара.
+        /// </summary>
+        public event EventHandler<EventArgs> InfoChanged;
+        /// <summary>
+        /// Событие изменения стоимости товара.
+        /// </summary>
+        public event EventHandler<EventArgs> CostChanged;
 
         /// <summary>
         /// Конструктор класса Item.
