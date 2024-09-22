@@ -46,6 +46,10 @@
             RemoveItemButton = new Button();
             AddItemButton = new Button();
             ItemsListBox = new ListBox();
+            FindLabel = new Label();
+            FindTextBox = new TextBox();
+            OrderByLabel = new Label();
+            SortComboBox = new ComboBox();
             SelectedItemPanel.SuspendLayout();
             ItemsTableLayoutPanel.SuspendLayout();
             SuspendLayout();
@@ -66,10 +70,10 @@
             SelectedItemPanel.Controls.Add(NameLabel);
             SelectedItemPanel.Controls.Add(CostLabel);
             SelectedItemPanel.Controls.Add(IdLabel);
-            SelectedItemPanel.Location = new Point(347, 3);
+            SelectedItemPanel.Location = new Point(429, 3);
             SelectedItemPanel.Name = "SelectedItemPanel";
-            ItemsTableLayoutPanel.SetRowSpan(SelectedItemPanel, 3);
-            SelectedItemPanel.Size = new Size(468, 406);
+            ItemsTableLayoutPanel.SetRowSpan(SelectedItemPanel, 5);
+            SelectedItemPanel.Size = new Size(386, 406);
             SelectedItemPanel.TabIndex = 3;
             // 
             // CategoryComboBox
@@ -108,7 +112,7 @@
             DescriptionRichTextBox.Location = new Point(13, 296);
             DescriptionRichTextBox.MinimumSize = new Size(196, 50);
             DescriptionRichTextBox.Name = "DescriptionRichTextBox";
-            DescriptionRichTextBox.Size = new Size(442, 92);
+            DescriptionRichTextBox.Size = new Size(360, 92);
             DescriptionRichTextBox.TabIndex = 13;
             DescriptionRichTextBox.Text = "";
             DescriptionRichTextBox.TextChanged += DescriptionRichTextBox_TextChanged;
@@ -119,7 +123,7 @@
             NameRichTextBox.Location = new Point(13, 188);
             NameRichTextBox.MinimumSize = new Size(196, 0);
             NameRichTextBox.Name = "NameRichTextBox";
-            NameRichTextBox.Size = new Size(442, 82);
+            NameRichTextBox.Size = new Size(360, 82);
             NameRichTextBox.TabIndex = 12;
             NameRichTextBox.Text = "";
             NameRichTextBox.TextChanged += NameRichTextBox_TextChanged;
@@ -185,29 +189,36 @@
             ItemsLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             ItemsLabel.Location = new Point(3, 11);
             ItemsLabel.Name = "ItemsLabel";
-            ItemsLabel.Size = new Size(152, 20);
+            ItemsLabel.Size = new Size(79, 20);
             ItemsLabel.TabIndex = 0;
             ItemsLabel.Text = "Items";
             // 
             // ItemsTableLayoutPanel
             // 
             ItemsTableLayoutPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            ItemsTableLayoutPanel.ColumnCount = 4;
-            ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.43765F));
-            ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.7139368F));
-            ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.02445F));
-            ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57.82396F));
-            ItemsTableLayoutPanel.Controls.Add(ItemDataGenerateButton, 2, 2);
+            ItemsTableLayoutPanel.ColumnCount = 5;
+            ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 85F));
+            ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 18.2642479F));
+            ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 18.2642479F));
+            ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.233161F));
+            ItemsTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 53.2383461F));
+            ItemsTableLayoutPanel.Controls.Add(ItemDataGenerateButton, 3, 4);
             ItemsTableLayoutPanel.Controls.Add(ItemsLabel, 0, 0);
-            ItemsTableLayoutPanel.Controls.Add(RemoveItemButton, 1, 2);
-            ItemsTableLayoutPanel.Controls.Add(AddItemButton, 0, 2);
-            ItemsTableLayoutPanel.Controls.Add(ItemsListBox, 0, 1);
-            ItemsTableLayoutPanel.Controls.Add(SelectedItemPanel, 3, 0);
+            ItemsTableLayoutPanel.Controls.Add(RemoveItemButton, 2, 4);
+            ItemsTableLayoutPanel.Controls.Add(AddItemButton, 0, 4);
+            ItemsTableLayoutPanel.Controls.Add(ItemsListBox, 0, 2);
+            ItemsTableLayoutPanel.Controls.Add(SelectedItemPanel, 4, 0);
+            ItemsTableLayoutPanel.Controls.Add(FindLabel, 0, 1);
+            ItemsTableLayoutPanel.Controls.Add(FindTextBox, 1, 1);
+            ItemsTableLayoutPanel.Controls.Add(OrderByLabel, 0, 3);
+            ItemsTableLayoutPanel.Controls.Add(SortComboBox, 1, 3);
             ItemsTableLayoutPanel.Location = new Point(0, 0);
             ItemsTableLayoutPanel.Name = "ItemsTableLayoutPanel";
-            ItemsTableLayoutPanel.RowCount = 3;
+            ItemsTableLayoutPanel.RowCount = 5;
             ItemsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 31F));
+            ItemsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 34F));
             ItemsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            ItemsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 34F));
             ItemsTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
             ItemsTableLayoutPanel.Size = new Size(818, 412);
             ItemsTableLayoutPanel.TabIndex = 1;
@@ -215,9 +226,9 @@
             // ItemDataGenerateButton
             // 
             ItemDataGenerateButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            ItemDataGenerateButton.Location = new Point(265, 367);
+            ItemDataGenerateButton.Location = new Point(354, 367);
             ItemDataGenerateButton.Name = "ItemDataGenerateButton";
-            ItemDataGenerateButton.Size = new Size(76, 42);
+            ItemDataGenerateButton.Size = new Size(69, 42);
             ItemDataGenerateButton.TabIndex = 2;
             ItemDataGenerateButton.Text = "Gen";
             ItemDataGenerateButton.UseVisualStyleBackColor = true;
@@ -226,9 +237,9 @@
             // RemoveItemButton
             // 
             RemoveItemButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            RemoveItemButton.Location = new Point(161, 367);
+            RemoveItemButton.Location = new Point(221, 367);
             RemoveItemButton.Name = "RemoveItemButton";
-            RemoveItemButton.Size = new Size(98, 42);
+            RemoveItemButton.Size = new Size(127, 42);
             RemoveItemButton.TabIndex = 5;
             RemoveItemButton.Text = "Remove";
             RemoveItemButton.UseVisualStyleBackColor = true;
@@ -237,9 +248,10 @@
             // AddItemButton
             // 
             AddItemButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            ItemsTableLayoutPanel.SetColumnSpan(AddItemButton, 2);
             AddItemButton.Location = new Point(3, 367);
             AddItemButton.Name = "AddItemButton";
-            AddItemButton.Size = new Size(152, 42);
+            AddItemButton.Size = new Size(212, 42);
             AddItemButton.TabIndex = 4;
             AddItemButton.Text = "Add";
             AddItemButton.UseVisualStyleBackColor = true;
@@ -247,15 +259,59 @@
             // 
             // ItemsListBox
             // 
-            ItemsListBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            ItemsTableLayoutPanel.SetColumnSpan(ItemsListBox, 3);
+            ItemsTableLayoutPanel.SetColumnSpan(ItemsListBox, 4);
+            ItemsListBox.Dock = DockStyle.Fill;
             ItemsListBox.FormattingEnabled = true;
-            ItemsListBox.Location = new Point(3, 34);
-            ItemsListBox.MinimumSize = new Size(0, 324);
+            ItemsListBox.Location = new Point(3, 68);
+            ItemsListBox.MinimumSize = new Size(0, 200);
             ItemsListBox.Name = "ItemsListBox";
-            ItemsListBox.Size = new Size(338, 324);
+            ItemsListBox.Size = new Size(420, 259);
             ItemsListBox.TabIndex = 4;
             ItemsListBox.SelectedIndexChanged += ItemsListBox_SelectedIndexChanged;
+            // 
+            // FindLabel
+            // 
+            FindLabel.AutoSize = true;
+            FindLabel.Dock = DockStyle.Fill;
+            FindLabel.Location = new Point(3, 31);
+            FindLabel.Name = "FindLabel";
+            FindLabel.Size = new Size(79, 34);
+            FindLabel.TabIndex = 6;
+            FindLabel.Text = "Find:";
+            FindLabel.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // FindTextBox
+            // 
+            ItemsTableLayoutPanel.SetColumnSpan(FindTextBox, 3);
+            FindTextBox.Dock = DockStyle.Fill;
+            FindTextBox.Location = new Point(88, 34);
+            FindTextBox.Name = "FindTextBox";
+            FindTextBox.Size = new Size(335, 27);
+            FindTextBox.TabIndex = 7;
+            FindTextBox.TextChanged += FindTextBox_TextChanged;
+            // 
+            // OrderByLabel
+            // 
+            OrderByLabel.AutoSize = true;
+            OrderByLabel.Dock = DockStyle.Fill;
+            OrderByLabel.Location = new Point(3, 330);
+            OrderByLabel.Name = "OrderByLabel";
+            OrderByLabel.Size = new Size(79, 34);
+            OrderByLabel.TabIndex = 8;
+            OrderByLabel.Text = "Order by:";
+            OrderByLabel.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // SortComboBox
+            // 
+            ItemsTableLayoutPanel.SetColumnSpan(SortComboBox, 3);
+            SortComboBox.Dock = DockStyle.Fill;
+            SortComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            SortComboBox.FormattingEnabled = true;
+            SortComboBox.Location = new Point(88, 333);
+            SortComboBox.Name = "SortComboBox";
+            SortComboBox.Size = new Size(335, 28);
+            SortComboBox.TabIndex = 9;
+            SortComboBox.SelectedIndexChanged += SortComboBox_SelectedIndexChanged;
             // 
             // ItemsTab
             // 
@@ -291,5 +347,9 @@
         private ComboBox CategoryComboBox;
         private Label CategoryLabel;
         public ListBox ItemsListBox;
+        private Label FindLabel;
+        private TextBox FindTextBox;
+        private Label OrderByLabel;
+        private ComboBox SortComboBox;
     }
 }
