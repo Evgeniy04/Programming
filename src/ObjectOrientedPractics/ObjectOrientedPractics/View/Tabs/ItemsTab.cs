@@ -48,7 +48,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 if (value == null) return;
                 _items = value;
-                ItemsListBox.Items.AddRange(value.ToArray());
+                UpdateItemsListBox();
                 SelectedItemEvent(true);
             }
         }
@@ -61,6 +61,8 @@ namespace ObjectOrientedPractics.View.Tabs
             InitializeComponent();
             SelectedItemEvent(true);
             CategoryComboBox.Items.AddRange(Enum.GetValues(typeof(Category)).Cast<object>().ToArray());
+            SortComboBox.Items.AddRange(["Name", "Cost (Ascending)", "Cost (Descending)"]);
+            SortComboBox.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -71,7 +73,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void AddItemButton_Click(object sender, EventArgs e)
         {
             Items.Add(new Item());
-            ItemsListBox.Items.Add(Items[Items.Count - 1]);
+            UpdateItemsListBox();
         }
 
         /// <summary>
@@ -84,7 +86,7 @@ namespace ObjectOrientedPractics.View.Tabs
             if (_currentItem != null)
             {
                 Items.Remove(_currentItem);
-                ItemsListBox.Items.Remove(_currentItem);
+                UpdateItemsListBox();
                 SelectedItemEvent(true);
             }
         }
@@ -103,6 +105,7 @@ namespace ObjectOrientedPractics.View.Tabs
             CostTextBox.Text = item.Cost.ToString();
             CategoryComboBox.SelectedItem = item.Category;
             ItemsListBox.SelectedItem = _currentItem;
+            UpdateItemsListBox();
         }
 
         /// <summary>
@@ -179,6 +182,32 @@ namespace ObjectOrientedPractics.View.Tabs
         }
 
         /// <summary>
+        /// Обрабатывает событие изменения текста в текстовом поле.
+        /// Обновляет список элементов, сбрасывает текущий элемент и уведомляет о выборе.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Событие, содержащее данные изменения текста.</param>
+        private void FindTextBox_TextChanged(object sender, EventArgs e)
+        {
+            UpdateItemsListBox();
+            _currentItem = new Item();
+            ItemsListBox.SelectedItem = null;
+            SelectedItemEvent(true);
+        }
+
+        /// <summary>
+        /// Обрабатывает событие изменения выбранного элемента в комбобоксе сортировки.
+        /// Обновляет список элементов и восстанавливает выбранный элемент.
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший событие.</param>
+        /// <param name="e">Событие, содержащее данные изменения выбранного элемента.</param>
+        private void SortComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateItemsListBox();
+            ItemsListBox.SelectedItem = _currentItem;
+        }
+
+        /// <summary>
         /// Обрабатывает событие изменения выбранного элемента в ComboBox категорий.
         /// Обновляет категорию текущего элемента, если выбор был изменен пользователем.
         /// </summary>
@@ -213,8 +242,25 @@ namespace ObjectOrientedPractics.View.Tabs
         /// </summary>
         private void UpdateItemsListBox()
         {
+            if (Items == null) return;
+
+            var filteredItems = DataTools.Filter(Items, (item) => item.Name.Contains(FindTextBox.Text, StringComparison.OrdinalIgnoreCase));
+            List<Item> sortedItems;
+
+            switch (SortComboBox.SelectedIndex)
+            {
+                case 1:
+                    sortedItems = DataTools.Sort(filteredItems, (item1, item2) => item1.Cost > item2.Cost);
+                    break;
+                case 2:
+                    sortedItems = DataTools.Sort(filteredItems, (item1, item2) => item1.Cost < item2.Cost);
+                    break;
+                default:
+                    sortedItems = DataTools.Sort(filteredItems, (item1, item2) => string.Compare(item1.Name, item2.Name, StringComparison.OrdinalIgnoreCase) > 0);
+                    break;
+            }
             ItemsListBox.Items.Clear();
-            ItemsListBox.Items.AddRange(Items.ToArray());
+            ItemsListBox.Items.AddRange(sortedItems.ToArray());
         }
 
         /// <summary>
