@@ -12,6 +12,9 @@ namespace EventsPractics.Model
         string _phoneNumber;
         string _address;
 
+        /// <summary>
+        /// ФИО пользователя.
+        /// </summary>
         public string Fullname
         {
             get
