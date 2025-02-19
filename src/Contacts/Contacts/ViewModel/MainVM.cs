@@ -88,11 +88,11 @@ namespace View.ViewModel
         /// </summary>
         public MainVM()
         {
-            SaveCommand = new SaveCommand(_ =>
+            SaveCommand = new RelayCommand(_ =>
             {
                 ContactSerializer.Save(Contact);
             });
-            LoadCommand = new LoadCommand(_ =>
+            LoadCommand = new RelayCommand(_ =>
             {
                 Contact = ContactSerializer.Load();
 

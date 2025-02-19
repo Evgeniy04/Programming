@@ -3,9 +3,9 @@
 namespace View.ViewModel
 {
     /// <summary>
-    /// Реализация команды загрузки.
+    /// Реализация команды сохранения.
     /// </summary>
-    internal class LoadCommand : ICommand
+    internal class RelayCommand : ICommand
     {
         /// <summary>
         /// Поле, содержащее делегат Action, который будет выполнен при вызове команды.
@@ -23,6 +23,7 @@ namespace View.ViewModel
         {
             _execute(parameter);
         }
+
         /// <summary>
         /// Метод, реализующий интерфейс ICommand. 
         /// Определяет, может ли команда быть выполнена в текущем состоянии приложения.
@@ -33,7 +34,6 @@ namespace View.ViewModel
         /// </param>
         /// <returns>Возвращает true, так как команда всегда может быть выполнена.</returns>
         public bool CanExecute(object? parameter) => true;
-
         /// <summary>
         /// Событие, реализующее интерфейс ICommand. 
         /// Уведомляет элементы управления, привязанные к команде, 
@@ -46,7 +46,7 @@ namespace View.ViewModel
         /// </summary>
         /// <param name="execute">Делегат Action, который будет выполнен при вызове команды.</param>
         /// <exception cref="ArgumentNullException">Выбрасывается, если переданный делегат execute равен null.</exception>
-        public LoadCommand(Action<object?> execute)
+        public RelayCommand(Action<object?> execute)
         {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute));
         }
