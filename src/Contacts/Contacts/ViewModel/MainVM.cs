@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Input;
 using View.Model;
 using View.Model.Enums;
 using View.Model.Services;
@@ -19,7 +15,11 @@ namespace View.ViewModel
         /// <summary>
         /// Модель контакта, данные которой отображаются и редактируются в View.
         /// </summary>
-        private Contact _selectedContact { get; set; }
+        private Contact? _selectedContact { get; set; }
+        /// <summary>
+        /// Временный экземпляр контакта для восстановления.
+        /// На случай, если пользователь прервёт редактирование.
+        /// </summary>
         private Contact _temporaryContact { get; set; }
         /// <summary>
         /// Состояние приложения.
@@ -28,6 +28,7 @@ namespace View.ViewModel
         /// <summary>
         /// Список контактов.
         /// </summary>
+        /// 
         public ObservableCollection<Contact> Contacts { get; set; } = new ObservableCollection<Contact>();
         /// <summary>
         /// Команда для добавления контакта.
@@ -50,14 +51,13 @@ namespace View.ViewModel
         /// </summary>
         public RelayCommand SaveCommand { get; }
         /// <summary>
-        /// Команда для загрузки данных контакта из файла.
-        /// </summary>
-        public RelayCommand LoadCommand { get; }
-        /// <summary>
         /// Событие, которое необходимо вызвать для уведомления View об изменениях свойств ViewModel.
         /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        /// <summary>
+        /// Состояние приложения.
+        /// </summary>
         private State State
         {
             get { return _state; }
@@ -78,10 +78,10 @@ namespace View.ViewModel
         /// </summary>
         public string Name
         {
-            get { return SelectedContact.Name; }
+            get { return SelectedContact != null ? SelectedContact.Name : ""; }
             set
             {
-                if (SelectedContact.Name != value)
+                if (SelectedContact != null && SelectedContact.Name != value)
                 {
                     SelectedContact.Name = value;
                     NotifyPropertyChanged();
@@ -93,10 +93,10 @@ namespace View.ViewModel
         /// </summary>
         public string PhoneNumber
         {
-            get { return SelectedContact.PhoneNumber; }
+            get { return SelectedContact != null ? SelectedContact.PhoneNumber : ""; }
             set
             {
-                if (SelectedContact.PhoneNumber != value)
+                if (SelectedContact != null && SelectedContact.PhoneNumber != value)
                 {
                     SelectedContact.PhoneNumber = value;
                     NotifyPropertyChanged();
@@ -108,10 +108,10 @@ namespace View.ViewModel
         /// </summary>
         public string Email
         { 
-            get { return SelectedContact.Email; }
+            get { return SelectedContact != null ? SelectedContact.Email : ""; }
             set
             {
-                if (SelectedContact.Email != value)
+                if (SelectedContact != null && SelectedContact.Email != value)
                 {
                     SelectedContact.Email = value;
                     NotifyPropertyChanged();
@@ -160,6 +160,9 @@ namespace View.ViewModel
                 return _selectedContact != null && State == State.Reading;
             }
         }
+        /// <summary>
+        /// Доступность кнопки Apply.
+        /// </summary>
         public bool IsApplyVisible
         {
             get => State != State.Reading;
@@ -169,12 +172,12 @@ namespace View.ViewModel
         /// <summary>
         /// Выбранный контакт.
         /// </summary>
-        public Contact SelectedContact
+        public Contact? SelectedContact
         {
-            get { return _selectedContact ?? new Contact(); }
+            get { return _selectedContact; }
             set
             {
-                if (State == State.Editing)
+                if (State == State.Editing && SelectedContact != null)
                 {
                     _temporaryContact.CopyValues(SelectedContact);
                 }
@@ -203,8 +206,12 @@ namespace View.ViewModel
         /// </summary>
         public MainVM()
         {
+            Contacts = ContactSerializer.Load();
+            NotifyPropertyChanged("");
+
             AddContactCommand = new RelayCommand(
                 _ => {
+                    SelectedContact = null;
                     SelectedContact = new Contact();
                     State = State.Adding;
                 },
@@ -212,6 +219,7 @@ namespace View.ViewModel
             );
             EditContactCommand = new RelayCommand(
                 _ => {
+                    if (SelectedContact == null) return;
                     _temporaryContact = SelectedContact.Clone();
                     State = State.Editing;
                 },
@@ -219,16 +227,27 @@ namespace View.ViewModel
             );
             ApplyCommand = new RelayCommand(
                 _ => {
-                    if (State == State.Adding)
-                    {
-                        Contacts.Add(SelectedContact);
-                    }
+                    if (SelectedContact == null) return;
+                    if (State == State.Adding) Contacts.Add(SelectedContact);
                     State = State.Reading;
                 }
             );
             RemoveContactCommand = new RelayCommand(
                 _ => {
+                    if (SelectedContact == null) return;
+
+                    int currentIndex = Contacts.IndexOf(SelectedContact);
                     Contacts.Remove(SelectedContact);
+
+                    if (Contacts.Count == 0)
+                    {
+                        SelectedContact = null;
+                    }
+                    else
+                    {
+                        int newIndex = Math.Min(currentIndex, Contacts.Count - 1);
+                        SelectedContact = Contacts[newIndex];
+                    }
                 },
                 _ => CanRemoveContact
             );
@@ -237,14 +256,6 @@ namespace View.ViewModel
             {
                 ContactSerializer.Save(Contacts);
             });
-            LoadCommand = new RelayCommand(_ =>
-            {
-                Contacts = ContactSerializer.Load();
-                NotifyPropertyChanged("");
-            });
-
-            Contacts.Add(new Contact("asd", "", ""));
-            Contacts.Add(new Contact("ggg", "", ""));
         }
     }
 }

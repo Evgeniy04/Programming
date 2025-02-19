@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using View.Model.Services;
 
@@ -99,6 +98,10 @@ namespace View.Model
             Email = "";
         }
 
+        /// <summary>
+        /// Копировать значения свойств из исходного объекта в переданный объект.
+        /// </summary>
+        /// <param name="otherContact">Другой объект.</param>
         public void CopyValues(Contact otherContact)
         {
             otherContact.Name = Name;
@@ -106,6 +109,10 @@ namespace View.Model
             otherContact.Email = Email;
         }
 
+        /// <summary>
+        /// Получить клон экземпляра класса.
+        /// </summary>
+        /// <returns>Новый экземпляр класса.</returns>
         public Contact Clone()
         {
             return (Contact)MemberwiseClone();

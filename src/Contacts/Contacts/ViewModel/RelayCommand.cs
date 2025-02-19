@@ -17,6 +17,9 @@ namespace View.ViewModel
         /// Поле, содержащее делегат Func, который будет выполнен для проверки возможности вызова команды.
         /// </summary>
         private readonly Func<object?, bool>? _canExecute;
+        /// <summary>
+        /// Событие изменения доступности комманды.
+        /// </summary>
         private event EventHandler? CanExecuteChangedInternal;
 
         /// <summary>
@@ -53,6 +56,9 @@ namespace View.ViewModel
             remove { CanExecuteChangedInternal -= value; }
         }
 
+        /// <summary>
+        /// Сообщить об изменениях доступности комманды.
+        /// </summary>
         public void RaiseCanExecuteChanged()
         {
             CanExecuteChangedInternal?.Invoke(this, EventArgs.Empty);
