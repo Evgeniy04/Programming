@@ -25,8 +25,17 @@
                 <Button Grid.Column="1" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="75"/>
                 <Button Grid.Column="2" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="75"/>
             </Grid>
-            <GroupBox Header="GroupBox" UseLayoutRounding="False" Margin="3,3,3,3"/>
-            <GroupBox Header="GroupBox" UseLayoutRounding="False" Margin="3,3,3,3" Grid.Column="1"/>
+            <GroupBox Header="Edit Contact" UseLayoutRounding="False" Margin="3,3,3,3">
+                <StackPanel>
+                    <Label Content="Label" Margin="3,3,3,3" Padding="0,0,0,0"/>
+                    <TextBox TextWrapping="Wrap" Text="TextBox" Margin="3,3,3,3"/>
+                    <Label Content="Label" Margin="3,3,3,3" Padding="0,0,0,0"/>
+                    <TextBox TextWrapping="Wrap" Text="TextBox" Margin="3,3,3,3"/>
+                    <Label Content="Label" Margin="3,3,3,3" Padding="0,0,0,0"/>
+                    <TextBox TextWrapping="Wrap" Text="TextBox" Margin="3,3,3,3"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Read Contact" UseLayoutRounding="False" Margin="3,3,3,3" Grid.Column="1"/>
         </Grid>
 
     </Grid>
