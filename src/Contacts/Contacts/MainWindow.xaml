@@ -5,14 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Contacts"
         mc:Ignorable="d"
-        Title="Contacts" Height="450" Width="800" Icon="/icon-user.png">
+        Title="Contacts" Height="450" Width="800" Icon="/icon-user.png" Padding="15,15,15,15">
     <Grid>
         <Grid Grid.RowSpan="2" ShowGridLines="True" Margin="15,15,15,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="31"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="1" ShowGridLines="True">
+            <Grid Grid.Row="1" ShowGridLines="True" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="81"/>
@@ -21,6 +25,8 @@
                 <Button Grid.Column="1" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="75"/>
                 <Button Grid.Column="2" Content="Button" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="75"/>
             </Grid>
+            <GroupBox Header="GroupBox" UseLayoutRounding="False" Margin="3,3,3,3"/>
+            <GroupBox Header="GroupBox" UseLayoutRounding="False" Margin="3,3,3,3" Grid.Column="1"/>
         </Grid>
 
     </Grid>
