@@ -63,7 +63,7 @@ namespace View.Model
         }
 
         /// <summary>
-        /// Конструктор класс Contact.
+        /// Конструктор класса.
         /// </summary>
         /// <param name="name">Имя.</param>
         /// <param name="phoneNumber">Номер телефона.</param>
@@ -73,6 +73,16 @@ namespace View.Model
             Name = name;
             PhoneNumber = phoneNumber;
             Email = email;
+        }
+
+        /// <summary>
+        /// Конструктор класса без параметров.
+        /// </summary>
+        public Contact()
+        {
+            Name = "name";
+            PhoneNumber = "";
+            Email = "email";
         }
     }
 }
