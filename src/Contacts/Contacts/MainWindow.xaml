@@ -23,12 +23,12 @@
             </Grid.ColumnDefinitions>
             <StackPanel Margin="3,3,3,3" Grid.ColumnSpan="2" Grid.Column="1">
                 <Label Content="Name:" Margin="3,3,3,3" Padding="0,0,0,0"/>
-                <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsReadOnlyContactTextBoxes}"/>
                 <Label Content="Phone Number:" Margin="3,3,3,3" Padding="0,0,0,0"/>
-                <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsReadOnlyContactTextBoxes}"/>
                 <Label Content="Email:" Margin="3,3,3,3" Padding="0,0,0,0"/>
-                <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <Button Content="Apply" Height="25" Margin="3,50,3,3" Width="75" HorizontalAlignment="Left" Command="{Binding ApplyCommand}"/>
+                <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsReadOnlyContactTextBoxes}"/>
+                <Button Content="Apply" Height="25" Margin="3,50,3,3" Width="75" HorizontalAlignment="Left" Command="{Binding ApplyCommand}" Visibility="Hidden"/>
             </StackPanel>
             <Image Height="100" VerticalAlignment="Top" Width="100" Source="/icon-user.png" Margin="3,28,3,0"/>
         </Grid>

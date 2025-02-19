@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using View.Model;
+using View.Model.Enums;
 using View.Model.Services;
 
 namespace View.ViewModel
@@ -18,6 +19,10 @@ namespace View.ViewModel
         /// Модель контакта, данные которой отображаются и редактируются в View.
         /// </summary>
         private Contact _selectedContact { get; set; } = new Contact();
+        /// <summary>
+        /// Состояние приложения.
+        /// </summary>
+        private State State { get; set; } = State.Reading;
         /// <summary>
         /// Список контактов.
         /// </summary>
@@ -94,6 +99,18 @@ namespace View.ViewModel
         }
 
         /// <summary>
+        /// Доступны ли текстовые поля редактирования контакта только для чтения.
+        /// </summary>
+        public bool IsReadOnlyContactTextBoxes
+        {
+            get
+            {
+                return State == State.Reading ? true : false ;
+            }
+        }
+
+
+        /// <summary>
         /// Выбранный контакт.
         /// </summary>
         public Contact SelectedContact
@@ -103,6 +120,7 @@ namespace View.ViewModel
             {
                 if (value != _selectedContact)
                 {
+                    State = State.Reading;
                     _selectedContact = value;
                     NotifyPropertyChanged("");
                 }
@@ -126,14 +144,22 @@ namespace View.ViewModel
             AddContactCommand = new RelayCommand(_ =>
             {
                 SelectedContact = new Contact();
+                State = State.Adding;
+                NotifyPropertyChanged("IsReadOnlyContactTextBoxes");
             });
             EditContactCommand = new RelayCommand(_ =>
             {
-                Contacts.Add(SelectedContact);
+                State = State.Editing;
+                NotifyPropertyChanged("IsReadOnlyContactTextBoxes");
             });
             ApplyCommand = new RelayCommand(_ =>
             {
-                Contacts.Add(SelectedContact);
+                if (State == State.Adding)
+                {
+                    Contacts.Add(SelectedContact);
+                }
+                State = State.Reading;
+                NotifyPropertyChanged("IsReadOnlyContactTextBoxes");
             });
 
             SaveCommand = new RelayCommand(_ =>
