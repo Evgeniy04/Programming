@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using View.Model.Services;
+﻿using View.Model.Services;
 
 namespace View.Model
 {
@@ -45,7 +40,7 @@ namespace View.Model
             get { return _phoneNumber; }
             set
             {
-                ValueValidator.AssertStringOnLength(value, 12, nameof(PhoneNumber));
+                ValueValidator.AssertStringOnLength(value, 25, nameof(PhoneNumber));
                 _phoneNumber = value;
             }
         }

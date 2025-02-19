@@ -26,17 +26,17 @@
                     <ColumnDefinition Width="81"/>
                     <ColumnDefinition Width="81"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="1" Content="Save" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="75"/>
-                <Button Grid.Column="2" Content="Load" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="75"/>
+                <Button Grid.Column="1" Content="Save" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="75" Command="{Binding SaveCommand}"/>
+                <Button Grid.Column="2" Content="Load" HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="75" Command="{Binding LoadCommand}"/>
             </Grid>
             <GroupBox Header="Edit Contact" UseLayoutRounding="False" Margin="3,3,3,3">
                 <StackPanel>
                     <Label Content="Name:" Margin="3,3,3,3" Padding="0,0,0,0"/>
-                    <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding Path=Name, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <Label Content="Phone Number:" Margin="3,3,3,3" Padding="0,0,0,0"/>
-                    <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding Path=PhoneNumber, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding Path=PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <Label Content="Email:" Margin="3,3,3,3" Padding="0,0,0,0"/>
-                    <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding Path=Email, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding Path=Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox Header="Read Contact" UseLayoutRounding="False" Margin="3,3,3,3" Grid.Column="1">

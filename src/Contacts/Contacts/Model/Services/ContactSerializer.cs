@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Newtonsoft.Json;
 
 namespace View.Model.Services
 {
     /// <summary>
-    /// Класс, предаставляющий методы для работы с памятью.
+    /// Класс, предаставляющий методы для работы с памятью и сериализацией данных.
     /// </summary>
     internal static class ContactSerializer
     {
@@ -39,7 +33,7 @@ namespace View.Model.Services
         /// <summary>
         /// Загрузить данные.
         /// </summary>
-        public static void Load()
+        public static Contact Load()
         {
             Contact contact = new Contact();
             if (!Directory.Exists(AppFolderPath))
@@ -47,11 +41,11 @@ namespace View.Model.Services
                 Directory.CreateDirectory(AppFolderPath);
             }
 
-            if (File.Exists(AppFolderPath + @"\data.json"))
+            if (File.Exists(AppFolderPath + @"\contacts.json"))
             {
                 try
                 {
-                    Contact data = JsonConvert.DeserializeObject<Contact>(File.ReadAllText(AppFolderPath + @"\data.json"), Settings)!;
+                    Contact data = JsonConvert.DeserializeObject<Contact>(File.ReadAllText(AppFolderPath + @"\contacts.json"), Settings)!;
                     if (data != null) contact = data;
                 }
                 catch
@@ -59,6 +53,7 @@ namespace View.Model.Services
                     Console.WriteLine();
                 }
             }
+            return contact;
         }
     }
 }
