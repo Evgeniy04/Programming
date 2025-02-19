@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using View.Model.Services;
 
@@ -96,6 +97,18 @@ namespace View.Model
             Name = "";
             PhoneNumber = "";
             Email = "";
+        }
+
+        public void CopyValues(Contact otherContact)
+        {
+            otherContact.Name = Name;
+            otherContact.PhoneNumber = PhoneNumber;
+            otherContact.Email = Email;
+        }
+
+        public Contact Clone()
+        {
+            return (Contact)MemberwiseClone();
         }
 
         public override string ToString()

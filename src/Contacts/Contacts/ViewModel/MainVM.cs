@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -18,11 +19,12 @@ namespace View.ViewModel
         /// <summary>
         /// Модель контакта, данные которой отображаются и редактируются в View.
         /// </summary>
-        private Contact _selectedContact { get; set; } = new Contact();
+        private Contact _selectedContact { get; set; }
+        private Contact _temporaryContact { get; set; }
         /// <summary>
         /// Состояние приложения.
         /// </summary>
-        private State State { get; set; } = State.Reading;
+        private State _state = State.Reading;
         /// <summary>
         /// Список контактов.
         /// </summary>
@@ -30,28 +32,47 @@ namespace View.ViewModel
         /// <summary>
         /// Команда для добавления контакта.
         /// </summary>
-        public ICommand AddContactCommand { get; }
+        public RelayCommand AddContactCommand { get; }
         /// <summary>
         /// Команда для редактирования контакта.
         /// </summary>
-        public ICommand EditContactCommand { get; }
+        public RelayCommand EditContactCommand { get; }
         /// <summary>
         /// Команда для подтверждения действия.
         /// </summary>
-        public ICommand ApplyCommand { get; }
+        public RelayCommand ApplyCommand { get; }
+        /// <summary>
+        /// Команда для удаления контакта.
+        /// </summary>
+        public RelayCommand RemoveContactCommand { get; }
         /// <summary>
         /// Команда для сохранения данных контакта в файл.
         /// </summary>
-        public ICommand SaveCommand { get; }
+        public RelayCommand SaveCommand { get; }
         /// <summary>
         /// Команда для загрузки данных контакта из файла.
         /// </summary>
-        public ICommand LoadCommand { get; }
+        public RelayCommand LoadCommand { get; }
         /// <summary>
         /// Событие, которое необходимо вызвать для уведомления View об изменениях свойств ViewModel.
         /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        private State State
+        {
+            get { return _state; }
+            set
+            {
+                if (_state == value) return;
+
+                _state = value;
+                NotifyPropertyChanged("IsReadOnlyContactTextBoxes");
+                NotifyPropertyChanged("IsApplyVisible");
+                EditContactCommand.RaiseCanExecuteChanged();
+                AddContactCommand.RaiseCanExecuteChanged();
+                RemoveContactCommand.RaiseCanExecuteChanged();
+            }
+        }
         /// <summary>
         /// Имя контакта, связанное с соответствующим полем в View.
         /// </summary>
@@ -105,8 +126,43 @@ namespace View.ViewModel
         {
             get
             {
-                return State == State.Reading ? true : false ;
+                return State == State.Reading ? true : false;
             }
+        }
+
+        /// <summary>
+        /// Определяет, доступна ли кнопка добавления контакта.
+        /// </summary>
+        public bool CanAddContact
+        {
+            get
+            {
+                return State == State.Reading;
+            }
+        }
+        /// <summary>
+        /// Определяет, доступна ли кнопка редактирования контакта.
+        /// </summary>
+        public bool CanEditContact
+        {
+            get
+            {
+                return _selectedContact != null && State == State.Reading;
+            }
+        }
+        /// <summary>
+        /// Определяет, доступна ли кнопка удаления контакта.
+        /// </summary>
+        public bool CanRemoveContact
+        {
+            get
+            {
+                return _selectedContact != null && State == State.Reading;
+            }
+        }
+        public bool IsApplyVisible
+        {
+            get => State != State.Reading;
         }
 
 
@@ -115,14 +171,20 @@ namespace View.ViewModel
         /// </summary>
         public Contact SelectedContact
         {
-            get { return _selectedContact; }
+            get { return _selectedContact ?? new Contact(); }
             set
             {
+                if (State == State.Editing)
+                {
+                    _temporaryContact.CopyValues(SelectedContact);
+                }
                 if (value != _selectedContact)
                 {
                     State = State.Reading;
                     _selectedContact = value;
                     NotifyPropertyChanged("");
+                    EditContactCommand.RaiseCanExecuteChanged();
+                    RemoveContactCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -141,26 +203,35 @@ namespace View.ViewModel
         /// </summary>
         public MainVM()
         {
-            AddContactCommand = new RelayCommand(_ =>
-            {
-                SelectedContact = new Contact();
-                State = State.Adding;
-                NotifyPropertyChanged("IsReadOnlyContactTextBoxes");
-            });
-            EditContactCommand = new RelayCommand(_ =>
-            {
-                State = State.Editing;
-                NotifyPropertyChanged("IsReadOnlyContactTextBoxes");
-            });
-            ApplyCommand = new RelayCommand(_ =>
-            {
-                if (State == State.Adding)
-                {
-                    Contacts.Add(SelectedContact);
+            AddContactCommand = new RelayCommand(
+                _ => {
+                    SelectedContact = new Contact();
+                    State = State.Adding;
+                },
+                _ => CanAddContact
+            );
+            EditContactCommand = new RelayCommand(
+                _ => {
+                    _temporaryContact = SelectedContact.Clone();
+                    State = State.Editing;
+                },
+                _ => CanEditContact
+            );
+            ApplyCommand = new RelayCommand(
+                _ => {
+                    if (State == State.Adding)
+                    {
+                        Contacts.Add(SelectedContact);
+                    }
+                    State = State.Reading;
                 }
-                State = State.Reading;
-                NotifyPropertyChanged("IsReadOnlyContactTextBoxes");
-            });
+            );
+            RemoveContactCommand = new RelayCommand(
+                _ => {
+                    Contacts.Remove(SelectedContact);
+                },
+                _ => CanRemoveContact
+            );
 
             SaveCommand = new RelayCommand(_ =>
             {
