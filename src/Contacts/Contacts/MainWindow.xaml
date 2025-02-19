@@ -27,15 +27,24 @@
             </Grid>
             <GroupBox Header="Edit Contact" UseLayoutRounding="False" Margin="3,3,3,3">
                 <StackPanel>
-                    <Label Content="Label" Margin="3,3,3,3" Padding="0,0,0,0"/>
-                    <TextBox TextWrapping="Wrap" Text="TextBox" Margin="3,3,3,3"/>
-                    <Label Content="Label" Margin="3,3,3,3" Padding="0,0,0,0"/>
-                    <TextBox TextWrapping="Wrap" Text="TextBox" Margin="3,3,3,3"/>
-                    <Label Content="Label" Margin="3,3,3,3" Padding="0,0,0,0"/>
-                    <TextBox TextWrapping="Wrap" Text="TextBox" Margin="3,3,3,3"/>
+                    <Label Content="Name:" Margin="3,3,3,3" Padding="0,0,0,0"/>
+                    <TextBox TextWrapping="Wrap" Margin="3,3,3,3"/>
+                    <Label Content="Phone Number:" Margin="3,3,3,3" Padding="0,0,0,0"/>
+                    <TextBox TextWrapping="Wrap" Margin="3,3,3,3"/>
+                    <Label Content="Email:" Margin="3,3,3,3" Padding="0,0,0,0"/>
+                    <TextBox TextWrapping="Wrap" Margin="3,3,3,3"/>
                 </StackPanel>
             </GroupBox>
-            <GroupBox Header="Read Contact" UseLayoutRounding="False" Margin="3,3,3,3" Grid.Column="1"/>
+            <GroupBox Header="Read Contact" UseLayoutRounding="False" Margin="3,3,3,3" Grid.Column="1">
+                <StackPanel>
+                    <Label Content="Name:" Padding="0,0,0,0" Margin="3,3,3,3"/>
+                    <Label Content="a" Padding="0,0,0,0" Margin="3,3,3,3" FontWeight="Bold"/>
+                    <Label Content="Phone Number:" Padding="0,0,0,0" Margin="3,3,3,3"/>
+                    <Label Content="a" Padding="0,0,0,0" Margin="3,3,3,3" FontWeight="Bold"/>
+                    <Label Content="Email:" Padding="0,0,0,0" Margin="3,3,3,3"/>
+                    <Label Content="a" Padding="0,0,0,0" Margin="3,3,3,3" FontWeight="Bold"/>
+                </StackPanel>
+            </GroupBox>
         </Grid>
 
     </Grid>
