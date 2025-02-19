@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.ObjectModel;
+using System.IO;
 using Newtonsoft.Json;
 
 namespace View.Model.Services
@@ -26,16 +27,16 @@ namespace View.Model.Services
         /// Сохранить данные.
         /// </summary>
         /// <param name="contact"></param>
-        public static void Save(Contact contact)
+        public static void Save(ObservableCollection<Contact> contact)
         {
             File.WriteAllText(AppFolderPath + @"\contacts.json", JsonConvert.SerializeObject(contact, Formatting.Indented, Settings));
         }
         /// <summary>
         /// Загрузить данные.
         /// </summary>
-        public static Contact Load()
+        public static ObservableCollection<Contact> Load()
         {
-            Contact contact = new Contact();
+            ObservableCollection<Contact> contact = new ObservableCollection<Contact>();
             if (!Directory.Exists(AppFolderPath))
             {
                 Directory.CreateDirectory(AppFolderPath);
@@ -45,7 +46,7 @@ namespace View.Model.Services
             {
                 try
                 {
-                    Contact data = JsonConvert.DeserializeObject<Contact>(File.ReadAllText(AppFolderPath + @"\contacts.json"), Settings)!;
+                    ObservableCollection<Contact> data = JsonConvert.DeserializeObject<ObservableCollection<Contact>>(File.ReadAllText(AppFolderPath + @"\contacts.json"), Settings)!;
                     if (data != null) contact = data;
                 }
                 catch

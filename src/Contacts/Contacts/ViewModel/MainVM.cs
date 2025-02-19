@@ -1,5 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 using View.Model;
 using View.Model.Services;
@@ -11,10 +14,19 @@ namespace View.ViewModel
     /// </summary>
     internal class MainVM : INotifyPropertyChanged
     {
+        public ObservableCollection<Contact> Contacts { get; set; } = new ObservableCollection<Contact>();
         /// <summary>
         /// Модель контакта, данные которой отображаются и редактируются в View.
         /// </summary>
-        private Contact Contact { get; set; } = new Contact("", "", "");
+        private Contact? _selectedContact { get; set; }
+        /// <summary>
+        /// Команда для добавления контакта.
+        /// </summary>
+        public ICommand AddContactCommand { get; }
+        /// <summary>
+        /// Команда для подтверждения действия.
+        /// </summary>
+        public ICommand ApplyCommand { get; }
         /// <summary>
         /// Команда для сохранения данных контакта в файл.
         /// </summary>
@@ -33,12 +45,12 @@ namespace View.ViewModel
         /// </summary>
         public string Name
         {
-            get { return Contact.Name; }
+            get { return SelectedContact.Name; }
             set
             {
-                if (Contact.Name != value)
+                if (SelectedContact.Name != value)
                 {
-                    Contact.Name = value;
+                    SelectedContact.Name = value;
                     NotifyPropertyChanged();
                 }
             }
@@ -48,12 +60,12 @@ namespace View.ViewModel
         /// </summary>
         public string PhoneNumber
         {
-            get { return Contact.PhoneNumber; }
+            get { return SelectedContact.PhoneNumber; }
             set
             {
-                if (Contact.PhoneNumber != value)
+                if (SelectedContact.PhoneNumber != value)
                 {
-                    Contact.PhoneNumber = value;
+                    SelectedContact.PhoneNumber = value;
                     NotifyPropertyChanged();
                 }
             }
@@ -63,13 +75,28 @@ namespace View.ViewModel
         /// </summary>
         public string Email
         { 
-            get { return Contact.Email; }
+            get { return SelectedContact.Email; }
             set
             {
-                if (Contact.Email != value)
+                if (SelectedContact.Email != value)
                 {
-                    Contact.Email = value;
+                    SelectedContact.Email = value;
                     NotifyPropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Выбранный контакт.
+        /// </summary>
+        public Contact SelectedContact
+        {
+            get { return _selectedContact ?? new Contact(); }
+            set
+            {
+                if (value != _selectedContact)
+                {
+                    _selectedContact = value;
                 }
             }
         }
@@ -88,13 +115,25 @@ namespace View.ViewModel
         /// </summary>
         public MainVM()
         {
+            AddContactCommand = new RelayCommand(_ =>
+            {
+                SelectedContact = new Contact();
+                NotifyPropertyChanged(nameof(Name));
+                NotifyPropertyChanged(nameof(PhoneNumber));
+                NotifyPropertyChanged(nameof(Email));
+            });
+            ApplyCommand = new RelayCommand(_ =>
+            {
+                Contacts.Add(SelectedContact);
+            });
+
             SaveCommand = new RelayCommand(_ =>
             {
-                ContactSerializer.Save(Contact);
+                ContactSerializer.Save(Contacts);
             });
             LoadCommand = new RelayCommand(_ =>
             {
-                Contact = ContactSerializer.Load();
+                Contacts = ContactSerializer.Load();
 
                 NotifyPropertyChanged(nameof(Name));
                 NotifyPropertyChanged(nameof(PhoneNumber));

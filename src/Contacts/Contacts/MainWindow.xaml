@@ -23,12 +23,12 @@
             </Grid.ColumnDefinitions>
             <StackPanel Margin="3,3,3,3" Grid.ColumnSpan="2" Grid.Column="1">
                 <Label Content="Name:" Margin="3,3,3,3" Padding="0,0,0,0"/>
-                <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding Name, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Content="Phone Number:" Margin="3,3,3,3" Padding="0,0,0,0"/>
-                <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding PhoneNumber, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Content="Email:" Margin="3,3,3,3" Padding="0,0,0,0"/>
-                <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <Button Content="Apply" Height="25" Margin="3,50,3,3" Width="75" HorizontalAlignment="Left"/>
+                <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding Email, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Content="Apply" Height="25" Margin="3,50,3,3" Width="75" HorizontalAlignment="Left" Command="{Binding ApplyCommand}"/>
             </StackPanel>
             <Image Height="100" VerticalAlignment="Top" Width="100" Source="/icon-user.png" Margin="3,28,3,0"/>
         </Grid>
@@ -44,11 +44,11 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Content="Add" Margin="3,3,3,3" VerticalAlignment="Top" Height="25"/>
+                <Button Content="Add" Margin="3,3,3,3" VerticalAlignment="Top" Height="25" Command="{Binding AddContactCommand}"/>
                 <Button Content="Edit" Margin="3,3,3,3" VerticalAlignment="Top" Height="25" Grid.Column="1"/>
                 <Button Content="Remove" Margin="3,3,3,3" VerticalAlignment="Top" Height="25" Grid.Column="2"/>
             </Grid>
-            <ListBox Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" Background="#FFF8F8F8" Margin="11,3,11,3"/>
+            <ListBox Grid.Row="1" ItemsSource="{Binding Contacts}" SelectedValue="" Background="#FFF8F8F8" Margin="11,3,11,3" />
             <Grid Margin="8,8,8,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
