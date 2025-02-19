@@ -14,15 +14,22 @@ namespace View.ViewModel
     /// </summary>
     internal class MainVM : INotifyPropertyChanged
     {
-        public ObservableCollection<Contact> Contacts { get; set; } = new ObservableCollection<Contact>();
         /// <summary>
         /// Модель контакта, данные которой отображаются и редактируются в View.
         /// </summary>
-        private Contact? _selectedContact { get; set; }
+        private Contact _selectedContact { get; set; } = new Contact();
+        /// <summary>
+        /// Список контактов.
+        /// </summary>
+        public ObservableCollection<Contact> Contacts { get; set; } = new ObservableCollection<Contact>();
         /// <summary>
         /// Команда для добавления контакта.
         /// </summary>
         public ICommand AddContactCommand { get; }
+        /// <summary>
+        /// Команда для редактирования контакта.
+        /// </summary>
+        public ICommand EditContactCommand { get; }
         /// <summary>
         /// Команда для подтверждения действия.
         /// </summary>
@@ -91,12 +98,13 @@ namespace View.ViewModel
         /// </summary>
         public Contact SelectedContact
         {
-            get { return _selectedContact ?? new Contact(); }
+            get { return _selectedContact; }
             set
             {
                 if (value != _selectedContact)
                 {
                     _selectedContact = value;
+                    NotifyPropertyChanged("");
                 }
             }
         }
@@ -118,9 +126,10 @@ namespace View.ViewModel
             AddContactCommand = new RelayCommand(_ =>
             {
                 SelectedContact = new Contact();
-                NotifyPropertyChanged(nameof(Name));
-                NotifyPropertyChanged(nameof(PhoneNumber));
-                NotifyPropertyChanged(nameof(Email));
+            });
+            EditContactCommand = new RelayCommand(_ =>
+            {
+                Contacts.Add(SelectedContact);
             });
             ApplyCommand = new RelayCommand(_ =>
             {
@@ -134,11 +143,11 @@ namespace View.ViewModel
             LoadCommand = new RelayCommand(_ =>
             {
                 Contacts = ContactSerializer.Load();
-
-                NotifyPropertyChanged(nameof(Name));
-                NotifyPropertyChanged(nameof(PhoneNumber));
-                NotifyPropertyChanged(nameof(Email));
+                NotifyPropertyChanged("");
             });
+
+            Contacts.Add(new Contact("asd", "", ""));
+            Contacts.Add(new Contact("ggg", "", ""));
         }
     }
 }
