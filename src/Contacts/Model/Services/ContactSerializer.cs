@@ -2,12 +2,12 @@
 using System.IO;
 using Newtonsoft.Json;
 
-namespace View.Model.Services
+namespace Model.Services
 {
     /// <summary>
     /// Класс, предаставляющий методы для работы с памятью и сериализацией данных.
     /// </summary>
-    internal static class ContactSerializer
+    public static class ContactSerializer
     {
         /// <summary>
         /// Настройки сериализатора.

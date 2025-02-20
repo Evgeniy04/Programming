@@ -1,22 +1,22 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using View.Model;
-using View.Model.Enums;
-using View.Model.Services;
+using Model;
+using Model.Enums;
+using Model.Services;
 
-namespace View.ViewModel
+namespace ViewModel
 {
     /// <summary>
     /// ViewModel для главного окна приложения, отвечает за взаимодействие между View и Model.
     /// </summary>
-    internal partial class MainVM : ObservableObject
+    public partial class MainVM : ObservableObject
     {
         /// <summary>
         /// Временный экземпляр контакта для восстановления.
         /// На случай, если пользователь прервёт редактирование.
         /// </summary>
-        private Contact _temporaryContact { get; set; }
+        private Contact _temporaryContact = new();
 
         /// <summary>
         /// Модель контакта, данные которой отображаются и редактируются в View.

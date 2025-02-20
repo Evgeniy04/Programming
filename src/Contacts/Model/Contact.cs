@@ -1,25 +1,25 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace View.Model
+namespace Model
 {
     /// <summary>
     /// Класс, представляющий контакт.
     /// </summary>
-    internal partial class Contact : ObservableValidator
+    public partial class Contact : ObservableValidator
     {
         /// <summary>
         /// Имя.
         /// </summary>
-        private string _name;
+        private string _name = string.Empty;
         /// <summary>
         /// Номер телефона.
         /// </summary>
-        private string _phoneNumber;
+        private string _phoneNumber = string.Empty;
         /// <summary>
         /// Электронная почта.
         /// </summary>
-        private string _email;
+        private string _email = string.Empty;
 
         /// <summary>
         /// Имя.

@@ -50,7 +50,7 @@
                          Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                 <Button Content="Apply" Height="25" Margin="3,50,3,3" Width="75" HorizontalAlignment="Left" Command="{Binding ApplyCommand}" Visibility="{Binding IsApplyVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </StackPanel>
-            <Image Height="100" VerticalAlignment="Top" Width="100" Source="/icon-user.png" Margin="3,28,3,0"/>
+            <Image Height="100" VerticalAlignment="Top" Width="100" Source="/Control/icon-user.png" Margin="3,28,3,0"/>
         </Grid>
 
     </Grid>
