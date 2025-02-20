@@ -38,10 +38,12 @@
                          IsReadOnly="{Binding IsReadOnlyContactTextBoxes}"
                          Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                 <Label Content="Phone Number:" Margin="3,3,3,3" Padding="0,0,0,0"/>
-                <TextBox TextWrapping="Wrap" Margin="3,3,3,3"
+                <TextBox x:Name="PhoneNumberTextBox" TextWrapping="Wrap" Margin="3,3,3,3"
                          Text="{Binding SelectedContact.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}" 
                          IsReadOnly="{Binding IsReadOnlyContactTextBoxes}"
-                         Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+                         Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
+                         PreviewTextInput="PhoneNumberTextBox_PreviewTextInput"
+                         DataObject.Pasting="PhoneNumberTextBox_Pasting"/>
                 <Label Content="Email:" Margin="3,3,3,3" Padding="0,0,0,0"/>
                 <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding SelectedContact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}" 
                          IsReadOnly="{Binding IsReadOnlyContactTextBoxes}"
