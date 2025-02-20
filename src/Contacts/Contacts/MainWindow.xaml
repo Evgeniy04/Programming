@@ -10,6 +10,15 @@
         Title="Contacts" Height="450" Width="800" Icon="/icon-user.png" Padding="15,15,15,15">
     <Window.Resources>
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <DataTemplate x:Key="contactTemplate">
+            <StackPanel Orientation="Horizontal">
+                <Image Height="30" Width="30" Source="/icon-user.png" Margin="0,0,3,0"/>
+                <StackPanel Margin="3">
+                    <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                    <TextBlock Text="{Binding PhoneNumber}"/>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
     </Window.Resources>
     <Window.DataContext>
         <ViewModel:MainVM/>
@@ -58,7 +67,8 @@
                 <Button Content="Edit" Margin="3,3,3,3" VerticalAlignment="Top" Height="25" Grid.Column="1" Command="{Binding EditContactCommand}"/>
                 <Button Content="Remove" Margin="3,3,3,3" VerticalAlignment="Top" Height="25" Grid.Column="2" Command="{Binding RemoveContactCommand}"/>
             </Grid>
-            <ListBox Grid.Row="1" ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedContact, Mode=TwoWay}" DisplayMemberPath="Name" Background="#f8f8f8" Margin="11,3,11,3" />
+            <ListBox Grid.Row="1" ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedContact, Mode=TwoWay}"
+                     Background="#f8f8f8" Margin="11,3,11,3" ItemTemplate="{StaticResource contactTemplate}" />
             <Grid Margin="8,8,8,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
