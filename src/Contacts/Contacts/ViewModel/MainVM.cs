@@ -73,51 +73,6 @@ namespace View.ViewModel
                 RemoveContactCommand.RaiseCanExecuteChanged();
             }
         }
-        /// <summary>
-        /// Имя контакта, связанное с соответствующим полем в View.
-        /// </summary>
-        public string Name
-        {
-            get { return SelectedContact != null ? SelectedContact.Name : ""; }
-            set
-            {
-                if (SelectedContact != null && SelectedContact.Name != value)
-                {
-                    SelectedContact.Name = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        /// <summary>
-        /// Номер телефона контакта, связанный с соответствующим полем в View.
-        /// </summary>
-        public string PhoneNumber
-        {
-            get { return SelectedContact != null ? SelectedContact.PhoneNumber : ""; }
-            set
-            {
-                if (SelectedContact != null && SelectedContact.PhoneNumber != value)
-                {
-                    SelectedContact.PhoneNumber = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-        /// <summary>
-        /// Адрес электронной почты контакта, связанный с соответствующим полем в View.
-        /// </summary>
-        public string Email
-        { 
-            get { return SelectedContact != null ? SelectedContact.Email : ""; }
-            set
-            {
-                if (SelectedContact != null && SelectedContact.Email != value)
-                {
-                    SelectedContact.Email = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
 
         /// <summary>
         /// Доступны ли текстовые поля редактирования контакта только для чтения.
@@ -227,7 +182,7 @@ namespace View.ViewModel
             );
             ApplyCommand = new RelayCommand(
                 _ => {
-                    if (SelectedContact == null) return;
+                    if (SelectedContact == null || SelectedContact.HasErrors()) return;
                     if (State == State.Adding) Contacts.Add(SelectedContact);
                     State = State.Reading;
                 }
