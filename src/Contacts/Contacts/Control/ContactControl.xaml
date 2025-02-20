@@ -9,6 +9,22 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <ControlTemplate x:Key="ErrorTemplate">
+            <DockPanel LastChildFill="True">
+                <Border BorderBrush="Red" BorderThickness="1">
+                    <AdornedElementPlaceholder />
+                </Border>
+            </DockPanel>
+        </ControlTemplate>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                    Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                    Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <Grid Background="White">
         <Grid HorizontalAlignment="Stretch" Height="NaN" VerticalAlignment="Stretch" Width="NaN">
@@ -18,11 +34,18 @@
             </Grid.ColumnDefinitions>
             <StackPanel Margin="3,3,3,3" Grid.ColumnSpan="2" Grid.Column="1">
                 <Label Content="Name:" Margin="3,3,3,3" Padding="0,0,0,0"/>
-                <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding SelectedContact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsReadOnlyContactTextBoxes}"/>
+                <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding SelectedContact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}" 
+                         IsReadOnly="{Binding IsReadOnlyContactTextBoxes}"
+                         Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                 <Label Content="Phone Number:" Margin="3,3,3,3" Padding="0,0,0,0"/>
-                <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding SelectedContact.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsReadOnlyContactTextBoxes}"/>
+                <TextBox TextWrapping="Wrap" Margin="3,3,3,3"
+                         Text="{Binding SelectedContact.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}" 
+                         IsReadOnly="{Binding IsReadOnlyContactTextBoxes}"
+                         Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                 <Label Content="Email:" Margin="3,3,3,3" Padding="0,0,0,0"/>
-                <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding SelectedContact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsReadOnlyContactTextBoxes}"/>
+                <TextBox TextWrapping="Wrap" Margin="3,3,3,3" Text="{Binding SelectedContact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}" 
+                         IsReadOnly="{Binding IsReadOnlyContactTextBoxes}"
+                         Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                 <Button Content="Apply" Height="25" Margin="3,50,3,3" Width="75" HorizontalAlignment="Left" Command="{Binding ApplyCommand}" Visibility="{Binding IsApplyVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </StackPanel>
             <Image Height="100" VerticalAlignment="Top" Width="100" Source="/icon-user.png" Margin="3,28,3,0"/>

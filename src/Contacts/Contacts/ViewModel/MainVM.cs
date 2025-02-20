@@ -182,7 +182,7 @@ namespace View.ViewModel
             );
             ApplyCommand = new RelayCommand(
                 _ => {
-                    if (SelectedContact == null) return;
+                    if (SelectedContact == null || SelectedContact.HasErrors()) return;
                     if (State == State.Adding) Contacts.Add(SelectedContact);
                     State = State.Reading;
                 }
