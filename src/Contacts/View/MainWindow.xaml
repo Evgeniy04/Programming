@@ -3,13 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Contacts"
-        xmlns:ViewModel="clr-namespace:View.ViewModel" xmlns:Model="clr-namespace:View.Model"
+        xmlns:local="clr-namespace:View"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:Control="clr-namespace:View.Control" x:Class="Contacts.MainWindow"
+        xmlns:Control="clr-namespace:View.Control" x:Class="View.MainWindow"
+        xmlns:ViewModel="clr-namespace:ViewModel;assembly=ViewModel"
         mc:Ignorable="d"
-        Title="Contacts" Height="450" Width="800" Icon="/icon-user.png" Padding="15,15,15,15"
-        >
+        Title="Contacts" Height="450" Width="800" Icon="/icon-user.png" Padding="15,15,15,15">
     <Window.DataContext>
         <ViewModel:MainVM/>
     </Window.DataContext>
