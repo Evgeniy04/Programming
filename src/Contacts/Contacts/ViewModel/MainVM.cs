@@ -1,6 +1,6 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System.Collections.ObjectModel;
 using View.Model;
 using View.Model.Enums;
 using View.Model.Services;
@@ -10,150 +10,135 @@ namespace View.ViewModel
     /// <summary>
     /// ViewModel для главного окна приложения, отвечает за взаимодействие между View и Model.
     /// </summary>
-    internal class MainVM : INotifyPropertyChanged
+    internal partial class MainVM : ObservableObject
     {
-        /// <summary>
-        /// Модель контакта, данные которой отображаются и редактируются в View.
-        /// </summary>
-        private Contact? _selectedContact { get; set; }
         /// <summary>
         /// Временный экземпляр контакта для восстановления.
         /// На случай, если пользователь прервёт редактирование.
         /// </summary>
         private Contact _temporaryContact { get; set; }
+
+        /// <summary>
+        /// Модель контакта, данные которой отображаются и редактируются в View.
+        /// </summary>
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(EditContactCommand))]
+        [NotifyCanExecuteChangedFor(nameof(RemoveContactCommand))]
+        private Contact? _selectedContact;
+
         /// <summary>
         /// Состояние приложения.
         /// </summary>
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsReadOnlyContactTextBoxes))]
+        [NotifyPropertyChangedFor(nameof(IsApplyVisible))]
+        [NotifyCanExecuteChangedFor(nameof(EditContactCommand))]
+        [NotifyCanExecuteChangedFor(nameof(AddContactCommand))]
+        [NotifyCanExecuteChangedFor(nameof(RemoveContactCommand))]
         private State _state = State.Reading;
+
         /// <summary>
         /// Список контактов.
         /// </summary>
-        /// 
         public ObservableCollection<Contact> Contacts { get; set; } = new ObservableCollection<Contact>();
+
         /// <summary>
         /// Команда для добавления контакта.
         /// </summary>
-        public RelayCommand AddContactCommand { get; }
+        [RelayCommand(CanExecute = nameof(CanAddContact))]
+        public void AddContact()
+        {
+            SelectedContact = null;
+            SelectedContact = new Contact();
+            State = State.Adding;
+        }
+
         /// <summary>
         /// Команда для редактирования контакта.
         /// </summary>
-        public RelayCommand EditContactCommand { get; }
-        /// <summary>
-        /// Команда для подтверждения действия.
-        /// </summary>
-        public RelayCommand ApplyCommand { get; }
+        [RelayCommand(CanExecute = nameof(CanEditContact))]
+        public void EditContact()
+        {
+            if (SelectedContact == null) return;
+            _temporaryContact = SelectedContact.Clone();
+            State = State.Editing;
+        }
+
         /// <summary>
         /// Команда для удаления контакта.
         /// </summary>
-        public RelayCommand RemoveContactCommand { get; }
-        /// <summary>
-        /// Команда для сохранения данных контакта в файл.
-        /// </summary>
-        public RelayCommand SaveCommand { get; }
-        /// <summary>
-        /// Событие, которое необходимо вызвать для уведомления View об изменениях свойств ViewModel.
-        /// </summary>
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        /// <summary>
-        /// Состояние приложения.
-        /// </summary>
-        private State State
+        [RelayCommand(CanExecute = nameof(CanRemoveContact))]
+        public void RemoveContact()
         {
-            get { return _state; }
-            set
-            {
-                if (_state == value) return;
+            if (SelectedContact == null) return;
 
-                _state = value;
-                NotifyPropertyChanged("IsReadOnlyContactTextBoxes");
-                NotifyPropertyChanged("IsApplyVisible");
-                EditContactCommand.RaiseCanExecuteChanged();
-                AddContactCommand.RaiseCanExecuteChanged();
-                RemoveContactCommand.RaiseCanExecuteChanged();
+            int currentIndex = Contacts.IndexOf(SelectedContact);
+            Contacts.Remove(SelectedContact);
+
+            if (Contacts.Count == 0)
+            {
+                SelectedContact = null;
+            }
+            else
+            {
+                int newIndex = Math.Min(currentIndex, Contacts.Count - 1);
+                SelectedContact = Contacts[newIndex];
             }
         }
 
         /// <summary>
-        /// Доступны ли текстовые поля редактирования контакта только для чтения.
+        /// Команда для подтверждения действия.
         /// </summary>
-        public bool IsReadOnlyContactTextBoxes
+        [RelayCommand]
+        public void Apply()
         {
-            get
-            {
-                return State == State.Reading ? true : false;
-            }
+            if (SelectedContact == null || SelectedContact.GetErrors().Any()) return;
+            if (State == State.Adding) Contacts.Add(SelectedContact);
+            State = State.Reading;
+        }
+
+        /// <summary>
+        /// Команда для сохранения данных контакта в файл.
+        /// </summary>
+        [RelayCommand]
+        public void Save()
+        {
+            ContactSerializer.Save(Contacts);
         }
 
         /// <summary>
         /// Определяет, доступна ли кнопка добавления контакта.
         /// </summary>
-        public bool CanAddContact
-        {
-            get
-            {
-                return State == State.Reading;
-            }
-        }
+        public bool CanAddContact => State == State.Reading;
         /// <summary>
         /// Определяет, доступна ли кнопка редактирования контакта.
         /// </summary>
-        public bool CanEditContact
-        {
-            get
-            {
-                return _selectedContact != null && State == State.Reading;
-            }
-        }
+        public bool CanEditContact => SelectedContact != null && State == State.Reading;
         /// <summary>
         /// Определяет, доступна ли кнопка удаления контакта.
         /// </summary>
-        public bool CanRemoveContact
-        {
-            get
-            {
-                return _selectedContact != null && State == State.Reading;
-            }
-        }
+        public bool CanRemoveContact => SelectedContact != null && State == State.Reading;
+        /// <summary>
+        /// Доступны ли текстовые поля редактирования контакта только для чтения.
+        /// </summary>
+        public bool IsReadOnlyContactTextBoxes => State == State.Reading ? true : false;
         /// <summary>
         /// Доступность кнопки Apply.
         /// </summary>
-        public bool IsApplyVisible
-        {
-            get => State != State.Reading;
-        }
-
+        public bool IsApplyVisible => State != State.Reading;
 
         /// <summary>
-        /// Выбранный контакт.
+        /// Изменение выбранного контакта.
         /// </summary>
-        public Contact? SelectedContact
+        /// <param name="oldValue">Старое значение.</param>
+        /// <param name="newValue">Новое значение.</param>
+        partial void OnSelectedContactChanged(Contact? oldValue, Contact? newValue)
         {
-            get { return _selectedContact; }
-            set
+            if (State == State.Editing && oldValue != null)
             {
-                if (State == State.Editing && SelectedContact != null)
-                {
-                    _temporaryContact.CopyValues(SelectedContact);
-                }
-                if (value != _selectedContact)
-                {
-                    State = State.Reading;
-                    _selectedContact = value;
-                    NotifyPropertyChanged("");
-                    EditContactCommand.RaiseCanExecuteChanged();
-                    RemoveContactCommand.RaiseCanExecuteChanged();
-                }
+                _temporaryContact.CopyValues(oldValue);
             }
-        }
-
-        /// <summary>
-        /// Метод для уведомления View об изменении значения свойства.
-        /// </summary>
-        /// <param name="propertyName">Имя изменившегося свойства (автоматически подставляется компилятором).</param>
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            State = State.Reading;
         }
 
         /// <summary>
@@ -162,55 +147,6 @@ namespace View.ViewModel
         public MainVM()
         {
             Contacts = ContactSerializer.Load();
-            NotifyPropertyChanged("");
-
-            AddContactCommand = new RelayCommand(
-                _ => {
-                    SelectedContact = null;
-                    SelectedContact = new Contact();
-                    State = State.Adding;
-                },
-                _ => CanAddContact
-            );
-            EditContactCommand = new RelayCommand(
-                _ => {
-                    if (SelectedContact == null) return;
-                    _temporaryContact = SelectedContact.Clone();
-                    State = State.Editing;
-                },
-                _ => CanEditContact
-            );
-            ApplyCommand = new RelayCommand(
-                _ => {
-                    if (SelectedContact == null || SelectedContact.HasErrors()) return;
-                    if (State == State.Adding) Contacts.Add(SelectedContact);
-                    State = State.Reading;
-                }
-            );
-            RemoveContactCommand = new RelayCommand(
-                _ => {
-                    if (SelectedContact == null) return;
-
-                    int currentIndex = Contacts.IndexOf(SelectedContact);
-                    Contacts.Remove(SelectedContact);
-
-                    if (Contacts.Count == 0)
-                    {
-                        SelectedContact = null;
-                    }
-                    else
-                    {
-                        int newIndex = Math.Min(currentIndex, Contacts.Count - 1);
-                        SelectedContact = Contacts[newIndex];
-                    }
-                },
-                _ => CanRemoveContact
-            );
-
-            SaveCommand = new RelayCommand(_ =>
-            {
-                ContactSerializer.Save(Contacts);
-            });
         }
     }
 }
