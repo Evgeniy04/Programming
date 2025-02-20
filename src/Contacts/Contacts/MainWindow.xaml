@@ -8,7 +8,11 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:Control="clr-namespace:View.Control" x:Class="Contacts.MainWindow"
         mc:Ignorable="d"
-        Title="Contacts" Height="450" Width="800" Icon="/icon-user.png" Padding="15,15,15,15">
+        Title="Contacts" Height="450" Width="800" Icon="/icon-user.png" Padding="15,15,15,15"
+        >
+    <Window.DataContext>
+        <ViewModel:MainVM/>
+    </Window.DataContext>
     <Window.Resources>
         <DataTemplate x:Key="contactTemplate">
             <StackPanel Orientation="Horizontal">
@@ -20,9 +24,6 @@
             </StackPanel>
         </DataTemplate>
     </Window.Resources>
-    <Window.DataContext>
-        <ViewModel:MainVM/>
-    </Window.DataContext>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
             <i:InvokeCommandAction Command="{Binding SaveCommand}"/>
@@ -61,7 +62,7 @@
                 <Label Content="Find:" Padding="0,0,0,0" Margin="3,3,3,3" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             </Grid>
         </Grid>
-        <Control:ContactControl DataContext="{Binding SelectedContact}" Grid.Column="1" Height="NaN" Width="NaN" Margin="11,11,11,11" />
+        <Control:ContactControl Grid.Column="1" Height="NaN" Width="NaN" Margin="11,11,11,11" />
         <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="3" Background="White"/>
     </Grid>
 </Window>
