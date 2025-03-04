@@ -16,40 +16,48 @@ namespace View.ViewModel
         /// Модель контакта, данные которой отображаются и редактируются в View.
         /// </summary>
         private Contact? _selectedContact { get; set; }
+
         /// <summary>
         /// Временный экземпляр контакта для восстановления.
         /// На случай, если пользователь прервёт редактирование.
         /// </summary>
         private Contact _temporaryContact { get; set; }
+
         /// <summary>
         /// Состояние приложения.
         /// </summary>
         private State _state = State.Reading;
+
         /// <summary>
         /// Список контактов.
         /// </summary>
-        /// 
         public ObservableCollection<Contact> Contacts { get; set; } = new ObservableCollection<Contact>();
+
         /// <summary>
         /// Команда для добавления контакта.
         /// </summary>
         public RelayCommand AddContactCommand { get; }
+
         /// <summary>
         /// Команда для редактирования контакта.
         /// </summary>
         public RelayCommand EditContactCommand { get; }
+
         /// <summary>
         /// Команда для подтверждения действия.
         /// </summary>
         public RelayCommand ApplyCommand { get; }
+
         /// <summary>
         /// Команда для удаления контакта.
         /// </summary>
         public RelayCommand RemoveContactCommand { get; }
+
         /// <summary>
         /// Команда для сохранения данных контакта в файл.
         /// </summary>
         public RelayCommand SaveCommand { get; }
+
         /// <summary>
         /// Событие, которое необходимо вызвать для уведомления View об изменениях свойств ViewModel.
         /// </summary>
@@ -73,6 +81,7 @@ namespace View.ViewModel
                 RemoveContactCommand.RaiseCanExecuteChanged();
             }
         }
+
         /// <summary>
         /// Имя контакта, связанное с соответствующим полем в View.
         /// </summary>
@@ -88,6 +97,7 @@ namespace View.ViewModel
                 }
             }
         }
+
         /// <summary>
         /// Номер телефона контакта, связанный с соответствующим полем в View.
         /// </summary>
@@ -103,6 +113,7 @@ namespace View.ViewModel
                 }
             }
         }
+
         /// <summary>
         /// Адрес электронной почты контакта, связанный с соответствующим полем в View.
         /// </summary>
@@ -140,6 +151,7 @@ namespace View.ViewModel
                 return State == State.Reading;
             }
         }
+
         /// <summary>
         /// Определяет, доступна ли кнопка редактирования контакта.
         /// </summary>
@@ -150,6 +162,7 @@ namespace View.ViewModel
                 return _selectedContact != null && State == State.Reading;
             }
         }
+
         /// <summary>
         /// Определяет, доступна ли кнопка удаления контакта.
         /// </summary>
@@ -160,6 +173,7 @@ namespace View.ViewModel
                 return _selectedContact != null && State == State.Reading;
             }
         }
+
         /// <summary>
         /// Доступность кнопки Apply.
         /// </summary>
@@ -167,7 +181,6 @@ namespace View.ViewModel
         {
             get => State != State.Reading;
         }
-
 
         /// <summary>
         /// Выбранный контакт.
@@ -195,7 +208,8 @@ namespace View.ViewModel
         /// <summary>
         /// Метод для уведомления View об изменении значения свойства.
         /// </summary>
-        /// <param name="propertyName">Имя изменившегося свойства (автоматически подставляется компилятором).</param>
+        /// <param name="propertyName">Имя изменившегося свойства 
+        /// (автоматически подставляется компилятором).</param>
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

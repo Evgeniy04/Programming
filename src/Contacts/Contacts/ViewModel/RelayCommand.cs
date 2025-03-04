@@ -13,10 +13,12 @@ namespace View.ViewModel
         /// который может быть использован для передачи данных в команду.
         /// </summary>
         private readonly Action<object?> _execute;
+
         /// <summary>
         /// Поле, содержащее делегат Func, который будет выполнен для проверки возможности вызова команды.
         /// </summary>
         private readonly Func<object?, bool>? _canExecute;
+
         /// <summary>
         /// Событие изменения доступности комманды.
         /// </summary>
@@ -26,7 +28,8 @@ namespace View.ViewModel
         /// Метод, реализующий интерфейс ICommand. 
         /// Выполняет делегат Action, переданный в конструкторе.
         /// </summary>
-        /// <param name="parameter">Параметр, передаваемый в команду из View. Может быть null, если параметр не требуется.</param>
+        /// <param name="parameter">Параметр, передаваемый в команду из View. Может быть null, 
+        /// если параметр не требуется.</param>
         public void Execute(object? parameter)
         {
             _execute(parameter);
@@ -45,6 +48,7 @@ namespace View.ViewModel
         {
             return _canExecute == null || _canExecute(parameter);
         }
+
         /// <summary>
         /// Событие, реализующее интерфейс ICommand. 
         /// Уведомляет элементы управления, привязанные к команде, 
@@ -67,9 +71,12 @@ namespace View.ViewModel
         /// <summary>
         /// Конструктор класса.
         /// </summary>
-        /// <param name="execute">Делегат Action, который будет выполнен при вызове команды.</param>
-        /// <param name="canExecute">Делегат Func, который будет выполнен для проверки возможности вызова команды.</param>
-        /// <exception cref="ArgumentNullException">Выбрасывается, если переданный делегат execute равен null.</exception>
+        /// <param name="execute">Делегат Action, 
+        /// который будет выполнен при вызове команды.</param>
+        /// <param name="canExecute">Делегат Func, который будет выполнен для 
+        /// проверки возможности вызова команды.</param>
+        /// <exception cref="ArgumentNullException">Выбрасывается, 
+        /// если переданный делегат execute равен null.</exception>
         public RelayCommand(Action<object?> execute, Func<object?, bool>? canExecute = null)
         {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute));

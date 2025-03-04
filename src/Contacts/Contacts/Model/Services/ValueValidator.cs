@@ -11,10 +11,12 @@
         /// <param name="value">Проверяемая строка.</param>
         /// <param name="maxLength">Максимальная допустимая длина строки.</param>
         /// <param name="propertyName">Имя свойства, к которому относится данная строка.</param>
-        /// <exception cref="ArgumentException">Выбрасывается, если длина строка выходит за допустимые пределы.</exception>
+        /// <exception cref="ArgumentException">Выбрасывается,
+        /// если длина строка выходит за допустимые пределы.</exception>
         public static void AssertStringOnLength(string value, int maxLength, string propertyName)
         {
-            if (value.Length < 0 || value.Length >= maxLength) throw new ArgumentException($"{propertyName} должен быть меньше {maxLength} символов.");
+            if (value.Length < 0 || value.Length >= maxLength) throw new ArgumentException
+                    ($"{propertyName} должен быть меньше {maxLength} символов.");
         }
 
         /// <summary>
@@ -43,10 +45,12 @@
         /// <param name="value">Проверяемое значение.</param>
         /// <param name="min">Минимальное значение в диапазоне (включительно).</param>
         /// <param name="max">Максимальное значение в диапазоне (исключительно).</param>
-        /// <exception cref="ArgumentException">Выбрасывается, если значение находится вне заданного диапазона.</exception>
+        /// <exception cref="ArgumentException">Выбрасывается,
+        /// если значение находится вне заданного диапазона.</exception>
         public static void AssertValueInRange(int value, int min, int max, string propertyName)
         {
-            if (value < min || value >= max) throw new ArgumentException($"{propertyName} должен быть больше {min}, но меньше {max}.");
+            if (value < min || value >= max) throw new ArgumentException
+                    ($"{propertyName} должен быть больше {min}, но меньше {max}.");
         }
 
         /// <summary>
@@ -55,10 +59,12 @@
         /// <param name="value">Проверяемое значение.</param>
         /// <param name="min">Минимальное значение в диапазоне (включительно).</param>
         /// <param name="max">Максимальное значение в диапазоне (исключительно).</param>
-        /// <exception cref="ArgumentException">Выбрасывается, если значение находится вне заданного диапазона.</exception>
+        /// <exception cref="ArgumentException">Выбрасывается,
+        /// если значение находится вне заданного диапазона.</exception>
         public static void AssertValueInRange(double value, double min, double max, string propertyName)
         {
-            if (value < min || value >= max) throw new ArgumentException($"{propertyName} должен быть больше {min}, но меньше {max}.");
+            if (value < min || value >= max) throw new ArgumentException
+                    ($"{propertyName} должен быть больше {min}, но меньше {max}.");
         }
     }
 }
