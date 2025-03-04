@@ -8,7 +8,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:Control="clr-namespace:View.Control" x:Class="Contacts.MainWindow"
         mc:Ignorable="d"
-        Title="Contacts" Height="450" Width="800" Icon="/icon-user.png" Padding="15,15,15,15"
+        Title="Contacts" MinHeight="450" MinWidth="800" Height="450" Width="800" Icon="/icon-user.png" Padding="15"
         >
     <Window.DataContext>
         <ViewModel:MainVM/>
@@ -37,9 +37,9 @@
         <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="3" Grid.ColumnSpan="1" Background="White"/>
         <Grid Background="#FFF8F8F8">
             <Grid.RowDefinitions>
-                <RowDefinition Height="32"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition/>
-                <RowDefinition Height="39"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="2" Margin="8,0,8,8">
                 <Grid.ColumnDefinitions>
@@ -47,22 +47,22 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Content="Add" Margin="3,3,3,3" VerticalAlignment="Top" Height="25" Command="{Binding AddContactCommand}"/>
-                <Button Content="Edit" Margin="3,3,3,3" VerticalAlignment="Top" Height="25" Grid.Column="1" Command="{Binding EditContactCommand}"/>
-                <Button Content="Remove" Margin="3,3,3,3" VerticalAlignment="Top" Height="25" Grid.Column="2" Command="{Binding RemoveContactCommand}"/>
+                <Button Content="Add" Margin="3" VerticalAlignment="Top" Height="25" Command="{Binding AddContactCommand}"/>
+                <Button Content="Edit" Margin="3" VerticalAlignment="Top" Height="25" Grid.Column="1" Command="{Binding EditContactCommand}"/>
+                <Button Content="Remove" Margin="3" VerticalAlignment="Top" Height="25" Grid.Column="2" Command="{Binding RemoveContactCommand}"/>
             </Grid>
             <ListBox Grid.Row="1" ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedContact, Mode=TwoWay}"
-                     Background="#f8f8f8" Margin="11,3,11,3" ItemTemplate="{StaticResource contactTemplate}" />
+                     Background="#f8f8f8" Margin="11,3" ItemTemplate="{StaticResource contactTemplate}" />
             <Grid Margin="8,8,8,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBox TextWrapping="Wrap" Text="" Margin="3,3,3,3" Grid.Column="1"/>
-                <Label Content="Find:" Padding="0,0,0,0" Margin="3,3,3,3" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBox TextWrapping="Wrap" Text="" Margin="3" Grid.Column="1"/>
+                <Label Content="Find:" Padding="0" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             </Grid>
         </Grid>
-        <Control:ContactControl Grid.Column="1" Height="NaN" Width="NaN" Margin="11,11,11,11" />
+        <Control:ContactControl Grid.Column="1" Height="NaN" Width="NaN" Margin="11" />
         <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="3" Background="White"/>
     </Grid>
 </Window>
