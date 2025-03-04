@@ -12,16 +12,18 @@ namespace View.Model.Services
         /// <summary>
         /// Настройки сериализатора.
         /// </summary>
-        static JsonSerializerSettings Settings { get; } = new JsonSerializerSettings
+        private static JsonSerializerSettings Settings { get; } = new JsonSerializerSettings
         {
             PreserveReferencesHandling = PreserveReferencesHandling.Objects,
             TypeNameHandling = TypeNameHandling.All,
             Formatting = Formatting.Indented
         };
+
         /// <summary>
         /// Путь до каталога с сохранением.
         /// </summary>
-        static string AppFolderPath { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Contacts");
+        private static string AppFolderPath { get; } = Path.Combine(Environment.GetFolderPath
+            (Environment.SpecialFolder.MyDocuments), "Contacts");
 
         /// <summary>
         /// Сохранить данные.
@@ -29,8 +31,10 @@ namespace View.Model.Services
         /// <param name="contact"></param>
         public static void Save(ObservableCollection<Contact> contact)
         {
-            File.WriteAllText(AppFolderPath + @"\contacts.json", JsonConvert.SerializeObject(contact, Formatting.Indented, Settings));
+            File.WriteAllText(AppFolderPath + @"\contacts.json",
+                JsonConvert.SerializeObject(contact, Formatting.Indented, Settings));
         }
+
         /// <summary>
         /// Загрузить данные.
         /// </summary>
@@ -46,7 +50,9 @@ namespace View.Model.Services
             {
                 try
                 {
-                    ObservableCollection<Contact> data = JsonConvert.DeserializeObject<ObservableCollection<Contact>>(File.ReadAllText(AppFolderPath + @"\contacts.json"), Settings)!;
+                    ObservableCollection<Contact> data = JsonConvert.DeserializeObject
+                        <ObservableCollection<Contact>>
+                        (File.ReadAllText(AppFolderPath + @"\contacts.json"), Settings)!;
                     if (data != null) contact = data;
                 }
                 catch
