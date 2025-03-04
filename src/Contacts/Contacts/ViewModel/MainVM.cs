@@ -74,8 +74,8 @@ namespace View.ViewModel
                 if (_state == value) return;
 
                 _state = value;
-                NotifyPropertyChanged("IsReadOnlyContactTextBoxes");
-                NotifyPropertyChanged("IsApplyVisible");
+                NotifyPropertyChanged(nameof(IsReadOnlyContactTextBoxes));
+                NotifyPropertyChanged(nameof(IsApplyVisible));
                 EditContactCommand.RaiseCanExecuteChanged();
                 AddContactCommand.RaiseCanExecuteChanged();
                 RemoveContactCommand.RaiseCanExecuteChanged();
