@@ -13,20 +13,23 @@ namespace View.Model
         /// <summary>
         /// Имя.
         /// </summary>
-        string _name;
+        private string _name;
+
         /// <summary>
         /// Номер телефона.
         /// </summary>
-        string _phoneNumber;
+        private string _phoneNumber;
+
         /// <summary>
         /// Электронная почта.
         /// </summary>
-        string _email;
+        private string _email;
 
         /// <summary>
         /// Событие, которое необходимо вызвать для уведомления View об изменениях свойств Contact.
         /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
+
         /// <summary>
         /// Получить или изменить имя.
         /// </summary>
@@ -39,6 +42,7 @@ namespace View.Model
                 NotifyPropertyChanged();
             }
         }
+
         /// <summary>
         /// Получить или изменить номер телефона.
         /// </summary>
@@ -51,6 +55,7 @@ namespace View.Model
                 NotifyPropertyChanged();
             }
         }
+
         /// <summary>
         /// Получить или изменить электронную почту.
         /// </summary>
