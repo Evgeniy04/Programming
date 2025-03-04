@@ -72,7 +72,8 @@ namespace View.Model
         /// <summary>
         /// Метод для уведомления View об изменении значения свойства.
         /// </summary>
-        /// <param name="propertyName">Имя изменившегося свойства (автоматически подставляется компилятором).</param>
+        /// <param name="propertyName">Имя изменившегося свойства 
+        /// (автоматически подставляется компилятором).</param>
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -119,7 +120,8 @@ namespace View.Model
         public Contact Clone() => (Contact)MemberwiseClone();
 
         /// <summary>
-        /// Индексатор, позволяющий обращаться к экземпляру класса как к массиву или словарю, используя ключ.
+        /// Индексатор, позволяющий обращаться к экземпляру класса как к массиву или словарю,
+        /// используя ключ.
         /// </summary>
         /// <param name="propertyName"></param>
         /// <returns></returns>
