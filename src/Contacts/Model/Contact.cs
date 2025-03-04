@@ -57,7 +57,9 @@ namespace Model
         /// <summary>
         /// Конструктор класса.
         /// </summary>
-        public Contact() { }
+        public Contact() {
+            ValidateAllProperties();
+        }
 
         /// <summary>
         /// Конструктор класса с параметрами.
@@ -70,6 +72,7 @@ namespace Model
             Name = name;
             PhoneNumber = phoneNumber;
             Email = email;
+            ValidateAllProperties();
         }
 
         /// <summary>
