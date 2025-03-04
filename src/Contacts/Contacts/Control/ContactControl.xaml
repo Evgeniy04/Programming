@@ -11,7 +11,7 @@
         <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <ControlTemplate x:Key="ErrorTemplate">
             <DockPanel LastChildFill="True">
-                <Border BorderBrush="Red" BorderThickness="1">
+                <Border BorderBrush="LightBlue" BorderThickness="1">
                     <AdornedElementPlaceholder />
                 </Border>
             </DockPanel>
@@ -22,6 +22,7 @@
                     <Setter Property="ToolTip"
                     Value="{Binding RelativeSource={x:Static RelativeSource.Self},
                     Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+                    <Setter Property="Background" Value="LightPink"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -48,7 +49,7 @@
                 <TextBox TextWrapping="Wrap" Margin="3" Text="{Binding SelectedContact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True, ValidatesOnExceptions=True}" 
                          IsReadOnly="{Binding IsReadOnlyContactTextBoxes}"
                          Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
-                <Button Content="Apply" Height="25" Margin="3,50,3,3" Width="75" HorizontalAlignment="Left" Command="{Binding ApplyCommand}" Visibility="{Binding IsApplyVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Button Content="Apply" Height="25" Margin="3,50,3,3" Width="75" HorizontalAlignment="Left" Command="{Binding ApplyCommand}" IsEnabled="{Binding }" Visibility="{Binding IsApplyVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </StackPanel>
             <Image Height="100" VerticalAlignment="Top" Width="100" Source="/icon-user.png" Margin="3,28,3,0"/>
         </Grid>
