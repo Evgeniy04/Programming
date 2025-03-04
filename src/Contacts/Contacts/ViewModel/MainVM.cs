@@ -161,7 +161,8 @@ namespace View.ViewModel
         /// <summary>
         /// Метод для уведомления View об изменении значения свойства.
         /// </summary>
-        /// <param name="propertyName">Имя изменившегося свойства (автоматически подставляется компилятором).</param>
+        /// <param name="propertyName">Имя изменившегося свойства 
+        /// (автоматически подставляется компилятором).</param>
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

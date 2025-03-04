@@ -133,25 +133,44 @@ namespace View.Model
                 {
                     case nameof(Name):
                         if (string.IsNullOrWhiteSpace(Name))
+                        {
                             error = "Имя обязательно для заполнения.";
+                        }
                         else if (Name.Length > 100)
+                        {
                             error = "Имя не может превышать 100 символов.";
+                        }
+
                         break;
                     case nameof(PhoneNumber):
                         if (string.IsNullOrEmpty(PhoneNumber))
+                        {
                             error = "Номер телефона обязателен для заполнения.";
+                        }
                         else if (PhoneNumber.Length > 100)
+                        {
                             error = "Номер телефона не может превышать 100 символов.";
+                        }
                         else if (!Regex.IsMatch(PhoneNumber, @"^[0-9+\-\(\) ]*$"))
+                        {
                             error = "Номер телефона может содержать только цифры и символы \"+-()\".";
+                        }
+
                         break;
                     case nameof(Email):
                         if (string.IsNullOrWhiteSpace(Email))
+                        {
                             error = "Электронная почта обязательна для заполнения.";
+                        }
                         else if (Email.Length > 100)
+                        {
                             error = "Электронная почта не может превышать 100 символов.";
+                        }
                         else if (!Email.Contains("@"))
+                        {
                             error = "Текст не соответствует формату электронной почты.";
+                        }
+
                         break;
                 }
                 return error;

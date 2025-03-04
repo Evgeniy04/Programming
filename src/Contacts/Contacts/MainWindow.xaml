@@ -62,7 +62,7 @@
                 <Label Content="Find:" Padding="0" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             </Grid>
         </Grid>
-        <Control:ContactControl Grid.Column="1" Height="NaN" Width="NaN" Margin="11" />
+        <Control:ContactControl Grid.Column="1" Margin="11" />
         <GridSplitter Grid.Column="1" HorizontalAlignment="Left" Width="3" Background="White"/>
     </Grid>
 </Window>
